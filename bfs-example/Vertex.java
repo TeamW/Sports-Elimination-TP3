@@ -17,21 +17,21 @@ public class Vertex {
     int predecessor; // index of predecessor vertex in a traversal
 
     /**
-	 creates a new instance of Vertex
-	*/
+     creates a new instance of Vertex
+    */
     public Vertex(int n) {
-    	adjList = new LinkedList<AdjListNode>();
-    	index = n;
-    	visited = false;
+        adjList = new LinkedList<AdjListNode>();
+        index = n;
+        visited = false;
     }
     
     /**
-	 copy constructor
-	*/
+     copy constructor
+    */
     public Vertex(Vertex v){
-    	adjList = v.getAdjList();
-    	index = v.getIndex();
-    	visited = v.getVisited();
+        adjList = v.getAdjList();
+        index = v.getIndex();
+        visited = v.getVisited();
     }
      
     public LinkedList<AdjListNode> getAdjList(){
@@ -39,27 +39,27 @@ public class Vertex {
     }
     
     public int getIndex(){
-    	return index;
+        return index;
     }
     
     public void setIndex(int n){
-    	index = n;
+        index = n;
     }
     
     public boolean getVisited(){
-    	return visited;
+        return visited;
     }
     
     public void setVisited(boolean b){
-    	visited = b;
+        visited = b;
     }
     
     public int getPredecessor(){
-    	return predecessor;
+        return predecessor;
     }
     
     public void setPredecessor(int n){
-    	predecessor = n;
+        predecessor = n;
     }
     
     public void addToAdjList(int n){
