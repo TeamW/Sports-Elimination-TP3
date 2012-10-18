@@ -30,6 +30,7 @@ public class Main {
             vertex++;
             scanner.close();
         }
+        in.close();
         reader.close();
 
         // conduct the breadth-first search
