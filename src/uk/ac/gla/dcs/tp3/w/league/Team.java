@@ -46,12 +46,12 @@ public class Team {
 	public void setUpcomingMatches(Match[] upcomingMatches) {
 		this.upcomingMatches = upcomingMatches;
 	}
-	
+
 	public void addUpcomingMatch(Match m) {
 		// TODO
 	}
-	
-	public Match removeUpcomingMatch() {
+
+	public Match removeUpcomingMatch(Match m) {
 		// TODO
 		return null;
 	}

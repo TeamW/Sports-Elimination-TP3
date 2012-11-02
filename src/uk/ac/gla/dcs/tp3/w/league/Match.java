@@ -60,12 +60,27 @@ public class Match {
 	}
 
 	public Team getWinner() {
-		// TODO
-		return null;
+		return (homeScore > awayScore) ? homeTeam : awayTeam;
 	}
-	
+
 	public void updatePointsAndPlayGame() {
-		// TODO
+		// Only execute this method once.
+		if (played) {
+			return;
+		}
+		played = true;
+		
+		// t is the winner of the match, s is the loser of the match.
+		Team t = getWinner();
+		Team s = ((t == homeTeam) ? awayTeam : homeTeam);
+		
+		// t gets a point, s does not. Increment number of games played and
+		// remove associated match for both teams.
+		t.setPoints(t.getPoints() + 1);
+		t.setGamesPlayed(t.getGamesPlayed() + 1);
+		t.removeUpcomingMatch(this);
+		s.setGamesPlayed(s.getGamesPlayed() + 1);
+		s.removeUpcomingMatch(this);
 	}
 
 }
