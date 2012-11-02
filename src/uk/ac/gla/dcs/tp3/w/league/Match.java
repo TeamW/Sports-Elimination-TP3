@@ -61,6 +61,7 @@ public class Match {
 
 	public Team getWinner() {
 		// TODO
+		return null;
 	}
 	
 	public void updatePointsAndPlayGame() {

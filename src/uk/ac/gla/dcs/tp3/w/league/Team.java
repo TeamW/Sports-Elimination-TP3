@@ -53,6 +53,7 @@ public class Team {
 	
 	public Match removeUpcomingMatch() {
 		// TODO
+		return null;
 	}
 
 }
