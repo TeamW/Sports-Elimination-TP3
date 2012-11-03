@@ -20,7 +20,8 @@ public class Match {
 	private boolean played;
 
 	/**
-	 * No parameter constructor. Sets all instance variables to null.
+	 * No parameter constructor. Sets all instance variables to null, -1, or
+	 * false.
 	 */
 	public Match() {
 		this(null, null, -1, -1, null, false);
