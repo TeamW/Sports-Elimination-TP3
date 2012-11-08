@@ -67,17 +67,11 @@ public class Graph {
 		this.sink = sink;
 	}
 	
-	public static int fact(int s){
-		if(s<1){
-			return 0;
-		}
-		if(s == 1){
-			return 1;
-		}
-		else return (s*fact(s-1));
+	private static int fact(int s){
+		return (s<2) ? 1 : s*fact(s-1);
 	}
 	
-	public static int comb(int n, int r){
+	private static int comb(int n, int r){
 		return (fact(n)/(fact(r)*fact(n-r)));
 	}
 
