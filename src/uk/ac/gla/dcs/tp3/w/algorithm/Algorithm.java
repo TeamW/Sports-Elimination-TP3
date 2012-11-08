@@ -37,6 +37,7 @@ public class Algorithm {
 		if(t.isEliminated()) {
 			return true;
 		}
+		Graph NFGraph = new Graph();
 		return false;
 	}
 

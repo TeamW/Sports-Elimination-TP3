@@ -1,5 +1,10 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import uk.ac.gla.dcs.tp3.w.league.League;
+import uk.ac.gla.dcs.tp3.w.league.Match;
+import uk.ac.gla.dcs.tp3.w.league.Team;
+
+
 public class Graph {
 
 	private Vertex[] v;
@@ -7,6 +12,25 @@ public class Graph {
 	private Vertex source;
 	private Vertex sink;
 
+	public Graph(){
+		this(null, null);
+	}
+	
+	public Graph(League l, Team t){
+		source = new Vertex();
+		sink = new Vertex();
+		int teamTotal = l.getTeams().length -1;
+		int gameTotal = comb(teamTotal,2);
+		v = new Vertex[teamTotal + gameTotal + 2];
+		v[0] = source;
+		v[v.length-1] = sink;
+		for (int i=1; i<=gameTotal; i++){
+			v[i] = new Vertex();
+			v[0].getAdjList().add(new AdjListNode(0,v[i]));
+		}
+		
+	}
+	
 	public Vertex[] getV() {
 		return v;
 	}
@@ -41,6 +65,20 @@ public class Graph {
 
 	public void setSink(Vertex sink) {
 		this.sink = sink;
+	}
+	
+	public static int fact(int s){
+		if(s<1){
+			return 0;
+		}
+		if(s == 1){
+			return 1;
+		}
+		else return (s*fact(s-1));
+	}
+	
+	public static int comb(int n, int r){
+		return (fact(n)/(fact(r)*fact(n-r)));
 	}
 
 }

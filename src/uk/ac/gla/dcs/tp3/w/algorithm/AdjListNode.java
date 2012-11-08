@@ -3,8 +3,17 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 public class AdjListNode {
 
 	int weight;
-	AdjListNode next;
+	Vertex v;
 
+	public AdjListNode(){
+		this(0, null);
+	}
+	
+	public AdjListNode(int w, Vertex v){
+		weight = w;
+		this.v = v;
+	}
+	
 	public int getWeight() {
 		return weight;
 	}
@@ -13,12 +22,12 @@ public class AdjListNode {
 		this.weight = weight;
 	}
 
-	public AdjListNode getNext() {
-		return next;
+	public Vertex getVertex() {
+		return v;
 	}
 
-	public void setNext(AdjListNode next) {
-		this.next = next;
+	public void setVertex(Vertex v){
+		this.v = v;
 	}
 
 }
