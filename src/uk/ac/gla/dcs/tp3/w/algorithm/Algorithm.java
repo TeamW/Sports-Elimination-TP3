@@ -4,19 +4,19 @@ import uk.ac.gla.dcs.tp3.w.league.League;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 public class Algorithm {
-	
+
 	private Graph g;
 	private League l;
-	
+
 	public Algorithm() {
 		this(null);
 	}
-	
+
 	public Algorithm(League league) {
 		g = null;
 		l = league;
 	}
-	
+
 	public Graph getG() {
 		return g;
 	}
@@ -34,7 +34,7 @@ public class Algorithm {
 	}
 
 	public boolean isEliminated(Team t) {
-		if(t.isEliminated()) {
+		if (t.isEliminated()) {
 			return true;
 		}
 		Graph NFGraph = new Graph();

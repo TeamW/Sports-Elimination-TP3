@@ -1,12 +1,14 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.LinkedList;
+
 import uk.ac.gla.dcs.tp3.w.league.League;
 import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 public class Graph {
 
-	private Vertex[] v;
+	private Vertex[] vertices;
 	private int[][] matrix;
 	private Vertex source;
 	private Vertex sink;
@@ -29,25 +31,25 @@ public class Graph {
 		int gameTotal = comb(teamTotal, 2);
 		// Total number of vertices is the number of teams-1 + number of match
 		// pairs + source + sink.
-		v = new Vertex[teamTotal + gameTotal + 2];
+		vertices = new Vertex[teamTotal + gameTotal + 2];
 		// Set first vertex to be source, and last vertex to be sink.
-		v[0] = source;
-		v[v.length - 1] = sink;
+		vertices[0] = source;
+		vertices[vertices.length - 1] = sink;
 		// Create vertex for each match pair and make it adjacent from the
 		// source.
 		for (int i = 1; i <= gameTotal; i++) {
-			v[i] = new Vertex();
-			v[0].getAdjList().add(new AdjListNode(0, v[i]));
+			vertices[i] = new Vertex();
+			vertices[0].getAdjList().add(new AdjListNode(0, vertices[i]));
 		}
 
 	}
 
 	public Vertex[] getV() {
-		return v;
+		return vertices;
 	}
 
 	public void setV(Vertex[] v) {
-		this.v = v;
+		this.vertices = v;
 	}
 
 	public int[][] getMatrix() {
@@ -55,7 +57,7 @@ public class Graph {
 	}
 
 	public int getSize() {
-		return v.length;
+		return vertices.length;
 	}
 
 	public void setMatrix(int[][] matrix) {
@@ -86,6 +88,35 @@ public class Graph {
 	private static int comb(int n, int r) {
 		// r-combination of size n is n!/r!(n-r)!
 		return (fact(n) / (fact(r) * fact(n - r)));
+	}
+
+	/**
+	 * carry out a breadth first search/traversal of the graph
+	 */
+	public void bfs() {
+		for (Vertex v : vertices) {
+			v.setVisited(false);
+		}
+		LinkedList<Vertex> queue = new LinkedList<Vertex>();
+		for (Vertex v : vertices) {
+			if (!v.getVisited()) {
+				v.setVisited(true);
+				v.setPredecessor(v.getIndex());
+				queue.add(v);
+				while (!queue.isEmpty()) {
+					Vertex u = queue.removeFirst();
+					LinkedList<AdjListNode> list = u.getAdjList();
+					for (AdjListNode node : list) {
+						Vertex w = vertices[node.getVertexNumber()];
+						if (!w.getVisited()) {
+							w.setVisited(true);
+							w.setPredecessor(u.getIndex());
+							queue.add(w);
+						}
+					}
+				}
+			}
+		}
 	}
 
 }
