@@ -14,13 +14,14 @@ public class Team {
 	private int gamesPlayed;
 	private boolean eliminated;
 	private Match[] upcomingMatches;
+	private Team[] eliminatedBy;
 
 	/**
 	 * No parameter constructor. Sets all instance variables to null, -1, or
 	 * false.
 	 */
 	public Team() {
-		this(null, -1, -1, false, null);
+		this(null, -1, -1, false, null, null);
 	}
 
 	/**
@@ -37,13 +38,16 @@ public class Team {
 	 *            league
 	 * @param um
 	 *            An array of Matches the team is still to play.
+	 * @param t
+	 *            The array of teams responsible for eliminating this team.
 	 */
-	public Team(String s, int p, int g, boolean e, Match[] um) {
+	public Team(String s, int p, int g, boolean e, Match[] um, Team[] t) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
 		eliminated = e;
 		upcomingMatches = um;
+		eliminatedBy = t;
 	}
 
 	public String getName() {
@@ -84,6 +88,14 @@ public class Team {
 
 	public void setUpcomingMatches(Match[] upcomingMatches) {
 		this.upcomingMatches = upcomingMatches;
+	}
+
+	public Team[] getEliminatedBy() {
+		return eliminatedBy;
+	}
+
+	public void setEliminatedBy(Team[] eliminatedBy) {
+		this.eliminatedBy = eliminatedBy;
 	}
 
 	/**
