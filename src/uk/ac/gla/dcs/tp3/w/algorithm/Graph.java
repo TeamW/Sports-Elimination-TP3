@@ -16,6 +16,8 @@ public class Graph {
 	}
 
 	public Graph(League l, Team t) {
+		if (l == null || t == null)
+			return;
 		// Create blank vertices for source and sink.
 		source = new Vertex();
 		sink = new Vertex();
