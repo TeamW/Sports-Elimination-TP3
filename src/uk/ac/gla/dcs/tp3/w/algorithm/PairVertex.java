@@ -15,10 +15,11 @@ public class PairVertex extends Vertex {
 	private Team teamB;
 	
 	public PairVertex() {
-		this(null, null);
+		this(null, null, -1);
 	}
 	
-	public PairVertex(Team a, Team b) {
+	public PairVertex(Team a, Team b, int n) {
+		super(n);
 		teamA = a;
 		teamB = b;
 	}
