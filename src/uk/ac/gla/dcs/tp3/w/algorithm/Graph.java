@@ -3,7 +3,6 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 import java.util.LinkedList;
 
 import uk.ac.gla.dcs.tp3.w.league.League;
-import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 public class Graph {
@@ -20,9 +19,6 @@ public class Graph {
 	public Graph(League l, Team t) {
 		if (l == null || t == null)
 			return;
-		// Create blank vertices for source and sink.
-		source = new Vertex();
-		sink = new Vertex();
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
 		int teamTotal = l.getTeams().length;
@@ -33,6 +29,9 @@ public class Graph {
 		// pairs + source + sink.
 		vertices = new Vertex[teamTotal + gameTotal + 1];
 		// Set first vertex to be source, and last vertex to be sink.
+		// Create blank vertices for source and sink.
+		source = new Vertex(0);
+		sink = new Vertex(vertices.length - 1);
 		vertices[0] = source;
 		vertices[vertices.length - 1] = sink;
 		// Create vertex for each match pair and make it adjacent from the
@@ -45,7 +44,7 @@ public class Graph {
 			for (int j = 1; j < teamTotal; j++) {
 				if (teams[j] == t)
 					continue;
-				vertices[pos] = new PairVertex(teams[i], teams[j]);
+				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}
@@ -103,9 +102,8 @@ public class Graph {
 	 * carry out a breadth first search/traversal of the graph
 	 */
 	public void bfs() {
-		for (Vertex v : vertices) {
+		for (Vertex v : vertices)
 			v.setVisited(false);
-		}
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
 		for (Vertex v : vertices) {
 			if (!v.getVisited()) {
@@ -116,7 +114,7 @@ public class Graph {
 					Vertex u = queue.removeFirst();
 					LinkedList<AdjListNode> list = u.getAdjList();
 					for (AdjListNode node : list) {
-						Vertex w = vertices[node.getVertexNumber()];
+						Vertex w = node.getVertex();
 						if (!w.getVisited()) {
 							w.setVisited(true);
 							w.setPredecessor(u.getIndex());
@@ -127,5 +125,4 @@ public class Graph {
 			}
 		}
 	}
-
 }
