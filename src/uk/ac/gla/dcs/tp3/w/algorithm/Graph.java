@@ -25,21 +25,30 @@ public class Graph {
 		sink = new Vertex();
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
-		int teamTotal = l.getTeams().length - 1;
+		int teamTotal = l.getTeams().length;
 		// The r-combination of teamTotal for length 2 is the number of possible
 		// combinations for matches between the list of Teams-{t}.
-		int gameTotal = comb(teamTotal, 2);
+		int gameTotal = comb(teamTotal - 1, 2);
 		// Total number of vertices is the number of teams-1 + number of match
 		// pairs + source + sink.
-		vertices = new Vertex[teamTotal + gameTotal + 2];
+		vertices = new Vertex[teamTotal + gameTotal + 1];
 		// Set first vertex to be source, and last vertex to be sink.
 		vertices[0] = source;
 		vertices[vertices.length - 1] = sink;
 		// Create vertex for each match pair and make it adjacent from the
 		// source.
-		for (int i = 1; i <= gameTotal; i++) {
-			vertices[i] = new Vertex();
-			vertices[0].getAdjList().add(new AdjListNode(0, vertices[i]));
+		int pos = 1;
+		Team[] teams = l.getTeams();
+		for (int i = 0; i < teamTotal + 1; i++) {
+			if (teams[i] == t)
+				continue;
+			for (int j = 1; j < teamTotal; j++) {
+				if (teams[j] == t)
+					continue;
+				vertices[pos] = new PairVertex(teams[i], teams[j]);
+				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
+				pos++;
+			}
 		}
 
 	}
