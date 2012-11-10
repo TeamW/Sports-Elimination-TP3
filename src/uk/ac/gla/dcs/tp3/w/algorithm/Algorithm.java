@@ -34,11 +34,11 @@ public class Algorithm {
 	}
 
 	public boolean isEliminated(Team t) {
-		return t.isEliminated() ? true : fordFulkerson();
+		return t.isEliminated() ? true : fordFulkerson(t);
 	}
 	
-	private boolean fordFulkerson() {
-		Graph nFGraph = new Graph();
+	private boolean fordFulkerson(Team t) {
+		g = new Graph(l, t);
 		return false;
 	}
 
