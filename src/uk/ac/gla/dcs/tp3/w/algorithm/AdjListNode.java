@@ -1,8 +1,10 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+// TODO modify class to fully implement the flow and capacity data members.
 public class AdjListNode {
 
-	int weight;
+	int capacity;
+	int flow;
 	Vertex v;
 
 	public AdjListNode() {
@@ -14,16 +16,24 @@ public class AdjListNode {
 	}
 
 	public AdjListNode(int w, Vertex v) {
-		weight = w;
+		capacity = w;
 		this.v = v;
 	}
 
-	public int getWeight() {
-		return weight;
+	public int getCapacity() {
+		return capacity;
 	}
 
-	public void setWeight(int weight) {
-		this.weight = weight;
+	public void setCapacity(int c) {
+		capacity = c;
+	}
+	
+	public int getFlow() {
+		return flow;
+	}
+	
+	public void setFlow(int f) {
+		flow = f;
 	}
 
 	public Vertex getVertex() {
