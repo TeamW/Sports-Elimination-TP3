@@ -34,8 +34,11 @@ public class Graph {
 		sink = new Vertex(vertices.length - 1);
 		vertices[0] = source;
 		vertices[vertices.length - 1] = sink;
-		// Create vertex for each match pair and make it adjacent from the
+		// TODO Create vertices for each team node, and make them adjacent to
+		// the sink.
+		// Create vertex for each team pair and make it adjacent from the
 		// source.
+		// TODO Also make the team pairs adjacent to the relevant Teams
 		int pos = 1;
 		Team[] teams = l.getTeams();
 		for (int i = 0; i < teamTotal + 1; i++) {
@@ -49,6 +52,10 @@ public class Graph {
 				pos++;
 			}
 		}
+		// TODO Iterate over every match, if the match hasn't been played and
+		// doesn't involve the Team t, increment the appropriate capacity of the
+		// edges.
+		// TODO Create the adjacency matrix representation of the graph.
 
 	}
 
@@ -102,6 +109,8 @@ public class Graph {
 	 * carry out a breadth first search/traversal of the graph
 	 */
 	public void bfs() {
+		// TODO Read over this code, I (GR) just dropped this in here from
+		// bfs-example.
 		for (Vertex v : vertices)
 			v.setVisited(false);
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
