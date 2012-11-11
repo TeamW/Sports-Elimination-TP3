@@ -53,7 +53,7 @@ public class Graph {
 		for (int i = 0; i < teams.length; i++) {
 			vertices[pos] = new TeamVertex(teams[i], pos);
 			vertices[pos].getAdjList().add(
-					new AdjListNode(0, vertices[vertices.length - 1]));
+					new AdjListNode(teams[i].getUpcomingMatches().length, vertices[vertices.length - 1]));
 			pos--;
 		}
 		// Create vertex for each team pair and make it adjacent from the
