@@ -28,6 +28,10 @@ public class AdjListNode {
 		capacity = c;
 	}
 	
+	public void incCapacity(){
+		capacity++;
+	}
+	
 	public int getFlow() {
 		return flow;
 	}

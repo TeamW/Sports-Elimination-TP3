@@ -3,6 +3,7 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 import java.util.LinkedList;
 
 import uk.ac.gla.dcs.tp3.w.league.League;
+import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 public class Graph {
@@ -37,11 +38,11 @@ public class Graph {
 		// Create vertices for each team node, and make them adjacent to
 		// the sink.
 		Team[] teamsReal = l.getTeams();
-		Team[] teams = new Team[teamsReal.length-1];
+		Team[] teams = new Team[teamsReal.length - 1];
 		// Remove team T from the working list of Teams
 		int pos = 0;
-		for(Team to: teamsReal){
-			if(!to.equals(t)){
+		for (Team to : teamsReal) {
+			if (!to.equals(t)) {
 				teams[pos] = to;
 				pos++;
 			}
@@ -53,7 +54,8 @@ public class Graph {
 		for (int i = 0; i < teams.length; i++) {
 			vertices[pos] = new TeamVertex(teams[i], pos);
 			vertices[pos].getAdjList().add(
-					new AdjListNode(0, vertices[vertices.length - 1]));
+					new AdjListNode(teams[i].getUpcomingMatches().length,
+							vertices[vertices.length - 1]));
 			pos--;
 		}
 		// Create vertex for each team pair and make it adjacent from the
@@ -63,15 +65,45 @@ public class Graph {
 		for (int i = 0; i < teamTotal + 1; i++) {
 			for (int j = 1; j < teamTotal; j++) {
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
-				vertices[pos].getAdjList().add(new AdjListNode(infinity,vertices[vertices.length -2 -i]));
-				vertices[pos].getAdjList().add(new AdjListNode(infinity,vertices[vertices.length -2 -j]));
+				vertices[pos].getAdjList().add(
+						new AdjListNode(infinity, vertices[vertices.length - 2
+								- i]));
+				vertices[pos].getAdjList().add(
+						new AdjListNode(infinity, vertices[vertices.length - 2
+								- j]));
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}
 		}
-		// TODO Iterate over every match, if the match hasn't been played and
-		// doesn't involve the Team t, increment the appropriate capacity of the
-		// edges.
+		// For each match not yet played and not involving t, increment the
+		// capacity of the vertex going from home and away team node->sink and
+		// float->pair node of home and away
+
+		for (Match M : l.getFixtures()) {
+			if (!M.isPlayed() && !(M.getAwayTeam().equals(t))
+					|| M.getHomeTeam().equals(t)) {
+				Team home = M.getHomeTeam();
+				Team away = M.getAwayTeam();
+				for (int i = vertices.length - 2; i < teams.length; i--) {
+					TeamVertex TV = (TeamVertex) vertices[i];
+					if (TV.getTeam().equals(home)) {
+						vertices[i].getAdjList().peek().incCapacity();
+					} else if (TV.getTeam().equals(away)) {
+						vertices[i].getAdjList().peek().incCapacity();
+					}
+				}
+				for (AdjListNode A : vertices[0].getAdjList()) {
+					PairVertex PV = (PairVertex) A.getVertex();
+					if ((PV.getTeamA().equals(home) && PV.getTeamB().equals(
+							away))
+							|| PV.getTeamA().equals(away)
+							&& PV.getTeamB().equals(home)) {
+						A.incCapacity();
+					}
+				}
+			}
+		}
+
 		// TODO Create the adjacency matrix representation of the graph.
 
 	}
