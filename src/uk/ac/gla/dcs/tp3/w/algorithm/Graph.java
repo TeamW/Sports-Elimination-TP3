@@ -34,17 +34,18 @@ public class Graph {
 		sink = new Vertex(vertices.length - 1);
 		vertices[0] = source;
 		vertices[vertices.length - 1] = sink;
+		// Create vertices for each team node, and make them adjacent to
+		// the sink.
 		Team[] teams = l.getTeams();
-		int pos = vertices.length -1;
-		for(int i = 0;i<teams.length;i++){
-			if (teams[i] != t){
-				vertices[pos] = new TeamVertex(teams[i],i);
-				vertices[vertices.length-1].getAdjList().add(new AdjListNode(0,vertices[pos]));
+		int pos = vertices.length - 1;
+		for (int i = 0; i < teams.length; i++) {
+			if (teams[i] != t) {
+				vertices[pos] = new TeamVertex(teams[i], i);
+				vertices[pos].getAdjList().add(
+						new AdjListNode(0, vertices[vertices.length - 1]));
 				pos--;
 			}
 		}
-		// TODO Create vertices for each team node, and make them adjacent to
-		// the sink.
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
 		// TODO Also make the team pairs adjacent to the relevant Teams
