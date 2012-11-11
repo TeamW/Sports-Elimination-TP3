@@ -36,28 +36,35 @@ public class Graph {
 		vertices[vertices.length - 1] = sink;
 		// Create vertices for each team node, and make them adjacent to
 		// the sink.
-		Team[] teams = l.getTeams();
-		int pos = vertices.length - 2;
-		for (int i = 0; i < teams.length; i++) {
-			if (teams[i] != t) {
-				vertices[pos] = new TeamVertex(teams[i], pos);
-				vertices[pos].getAdjList().add(
-						new AdjListNode(0, vertices[vertices.length - 1]));
-				pos--;
+		Team[] teamsReal = l.getTeams();
+		Team[] teams = new Team[teamsReal.length-1];
+		// Remove team T from the working list of Teams
+		int pos = 0;
+		for(Team to: teamsReal){
+			if(!to.equals(t)){
+				teams[pos] = to;
+				pos++;
 			}
 		}
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
-		// TODO Also make the team pairs adjacent to the relevant Teams
+		// Team[i] is in vertices[vertices.length -2 -i]
+		pos = vertices.length - 2;
+		for (int i = 0; i < teams.length; i++) {
+			vertices[pos] = new TeamVertex(teams[i], pos);
+			vertices[pos].getAdjList().add(
+					new AdjListNode(0, vertices[vertices.length - 1]));
+			pos--;
+		}
+		// Create vertex for each team pair and make it adjacent from the
+		// source.
 		pos = 1;
-
+		int infinity = Integer.MAX_VALUE;
 		for (int i = 0; i < teamTotal + 1; i++) {
-			if (teams[i] == t)
-				continue;
 			for (int j = 1; j < teamTotal; j++) {
-				if (teams[j] == t)
-					continue;
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
+				vertices[pos].getAdjList().add(new AdjListNode(infinity,vertices[vertices.length -2 -i]));
+				vertices[pos].getAdjList().add(new AdjListNode(infinity,vertices[vertices.length -2 -j]));
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}

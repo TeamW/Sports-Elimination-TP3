@@ -120,5 +120,13 @@ public class Team {
 		// TODO
 		return null;
 	}
+	
+	public boolean equals(Object o){
+		if(o instanceof Team){
+			Team other = (Team) o;
+			return (this.name == other.getName());
+		}
+		return false;
+	}
 
 }
