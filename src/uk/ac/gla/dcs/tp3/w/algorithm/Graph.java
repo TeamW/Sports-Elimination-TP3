@@ -40,7 +40,7 @@ public class Graph {
 		int pos = vertices.length - 2;
 		for (int i = 0; i < teams.length; i++) {
 			if (teams[i] != t) {
-				vertices[pos] = new TeamVertex(teams[i], i);
+				vertices[pos] = new TeamVertex(teams[i], pos);
 				vertices[pos].getAdjList().add(
 						new AdjListNode(0, vertices[vertices.length - 1]));
 				pos--;
