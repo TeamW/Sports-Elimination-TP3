@@ -37,7 +37,7 @@ public class Graph {
 		// Create vertices for each team node, and make them adjacent to
 		// the sink.
 		Team[] teams = l.getTeams();
-		int pos = vertices.length - 1;
+		int pos = vertices.length - 2;
 		for (int i = 0; i < teams.length; i++) {
 			if (teams[i] != t) {
 				vertices[pos] = new TeamVertex(teams[i], i);
