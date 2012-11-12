@@ -79,7 +79,6 @@ public class Graph {
 		// For each match not yet played and not involving t, increment the
 		// capacity of the vertex going from home and away team node->sink and
 		// float->pair node of home and away
-
 		for (Match M : l.getFixtures()) {
 			if (!M.isPlayed()
 					&& !(M.getAwayTeam().equals(t) || M.getHomeTeam().equals(t))) {
@@ -104,17 +103,17 @@ public class Graph {
 				}
 			}
 		}
-
 		// Create the adjacency matrix representation of the graph.
 		matrix = new int[vertices.length][vertices.length];
-		for(int i = 0; i < vertices.length; i++){
-			for(int j = 0; j < vertices.length; j++) {
+		for (int i = 0; i < vertices.length; i++) {
+			for (int j = 0; j < vertices.length; j++) {
 				matrix[i][j] = 0;
 			}
 		}
-		for(Vertex v: vertices) {
-			for(AdjListNode n: v.getAdjList()) {
-				matrix[v.getIndex()][n.getVertex().getIndex()] = n.getCapacity();
+		for (Vertex v : vertices) {
+			for (AdjListNode n : v.getAdjList()) {
+				matrix[v.getIndex()][n.getVertex().getIndex()] = n
+						.getCapacity();
 			}
 		}
 	}
