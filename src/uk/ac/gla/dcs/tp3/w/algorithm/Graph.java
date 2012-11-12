@@ -81,8 +81,8 @@ public class Graph {
 		// float->pair node of home and away
 
 		for (Match M : l.getFixtures()) {
-			if (!M.isPlayed() && !(M.getAwayTeam().equals(t))
-					|| M.getHomeTeam().equals(t)) {
+			if (!M.isPlayed()
+					&& !(M.getAwayTeam().equals(t) || M.getHomeTeam().equals(t))) {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();
 				for (int i = vertices.length - 2; i < teams.length; i--) {
