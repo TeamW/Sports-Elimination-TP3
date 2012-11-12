@@ -77,21 +77,12 @@ public class Graph {
 			}
 		}
 		// For each match not yet played and not involving t, increment the
-		// capacity of the vertex going from home and away team node->sink and
-		// float->pair node of home and away
+		// capacity of the vertex going from float->pair node of home and away
 		for (Match M : l.getFixtures()) {
 			if (!M.isPlayed()
 					&& !(M.getAwayTeam().equals(t) || M.getHomeTeam().equals(t))) {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();
-				for (int i = vertices.length - 2; i < teams.length; i--) {
-					TeamVertex TV = (TeamVertex) vertices[i];
-					if (TV.getTeam().equals(home)) {
-						TV.getAdjList().peek().incCapacity();
-					} else if (TV.getTeam().equals(away)) {
-						TV.getAdjList().peek().incCapacity();
-					}
-				}
 				for (AdjListNode A : vertices[0].getAdjList()) {
 					PairVertex PV = (PairVertex) A.getVertex();
 					if ((PV.getTeamA().equals(home) && PV.getTeamB().equals(
