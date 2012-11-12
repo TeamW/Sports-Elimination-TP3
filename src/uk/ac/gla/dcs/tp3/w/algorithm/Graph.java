@@ -61,9 +61,10 @@ public class Graph {
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
 		pos = 1;
+		// TODO limit this to something more sensible
 		int infinity = Integer.MAX_VALUE;
-		for (int i = 0; i < teamTotal + 1; i++) {
-			for (int j = 1; j < teamTotal; j++) {
+		for (int i = 0; i < teams.length; i++) {
+			for (int j = 1; j < teams.length; j++) {
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
 				vertices[pos].getAdjList().add(
 						new AdjListNode(infinity, vertices[vertices.length - 2
