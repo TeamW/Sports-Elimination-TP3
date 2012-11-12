@@ -51,10 +51,10 @@ public class Graph {
 		// source.
 		// Team[i] is in vertices[vertices.length -2 -i]
 		pos = vertices.length - 2;
-		for (int i = 0; i < teamsReal.length; i++) {
-			vertices[pos] = new TeamVertex(teamsReal[i], pos);
+		for (int i = 0; i < teams.length; i++) {
+			vertices[pos] = new TeamVertex(teams[i], pos);
 			vertices[pos].getAdjList().add(
-					new AdjListNode(teamsReal[i].getUpcomingMatches().length,
+					new AdjListNode(teams[i].getUpcomingMatches().length,
 							vertices[vertices.length - 1]));
 			pos--;
 		}
