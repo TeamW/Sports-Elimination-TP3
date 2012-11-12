@@ -88,9 +88,9 @@ public class Graph {
 				for (int i = vertices.length - 2; i < teams.length; i--) {
 					TeamVertex TV = (TeamVertex) vertices[i];
 					if (TV.getTeam().equals(home)) {
-						vertices[i].getAdjList().peek().incCapacity();
+						TV.getAdjList().peek().incCapacity();
 					} else if (TV.getTeam().equals(away)) {
-						vertices[i].getAdjList().peek().incCapacity();
+						TV.getAdjList().peek().incCapacity();
 					}
 				}
 				for (AdjListNode A : vertices[0].getAdjList()) {
@@ -105,8 +105,18 @@ public class Graph {
 			}
 		}
 
-		// TODO Create the adjacency matrix representation of the graph.
-
+		// Create the adjacency matrix representation of the graph.
+		matrix = new int[vertices.length][vertices.length];
+		for(int i = 0; i < vertices.length; i++){
+			for(int j = 0; j < vertices.length; j++) {
+				matrix[i][j] = 0;
+			}
+		}
+		for(Vertex v: vertices) {
+			for(AdjListNode n: v.getAdjList()) {
+				matrix[v.getIndex()][n.getVertex().getIndex()] = n.getCapacity();
+			}
+		}
 	}
 
 	public Vertex[] getV() {
