@@ -50,50 +50,127 @@ public class Team {
 		eliminatedBy = t;
 	}
 
+	/**
+	 * Get the name of the team
+	 * 
+	 * @return String representing the Team name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set the name of the team
+	 * 
+	 * @param name
+	 *            String representing the Team name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Get the number of points a team has.
+	 * 
+	 * For baseball this is synonymous with the number of wins a team has since
+	 * a team gains 1 point per win.
+	 * 
+	 * @return int representing the number of points a team has
+	 */
 	public int getPoints() {
 		return points;
 	}
 
+	/**
+	 * Set the number of points a team has.
+	 * 
+	 * For baseball this is synonymous with the number of wins a team has since
+	 * a team gains 1 point per win.
+	 * 
+	 * @param points
+	 *            int representing the number of points a team has
+	 */
 	public void setPoints(int points) {
 		this.points = points;
 	}
 
+	/**
+	 * Get the number of games a team has played.
+	 * 
+	 * @return int representing the number of games a team has played
+	 */
 	public int getGamesPlayed() {
 		return gamesPlayed;
 	}
 
+	/**
+	 * Set the number of games a team has played.
+	 * 
+	 * @param gamesPlayed
+	 *            representing the number of games a team has played
+	 */
 	public void setGamesPlayed(int gamesPlayed) {
 		this.gamesPlayed = gamesPlayed;
 	}
 
+	/**
+	 * Check to see if the team has been eliminated from the sports league
+	 * 
+	 * @return boolean representing whether or not a team has been eliminated.
+	 */
 	public boolean isEliminated() {
 		return eliminated;
 	}
 
+	/**
+	 * Set whether or not the team has been eliminated from the sports league
+	 * 
+	 * @param eliminated
+	 *            boolean representing whether or not a team has been
+	 *            eliminated.
+	 */
 	public void setEliminated(boolean eliminated) {
 		this.eliminated = eliminated;
 	}
 
+	/**
+	 * Get the list of matches a team still has to play.
+	 * 
+	 * @return Match array representing all of the unplayed matches by the team
+	 */
 	public Match[] getUpcomingMatches() {
 		return upcomingMatches;
 	}
 
+	/**
+	 * Set the list of matches a team still has to play
+	 * 
+	 * @param upcomingMatches
+	 *            Match array represent all of the unplayed matches by the team
+	 */
 	public void setUpcomingMatches(Match[] upcomingMatches) {
 		this.upcomingMatches = upcomingMatches;
 	}
 
+	/**
+	 * Get the list of teams which were responsible for the elimination of this
+	 * team from the sports league
+	 * 
+	 * @return Team array representing all of the teams responsible for
+	 *         eliminating this team.
+	 */
 	public Team[] getEliminatedBy() {
 		return eliminatedBy;
 	}
 
+	/**
+	 * Set the list of teams which were responsible for the elimination of this
+	 * team from the sports league
+	 * 
+	 * @param eliminatedBy
+	 *            Team array representing all of the teams responsible for
+	 *            eliminating this team.
+	 */
 	public void setEliminatedBy(Team[] eliminatedBy) {
 		this.eliminatedBy = eliminatedBy;
 	}
@@ -120,11 +197,18 @@ public class Team {
 		// TODO
 		return null;
 	}
-	
-	public boolean equals(Object o){
-		if(o instanceof Team){
+
+	/**
+	 * Returns a boolean stating whether or not the two teams are the same team.
+	 * 
+	 * @param o
+	 *            The object to be compared with the calling team
+	 * @return boolean stating the truth value of the comparison
+	 */
+	public boolean equals(Object o) {
+		if (o instanceof Team) {
 			Team other = (Team) o;
-			return (this.name == other.getName());
+			return (other == null) ? false : (this.name == other.getName());
 		}
 		return false;
 	}
