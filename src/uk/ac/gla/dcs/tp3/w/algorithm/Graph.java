@@ -95,11 +95,7 @@ public class Graph {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();
 				for (AdjListNode A : vertices[0].getAdjList()) {
-					PairVertex PV = (PairVertex) A.getVertex();
-					if ((PV.getTeamA().equals(home) && PV.getTeamB().equals(
-							away))
-							|| PV.getTeamA().equals(away)
-							&& PV.getTeamB().equals(home)) {
+					if (appropriateMatch(home, away, (PairVertex) A.getVertex())) {
 						A.incCapacity();
 					}
 				}
@@ -118,6 +114,23 @@ public class Graph {
 						.getCapacity();
 			}
 		}
+	}
+
+	/**
+	 * Checks to see if the two given Teams make up the given pair vertex
+	 * 
+	 * @param a
+	 *            One of the teams to be checked
+	 * @param b
+	 *            The other team to be checked
+	 * @param PV
+	 *            The pair vertex which should be made up my the two given teams
+	 * @return boolean showing whether or not the pair vertex contains both
+	 *         teams
+	 */
+	private static boolean appropriateMatch(Team a, Team b, PairVertex PV) {
+		return (PV.getTeamA().equals(a) && PV.getTeamB().equals(b))
+				|| PV.getTeamA().equals(b) && PV.getTeamB().equals(a);
 	}
 
 	/**
