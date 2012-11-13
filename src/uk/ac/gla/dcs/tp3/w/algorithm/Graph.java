@@ -13,7 +13,6 @@ public class Graph {
 	private Vertex source;
 	private Vertex sink;
 
-	
 	/**
 	 * No param constructor to create an empty Graph object
 	 */
@@ -21,14 +20,16 @@ public class Graph {
 		this(null, null);
 	}
 
-	
 	/**
 	 * Creator method for a network flow graph
 	 * 
-	 * Creates a graph for use inside the network flow analysis, all weights are established.
+	 * Creates a graph for use inside the network flow analysis, all weights are
+	 * established.
 	 * 
-	 * @param l a populated league object.
-	 * @param t the team for which the network flow is being evaluated upon.
+	 * @param l
+	 *            a populated league object.
+	 * @param t
+	 *            the team for which the network flow is being evaluated upon.
 	 */
 	public Graph(League l, Team t) {
 		if (l == null || t == null)
@@ -54,12 +55,9 @@ public class Graph {
 		Team[] teams = new Team[teamsReal.length - 1];
 		// Remove team T from the working list of Teams
 		int pos = 0;
-		for (Team to : teamsReal) {
-			if (!to.equals(t)) {
-				teams[pos] = to;
-				pos++;
-			}
-		}
+		for (Team to : teamsReal)
+			if (!to.equals(t))
+				teams[pos++] = to;
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
 		// Team[i] is in vertices[vertices.length -2 -i]
@@ -121,8 +119,10 @@ public class Graph {
 			}
 		}
 	}
+
 	/**
 	 * Gets this Graphs vertex list
+	 * 
 	 * @return (Vertex[]) vertices
 	 */
 	public Vertex[] getV() {
@@ -131,7 +131,9 @@ public class Graph {
 
 	/**
 	 * sets this Graphs vertex list.
-	 * @param v Vertex[]
+	 * 
+	 * @param v
+	 *            Vertex[]
 	 */
 	public void setV(Vertex[] v) {
 		this.vertices = v;
@@ -139,15 +141,18 @@ public class Graph {
 
 	/**
 	 * Gets this Graphs adjacency matrix representation
+	 * 
 	 * @return (int[][]) matrix
 	 */
 	public int[][] getMatrix() {
 		return matrix;
 	}
-	
+
 	/**
 	 * Sets this Graphs adjacency matrix representation
-	 * @param matrix int[][]
+	 * 
+	 * @param matrix
+	 *            int[][]
 	 */
 	public void setMatrix(int[][] matrix) {
 		this.matrix = matrix;
@@ -155,6 +160,7 @@ public class Graph {
 
 	/**
 	 * Gets this Graphs vertices length
+	 * 
 	 * @return (int) vertices.length
 	 */
 	public int getSize() {
@@ -163,6 +169,7 @@ public class Graph {
 
 	/**
 	 * Gets this Graphs source vertex
+	 * 
 	 * @return (Vertex) source
 	 */
 	public Vertex getSource() {
@@ -171,7 +178,9 @@ public class Graph {
 
 	/**
 	 * Sets this Graphs source vertex
-	 * @param source Vertex
+	 * 
+	 * @param source
+	 *            Vertex
 	 */
 	public void setSource(Vertex source) {
 		this.source = source;
@@ -179,6 +188,7 @@ public class Graph {
 
 	/**
 	 * Gets this Graphs sink vertex
+	 * 
 	 * @return (Vertex) sink
 	 */
 	public Vertex getSink() {
@@ -187,7 +197,9 @@ public class Graph {
 
 	/**
 	 * Sets this Graphs sink vertex
-	 * @param sink Vertex
+	 * 
+	 * @param sink
+	 *            Vertex
 	 */
 	public void setSink(Vertex sink) {
 		this.sink = sink;
@@ -197,7 +209,9 @@ public class Graph {
 	 * Factorial function
 	 * 
 	 * Function to recursively determine the factorial of a number
-	 * @param s int
+	 * 
+	 * @param s
+	 *            int
 	 * @return int value of s!
 	 */
 	private static int fact(int s) {
@@ -209,8 +223,11 @@ public class Graph {
 	 * N choose R function
 	 * 
 	 * Function to determine the value of N choose R
-	 * @param n int
-	 * @param r int
+	 * 
+	 * @param n
+	 *            int
+	 * @param r
+	 *            int
 	 * @return int value of N choose R;
 	 */
 	private static int comb(int n, int r) {
