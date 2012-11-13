@@ -67,10 +67,6 @@ public class Vertex {
 		predecessor = n;
 	}
 
-	public void addToAdjList(int n) {
-		adjList.addLast(new AdjListNode(n));
-	}
-
 	public int vertexDegree() {
 		return adjList.size();
 	}
