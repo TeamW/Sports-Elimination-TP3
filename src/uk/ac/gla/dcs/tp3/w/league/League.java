@@ -34,18 +34,40 @@ public class League {
 		fixtures = m;
 	}
 
+	/**
+	 * Get the list of teams in the sports league
+	 * 
+	 * @return Team array of participating teams
+	 */
 	public Team[] getTeams() {
 		return teams;
 	}
 
+	/**
+	 * Set the list of teams in the sports league
+	 * 
+	 * @param teams
+	 *            Team array of participating teams
+	 */
 	public void setTeams(Team[] teams) {
 		this.teams = teams;
 	}
 
+	/**
+	 * Get the list of matches in the sports league
+	 * 
+	 * @return Match array of all matches
+	 */
 	public Match[] getFixtures() {
 		return fixtures;
 	}
 
+	/**
+	 * Set the list of matches in the sports league
+	 * 
+	 * @param fixtures
+	 *            Match array of all matches
+	 */
 	public void setFixtures(Match[] fixtures) {
 		this.fixtures = fixtures;
 	}
