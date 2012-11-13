@@ -52,50 +52,116 @@ public class Match {
 		played = b;
 	}
 
+	/**
+	 * Get the home team
+	 * 
+	 * @return Team object for home team
+	 */
 	public Team getHomeTeam() {
 		return homeTeam;
 	}
 
+	/**
+	 * Set the home team
+	 * 
+	 * @param homeTeam
+	 *            Team object for home team
+	 */
 	public void setHomeTeam(Team homeTeam) {
 		this.homeTeam = homeTeam;
 	}
 
+	/**
+	 * Get the away team
+	 * 
+	 * @return Team object for away team
+	 */
 	public Team getAwayTeam() {
 		return awayTeam;
 	}
 
+	/**
+	 * Set the away team
+	 * 
+	 * @param awayTeam
+	 *            Team object for away team
+	 */
 	public void setAwayTeam(Team awayTeam) {
 		this.awayTeam = awayTeam;
 	}
 
+	/**
+	 * Get the home team's score
+	 * 
+	 * @return int for home team's score
+	 */
 	public int getHomeScore() {
 		return homeScore;
 	}
 
+	/**
+	 * Set the home team's score
+	 * 
+	 * @param homeScore
+	 *            int for home team's score
+	 */
 	public void setHomeScore(int homeScore) {
 		this.homeScore = homeScore;
 	}
 
+	/**
+	 * Get the away team's score
+	 * 
+	 * @return int for away team's score
+	 */
 	public int getAwayScore() {
 		return awayScore;
 	}
 
+	/**
+	 * Set the away team's score
+	 * 
+	 * @param awayScore
+	 *            int for away team's score
+	 */
 	public void setAwayScore(int awayScore) {
 		this.awayScore = awayScore;
 	}
 
+	/**
+	 * Get the date the match will play on
+	 * 
+	 * @return Date for when the match will be played
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * Set the date the match will play on
+	 * 
+	 * @param date
+	 *            Date for when the match will be played
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
+	/**
+	 * Check to see if the match has already been played
+	 * 
+	 * @return boolean representing if the match has been played or not
+	 */
 	public boolean isPlayed() {
 		return played;
 	}
 
+	/**
+	 * Set whether or not the match has been played
+	 * 
+	 * @param played
+	 *            boolean representing if the match has been played or not
+	 */
 	public void setPlayed(boolean played) {
 		this.played = played;
 	}
