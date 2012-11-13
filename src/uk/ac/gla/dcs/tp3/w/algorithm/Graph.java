@@ -13,10 +13,23 @@ public class Graph {
 	private Vertex source;
 	private Vertex sink;
 
+	
+	/**
+	 * No param constructor to create an empty Graph object
+	 */
 	public Graph() {
 		this(null, null);
 	}
 
+	
+	/**
+	 * Creator method for a network flow graph
+	 * 
+	 * Creates a graph for use inside the network flow analysis, all weights are established.
+	 * 
+	 * @param l a populated league object.
+	 * @param t the team for which the network flow is being evaluated upon.
+	 */
 	public Graph(League l, Team t) {
 		if (l == null || t == null)
 			return;
@@ -108,48 +121,98 @@ public class Graph {
 			}
 		}
 	}
-
+	/**
+	 * Gets this Graphs vertex list
+	 * @return (Vertex[]) vertices
+	 */
 	public Vertex[] getV() {
 		return vertices;
 	}
 
+	/**
+	 * sets this Graphs vertex list.
+	 * @param v Vertex[]
+	 */
 	public void setV(Vertex[] v) {
 		this.vertices = v;
 	}
 
+	/**
+	 * Gets this Graphs adjacency matrix representation
+	 * @return (int[][]) matrix
+	 */
 	public int[][] getMatrix() {
 		return matrix;
 	}
-
-	public int getSize() {
-		return vertices.length;
-	}
-
+	
+	/**
+	 * Sets this Graphs adjacency matrix representation
+	 * @param matrix int[][]
+	 */
 	public void setMatrix(int[][] matrix) {
 		this.matrix = matrix;
 	}
 
+	/**
+	 * Gets this Graphs vertices length
+	 * @return (int) vertices.length
+	 */
+	public int getSize() {
+		return vertices.length;
+	}
+
+	/**
+	 * Gets this Graphs source vertex
+	 * @return (Vertex) source
+	 */
 	public Vertex getSource() {
 		return source;
 	}
 
+	/**
+	 * Sets this Graphs source vertex
+	 * @param source Vertex
+	 */
 	public void setSource(Vertex source) {
 		this.source = source;
 	}
 
+	/**
+	 * Gets this Graphs sink vertex
+	 * @return (Vertex) sink
+	 */
 	public Vertex getSink() {
 		return sink;
 	}
 
+	/**
+	 * Sets this Graphs sink vertex
+	 * @param sink Vertex
+	 */
 	public void setSink(Vertex sink) {
 		this.sink = sink;
 	}
 
+	/**
+	 * Factorial function
+	 * 
+	 * Function to recursively determine the factorial of a number
+	 * @param s int
+	 * @return int value of s!
+	 */
 	private static int fact(int s) {
 		// For s < 2, the factorial is 1. Otherwise, multiply s by fact(s-1)
 		return (s < 2) ? 1 : s * fact(s - 1);
 	}
 
+	/**
+	 * N choose R function
+	 * 
+	 * Function to determine the value of N choose R
+	 * @param n int
+	 * @param r int
+	 * @return int value of N choose R;
+	 */
 	private static int comb(int n, int r) {
 		// r-combination of size n is n!/r!(n-r)!
 		return (fact(n) / (fact(r) * fact(n - r)));

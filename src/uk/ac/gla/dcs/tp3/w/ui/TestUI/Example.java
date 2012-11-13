@@ -1,4 +1,4 @@
-
+package uk.ac.gla.dcs.tp3.w.ui.TestUI;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -7,6 +7,8 @@ import javax.swing.*;
  *
  */
 public class Example extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 
 	public Example() {
         initUI();

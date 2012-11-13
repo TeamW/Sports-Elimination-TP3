@@ -1,10 +1,5 @@
-/**
- *
- */
-package uk.ac.gla.dcs.tp3.w.ui;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+package uk.ac.gla.dcs.tp3.w.ui;
 
 /**
  * @author gordon
