@@ -173,11 +173,10 @@ public class Match {
 	 * @return A reference to the team with the higher score.
 	 */
 	public Team getWinner() {
-		if (played) {
+		if (played)
 			return (homeScore > awayScore) ? homeTeam : awayTeam;
-		} else {
+		else
 			return null;
-		}
 	}
 
 	/**
@@ -187,9 +186,8 @@ public class Match {
 	 */
 	public void updatePointsAndPlayGame() {
 		// Only execute this method once. Also ensure scores have been set.
-		if (played || homeScore == -1 || awayScore == -1) {
+		if (played || homeScore == -1 || awayScore == -1)
 			return;
-		}
 		played = true;
 		// t is the winner of the match, s is the loser of the match.
 		Team t = getWinner();
