@@ -107,7 +107,7 @@ public class Main {
 		LinkedList<AdjListNode> list = g.getSource().getAdjList();
 		for(AdjListNode n: list) {
 			PairVertex v = (PairVertex) n.getVertex();
-			System.out.println(v.getTeamA().getName() + " and " + v.getTeamB().getName());
+			System.out.println(v.getTeamA().getName() + " and " + v.getTeamB().getName() + " has capacity " + n.getCapacity());
 		}
 		
 	}
