@@ -1,6 +1,8 @@
 
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.LinkedList;
+
 import uk.ac.gla.dcs.tp3.w.league.*;
 import uk.ac.gla.dcs.tp3.w.algorithm.Graph;
 
@@ -102,6 +104,11 @@ public class Main {
 		League l = new League(teams, allMatches);
 		
 		Graph g = new Graph(l, atlanta);
+		LinkedList<AdjListNode> list = g.getSource().getAdjList();
+		for(AdjListNode n: list) {
+			PairVertex v = (PairVertex) n.getVertex();
+			System.out.println(v.getTeamA().getName() + " and " + v.getTeamB().getName());
+		}
 		
 	}
 }
