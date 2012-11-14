@@ -113,6 +113,9 @@ public class Main {
 				System.out.println("\t Pair Vertex to " + w.getTeam().getName() + " has capacity " + n.getCapacity());
 				for(AdjListNode b: w.getAdjList()) {
 					Vertex x = b.getVertex();
+					if(x!=g.getSink()) {
+						System.out.println("Not adjacent to sink.");
+					}
 					System.out.println("\t\t Team vertex " + w.getTeam().getName() + " to sink has capacity " + b.getCapacity());
 				}
 			}
