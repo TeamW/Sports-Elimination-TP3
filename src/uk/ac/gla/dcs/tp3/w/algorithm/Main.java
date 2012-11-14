@@ -104,7 +104,7 @@ public class Main {
 		LinkedList<AdjListNode> list = g.getSource().getAdjList();
 		for (AdjListNode n : list) {
 			PairVertex v = (PairVertex) n.getVertex();
-			System.out.println("Sink to " + v.getTeamA().getName() + " and "
+			System.out.println("Source to " + v.getTeamA().getName() + " and "
 					+ v.getTeamB().getName() + " has capacity "
 					+ n.getCapacity());
 			for (AdjListNode m : v.getAdjList()) {
