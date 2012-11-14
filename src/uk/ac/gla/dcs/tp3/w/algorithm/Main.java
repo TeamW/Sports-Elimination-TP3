@@ -56,7 +56,7 @@ public class Main {
 		
 		Match atlVny = new Match();
 		atlVny.setHomeTeam(atlanta);
-		atlVphil.setAwayTeam(newYork);
+		atlVny.setAwayTeam(newYork);
 		for (int i = 0; i < 6; i++) {
 			atlantaMatches[am++] = atlVny;
 			newYorkMatches[nym++] = atlVny;
