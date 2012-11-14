@@ -88,6 +88,11 @@ public class Main {
 		montrealMatches[mm++] = nyVmon;
 		allMatches[all++] = nyVmon;
 		
+		atlanta.setUpcomingMatches(atlantaMatches);
+		philadelphia.setUpcomingMatches(philadelphiaMatches);
+		newYork.setUpcomingMatches(newYorkMatches);
+		montreal.setUpcomingMatches(montrealMatches);
+		
 		Team[] teams = new Team[4];
 		teams[0] = atlanta;
 		teams[1] = philadelphia;
