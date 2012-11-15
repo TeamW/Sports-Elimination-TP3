@@ -64,10 +64,9 @@ public class Graph {
 		pos = vertices.length - 2;
 		for (int i = 0; i < teams.length; i++) {
 			vertices[pos] = new TeamVertex(teams[i], pos);
-			vertices[pos].getAdjList().add(
-					new AdjListNode(teams[i].getUpcomingMatches().length,
-							vertices[vertices.length - 1]));
-			pos--;
+			int matches = teams[i].getUpcomingMatches().length;
+			AdjListNode tNode = new AdjListNode(matches, sink);
+			vertices[pos--].getAdjList().add(tNode);
 		}
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
@@ -76,13 +75,13 @@ public class Graph {
 		int infinity = Integer.MAX_VALUE;
 		for (int i = 0; i < teams.length; i++) {
 			for (int j = i + 1; j < teams.length; j++) {
+				Vertex tempI = vertices[vertices.length - 2 - i];
+				AdjListNode nI = new AdjListNode(infinity, tempI);
+				Vertex tempJ = vertices[vertices.length - 2 - j];
+				AdjListNode nJ = new AdjListNode(infinity, tempJ);
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
-				vertices[pos].getAdjList().add(
-						new AdjListNode(infinity, vertices[vertices.length - 2
-								- i]));
-				vertices[pos].getAdjList().add(
-						new AdjListNode(infinity, vertices[vertices.length - 2
-								- j]));
+				vertices[pos].getAdjList().add(nI);
+				vertices[pos].getAdjList().add(nJ);
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}
@@ -90,28 +89,24 @@ public class Graph {
 		// For each match not yet played and not involving t, increment the
 		// capacity of the vertex going from float->pair node of home and away
 		for (Match M : l.getFixtures()) {
-			if (!M.isPlayed()
-					&& !(M.getAwayTeam().equals(t) || M.getHomeTeam().equals(t))) {
+			if (matchNotPlayed(M, t)) {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();
-				for (AdjListNode A : vertices[0].getAdjList()) {
-					if (appropriateMatch(home, away, (PairVertex) A.getVertex())) {
+				for (AdjListNode A : vertices[0].getAdjList())
+					if (appropriateMatch(home, away, (PairVertex) A.getVertex()))
 						A.incCapacity();
-					}
-				}
 			}
 		}
 		// Create the adjacency matrix representation of the graph.
 		matrix = new int[vertices.length][vertices.length];
-		for (int i = 0; i < vertices.length; i++) {
-			for (int j = 0; j < vertices.length; j++) {
+		for (int i = 0; i < vertices.length; i++)
+			for (int j = 0; j < vertices.length; j++)
 				matrix[i][j] = 0;
-			}
-		}
+
 		for (Vertex v : vertices) {
 			for (AdjListNode n : v.getAdjList()) {
-				matrix[v.getIndex()][n.getVertex().getIndex()] = n
-						.getCapacity();
+				int loc = n.getVertex().getIndex();
+				matrix[v.getIndex()][loc] = n.getCapacity();
 			}
 		}
 	}
@@ -131,6 +126,22 @@ public class Graph {
 	private static boolean appropriateMatch(Team a, Team b, PairVertex PV) {
 		return (PV.getTeamA().equals(a) && PV.getTeamB().equals(b))
 				|| PV.getTeamA().equals(b) && PV.getTeamB().equals(a);
+	}
+
+	/**
+	 * Find out if the given match hasn't been played and doesn't include the
+	 * given team.
+	 * 
+	 * @param m
+	 *            Match that will be checked to see if it has been played or not
+	 * @param t
+	 *            The team that the match should not include
+	 * @return Returns true if match has not been played and does not involve
+	 *         the team to be eliminated
+	 */
+	private static boolean matchNotPlayed(Match m, Team t) {
+		return !m.isPlayed()
+				&& !(m.getAwayTeam().equals(t) || m.getHomeTeam().equals(t));
 	}
 
 	/**
