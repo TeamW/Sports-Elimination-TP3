@@ -123,5 +123,31 @@ public class Main {
 			}
 		}
 
+		g.bfs();
+		for (Vertex v : g.getV()) {
+			Vertex pred = g.getV()[v.getPredecessor()];
+			if (v instanceof TeamVertex) {
+				TeamVertex tv = (TeamVertex) v;
+				System.out.print(tv.getTeam().getName() + " has predecessor ");
+			} else if (v instanceof PairVertex) {
+				PairVertex pv = (PairVertex) v;
+				System.out.print(pv.getTeamA().getName() + " and "
+						+ pv.getTeamB().getName() + " has predecessor ");
+			} else {
+				System.out.print(v.getIndex() + " has predecessor ");
+			}
+			if (pred instanceof TeamVertex) {
+				TeamVertex tv = (TeamVertex) pred;
+				System.out.print(tv.getTeam().getName());
+			} else if (pred instanceof PairVertex) {
+				PairVertex pv = (PairVertex) pred;
+				System.out.print(pv.getTeamA().getName() + " and "
+						+ pv.getTeamB().getName());
+			} else {
+				System.out.print(pred.getIndex());
+			}
+			System.out.println();
+		}
+
 	}
 }
