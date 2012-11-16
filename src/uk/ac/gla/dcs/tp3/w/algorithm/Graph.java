@@ -58,13 +58,15 @@ public class Graph {
 		for (Team to : teamsReal)
 			if (!to.equals(t))
 				teams[pos++] = to;
-		// Create vertex for each team pair and make it adjacent from the
-		// source.
+		// Create vertex for each team pair and make it adjacent to the
+		// sink.
 		// Team[i] is in vertices[vertices.length -2 -i]
 		pos = vertices.length - 2;
 		for (int i = 0; i < teams.length; i++) {
 			vertices[pos] = new TeamVertex(teams[i], pos);
+			// This needs changed to W - w_{i}
 			int matches = teams[i].getUpcomingMatches().length;
+			// Create a node to the sink.
 			AdjListNode tNode = new AdjListNode(matches, sink);
 			vertices[pos--].getAdjList().add(tNode);
 		}
@@ -75,13 +77,20 @@ public class Graph {
 		int infinity = Integer.MAX_VALUE;
 		for (int i = 0; i < teams.length; i++) {
 			for (int j = i + 1; j < teams.length; j++) {
+				// Find out which team vertex A to have as the PairVertex
 				Vertex tempI = vertices[vertices.length - 2 - i];
+				// Make a node that directs to the above vertex
 				AdjListNode nI = new AdjListNode(infinity, tempI);
+				// Find out which team vertex B to have as the PairVertex
 				Vertex tempJ = vertices[vertices.length - 2 - j];
+				// Make a node that directs to the above vertex
 				AdjListNode nJ = new AdjListNode(infinity, tempJ);
+				// Create a pair vertex with the two teams
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
+				// Make this pair vertex adjacent to the two nodes above
 				vertices[pos].getAdjList().add(nI);
 				vertices[pos].getAdjList().add(nJ);
+				// Make the new PairVertex adjacent from the source
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}
@@ -98,11 +107,12 @@ public class Graph {
 			}
 		}
 		// Create the adjacency matrix representation of the graph.
+		// Initialise every location to 0.
 		matrix = new int[vertices.length][vertices.length];
 		for (int i = 0; i < vertices.length; i++)
 			for (int j = 0; j < vertices.length; j++)
 				matrix[i][j] = 0;
-
+		// Now set every non-zero location to the value of the capacity.
 		for (Vertex v : vertices) {
 			for (AdjListNode n : v.getAdjList()) {
 				int loc = n.getVertex().getIndex();
