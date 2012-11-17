@@ -76,18 +76,16 @@ public class Graph {
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
 		pos = 1;
-		// TODO limit this to something more sensible
-		int infinity = Integer.MAX_VALUE;
 		for (int i = 0; i < teams.length; i++) {
 			for (int j = i + 1; j < teams.length; j++) {
 				// Find out which team vertex A to have as the PairVertex
 				Vertex tempI = vertices[vertices.length - 2 - i];
 				// Make a node that directs to the above vertex
-				AdjListNode nI = new AdjListNode(infinity, tempI);
+				AdjListNode nI = new AdjListNode(0, tempI);
 				// Find out which team vertex B to have as the PairVertex
 				Vertex tempJ = vertices[vertices.length - 2 - j];
 				// Make a node that directs to the above vertex
-				AdjListNode nJ = new AdjListNode(infinity, tempJ);
+				AdjListNode nJ = new AdjListNode(0, tempJ);
 				// Create a pair vertex with the two teams
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
 				// Make this pair vertex adjacent to the two nodes above
