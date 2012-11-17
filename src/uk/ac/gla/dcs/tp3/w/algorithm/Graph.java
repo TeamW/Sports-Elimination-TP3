@@ -274,8 +274,6 @@ public class Graph {
 	 * carry out a breadth first search/traversal of the graph
 	 */
 	public void bfs() {
-		// TODO Read over this code, I (GR) just dropped this in here from
-		// bfs-example.
 		for (Vertex v : vertices)
 			v.setVisited(false);
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
