@@ -12,6 +12,7 @@ public class Graph {
 	private int[][] matrix;
 	private Vertex source;
 	private Vertex sink;
+	private int W;
 
 	/**
 	 * No param constructor to create an empty Graph object
@@ -34,6 +35,8 @@ public class Graph {
 	public Graph(League l, Team t) {
 		if (l == null || t == null)
 			return;
+		// Work out constant W
+		W = t.getPoints() + t.getUpcomingMatches().length;
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
 		int teamTotal = l.getTeams().length;
@@ -64,8 +67,8 @@ public class Graph {
 		pos = vertices.length - 2;
 		for (int i = 0; i < teams.length; i++) {
 			vertices[pos] = new TeamVertex(teams[i], pos);
-			// This needs changed to W - w_{i}
-			int matches = teams[i].getUpcomingMatches().length;
+			// W - w_{i}
+			int matches = W - teams[i].getPoints();
 			// Create a node to the sink.
 			AdjListNode tNode = new AdjListNode(matches, sink);
 			vertices[pos--].getAdjList().add(tNode);
