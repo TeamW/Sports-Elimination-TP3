@@ -36,11 +36,13 @@ public class Algorithm {
 	public boolean isEliminated(Team t) {
 		return t.isEliminated() ? true : fordFulkerson(t);
 	}
-	
+
 	private boolean fordFulkerson(Team t) {
 		g = new Graph(l, t);
-		// For each edge in the graph g
-			// Set the flow to be 0.
+		// For each edge in the graph g, set the flow to be 0.
+		for (Vertex v : g.getV())
+			for (AdjListNode n : v.getAdjList())
+				n.setFlow(0);
 		// While there is a path p from the source to the sink in the residual graph
 			// Find the capacity c of the residual graph
 			// For each edge in the path p
