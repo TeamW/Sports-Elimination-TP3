@@ -56,7 +56,7 @@ public class Algorithm {
 		// The value of a maximum flow is equal to the capacity of a minimum cut.
 		// Obtain two sets of vertices, A and B. The source is a member of A. The sink is a member of B.
 		// The team nodes that are in B are the teams responsible for the elimination of team t. These
-		// teams for the certificate of elimintation.
+		// teams for the certificate of elimination.
 		return false;
 	}
 
