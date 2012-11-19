@@ -70,4 +70,8 @@ public class Vertex {
 	public int vertexDegree() {
 		return adjList.size();
 	}
+
+	public void setAdjList(LinkedList<AdjListNode> linkedList) {
+		adjList = linkedList;
+	}
 }
