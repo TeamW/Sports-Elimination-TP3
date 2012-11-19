@@ -150,8 +150,11 @@ public class Main {
 		}
 
 		ResidualGraph rG = new ResidualGraph(g);
-		list = rG.getSource().getAdjList();
-		System.out.println(list.size() + " foo");
+		for (Vertex v : rG.getV()) {
+			list = v.getAdjList();
+			System.out.println(list.size()
+					+ " nodes in adjacency list for vertex " + v.getIndex());
+		}
 		for (AdjListNode n : list) {
 			PairVertex v = (PairVertex) n.getVertex();
 			System.out.println("Source to " + v.getTeamA().getName() + " and "
