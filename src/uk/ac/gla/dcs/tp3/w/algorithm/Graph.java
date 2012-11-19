@@ -8,7 +8,7 @@ import uk.ac.gla.dcs.tp3.w.league.Team;
 
 public class Graph {
 
-	private Vertex[] vertices;
+	protected Vertex[] vertices;
 	private int[][] matrix;
 	private Vertex source;
 	private Vertex sink;

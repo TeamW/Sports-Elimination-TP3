@@ -2,13 +2,13 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 
 import java.util.LinkedList;
 
-public class ResidualGraph {
-
-	Vertex[] vertices;
+public class ResidualGraph extends Graph {
 
 	public ResidualGraph(Graph g) {
 		// Duplicate vertex array
 		vertices = g.getV().clone();
+		setSource(vertices[0]);
+		setSink(vertices[vertices.length - 1]);
 		// Create a fresh adjacency list representation
 		for (Vertex v : vertices) {
 			v.setAdjList(new LinkedList<AdjListNode>());

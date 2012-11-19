@@ -150,5 +150,27 @@ public class Main {
 		}
 
 		ResidualGraph rG = new ResidualGraph(g);
+		list = rG.getSource().getAdjList();
+		System.out.println(list.size() + " foo");
+		for (AdjListNode n : list) {
+			PairVertex v = (PairVertex) n.getVertex();
+			System.out.println("Source to " + v.getTeamA().getName() + " and "
+					+ v.getTeamB().getName() + " has capacity "
+					+ n.getCapacity());
+			for (AdjListNode m : v.getAdjList()) {
+				TeamVertex w = (TeamVertex) m.getVertex();
+				System.out.println("\t Pair Vertex to " + w.getTeam().getName()
+						+ " has capacity " + n.getCapacity());
+				for (AdjListNode b : w.getAdjList()) {
+					Vertex x = b.getVertex();
+					if (x != g.getSink()) {
+						System.out.println("Not adjacent to sink.");
+					}
+					System.out.println("\t\t Team vertex "
+							+ w.getTeam().getName() + " to sink has capacity "
+							+ b.getCapacity());
+				}
+			}
+		}
 	}
 }
