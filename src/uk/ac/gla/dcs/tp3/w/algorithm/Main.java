@@ -149,5 +149,6 @@ public class Main {
 			System.out.println();
 		}
 
+		ResidualGraph rG = new ResidualGraph(g);
 	}
 }

@@ -43,6 +43,7 @@ public class Algorithm {
 		for (Vertex v : g.getV())
 			for (AdjListNode n : v.getAdjList())
 				n.setFlow(0);
+		ResidualGraph residual = new ResidualGraph(g);
 		// While there is a path p from the source to the sink in the residual graph
 			// Find the capacity c of the residual graph
 			// For each edge in the path p
