@@ -17,15 +17,13 @@ public class ResidualGraph extends Graph {
 		for (Vertex v : g.getV()) {
 			for (AdjListNode n : v.getAdjList()) {
 				Vertex w = n.getVertex();
-				int vIndex = v.getIndex();
-				int wIndex = w.getIndex();
 				// Create forward edge
 				AdjListNode vToW = new AdjListNode(n.getCapacity()
 						- n.getFlow(), w);
-				vertices[vIndex].getAdjList().add(vToW);
+				v.getAdjList().add(vToW);
 				// Create backward edge
 				AdjListNode wToV = new AdjListNode(n.getFlow(), v);
-				vertices[wIndex].getAdjList().add(wToV);
+				w.getAdjList().add(wToV);
 			}
 		}
 	}
