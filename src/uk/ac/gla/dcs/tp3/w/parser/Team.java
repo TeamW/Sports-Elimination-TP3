@@ -1,6 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.parser;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 
 /**
  * This class represents a single team in a sport. The class holds the name,
@@ -43,7 +43,8 @@ public class Team {
 	 * @param t
 	 *            The array of teams responsible for eliminating this team.
 	 */
-	public Team(String s, int p, int g, boolean e, ArrayList<Match> um, ArrayList<Team> t) {
+	public Team(String s, int p, int g, boolean e, ArrayList<Match> um,
+			ArrayList<Team> t) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
@@ -51,9 +52,9 @@ public class Team {
 		upcomingMatches = um;
 		eliminatedBy = t;
 	}
-	
-	/**Constructor to create team object with only a name*/
-	public Team(String name){
+
+	/** Constructor to create team object with only a name */
+	public Team(String name) {
 		this.name = name;
 		points = 0;
 		gamesPlayed = 0;
@@ -209,8 +210,8 @@ public class Team {
 		// TODO
 		return null;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return String.format("%s%d | %d", name, name.length(), points);
 	}
 
@@ -224,7 +225,8 @@ public class Team {
 	public boolean equals(Object o) {
 		if (o instanceof Team) {
 			Team other = (Team) o;
-			return (other == null) ? false : (this.name.equals(other.getName()));
+			return (other == null) ? false
+					: (this.name.equals(other.getName()));
 		}
 		return false;
 	}

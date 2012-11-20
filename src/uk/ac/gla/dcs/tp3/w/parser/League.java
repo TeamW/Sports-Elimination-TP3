@@ -1,6 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.parser;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 
 /**
  * This class has two members: an array of teams; and an array of fixtures. The
@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class League {
-	//overall standings 
+	// overall standings
 	private ArrayList<Team> teams;
-	//overall fixtures
+	// overall fixtures
 	private ArrayList<Match> fixtures;
 
 	/**
@@ -47,7 +47,7 @@ public class League {
 	 * @return Team array of participating teams
 	 */
 	public ArrayList<Team> getTeams() {
- 		return teams;
+		return teams;
 	}
 
 	/**
@@ -87,8 +87,8 @@ public class League {
 	 * @param m
 	 *            The match to add to the fixture list.
 	 */
-	public void addFixture(Match m){
-		if(!fixtures.contains(m)){
+	public void addFixture(Match m) {
+		if (!fixtures.contains(m)) {
 			fixtures.add(m);
 		}
 	}
@@ -102,16 +102,16 @@ public class League {
 	public void addTeam(Team t) {
 		teams.add(t);
 	}
-	
-	public boolean isMember(Team t){
-		if(!teams.isEmpty()){
-			if(teams.contains(t))
+
+	public boolean isMember(Team t) {
+		if (!teams.isEmpty()) {
+			if (teams.contains(t))
 				return true;
 		}
 		return false;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return String.format("%s", teams);
 	}
 

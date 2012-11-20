@@ -1,6 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.parser;
-import java.util.Date;
 
+import java.util.Date;
 
 /**
  * This class has many members. The class holds the information, and result of,
@@ -153,7 +153,7 @@ public class Match {
 	 * @return boolean representing if the match has been played or not
 	 */
 	public boolean isPlayed(Date currentDate) {
-		if(currentDate.before(date)){
+		if (currentDate.before(date)) {
 			return played = false;
 		}
 		return played = true;
@@ -181,8 +181,8 @@ public class Match {
 		else
 			return null;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return String.format("%s vs. %s", homeTeam, awayTeam);
 	}
 
