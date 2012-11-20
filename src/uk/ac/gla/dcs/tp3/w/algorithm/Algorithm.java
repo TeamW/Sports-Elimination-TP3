@@ -44,21 +44,42 @@ public class Algorithm {
 			for (AdjListNode n : v.getAdjList())
 				n.setFlow(0);
 		ResidualGraph residual = new ResidualGraph(g);
-		// While there is a path p from the source to the sink in the residual graph
+		// While there is a path p from the source to the sink in the residual
+		// graph
+		while (residualPath(residual)) {
 			// Find the capacity c of the residual graph
 			// For each edge in the path p
-				// If p is a forward edge, add c to flow of the edge in graph g.
-				// If p is a backward edge, remove c from the flow of the edge in graph g.
-		// If final flow of graph is saturating, team has not been eliminated, return false.
+			// If p is a forward edge, add c to flow of the edge in graph g.
+			// If p is a backward edge, remove c from the flow of the edge in
+			// graph g.
+		}
+		// If final flow of graph is saturating, team has not been eliminated,
+		// return false.
 		// Otherwise, team has been eliminated, return true.
 
 		// Extension: Max Flow-Min Cut Theorem.
 		// Overview:
-		// The value of a maximum flow is equal to the capacity of a minimum cut.
-		// Obtain two sets of vertices, A and B. The source is a member of A. The sink is a member of B.
-		// The team nodes that are in B are the teams responsible for the elimination of team t. These
+		// The value of a maximum flow is equal to the capacity of a minimum
+		// cut.
+		// Obtain two sets of vertices, A and B. The source is a member of A.
+		// The sink is a member of B.
+		// The team nodes that are in B are the teams responsible for the
+		// elimination of team t. These
 		// teams for the certificate of elimination.
 		return false;
+	}
+
+	private static boolean residualPath(ResidualGraph g) {
+		// Perform BFS from source on graph
+		g.bfs();
+		// Start at sink
+		Vertex v = g.getSink();
+		// While there is still part of the path to travel on, visit v's
+		// predecessor.
+		while (v.getPredecessor() != v.getIndex())
+			v = g.getV()[v.getPredecessor()];
+		// If path ends on the source node, there is a path from source to sink.
+		return v.getIndex() == 0;
 	}
 
 }
