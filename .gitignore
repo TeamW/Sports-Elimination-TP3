@@ -2,6 +2,7 @@
 *.class
 *.*~
 *.classpath
+.metadata
 *.project
 bin
 doc
