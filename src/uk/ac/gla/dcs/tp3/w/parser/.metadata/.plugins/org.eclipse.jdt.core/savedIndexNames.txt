@@ -1,0 +1,11 @@
+INDEX VERSION 1.126+/users/level3/1007175s/Sports-Elimination-TP3/src/uk/ac/gla/dcs/tp3/w/parser/.metadata/.plugins/org.eclipse.jdt.core
+1655825766.index
+1701578104.index
+1719018591.index
+1801889092.index
+997915909.index
+394421431.index
+2430379618.index
+3542666116.index
+988411099.index
+2761297181.index
