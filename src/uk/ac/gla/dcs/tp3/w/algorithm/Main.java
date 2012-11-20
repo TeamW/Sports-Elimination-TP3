@@ -148,31 +148,20 @@ public class Main {
 			}
 			System.out.println();
 		}
-
 		ResidualGraph rG = new ResidualGraph(g);
 		for (Vertex v : rG.getV()) {
 			list = v.getAdjList();
 			System.out.println(list.size()
 					+ " nodes in adjacency list for vertex " + v.getIndex());
 		}
-		for (AdjListNode n : list) {
-			PairVertex v = (PairVertex) n.getVertex();
-			System.out.println("Source to " + v.getTeamA().getName() + " and "
-					+ v.getTeamB().getName() + " has capacity "
-					+ n.getCapacity());
-			for (AdjListNode m : v.getAdjList()) {
-				TeamVertex w = (TeamVertex) m.getVertex();
-				System.out.println("\t Pair Vertex to " + w.getTeam().getName()
-						+ " has capacity " + n.getCapacity());
-				for (AdjListNode b : w.getAdjList()) {
-					Vertex x = b.getVertex();
-					if (x != g.getSink()) {
-						System.out.println("Not adjacent to sink.");
-					}
-					System.out.println("\t\t Team vertex "
-							+ w.getTeam().getName() + " to sink has capacity "
-							+ b.getCapacity());
-				}
+		list = rG.getV()[0].getAdjList();
+		for (Vertex v : rG.getV()) {
+			list = v.getAdjList();
+			for (AdjListNode n : list) {
+				System.out.println("Vertex " + v.getIndex()
+						+ " is adjacent to: " + n.getVertex().getIndex()
+						+ " with capacity " + n.getCapacity() + " and flow "
+						+ n.getFlow());
 			}
 		}
 	}
