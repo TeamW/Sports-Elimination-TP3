@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+/users/level3/1007175s/Sports-Elimination-TP3/src/uk/ac/gla/dcs/tp3/w/.metadata/.plugins/org.eclipse.jdt.core
-988411099.index
