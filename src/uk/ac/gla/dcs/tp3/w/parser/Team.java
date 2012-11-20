@@ -1,4 +1,6 @@
+package uk.ac.gla.dcs.tp3.w.parser;
 import java.util.ArrayList;
+
 
 /**
  * This class represents a single team in a sport. The class holds the name,

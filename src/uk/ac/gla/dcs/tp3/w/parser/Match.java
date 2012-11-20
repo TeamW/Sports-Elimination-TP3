@@ -1,4 +1,6 @@
+package uk.ac.gla.dcs.tp3.w.parser;
 import java.util.Date;
+
 
 /**
  * This class has many members. The class holds the information, and result of,

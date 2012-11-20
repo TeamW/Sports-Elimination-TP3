@@ -1,4 +1,6 @@
+package uk.ac.gla.dcs.tp3.w.parser;
 import java.util.ArrayList;
+
 
 /**
  * This class has two members: an array of teams; and an array of fixtures. The
