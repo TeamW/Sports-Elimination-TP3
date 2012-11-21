@@ -1,5 +1,7 @@
 package uk.ac.gla.dcs.tp3.w.league;
 
+import java.util.ArrayList;
+
 /**
  * This class has two members: an array of teams; and an array of fixtures. The
  * primary purpose of this class is to maintain, and keep track of, progress
@@ -9,15 +11,18 @@ package uk.ac.gla.dcs.tp3.w.league;
  * @version 1.0
  */
 public class League {
-
-	private Team[] teams;
-	private Match[] fixtures;
+	// overall standings
+	private ArrayList<Team> teams;
+	// overall fixtures
+	private ArrayList<Match> fixtures;
 
 	/**
 	 * No parameter constructor. Sets both instance variables to null.
 	 */
 	public League() {
 		this(null, null);
+		teams = new ArrayList<Team>();
+		fixtures = new ArrayList<Match>();
 	}
 
 	/**
@@ -29,9 +34,11 @@ public class League {
 	 * @param m
 	 *            The array of matches in this league.
 	 */
-	public League(Team[] t, Match[] m) {
+	public League(ArrayList<Team> t, ArrayList<Match> m) {
 		teams = t;
 		fixtures = m;
+		teams = new ArrayList<Team>();
+		fixtures = new ArrayList<Match>();
 	}
 
 	/**
@@ -39,7 +46,7 @@ public class League {
 	 * 
 	 * @return Team array of participating teams
 	 */
-	public Team[] getTeams() {
+	public ArrayList<Team> getTeams() {
 		return teams;
 	}
 
@@ -49,7 +56,7 @@ public class League {
 	 * @param teams
 	 *            Team array of participating teams
 	 */
-	public void setTeams(Team[] teams) {
+	public void setTeams(ArrayList<Team> teams) {
 		this.teams = teams;
 	}
 
@@ -58,7 +65,7 @@ public class League {
 	 * 
 	 * @return Match array of all matches
 	 */
-	public Match[] getFixtures() {
+	public ArrayList<Match> getFixtures() {
 		return fixtures;
 	}
 
@@ -68,7 +75,7 @@ public class League {
 	 * @param fixtures
 	 *            Match array of all matches
 	 */
-	public void setFixtures(Match[] fixtures) {
+	public void setFixtures(ArrayList<Match> fixtures) {
 		this.fixtures = fixtures;
 	}
 
@@ -81,7 +88,9 @@ public class League {
 	 *            The match to add to the fixture list.
 	 */
 	public void addFixture(Match m) {
-		// TODO
+		if (!fixtures.contains(m)) {
+			fixtures.add(m);
+		}
 	}
 
 	/**
@@ -91,7 +100,19 @@ public class League {
 	 *            The team to be added to the team array.
 	 */
 	public void addTeam(Team t) {
-		// TODO
+		teams.add(t);
+	}
+
+	public boolean isMember(Team t) {
+		if (!teams.isEmpty()) {
+			if (teams.contains(t))
+				return true;
+		}
+		return false;
+	}
+
+	public String toString() {
+		return String.format("%s", teams);
 	}
 
 }

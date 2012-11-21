@@ -1,5 +1,7 @@
 package uk.ac.gla.dcs.tp3.w.league;
 
+import java.util.ArrayList;
+
 /**
  * This class represents a single team in a sport. The class holds the name,
  * points, number of games played in a given league, upcoming matches, and a
@@ -10,11 +12,11 @@ package uk.ac.gla.dcs.tp3.w.league;
  */
 public class Team {
 	private String name;
-	private int points;
+	private int points = 0;
 	private int gamesPlayed;
 	private boolean eliminated;
-	private Match[] upcomingMatches;
-	private Team[] eliminatedBy;
+	private ArrayList<Match> upcomingMatches;
+	private ArrayList<Team> eliminatedBy;
 
 	/**
 	 * No parameter constructor. Sets all instance variables to null, -1, or
@@ -41,13 +43,24 @@ public class Team {
 	 * @param t
 	 *            The array of teams responsible for eliminating this team.
 	 */
-	public Team(String s, int p, int g, boolean e, Match[] um, Team[] t) {
+	public Team(String s, int p, int g, boolean e, ArrayList<Match> um,
+			ArrayList<Team> t) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
 		eliminated = e;
 		upcomingMatches = um;
 		eliminatedBy = t;
+	}
+
+	/** Constructor to create team object with only a name */
+	public Team(String name) {
+		this.name = name;
+		points = 0;
+		gamesPlayed = 0;
+		eliminated = false;
+		upcomingMatches = null;
+		eliminatedBy = null;
 	}
 
 	/**
@@ -138,7 +151,7 @@ public class Team {
 	 * 
 	 * @return Match array representing all of the unplayed matches by the team
 	 */
-	public Match[] getUpcomingMatches() {
+	public ArrayList<Match> getUpcomingMatches() {
 		return upcomingMatches;
 	}
 
@@ -148,7 +161,7 @@ public class Team {
 	 * @param upcomingMatches
 	 *            Match array represent all of the unplayed matches by the team
 	 */
-	public void setUpcomingMatches(Match[] upcomingMatches) {
+	public void setUpcomingMatches(ArrayList<Match> upcomingMatches) {
 		this.upcomingMatches = upcomingMatches;
 	}
 
@@ -159,7 +172,7 @@ public class Team {
 	 * @return Team array representing all of the teams responsible for
 	 *         eliminating this team.
 	 */
-	public Team[] getEliminatedBy() {
+	public ArrayList<Team> getEliminatedBy() {
 		return eliminatedBy;
 	}
 
@@ -171,7 +184,7 @@ public class Team {
 	 *            Team array representing all of the teams responsible for
 	 *            eliminating this team.
 	 */
-	public void setEliminatedBy(Team[] eliminatedBy) {
+	public void setEliminatedBy(ArrayList<Team> eliminatedBy) {
 		this.eliminatedBy = eliminatedBy;
 	}
 
@@ -198,6 +211,10 @@ public class Team {
 		return null;
 	}
 
+	public String toString() {
+		return String.format("%s%d | %d", name, name.length(), points);
+	}
+
 	/**
 	 * Returns a boolean stating whether or not the two teams are the same team.
 	 * 
@@ -208,7 +225,8 @@ public class Team {
 	public boolean equals(Object o) {
 		if (o instanceof Team) {
 			Team other = (Team) o;
-			return (other == null) ? false : (this.name == other.getName());
+			return (other == null) ? false
+					: (this.name.equals(other.getName()));
 		}
 		return false;
 	}

@@ -152,8 +152,11 @@ public class Match {
 	 * 
 	 * @return boolean representing if the match has been played or not
 	 */
-	public boolean isPlayed() {
-		return played;
+	public boolean isPlayed(Date currentDate) {
+		if (currentDate.before(date)) {
+			return played = false;
+		}
+		return played = true;
 	}
 
 	/**
@@ -177,6 +180,10 @@ public class Match {
 			return (homeScore > awayScore) ? homeTeam : awayTeam;
 		else
 			return null;
+	}
+
+	public String toString() {
+		return String.format("%s vs. %s", homeTeam, awayTeam);
 	}
 
 	/**
