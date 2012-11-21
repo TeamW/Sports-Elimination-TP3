@@ -36,10 +36,10 @@ public class Graph {
 		if (l == null || t == null)
 			return;
 		// Work out constant W
-		W = t.getPoints() + t.getUpcomingMatches().length;
+		W = t.getPoints() + t.getUpcomingMatches().size();
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
-		int teamTotal = l.getTeams().length;
+		int teamTotal = l.getTeams().size();
 		// The r-combination of teamTotal for length 2 is the number of possible
 		// combinations for matches between the list of Teams-{t}.
 		int gameTotal = comb(teamTotal - 1, 2);
@@ -54,7 +54,7 @@ public class Graph {
 		vertices[vertices.length - 1] = sink;
 		// Create vertices for each team node, and make them adjacent to
 		// the sink.
-		Team[] teamsReal = l.getTeams();
+		Team[] teamsReal = (Team[]) l.getTeams().toArray();
 		Team[] teams = new Team[teamsReal.length - 1];
 		// Remove team T from the working list of Teams
 		int pos = 0;
