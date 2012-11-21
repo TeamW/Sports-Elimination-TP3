@@ -158,6 +158,10 @@ public class Match {
 		}
 		return played = true;
 	}
+	
+	public boolean isPlayed() {
+		return played;
+	}
 
 	/**
 	 * Set whether or not the match has been played
