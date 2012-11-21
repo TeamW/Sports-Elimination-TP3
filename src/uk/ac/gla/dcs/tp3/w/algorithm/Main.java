@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import uk.ac.gla.dcs.tp3.w.league.*;
@@ -35,11 +36,11 @@ public class Main {
 		montreal.setGamesPlayed(170 - 7);
 		montreal.setPoints(76);
 
-		Match[] atlantaMatches = new Match[8];
-		Match[] philadelphiaMatches = new Match[4];
-		Match[] newYorkMatches = new Match[7];
-		Match[] montrealMatches = new Match[5];
-		Match[] allMatches = new Match[12];
+		ArrayList<Match> atlantaMatches = new ArrayList<Match>();
+		ArrayList<Match> philadelphiaMatches = new ArrayList<Match>();
+		ArrayList<Match> newYorkMatches = new ArrayList<Match>();
+		ArrayList<Match> montrealMatches = new ArrayList<Match>();
+		ArrayList<Match> allMatches = new ArrayList<Match>();
 
 		int am = 0;
 		int pm = 0;
@@ -50,53 +51,53 @@ public class Main {
 		Match atlVphil = new Match();
 		atlVphil.setHomeTeam(atlanta);
 		atlVphil.setAwayTeam(philadelphia);
-		atlantaMatches[am++] = atlVphil;
-		philadelphiaMatches[pm++] = atlVphil;
-		allMatches[all++] = atlVphil;
+		atlantaMatches.add(atlVphil);
+		philadelphiaMatches.add(atlVphil);
+		allMatches.add(atlVphil);
 
 		Match atlVny = new Match();
 		atlVny.setHomeTeam(atlanta);
 		atlVny.setAwayTeam(newYork);
 		for (int i = 0; i < 6; i++) {
-			atlantaMatches[am++] = atlVny;
-			newYorkMatches[nym++] = atlVny;
-			allMatches[all++] = atlVny;
+			atlantaMatches.add(atlVny);
+			newYorkMatches.add(atlVny);
+			allMatches.add(atlVny);
 		}
 
 		Match atlVmon = new Match();
 		atlVmon.setHomeTeam(atlanta);
 		atlVmon.setAwayTeam(montreal);
-		atlantaMatches[am++] = atlVmon;
-		montrealMatches[mm++] = atlVmon;
-		allMatches[all++] = atlVmon;
+		atlantaMatches.add(atlVmon);
+		montrealMatches.add(atlVmon);
+		allMatches.add(atlVmon);
 
 		Match philVmon = new Match();
 		philVmon.setHomeTeam(philadelphia);
 		philVmon.setAwayTeam(montreal);
 		for (int i = 0; i < 3; i++) {
-			philadelphiaMatches[pm++] = philVmon;
-			montrealMatches[mm++] = philVmon;
-			allMatches[all++] = philVmon;
+			philadelphiaMatches.add(philVmon);
+			montrealMatches.add(philVmon);
+			allMatches.add(philVmon);
 
 		}
 
 		Match nyVmon = new Match();
 		nyVmon.setHomeTeam(newYork);
 		nyVmon.setAwayTeam(montreal);
-		newYorkMatches[nym++] = nyVmon;
-		montrealMatches[mm++] = nyVmon;
-		allMatches[all++] = nyVmon;
+		newYorkMatches.add(nyVmon);
+		montrealMatches.add(nyVmon);
+		allMatches.add(nyVmon);
 
 		atlanta.setUpcomingMatches(atlantaMatches);
 		philadelphia.setUpcomingMatches(philadelphiaMatches);
 		newYork.setUpcomingMatches(newYorkMatches);
 		montreal.setUpcomingMatches(montrealMatches);
 
-		Team[] teams = new Team[4];
-		teams[0] = atlanta;
-		teams[1] = philadelphia;
-		teams[2] = newYork;
-		teams[3] = montreal;
+		ArrayList<Team> teams = new ArrayList<Team>();
+		teams.add(atlanta);
+		teams.add(philadelphia);
+		teams.add(newYork);
+		teams.add(montreal);
 
 		League l = new League(teams, allMatches);
 

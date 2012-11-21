@@ -37,8 +37,6 @@ public class League {
 	public League(ArrayList<Team> t, ArrayList<Match> m) {
 		teams = t;
 		fixtures = m;
-		teams = new ArrayList<Team>();
-		fixtures = new ArrayList<Match>();
 	}
 
 	/**

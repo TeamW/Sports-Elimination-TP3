@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import uk.ac.gla.dcs.tp3.w.league.League;
@@ -54,7 +55,9 @@ public class Graph {
 		vertices[vertices.length - 1] = sink;
 		// Create vertices for each team node, and make them adjacent to
 		// the sink.
-		Team[] teamsReal = (Team[]) l.getTeams().toArray();
+		ArrayList<Team> temp = l.getTeams();
+		Team[] teamsReal = new Team[temp.size()];
+		temp.toArray(teamsReal);
 		Team[] teams = new Team[teamsReal.length - 1];
 		// Remove team T from the working list of Teams
 		int pos = 0;
