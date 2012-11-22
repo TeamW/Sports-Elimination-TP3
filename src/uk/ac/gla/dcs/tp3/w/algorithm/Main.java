@@ -42,12 +42,6 @@ public class Main {
 		ArrayList<Match> montrealMatches = new ArrayList<Match>();
 		ArrayList<Match> allMatches = new ArrayList<Match>();
 
-		int am = 0;
-		int pm = 0;
-		int nym = 0;
-		int mm = 0;
-		int all = 0;
-
 		Match atlVphil = new Match();
 		atlVphil.setHomeTeam(atlanta);
 		atlVphil.setAwayTeam(philadelphia);
@@ -102,6 +96,7 @@ public class Main {
 		League l = new League(teams, allMatches);
 
 		Graph g = new Graph(l, atlanta);
+		System.out.println("Initial graph output from here.\n\n\n");
 		LinkedList<AdjListNode> list = g.getSource().getAdjList();
 		for (AdjListNode n : list) {
 			PairVertex v = (PairVertex) n.getVertex();
@@ -123,32 +118,34 @@ public class Main {
 				}
 			}
 		}
-
+		System.out.println("\n\n\nBFS output from here.\n\n\n");
 		g.bfs();
 		for (Vertex v : g.getV()) {
 			Vertex pred = g.getV()[v.getPredecessor()];
 			if (v instanceof TeamVertex) {
 				TeamVertex tv = (TeamVertex) v;
-				System.out.print(tv.getTeam().getName() + " has predecessor ");
+				System.out.print("\"" + tv.getTeam().getName()
+						+ "\" has predecessor ");
 			} else if (v instanceof PairVertex) {
 				PairVertex pv = (PairVertex) v;
-				System.out.print(pv.getTeamA().getName() + " and "
-						+ pv.getTeamB().getName() + " has predecessor ");
+				System.out.print("\"" + pv.getTeamA().getName() + " and "
+						+ pv.getTeamB().getName() + "\" has predecessor ");
 			} else {
-				System.out.print(v.getIndex() + " has predecessor ");
+				System.out.print("\"" + v.getIndex() + "\" has predecessor ");
 			}
 			if (pred instanceof TeamVertex) {
 				TeamVertex tv = (TeamVertex) pred;
-				System.out.print(tv.getTeam().getName());
+				System.out.print("\"" + tv.getTeam().getName() + "\"");
 			} else if (pred instanceof PairVertex) {
 				PairVertex pv = (PairVertex) pred;
-				System.out.print(pv.getTeamA().getName() + " and "
-						+ pv.getTeamB().getName());
+				System.out.print("\"" + pv.getTeamA().getName() + " and "
+						+ pv.getTeamB().getName() + "\"");
 			} else {
-				System.out.print(pred.getIndex());
+				System.out.print("\"" + pred.getIndex() + "\"");
 			}
 			System.out.println();
 		}
+		System.out.println("\n\n\nResidual graph output from here.\n\n\n");
 		ResidualGraph rG = new ResidualGraph(g);
 		for (Vertex v : rG.getV()) {
 			list = v.getAdjList();
