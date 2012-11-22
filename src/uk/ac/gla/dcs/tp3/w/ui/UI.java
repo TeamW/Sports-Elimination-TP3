@@ -41,11 +41,11 @@ public class UI extends JFrame {
 	     
 	     
 	     //table data 
-	     String[] columnNames = {"First Name",
-                 "Last Name",
-                 "Sport",
-                 "# of Years",
-                 "Vegetarian"};
+	     String[] columnNames = {"Team",
+                 "Winning %",
+                 "Wins",
+                 "Losses",
+                 "Is Eliminated"};
 
 	     Object[][] data = {
 	    		 {"Kathy", "Smith",
@@ -72,23 +72,29 @@ public class UI extends JFrame {
 	     
 	     
 	     //Create the radio buttons.
-	     JRadioButton rButton1 = new JRadioButton("First option");
+	     JRadioButton rButton1 = new JRadioButton("National");
 	     rButton1.setSelected(true);
 	     radioPanel.add(rButton1);
 	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
 	     
-	     JRadioButton rButton2 = new JRadioButton("Second option");
+	     JRadioButton rButton2 = new JRadioButton("American");
 	     radioPanel.add(rButton2);
-	     radioPanel.add(Box.createRigidArea(new Dimension(200,0)));
+	     radioPanel.add(Box.createRigidArea(new Dimension(240,0)));
 	     
-	     JRadioButton rButton3 = new JRadioButton("Third option");
+	     JRadioButton rButton3 = new JRadioButton("West");
 	     radioPanel.add(rButton3);
 	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
 	     
-	     JRadioButton rButton4 = new JRadioButton("Fourth option");
+	     JRadioButton rButton4 = new JRadioButton("Central");
 	     rButton4.setSelected(true);
 	     radioPanel.add(rButton4);
-	    
+	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
+	     
+	     JRadioButton rButton5 = new JRadioButton("East");
+	     rButton5.setSelected(true);
+	     radioPanel.add(rButton5);
+	     radioPanel.add(Box.createRigidArea(new Dimension(34,0)));
+	     
 	     //set up the quit button and other radio buttons
 	     JButton quitButton = new JButton("Quit");
 	     quitButton.setToolTipText("Click here to exit");
