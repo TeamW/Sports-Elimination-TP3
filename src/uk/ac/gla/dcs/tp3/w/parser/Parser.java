@@ -23,9 +23,8 @@ public class Parser {
 		Date d = new Date();
 		Scanner fileScanner, lineScanner;
 		int score1 = 0, score2 = 0;
-
-		File source = new File(
-				"/users/level3/1007175s/Sports-Elimination-TP3/src/uk/ac/gla/dcs/tp3/w/parser/src/baseballSource.txt");
+		File source = new File(System.getProperty("user.dir")
+				+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
 
 		try {
 			fileScanner = new Scanner(source); // scan over file object
