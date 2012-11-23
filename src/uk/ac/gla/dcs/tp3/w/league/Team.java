@@ -17,13 +17,15 @@ public class Team {
 	private boolean eliminated;
 	private ArrayList<Match> upcomingMatches;
 	private ArrayList<Team> eliminatedBy;
+	private boolean isNational ; 
+	private String whatRegion ;
 
 	/**
 	 * No parameter constructor. Sets all instance variables to null, -1, or
 	 * false.
 	 */
 	public Team() {
-		this(null, -1, -1, false, null, null);
+		this(null, -1, -1, false, null, null,false,null );
 	}
 
 	/**
@@ -44,13 +46,32 @@ public class Team {
 	 *            The array of teams responsible for eliminating this team.
 	 */
 	public Team(String s, int p, int g, boolean e, ArrayList<Match> um,
-			ArrayList<Team> t) {
+			ArrayList<Team> t,boolean f, String r) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
 		eliminated = e;
 		upcomingMatches = um;
 		eliminatedBy = t;
+		isNational = f;
+		whatRegion =r;
+		
+	}
+
+	public boolean isNational() {
+		return isNational;
+	}
+
+	public void setNational(boolean isNational) {
+		this.isNational = isNational;
+	}
+
+	public String getWhatRegion() {
+		return whatRegion;
+	}
+
+	public void setWhatRegion(String whatRegion) {
+		this.whatRegion = whatRegion;
 	}
 
 	/** Constructor to create team object with only a name */
@@ -61,6 +82,41 @@ public class Team {
 		eliminated = false;
 		upcomingMatches = null;
 		eliminatedBy = null;
+		
+		//Set American League : East 
+		if (name.equalsIgnoreCase("Baltimore Orioles") || name.equalsIgnoreCase("Boston Red Sox")||
+				name.equalsIgnoreCase("New York Yankees")|| name.equalsIgnoreCase("Tampa Bay Rays") || name.equalsIgnoreCase("Toronto Blue Jays")
+				){whatRegion +="East"; }
+			
+		//Set American League : Central 
+		if (name.equalsIgnoreCase("Chicago White Sox") || name.equalsIgnoreCase("Cleveland Indians")||
+				name.equalsIgnoreCase("Detroit Tigers")|| name.equalsIgnoreCase("Kansas City Royals") || name.equalsIgnoreCase("Minnesota Twins")
+				){whatRegion +="Central"; }
+		
+		//Set American League : West 
+		if (name.equalsIgnoreCase("Seattle Mariners") || name.equalsIgnoreCase("Texas Rangers")||
+				name.equalsIgnoreCase("Houston Astros")|| name.equalsIgnoreCase("Los Angeles Angels") || name.equalsIgnoreCase("Oakland Athletics")
+				){whatRegion +="Central"; }
+		
+		
+		//Set National League : East 
+		if (name.equalsIgnoreCase("Atlanta Braves") || name.equalsIgnoreCase("Miami Marlins")||
+				name.equalsIgnoreCase("New York Mets")|| name.equalsIgnoreCase("Philadelphia Phillies") || name.equalsIgnoreCase("Washington Nationals")
+				){whatRegion +="East"; isNational = true; }
+		
+				
+		//Set National League : Central 
+		if (name.equalsIgnoreCase("Chicago Cubs") || name.equalsIgnoreCase("Cincinnati Reds")||
+				name.equalsIgnoreCase("Milwaukee Brewers")|| name.equalsIgnoreCase("Pittsburgh Pirates") || name.equalsIgnoreCase("St.Louis Cardinals")
+				){whatRegion +="Central";isNational = true; }
+		
+				
+		//Set National League : West
+		if (name.equalsIgnoreCase("Arizona Diamondbacks") || name.equalsIgnoreCase("Colorado Rockies")||
+				name.equalsIgnoreCase("San Francisco Giants")|| name.equalsIgnoreCase("Los Angeles Dodgers") || name.equalsIgnoreCase("San Diego Padres")
+				){whatRegion +="West";isNational = true;}
+		
+		
 	}
 
 	/**
