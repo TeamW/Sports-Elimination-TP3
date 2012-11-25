@@ -25,19 +25,24 @@ public class UI extends JFrame {
 		 //the table panel
 	     JPanel tablePanel = new JPanel();
 
+	     //the navigation panel
+	     JPanel navPanel = new JPanel();
+	     
 	     //the radio buttons panel
 	     JPanel radioPanel = new JPanel();
 	     
 	    //set borders
 	     radioPanel.setBorder(BorderFactory.createEmptyBorder(40,0,0,0));
 	     screenPanel.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-
+	     
 	     //set layouts and add the panels to the screen panel
 	     screenPanel.setLayout(new BorderLayout());
 	     radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.X_AXIS));
 	     tablePanel.setLayout(new BorderLayout());
+	     navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.X_AXIS));
 	     screenPanel.add(radioPanel, BorderLayout.PAGE_START);
 	     screenPanel.add(tablePanel, BorderLayout.CENTER);
+	     screenPanel.add(navPanel, BorderLayout.PAGE_END);
 	     
 	     
 	     //table data 
@@ -68,6 +73,26 @@ public class UI extends JFrame {
 	     JScrollPane scrollPane = new JScrollPane(table);
 	     //Add the scroll pane to this panel.
 	     tablePanel.add(scrollPane, BorderLayout.PAGE_START);
+	     
+	     //NAV panel buttons
+	     JButton backButton = new JButton("Previous Week");
+	     backButton.setToolTipText("Move to previous week of results");
+	     backButton.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent event) {
+	             //System.exit(0);
+	        }
+	     });
+	     navPanel.add(backButton);
+	     navPanel.add(Box.createRigidArea(new Dimension(548,0)));
+	     
+	     JButton nextButton = new JButton("Next Week");
+	     nextButton.setToolTipText("Move to next week of results");
+	     nextButton.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent event) {
+	             //System.exit(0);
+	        }
+	     });
+	     navPanel.add(nextButton);
 	     
 	     
 	     
