@@ -48,10 +48,16 @@ public class Algorithm {
 		// graph
 		while (residualPath(residual)) {
 			// Find the capacity c of the residual graph
+			int c = capacityOfPath(residual);
 			// For each edge in the path p
-			// If p is a forward edge, add c to flow of the edge in graph g.
-			// If p is a backward edge, remove c from the flow of the edge in
-			// graph g.
+			Vertex temp = g.getSink();
+			while(!temp.equals(g.getSource())) {
+				// If p is a forward edge, add c to flow of the edge in graph g.
+				// If p is a backward edge, remove c from the flow of the edge in
+				// graph g.
+				temp = g.getV()[temp.getPredecessor()];
+			}
+
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
@@ -69,6 +75,22 @@ public class Algorithm {
 		return false;
 	}
 
+	private static int capacityOfPath(ResidualGraph g) {
+		int capacity = 0;
+		Vertex v = g.getSink();
+		Vertex w = g.getSink();
+		while (v.getPredecessor() != g.getSource().getIndex()) {
+			w = v;
+			v = g.getV()[v.getPredecessor()];
+			for (AdjListNode n : v.getAdjList()) {
+				if (n.getVertex().equals(w) && n.getCapacity() > capacity) {
+					capacity = n.getCapacity();
+				}
+			}
+		}
+		return capacity;
+	}
+
 	private static boolean residualPath(ResidualGraph g) {
 		// Perform BFS from source on graph
 		g.bfs();
@@ -76,7 +98,7 @@ public class Algorithm {
 		Vertex v = g.getSink();
 		// While there is still part of the path to travel on, visit v's
 		// predecessor.
-		while (v.getPredecessor() != v.getIndex())
+		while (v.getPredecessor() != g.getSource().getIndex())
 			v = g.getV()[v.getPredecessor()];
 		// If path ends on the source node, there is a path from source to sink.
 		return v.getIndex() == 0;
