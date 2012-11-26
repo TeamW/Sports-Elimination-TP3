@@ -14,9 +14,9 @@ import uk.ac.gla.dcs.tp3.w.league.*;
 public class Parser {
 
 	public static void main(String[] args) {
-		// ArrayList<League> leagueEachDay = new ArrayList<League>(); //array of
+		// ArrayList<Division> leagueEachDay = new ArrayList<Division>(); //array of
 		// days in season each with seperate state
-		League theLeague = new League();
+		Division theLeague = new Division();
 
 		boolean postponedCheck = false;
 		String thisLine = "", date = "";
@@ -29,7 +29,7 @@ public class Parser {
 		try {
 			fileScanner = new Scanner(source); // scan over file object
 			thisLine = fileScanner.nextLine();
-			// leagueEachDay.add(new League()); //date emulation (adding a day
+			// leagueEachDay.add(new Division()); //date emulation (adding a day
 			// and manipulating it's state below)
 			while (fileScanner.hasNextLine() || thisLine.isEmpty()) {
 

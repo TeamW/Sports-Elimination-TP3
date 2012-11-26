@@ -3,7 +3,7 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import uk.ac.gla.dcs.tp3.w.league.League;
+import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
@@ -32,14 +32,14 @@ public class Graph {
 	 * @param t
 	 *            the team for which the network flow is being evaluated upon.
 	 */
-	public Graph(League l, Team t) {
-		if (l == null || t == null)
+	public Graph(Division d, Team t) {
+		if (d == null || t == null)
 			return;
 		// Work out constant W
 		int W = t.getPoints() + t.getUpcomingMatches().size();
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
-		int teamTotal = l.getTeams().size();
+		int teamTotal = d.getTeams().size();
 		// The r-combination of teamTotal for length 2 is the number of possible
 		// combinations for matches between the list of Teams-{t}.
 		int gameTotal = comb(teamTotal - 1, 2);
@@ -54,7 +54,7 @@ public class Graph {
 		vertices[vertices.length - 1] = sink;
 		// Create vertices for each team node, and make them adjacent to
 		// the sink.
-		ArrayList<Team> temp = l.getTeams();
+		ArrayList<Team> temp = d.getTeams();
 		Team[] teamsReal = new Team[temp.size()];
 		temp.toArray(teamsReal);
 		Team[] teams = new Team[teamsReal.length - 1];
@@ -100,7 +100,7 @@ public class Graph {
 		}
 		// For each match not yet played and not involving t, increment the
 		// capacity of the vertex going from float->pair node of home and away
-		for (Match M : l.getFixtures()) {
+		for (Match M : d.getFixtures()) {
 			if (matchNotPlayed(M, t)) {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();

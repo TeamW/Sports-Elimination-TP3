@@ -83,7 +83,7 @@ public class Team {
 		upcomingMatches = null;
 		eliminatedBy = null;
 
-		// Set American League : East
+		// Set American Division : East
 		if (name.equalsIgnoreCase("Baltimore Orioles")
 				|| name.equalsIgnoreCase("Boston Red Sox")
 				|| name.equalsIgnoreCase("New York Yankees")
@@ -92,7 +92,7 @@ public class Team {
 			whatRegion += "East";
 		}
 
-		// Set American League : Central
+		// Set American Division : Central
 		if (name.equalsIgnoreCase("Chicago White Sox")
 				|| name.equalsIgnoreCase("Cleveland Indians")
 				|| name.equalsIgnoreCase("Detroit Tigers")
@@ -101,7 +101,7 @@ public class Team {
 			whatRegion += "Central";
 		}
 
-		// Set American League : West
+		// Set American Division : West
 		if (name.equalsIgnoreCase("Seattle Mariners")
 				|| name.equalsIgnoreCase("Texas Rangers")
 				|| name.equalsIgnoreCase("Houston Astros")
@@ -110,7 +110,7 @@ public class Team {
 			whatRegion += "Central";
 		}
 
-		// Set National League : East
+		// Set National Division : East
 		if (name.equalsIgnoreCase("Atlanta Braves")
 				|| name.equalsIgnoreCase("Miami Marlins")
 				|| name.equalsIgnoreCase("New York Mets")
@@ -120,7 +120,7 @@ public class Team {
 			isNational = true;
 		}
 
-		// Set National League : Central
+		// Set National Division : Central
 		if (name.equalsIgnoreCase("Chicago Cubs")
 				|| name.equalsIgnoreCase("Cincinnati Reds")
 				|| name.equalsIgnoreCase("Milwaukee Brewers")
@@ -130,7 +130,7 @@ public class Team {
 			isNational = true;
 		}
 
-		// Set National League : West
+		// Set National Division : West
 		if (name.equalsIgnoreCase("Arizona Diamondbacks")
 				|| name.equalsIgnoreCase("Colorado Rockies")
 				|| name.equalsIgnoreCase("San Francisco Giants")

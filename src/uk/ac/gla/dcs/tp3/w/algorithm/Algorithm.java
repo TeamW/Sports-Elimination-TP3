@@ -1,20 +1,20 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
-import uk.ac.gla.dcs.tp3.w.league.League;
+import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 public class Algorithm {
 
 	private Graph g;
-	private League l;
+	private Division d;
 
 	public Algorithm() {
 		this(null);
 	}
 
-	public Algorithm(League league) {
+	public Algorithm(Division div) {
 		g = null;
-		l = league;
+		d = div;
 	}
 
 	public Graph getG() {
@@ -25,12 +25,12 @@ public class Algorithm {
 		this.g = g;
 	}
 
-	public League getL() {
-		return l;
+	public Division getD() {
+		return d;
 	}
 
-	public void setL(League l) {
-		this.l = l;
+	public void setD(Division d) {
+		this.d = d;
 	}
 
 	public boolean isEliminated(Team t) {
@@ -38,7 +38,7 @@ public class Algorithm {
 	}
 
 	private boolean fordFulkerson(Team t) {
-		g = new Graph(l, t);
+		g = new Graph(d, t);
 		// For each edge in the graph g, set the flow to be 0.
 		for (Vertex v : g.getV())
 			for (AdjListNode n : v.getAdjList())

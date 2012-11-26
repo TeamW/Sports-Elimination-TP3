@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Team W
  * @version 1.0
  */
-public class League {
+public class Division {
 	// overall standings
 	private ArrayList<Team> teams;
 	// overall fixtures
@@ -19,7 +19,7 @@ public class League {
 	/**
 	 * No parameter constructor. Sets both instance variables to null.
 	 */
-	public League() {
+	public Division() {
 		this(null, null);
 		teams = new ArrayList<Team>();
 		fixtures = new ArrayList<Match>();
@@ -34,7 +34,7 @@ public class League {
 	 * @param m
 	 *            The array of matches in this league.
 	 */
-	public League(ArrayList<Team> t, ArrayList<Match> m) {
+	public Division(ArrayList<Team> t, ArrayList<Match> m) {
 		teams = t;
 		fixtures = m;
 	}
