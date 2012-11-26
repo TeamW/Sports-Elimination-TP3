@@ -17,9 +17,9 @@ public class ResidualGraph extends Graph {
 		}
 		// Create backwards and forwards edges
 		for (int i = 0; i < vertices.length; i++) {
-			Vertex normal = g.getV()[i];
+			Vertex original = g.getV()[i];
 			Vertex v = vertices[i];
-			for (AdjListNode n : normal.getAdjList()) {
+			for (AdjListNode n : original.getAdjList()) {
 				Vertex w = vertices[n.getVertex().getIndex()];
 				int forward = n.getCapacity() - n.getFlow();
 				int backward = n.getFlow();
