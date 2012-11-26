@@ -13,7 +13,6 @@ public class Graph {
 	private int[][] matrix;
 	private Vertex source;
 	private Vertex sink;
-	private int W;
 
 	/**
 	 * No param constructor to create an empty Graph object
@@ -37,7 +36,7 @@ public class Graph {
 		if (l == null || t == null)
 			return;
 		// Work out constant W
-		W = t.getPoints() + t.getUpcomingMatches().size();
+		int W = t.getPoints() + t.getUpcomingMatches().size();
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
 		int teamTotal = l.getTeams().size();
