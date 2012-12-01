@@ -35,7 +35,7 @@ public class Vertex {
 	 * copy constructor
 	 */
 	public Vertex(Vertex v) {
-		adjList = v.getAdjList();
+		adjList = new LinkedList<AdjListNode>(v.getAdjList());
 		index = v.getIndex();
 		visited = v.getVisited();
 	}
@@ -75,4 +75,5 @@ public class Vertex {
 	public void setAdjList(LinkedList<AdjListNode> linkedList) {
 		adjList = linkedList;
 	}
+
 }
