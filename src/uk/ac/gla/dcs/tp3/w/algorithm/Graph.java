@@ -83,11 +83,11 @@ public class Graph {
 				// Find out which team vertex A to have as the PairVertex
 				Vertex tempI = vertices[vertices.length - 2 - i];
 				// Make a node that directs to the above vertex
-				AdjListNode nI = new AdjListNode(0, tempI);
+				AdjListNode nI = new AdjListNode(Integer.MAX_VALUE, tempI);
 				// Find out which team vertex B to have as the PairVertex
 				Vertex tempJ = vertices[vertices.length - 2 - j];
 				// Make a node that directs to the above vertex
-				AdjListNode nJ = new AdjListNode(0, tempJ);
+				AdjListNode nJ = new AdjListNode(Integer.MAX_VALUE, tempJ);
 				// Create a pair vertex with the two teams
 				vertices[pos] = new PairVertex(teams[i], teams[j], pos);
 				// Make this pair vertex adjacent to the two nodes above
