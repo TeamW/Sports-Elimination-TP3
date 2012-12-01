@@ -185,5 +185,8 @@ public class Main {
 				}
 			}
 		}
+		
+		Algorithm test = new Algorithm(d);
+		test.isEliminated(atlanta);
 	}
 }

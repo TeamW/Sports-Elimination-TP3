@@ -49,6 +49,7 @@ public class Algorithm {
 		while (residualPath(residual)) {
 			// Find the capacity c of the residual graph
 			int c = capacityOfPath(residual);
+			System.out.println("Capacity: " + c);
 			// For each edge in the path p
 			Vertex temp = g.getSink();
 			while(!temp.equals(g.getSource())) {
@@ -76,14 +77,14 @@ public class Algorithm {
 	}
 
 	private static int capacityOfPath(ResidualGraph g) {
-		int capacity = 0;
+		int capacity = Integer.MAX_VALUE;
 		Vertex v = g.getSink();
 		Vertex w = g.getSink();
 		while (v.getPredecessor() != g.getSource().getIndex()) {
 			w = v;
 			v = g.getV()[v.getPredecessor()];
 			for (AdjListNode n : v.getAdjList()) {
-				if (n.getVertex().equals(w) && n.getCapacity() > capacity) {
+				if (n.getVertex().equals(w) && n.getCapacity() < capacity) {
 					capacity = n.getCapacity();
 				}
 			}
@@ -100,6 +101,7 @@ public class Algorithm {
 		// predecessor.
 		while (v.getPredecessor() != g.getSource().getIndex())
 			v = g.getV()[v.getPredecessor()];
+		v = g.getV()[v.getPredecessor()];
 		// If path ends on the source node, there is a path from source to sink.
 		return v.getIndex() == 0;
 	}
