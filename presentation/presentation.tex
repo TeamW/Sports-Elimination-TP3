@@ -1,7 +1,4 @@
 \documentclass{beamer}
-
-%\usepackage{beamerthemesplit} %Activate for custom appearance
-
 \title{Team W - Algorithms for Sports Eliminations}
 \author{
     Gordon Reid: 1002536R\\
@@ -9,41 +6,59 @@
     Kristopher Stewart: 1007175S\\
     David Selkirk: 1003646S\\
     James Gallagher: 0800899G\\
+    Dr David Manlove: Project Supervisor
 }
 \date{December 5, 2012}
-
 \begin{document}
-
 \frame{\titlepage}
-
 \section[Outline]{}
 \frame{\tableofcontents}
-
+\section{Project outline}
 \section{Progress so far}
 \subsection{Algorithm - Gordon Reid and Ryan Wells}
 \subsection{Parser - Kristopher Stewart and James Gallagher}
 \subsection{User Interface - David Selkirk}
-\frame
-{
-	\frametitle{Algorithm}
-}
-\frame
-{
-	\frametitle{Parser}
-}
-\frame
-{
-	\frametitle{User Interface}
-}
-
-\frame
-{
-  \frametitle{Features of the Beamer Class}
-
+\frame{
+  \frametitle{Project outline}
   \begin{itemize}
-  \item Normal LaTeX class.
-  \item Easy overlays.
-  \item<2-> No external programs needed.      
+  \item<2-> Aim of the project is to implement an algorithm that
+  will be able to say that a team X cannot win the Baseball league.
+  % Based on schedule of remaining games and current standings.
+  \item<3-> Ford-Fulkerson algorithm used.
+  % Briefly describe it (?)
+  \item<4-> A team X is only eliminated if there is no mathematically possible
+  way for X to finish top of the league.
+  \item<5-> Builds on na\"{\i}ve calculations made by sports pundits.
+  \item<6-> Real world application of Graph Theory.
+  \end{itemize}
+}
+\frame{
+  \frametitle{Algorithm}
+  \begin{itemize}
+  \item<2-> Revolves around creation of graphs and the flow along them.
+  \item<3-> Currently generates initial graph and begins to work out how much
+  more flow can be passed from the source to the sink.
+  \item<4-> Passing flow through the graph will allow us to determine if the
+  given team X can win the league.
+  \item<5-> A team X can win the league if it is possible for there to be a
+  saturating flow. A flow is saturated if the total flow from the source equals
+  the total capacity from the source.
+  \item<6-> By definition, everything leaving the source has to arrive at the
+  sink.
+  \end{itemize}
+}
+\frame{
+  \frametitle{Parser}
+  \begin{itemize}
+  \item<1-> Shows on slide 1 first
+  \item<2-> Shows on slide 2 first
+  \end{itemize}
+}
+\frame{
+  \frametitle{User Interface}
+  \begin{itemize}
+  \item<1-> Shows on slide 1 first
+  \item<2-> Shows on slide 2 first
   \end{itemize}
 }
 \end{document}
