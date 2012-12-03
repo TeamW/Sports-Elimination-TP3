@@ -99,9 +99,8 @@ public class Algorithm {
 		Vertex v = g.getSink();
 		// While there is still part of the path to travel on, visit v's
 		// predecessor.
-		while (v.getPredecessor() != g.getSource().getIndex())
+		while (v.getIndex() != g.getSource().getIndex())
 			v = g.getV()[v.getPredecessor()];
-		v = g.getV()[v.getPredecessor()];
 		// If path ends on the source node, there is a path from source to sink.
 		return v.getIndex() == 0;
 	}
