@@ -80,7 +80,7 @@ public class Algorithm {
 		int capacity = Integer.MAX_VALUE;
 		Vertex v = g.getSink();
 		Vertex w = g.getSink();
-		while (v.getPredecessor() != g.getSource().getIndex()) {
+		while (v.getIndex() != g.getSource().getIndex()) {
 			w = v;
 			v = g.getV()[v.getPredecessor()];
 			for (AdjListNode n : v.getAdjList()) {
