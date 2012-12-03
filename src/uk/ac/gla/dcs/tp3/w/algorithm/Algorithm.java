@@ -1,5 +1,7 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.Stack;
+
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
@@ -40,27 +42,46 @@ public class Algorithm {
 	private boolean fordFulkerson(Team t) {
 		g = new Graph(d, t);
 		// For each edge in the graph g, set the flow to be 0.
-		for (Vertex v : g.getV())
-			for (AdjListNode n : v.getAdjList())
+		for (Vertex v : g.getV()){
+			for (AdjListNode n : v.getAdjList()){
 				n.setFlow(0);
-		ResidualGraph residual = new ResidualGraph(g);
-		// While there is a path p from the source to the sink in the residual
-		// graph
-		while (residualPath(residual)) {
-			// Find the capacity c of the residual graph
-			int c = capacityOfPath(residual);
-			System.out.println("Capacity: " + c);
-			// For each edge in the path p
-			Vertex temp = g.getSink();
-			while (!temp.equals(g.getSource())) {
-				// If p is a forward edge, add c to flow of the edge in graph g.
-				// If p is a backward edge, remove c from the flow of the edge
-				// in
-				// graph g.
-				temp = g.getV()[temp.getPredecessor()];
 			}
+		}
+		ResidualGraph residual = new ResidualGraph(g);
+		int cap = 0;
+		int[][] matrix = residual.getMatrix();
+		for(int weight:matrix[0]){
+			cap+=weight;
+		}
+		Path path;
+		// While there is a path p from the source to the sink in the residual
+		// graph.
+		while ((path =residualPath(residual))!=null) {
+			cap-=path.getCapacity();
+			int[] pathnodes = path.getPath();
+			for(int j=1;j<pathnodes.length; j++){
+				int i = j-1;
+				if(pathnodes[i]<pathnodes[j]){
+					for(AdjListNode a: g.getV()[pathnodes[i]].getAdjList()){
+						if(a.getVertex().getIndex() == pathnodes[j]){
+							a.setFlow(a.getFlow() + path.getCapacity());
+						}
+					}
+				}
+				else{
+					for(AdjListNode a: g.getV()[pathnodes[i]].getAdjList()){
+						if(a.getVertex().getIndex() == pathnodes[j]){
+							a.setFlow(a.getFlow() - path.getCapacity());
+						}
+					}
+				}
+			}
+			// Find the capacity c of the residual graph
+			// For each edge in the path p
+			System.out.println("Capacity: " + path.getCapacity());
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
+			System.out.println("I'm here");
 
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
@@ -76,36 +97,40 @@ public class Algorithm {
 		// The team nodes that are in B are the teams responsible for the
 		// elimination of team t. These
 		// teams for the certificate of elimination.
-		return false;
+		return cap!=0;
 	}
 
-	private static int capacityOfPath(ResidualGraph g) {
-		int capacity = Integer.MAX_VALUE;
-		Vertex v = g.getSink();
-		Vertex w = g.getSink();
-		while (v.getIndex() != g.getSource().getIndex()) {
-			w = v;
-			v = g.getV()[v.getPredecessor()];
-			for (AdjListNode n : v.getAdjList()) {
-				if (n.getVertex().equals(w) && n.getCapacity() < capacity) {
-					capacity = n.getCapacity();
-				}
-			}
-		}
-		return capacity;
-	}
-
-	private static boolean residualPath(ResidualGraph g) {
+	private static Path residualPath(ResidualGraph g) {
 		// Perform BFS from source on graph
 		g.bfs();
-		// Start at sink
-		Vertex v = g.getSink();
-		// While there is still part of the path to travel on, visit v's
-		// predecessor.
-		while (v.getIndex() != g.getSource().getIndex())
-			v = g.getV()[v.getPredecessor()];
-		// If path ends on the source node, there is a path from source to sink.
-		return v.getIndex() == 0;
+		Stack<Integer> backPath = new Stack<Integer>();
+		int[][] matrixrep = g.getMatrix();
+		int next;
+		int current;
+		int capacity=Integer.MAX_VALUE;
+		for (Vertex v: g.getV()) {
+			System.out.println("Vertex " + v.getIndex() + " has predecessor " + v.getPredecessor());
+		}
+		for(next = current = g.getSink().getIndex(); next>=0;next = g.getV()[next].getPredecessor()){
+			if (g.getV()[next].getPredecessor() == next && next != 0) {
+				return null;
+			}
+			backPath.add(next);
+			if(current!=next && matrixrep[next][current]<capacity)
+				capacity = matrixrep[next][current];
+			if(next == 0){
+				break;
+			}
+			current = next;
+		}
+		if (capacity<0) return null;
+		// If the sink does not have a predecessor (defined as -1)
+		// then there is no residual path.
+		int[]path = new int[backPath.size()];
+		for(int i=0;i<backPath.size();i++){
+			path[i]=backPath.pop();
+		}
+		return path.length==1?null:new Path(path,capacity);
 	}
 
 }

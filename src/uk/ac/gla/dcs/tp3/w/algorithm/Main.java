@@ -187,6 +187,11 @@ public class Main {
 		}
 		
 		Algorithm test = new Algorithm(d);
-		test.isEliminated(atlanta);
+		boolean lol = test.isEliminated(newYork);
+		if(lol) {
+			System.out.println("elim");
+		} else {
+			System.out.println("not");
+		}
 	}
 }

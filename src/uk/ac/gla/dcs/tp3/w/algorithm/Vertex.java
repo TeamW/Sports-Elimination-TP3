@@ -28,7 +28,7 @@ public class Vertex {
 		adjList = new LinkedList<AdjListNode>();
 		index = n;
 		visited = false;
-		predecessor = 0;
+		predecessor = -1;
 	}
 
 	/**
@@ -38,6 +38,7 @@ public class Vertex {
 		adjList = new LinkedList<AdjListNode>(v.getAdjList());
 		index = v.getIndex();
 		visited = v.getVisited();
+		predecessor = v.getPredecessor();
 	}
 
 	public LinkedList<AdjListNode> getAdjList() {

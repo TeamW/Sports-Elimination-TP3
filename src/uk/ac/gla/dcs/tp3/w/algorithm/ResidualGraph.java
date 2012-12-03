@@ -35,6 +35,19 @@ public class ResidualGraph extends Graph {
 				}
 			}
 		}
+		// Create the adjacency matrix representation of the graph.
+		// Initialise every location to 0.
+		matrix = new int[vertices.length][vertices.length];
+		for (int i = 0; i < vertices.length; i++)
+			for (int j = 0; j < vertices.length; j++)
+				matrix[i][j] = 0;
+		// Now set every non-zero location to the value of the capacity.
+		for (Vertex v : vertices) {
+			for (AdjListNode n : v.getAdjList()) {
+				int loc = n.getVertex().getIndex();
+				matrix[v.getIndex()][loc] = n.getCapacity();
+			}
+		}
 	}
 
 }

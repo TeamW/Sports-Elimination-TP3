@@ -10,7 +10,7 @@ import uk.ac.gla.dcs.tp3.w.league.Team;
 public class Graph {
 
 	protected Vertex[] vertices;
-	private int[][] matrix;
+	protected int[][] matrix;
 	private Vertex source;
 	private Vertex sink;
 
