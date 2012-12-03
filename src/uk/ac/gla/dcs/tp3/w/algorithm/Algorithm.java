@@ -52,12 +52,15 @@ public class Algorithm {
 			System.out.println("Capacity: " + c);
 			// For each edge in the path p
 			Vertex temp = g.getSink();
-			while(!temp.equals(g.getSource())) {
+			while (!temp.equals(g.getSource())) {
 				// If p is a forward edge, add c to flow of the edge in graph g.
-				// If p is a backward edge, remove c from the flow of the edge in
+				// If p is a backward edge, remove c from the flow of the edge
+				// in
 				// graph g.
 				temp = g.getV()[temp.getPredecessor()];
 			}
+			// Update residual graph based on new original graph's flow data.
+			residual = new ResidualGraph(g);
 
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
