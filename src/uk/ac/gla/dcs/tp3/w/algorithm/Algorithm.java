@@ -9,6 +9,7 @@ public class Algorithm {
 
 	private Graph g;
 	private Division d;
+	private static boolean verbose = false;
 
 	public Algorithm() {
 		this(null);
@@ -37,6 +38,10 @@ public class Algorithm {
 
 	public boolean isEliminated(Team t) {
 		return t.isEliminated() ? true : fordFulkerson(t);
+	}
+	
+	public void setVerbose(){
+		verbose = true;
 	}
 
 	private boolean fordFulkerson(Team t) {
@@ -78,10 +83,12 @@ public class Algorithm {
 			}
 			// Find the capacity c of the residual graph
 			// For each edge in the path p
-			System.out.println("Capacity: " + path.getCapacity());
+			if(verbose)
+				System.out.println("Capacity: " + path.getCapacity());
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
-			System.out.println("I'm here");
+			if(verbose)
+				System.out.println("New Residual Graph Created");
 
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
@@ -108,8 +115,10 @@ public class Algorithm {
 		int next;
 		int current;
 		int capacity=Integer.MAX_VALUE;
-		for (Vertex v: g.getV()) {
-			System.out.println("Vertex " + v.getIndex() + " has predecessor " + v.getPredecessor());
+		if(verbose){
+			for (Vertex v: g.getV()) {
+				System.out.println("Vertex " + v.getIndex() + " has predecessor " + v.getPredecessor());
+			}
 		}
 		for(next = current = g.getSink().getIndex(); next>=0;next = g.getV()[next].getPredecessor()){
 			if (g.getV()[next].getPredecessor() == next && next != 0) {
