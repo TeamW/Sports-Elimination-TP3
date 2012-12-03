@@ -39,43 +39,42 @@ public class Algorithm {
 	public boolean isEliminated(Team t) {
 		return t.isEliminated() ? true : fordFulkerson(t);
 	}
-	
-	public void setVerbose(){
+
+	public void setVerbose() {
 		verbose = true;
 	}
 
 	private boolean fordFulkerson(Team t) {
 		g = new Graph(d, t);
 		// For each edge in the graph g, set the flow to be 0.
-		for (Vertex v : g.getV()){
-			for (AdjListNode n : v.getAdjList()){
+		for (Vertex v : g.getV()) {
+			for (AdjListNode n : v.getAdjList()) {
 				n.setFlow(0);
 			}
 		}
 		ResidualGraph residual = new ResidualGraph(g);
 		int cap = 0;
 		int[][] matrix = residual.getMatrix();
-		for(int weight:matrix[0]){
-			cap+=weight;
+		for (int weight : matrix[0]) {
+			cap += weight;
 		}
 		Path path;
 		// While there is a path p from the source to the sink in the residual
 		// graph.
-		while ((path =residualPath(residual))!=null) {
-			cap-=path.getCapacity();
+		while ((path = residualPath(residual)) != null) {
+			cap -= path.getCapacity();
 			int[] pathnodes = path.getPath();
-			for(int j=1;j<pathnodes.length; j++){
-				int i = j-1;
-				if(pathnodes[i]<pathnodes[j]){
-					for(AdjListNode a: g.getV()[pathnodes[i]].getAdjList()){
-						if(a.getVertex().getIndex() == pathnodes[j]){
+			for (int j = 1; j < pathnodes.length; j++) {
+				int i = j - 1;
+				if (pathnodes[i] < pathnodes[j]) {
+					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList()) {
+						if (a.getVertex().getIndex() == pathnodes[j]) {
 							a.setFlow(a.getFlow() + path.getCapacity());
 						}
 					}
-				}
-				else{
-					for(AdjListNode a: g.getV()[pathnodes[i]].getAdjList()){
-						if(a.getVertex().getIndex() == pathnodes[j]){
+				} else {
+					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList()) {
+						if (a.getVertex().getIndex() == pathnodes[j]) {
 							a.setFlow(a.getFlow() - path.getCapacity());
 						}
 					}
@@ -83,11 +82,11 @@ public class Algorithm {
 			}
 			// Find the capacity c of the residual graph
 			// For each edge in the path p
-			if(verbose)
+			if (verbose)
 				System.out.println("Capacity: " + path.getCapacity());
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
-			if(verbose)
+			if (verbose)
 				System.out.println("New Residual Graph Created");
 
 		}
@@ -104,7 +103,7 @@ public class Algorithm {
 		// The team nodes that are in B are the teams responsible for the
 		// elimination of team t. These
 		// teams for the certificate of elimination.
-		return cap!=0;
+		return cap != 0;
 	}
 
 	private static Path residualPath(ResidualGraph g) {
@@ -114,32 +113,35 @@ public class Algorithm {
 		int[][] matrixrep = g.getMatrix();
 		int next;
 		int current;
-		int capacity=Integer.MAX_VALUE;
-		if(verbose){
-			for (Vertex v: g.getV()) {
-				System.out.println("Vertex " + v.getIndex() + " has predecessor " + v.getPredecessor());
+		int capacity = Integer.MAX_VALUE;
+		if (verbose) {
+			for (Vertex v : g.getV()) {
+				System.out.println("Vertex " + v.getIndex()
+						+ " has predecessor " + v.getPredecessor());
 			}
 		}
-		for(next = current = g.getSink().getIndex(); next>=0;next = g.getV()[next].getPredecessor()){
+		for (next = current = g.getSink().getIndex(); next >= 0; next = g
+				.getV()[next].getPredecessor()) {
 			if (g.getV()[next].getPredecessor() == next && next != 0) {
 				return null;
 			}
 			backPath.add(next);
-			if(current!=next && matrixrep[next][current]<capacity)
+			if (current != next && matrixrep[next][current] < capacity)
 				capacity = matrixrep[next][current];
-			if(next == 0){
+			if (next == 0) {
 				break;
 			}
 			current = next;
 		}
-		if (capacity<0) return null;
+		if (capacity < 0)
+			return null;
 		// If the sink does not have a predecessor (defined as -1)
 		// then there is no residual path.
-		int[]path = new int[backPath.size()];
-		for(int i=0;i<backPath.size();i++){
-			path[i]=backPath.pop();
+		int[] path = new int[backPath.size()];
+		for (int i = 0; i < backPath.size(); i++) {
+			path[i] = backPath.pop();
 		}
-		return path.length==1?null:new Path(path,capacity);
+		return path.length == 1 ? null : new Path(path, capacity);
 	}
 
 }
