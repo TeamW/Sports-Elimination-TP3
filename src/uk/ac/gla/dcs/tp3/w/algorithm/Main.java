@@ -187,11 +187,12 @@ public class Main {
 		}
 		
 		Algorithm test = new Algorithm(d);
-		boolean lol = test.isEliminated(newYork);
-		if(lol) {
-			System.out.println("Eliminated");
-		} else {
-			System.out.println("Not Eliminated");
+		for (Team t: teams) {
+			if(test.isEliminated(t)) {
+				System.out.println(t.getName() + " is eliminated.");
+			} else {
+				System.out.println(t.getName() + " still has a chance of winning.");
+			}
 		}
 	}
 }
