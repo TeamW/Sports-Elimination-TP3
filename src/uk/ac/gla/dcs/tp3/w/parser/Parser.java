@@ -13,13 +13,16 @@ import uk.ac.gla.dcs.tp3.w.league.*;
  */
 public class Parser {
 
-	Division nationalEast = new Division();
-	Division nationalCentral = new Division();
-	Division nationalWest = new Division();
+	// National League Divisions
+	private Division nationalEast = new Division();
+	private Division nationalCentral = new Division();
+	private Division nationalWest = new Division();
+	// American League Divisions
+	private Division americanEast = new Division();
+	private Division americanCentral = new Division();
+	private Division americanWest = new Division();
 
-	Division americanEast = new Division();
-	Division americanCentral = new Division();
-	Division americanWest = new Division();
+	private boolean verbose = false;
 
 	public Parser(File f) {
 		// ArrayList<Division> leagueEachDay = new ArrayList<Division>();
@@ -33,12 +36,8 @@ public class Parser {
 		Scanner fileScanner, lineScanner;
 		int score1 = 0, score2 = 0;
 
-		File source = f;
-		// File source = new File(System.getProperty("user.dir")
-		// + "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
-
 		try {
-			fileScanner = new Scanner(source);
+			fileScanner = new Scanner(f);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;
@@ -373,5 +372,13 @@ public class Parser {
 		} else {
 			return 12;
 		}
+	}
+
+	public boolean isVerbose() {
+		return verbose;
+	}
+
+	public void setVerbose() {
+		verbose = true;
 	}
 }
