@@ -95,7 +95,7 @@ public class Main {
 
 		Division d = new Division(teams, allMatches);
 
-		Graph g = new Graph(d, atlanta);
+		Graph g = new Graph(d, philadelphia);
 		System.out.println("Initial graph output from here.\n\n\n");
 		LinkedList<AdjListNode> list = g.getSource().getAdjList();
 		for (AdjListNode n : list) {
