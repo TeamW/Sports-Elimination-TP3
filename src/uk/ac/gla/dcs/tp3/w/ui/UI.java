@@ -44,13 +44,30 @@ public class UI extends JFrame {
 	     screenPanel.add(tablePanel, BorderLayout.CENTER);
 	     screenPanel.add(navPanel, BorderLayout.PAGE_END);
 	     
+	     //set up table
+	     initTable(tablePanel);
+
+	     //NAV panel buttons
+	     initNavPanel(navPanel);
+
+	     //Create the radio buttons.
+	     initRadioButtons(radioPanel);
 	     
-	     //table data 
-	     String[] columnNames = {"Team",
-                 "Winning %",
-                 "Wins",
-                 "Losses",
-                 "Is Eliminated"};
+	     //set general frame stuff
+	     setTitle("Team W UI early iteration");
+	     setResizable(false);
+	     setSize(800, 600);
+	     setLocationRelativeTo(null);
+	     setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	private void initTable(JPanel tablePanel)
+	{
+		String[] columnNames = {"Team",
+                "Winning %",
+                "Wins",
+                "Losses",
+                "Is Eliminated"};
 
 	     Object[][] data = {
 	    		 {"Kathy", "Smith",
@@ -73,8 +90,11 @@ public class UI extends JFrame {
 	     JScrollPane scrollPane = new JScrollPane(table);
 	     //Add the scroll pane to this panel.
 	     tablePanel.add(scrollPane, BorderLayout.PAGE_START);
-	     
-	     //NAV panel buttons
+	}
+	
+	private void initNavPanel(JPanel navPanel)
+	{
+		//NAV panel buttons
 	     JButton backButton = new JButton("Previous Week");
 	     backButton.setToolTipText("Move to previous week of results");
 	     backButton.addActionListener(new ActionListener() {
@@ -93,11 +113,11 @@ public class UI extends JFrame {
 	        }
 	     });
 	     navPanel.add(nextButton);
-	     
-	     
-	     
-	     //Create the radio buttons.
-	     JRadioButton rButton1 = new JRadioButton("National");
+	}
+	
+	private void initRadioButtons(JPanel radioPanel)
+	{
+		JRadioButton rButton1 = new JRadioButton("National");
 	     rButton1.setSelected(true);
 	     radioPanel.add(rButton1);
 	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
@@ -130,13 +150,6 @@ public class UI extends JFrame {
 	     });
 	     radioPanel.add(Box.createRigidArea(new Dimension(50,0)));
 	     radioPanel.add(quitButton);
-	     
-
-	     //set general frame stuff
-	     setTitle("Team W UI early iteration");
-	     setSize(800, 600);
-	     setLocationRelativeTo(null);
-	     setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 }
