@@ -58,11 +58,22 @@ public class Algorithm {
 		for (int weight : matrix[0]) {
 			cap += weight;
 		}
+		if (true) // change to verbose after fixing
+			System.out.println("Need flow: " + cap);
 		Path path;
 		// While there is a path p from the source to the sink in the residual
 		// graph.
 		while ((path = residualPath(residual)) != null) {
 			cap -= path.getCapacity();
+			if (true) // change to verbose after fixing
+				System.out.println("Additional flow: " + path.getCapacity());
+			if (true) { // change to verbose after fixing
+				System.out.print("Path found: ");
+				for (int i : path.getPath()) {
+					System.out.print(i + " ");
+				}
+				System.out.println();
+			}
 			int[] pathnodes = path.getPath();
 			for (int j = 1; j < pathnodes.length; j++) {
 				int i = j - 1;
@@ -90,6 +101,8 @@ public class Algorithm {
 				System.out.println("New Residual Graph Created");
 
 		}
+		if (verbose)
+			System.out.println("Remaining flow to find: " + cap);
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.

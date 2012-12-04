@@ -164,7 +164,9 @@ public class Main {
 		}
 		System.out.println();
 		Algorithm test = new Algorithm(d);
+		//test.setVerbose();
 		for (Team t: teams) {
+			System.out.println();
 			if(test.isEliminated(t)) {
 				System.out.println(t.getName() + " is eliminated.");
 			} else {
