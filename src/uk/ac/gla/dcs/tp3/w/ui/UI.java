@@ -80,7 +80,6 @@ public class UI extends JFrame {
 	        }
 	    }
 	            
-		System.out.println("League as: " +league);
 		String[] columnNames = {"Team",
                 "Points",
                 "Games Played",
@@ -103,26 +102,21 @@ public class UI extends JFrame {
 	    	 for(int i = 0; i < division.getTeams().size(); i++){
 	    		 if(division.getTeams().get(i).isNational() == check){
 	    			 for(int j = 0; j < columnNames.length; j++){
-	    				 System.out.println("Trying column "  + j + " and row " + i);
 	    				 switch(j){
 	    		 			case(0):{
-	    		 				//data[i][j] = division.getTeams().get(i).getName();
 	    		 				data[rowCounter][j] = division.getTeams().get(i).getName();
 	    		 				break;
 	    		 			}
 	    		 			case(1):{
-	    		 				//data[i][j] = String.valueOf(division.getTeams().get(i).getPoints());
 	    		 				data[rowCounter][j] = String.valueOf(division.getTeams().get(i).getPoints());
 	    		 				break;
 	    		 			}
 	    		 			case(2):{
 	    		 				data[rowCounter][j] = String.valueOf(division.getTeams().get(i).getGamesPlayed());
-	    		 				
 	    		 				break;
 	    		 			}
 	    		 			case(3):{
 	    		 				data[rowCounter][j] = String.valueOf(division.getTeams().get(i).isEliminated());
-	  
 	    		 				break;
 	    		 			}
 	    				 }
@@ -130,10 +124,6 @@ public class UI extends JFrame {
 	    			 rowCounter++;
 	    		 }
 	    	 }
-	    	 System.out.println("Creating new table ");
-	    	 //table = new JTable(data, columnNames);
-	    	 //table.repaint();
-	    	 //table.getModel().setValueAt(aValue, rowIndex, columnIndex)
 	     }
 	}
 	
