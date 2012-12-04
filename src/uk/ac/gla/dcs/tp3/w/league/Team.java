@@ -274,7 +274,9 @@ public class Team {
 	 *            The match the team is still to play
 	 */
 	public void addUpcomingMatch(Match m) {
-		// TODO
+		if (upcomingMatches == null)
+			upcomingMatches = new ArrayList<Match>();
+		upcomingMatches.add(m);
 	}
 
 	/**
@@ -286,8 +288,9 @@ public class Team {
 	 *         exist in the array)
 	 */
 	public Match removeUpcomingMatch(Match m) {
-		// TODO
-		return null;
+		if (upcomingMatches == null || !upcomingMatches.remove(m))
+			return null;
+		return m;
 	}
 
 	public String toString() {
