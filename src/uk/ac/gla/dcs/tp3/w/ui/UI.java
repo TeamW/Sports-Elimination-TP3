@@ -3,6 +3,8 @@ package uk.ac.gla.dcs.tp3.w.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 /**
@@ -117,39 +119,62 @@ public class UI extends JFrame {
 	
 	private void initRadioButtons(JPanel radioPanel)
 	{
-		JRadioButton rButton1 = new JRadioButton("National");
-	     rButton1.setSelected(true);
-	     radioPanel.add(rButton1);
-	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
-	     
-	     JRadioButton rButton2 = new JRadioButton("American");
-	     radioPanel.add(rButton2);
-	     radioPanel.add(Box.createRigidArea(new Dimension(240,0)));
-	     
-	     JRadioButton rButton3 = new JRadioButton("West");
-	     radioPanel.add(rButton3);
-	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
-	     
-	     JRadioButton rButton4 = new JRadioButton("Central");
-	     rButton4.setSelected(true);
-	     radioPanel.add(rButton4);
-	     radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
-	     
-	     JRadioButton rButton5 = new JRadioButton("East");
-	     rButton5.setSelected(true);
-	     radioPanel.add(rButton5);
-	     radioPanel.add(Box.createRigidArea(new Dimension(34,0)));
-	     
-	     //set up the quit button and other radio buttons
-	     JButton quitButton = new JButton("Quit");
-	     quitButton.setToolTipText("Click here to exit");
-	     quitButton.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent event) {
-	             System.exit(0);
+		//button change listener
+		ActionListener radioListener = new ActionListener() 
+		{
+	         public void actionPerformed(ActionEvent event) 
+	         {
+	             System.out.println("Listener 1 activated");
 	        }
-	     });
-	     radioPanel.add(Box.createRigidArea(new Dimension(50,0)));
-	     radioPanel.add(quitButton);
+		};
+		
+		//radio button groups
+		ButtonGroup leagueGroup = new ButtonGroup();
+		ButtonGroup divisionGroup = new ButtonGroup();
+		
+		//now set up each button and add it to the group
+		JRadioButton rButton1 = new JRadioButton("National");
+		rButton1.setSelected(true);
+		leagueGroup.add(rButton1);
+		radioPanel.add(rButton1);
+		rButton1.addActionListener(radioListener);
+		radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
+
+		JRadioButton rButton2 = new JRadioButton("American");
+		rButton2.addActionListener(radioListener);
+		leagueGroup.add(rButton2);
+		radioPanel.add(rButton2);
+		radioPanel.add(Box.createRigidArea(new Dimension(240,0)));
+
+		JRadioButton rButton3 = new JRadioButton("West");
+		rButton3.setSelected(true);
+		rButton3.addActionListener(radioListener);
+		divisionGroup.add(rButton3);
+		radioPanel.add(rButton3);
+		radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
+
+		JRadioButton rButton4 = new JRadioButton("Central");
+		divisionGroup.add(rButton4);
+		rButton4.addActionListener(radioListener);
+		radioPanel.add(rButton4);
+		radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
+
+		JRadioButton rButton5 = new JRadioButton("East");
+		divisionGroup.add(rButton5);
+		rButton5.addActionListener(radioListener);
+		radioPanel.add(rButton5);
+		radioPanel.add(Box.createRigidArea(new Dimension(34,0)));
+
+		//set up the quit button
+		JButton quitButton = new JButton("Quit");
+		quitButton.setToolTipText("Click here to exit");
+		quitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}
+		});
+		radioPanel.add(Box.createRigidArea(new Dimension(50,0)));
+		radioPanel.add(quitButton);
 	}
 
 }
