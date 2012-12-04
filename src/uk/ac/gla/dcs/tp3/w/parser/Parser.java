@@ -12,94 +12,68 @@ import uk.ac.gla.dcs.tp3.w.league.*;
  * 
  */
 public class Parser {
-	
-	Division nationalEast = new Division();				
-	Division nationalCentral = new Division();				
+
+	Division nationalEast = new Division();
+	Division nationalCentral = new Division();
 	Division nationalWest = new Division();
-	
+
 	Division americanEast = new Division();
 	Division americanCentral = new Division();
-	Division americanWest = new Division();	
-
+	Division americanWest = new Division();
 
 	public Division getNationalEast() {
 		return nationalEast;
 	}
 
-
-
 	public void setNationalEast(Division nationalEast) {
 		this.nationalEast = nationalEast;
 	}
-
-
 
 	public Division getNationalCentral() {
 		return nationalCentral;
 	}
 
-
-
 	public void setNationalCentral(Division nationalCentral) {
 		this.nationalCentral = nationalCentral;
 	}
-
-
 
 	public Division getNationalWest() {
 		return nationalWest;
 	}
 
-
-
 	public void setNationalWest(Division nationalWest) {
 		this.nationalWest = nationalWest;
 	}
-
-
 
 	public Division getAmericanEast() {
 		return americanEast;
 	}
 
-
-
 	public void setAmericanEast(Division americanEast) {
 		this.americanEast = americanEast;
 	}
-
-
 
 	public Division getAmericanCentral() {
 		return americanCentral;
 	}
 
-
-
 	public void setAmericanCentral(Division americanCentral) {
 		this.americanCentral = americanCentral;
 	}
-
-
 
 	public Division getAmericanWest() {
 		return americanWest;
 	}
 
-
-
 	public void setAmericanWest(Division americanWest) {
 		this.americanWest = americanWest;
 	}
 
-
-
-	public Parser(File f ){	
-
-		//public static void main(String[] args) {
-		// ArrayList<Division> leagueEachDay = new ArrayList<Division>(); //array of
+	public Parser(File f) {
+		// ArrayList<Division> leagueEachDay = new ArrayList<Division>();
+		// //array of
 		// days in season each with seperate state
-		Division theLeague = new Division();   //-- edit
+		Division theLeague = new Division(); // -- edit
 
 		boolean postponedCheck = false;
 		String thisLine = "", date = "";
@@ -108,14 +82,12 @@ public class Parser {
 		int score1 = 0, score2 = 0;
 
 		File source = f;
-		//File source = new File(System.getProperty("user.dir")
-		//+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+		// File source = new File(System.getProperty("user.dir")
+		// + "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
 
 		try {
 			fileScanner = new Scanner(source); // scan over file object
 			thisLine = fileScanner.nextLine();
-
-
 
 			// leagueEachDay.add(new Division()); //date emulation (adding a day
 			// and manipulating it's state below)
@@ -134,7 +106,6 @@ public class Parser {
 
 				/** Checking to see if we're on the same day */
 
-
 				thisLine = fileScanner.nextLine(); // get each line one at a
 				// time(within a day)
 				if (thisLine.isEmpty()) {
@@ -147,9 +118,10 @@ public class Parser {
 				String time = "", team1Name = "", team2Name = "", scoreOne = "", scoreTwo = "";
 				time = lineScanner.next(); // store time
 				boolean hyphenCheck = false, atScore2 = false;
-				
-				// loop through characters in the line starting at first team name
-				for (int i = 6; i < thisLine.length(); i++) { 
+
+				// loop through characters in the line starting at first team
+				// name
+				for (int i = 6; i < thisLine.length(); i++) {
 					char c = thisLine.charAt(i);
 
 					// time here
@@ -158,11 +130,12 @@ public class Parser {
 					if (c != '-' && hyphenCheck == false) {
 						team1Name += c;
 					}
-					// check and add char to team 2's name if past hyphen in source
+					// check and add char to team 2's name if past hyphen in
+					// source
 					if (hyphenCheck
 							&& (c != '0' && c != '1' && c != '2' && c != '3'
-							&& c != '4' && c != '5' && c != '6'
-							&& c != '7' && c != '8' && c != '9')
+									&& c != '4' && c != '5' && c != '6'
+									&& c != '7' && c != '8' && c != '9')
 							&& c != '\t' && c != ':' && c != '$') {
 						team2Name += c;
 					}
@@ -192,12 +165,11 @@ public class Parser {
 					}
 				}
 
-
 				// creating 2 temporary
 				// team objects
 				// to store
 				// parsed info
-				Team t1 = new Team(removeSpaces(team1Name)); 
+				Team t1 = new Team(removeSpaces(team1Name));
 				Team t2 = new Team(removeSpaces(team2Name)); // handle null
 				// pointer error
 
@@ -268,33 +240,29 @@ public class Parser {
 						break;
 					}
 				}
-				
 
-							
-				
-		
-			}//end of while loop 
-			
-			//check file has been parsed properly 
-			//System.out.println(theLeague);
-			
-			//split up theLeague into 6 smaller divisions 				
-			
-			for (int x = 0 ;x < theLeague.getTeams().size(); x++){					
-				
+			}// end of while loop
+
+			// check file has been parsed properly
+			// System.out.println(theLeague);
+
+			// split up theLeague into 6 smaller divisions
+
+			for (int x = 0; x < theLeague.getTeams().size(); x++) {
+
 				String tt = removeSpaces(theLeague.getTeams().get(x).getName());
-				
+
 				String t = tt.trim();
-				
+
 				Team testT = theLeague.getTeams().get(x);
-				
-				
+
 				// Set American Division : East
 				if (t.equalsIgnoreCase("Baltimore Orioles")
 						|| t.equalsIgnoreCase("Boston Red Sox")
 						|| t.equalsIgnoreCase("New York Yankees")
 						|| t.equalsIgnoreCase("Tampa Bay Rays")
-						|| t.equalsIgnoreCase("Toronto Blue Jays") && !americanEast.isMember(testT) ) {
+						|| t.equalsIgnoreCase("Toronto Blue Jays")
+						&& !americanEast.isMember(testT)) {
 					americanEast.addTeam(testT);
 				}
 
@@ -302,8 +270,9 @@ public class Parser {
 				if ((t.equalsIgnoreCase("Chicago White Sox")
 						|| t.equalsIgnoreCase("Cleveland Indians")
 						|| t.equalsIgnoreCase("Detroit Tigers")
-						|| t.equalsIgnoreCase("Kansas City Royals")
-						|| t.equalsIgnoreCase("Minnesota Twins")) && !americanCentral.isMember(testT)) {
+						|| t.equalsIgnoreCase("Kansas City Royals") || t
+							.equalsIgnoreCase("Minnesota Twins"))
+						&& !americanCentral.isMember(testT)) {
 					americanCentral.addTeam(testT);
 				}
 
@@ -311,8 +280,9 @@ public class Parser {
 				if ((t.equalsIgnoreCase("Seattle Mariners")
 						|| t.equalsIgnoreCase("Texas Rangers")
 						|| t.equalsIgnoreCase("Houston Astros")
-						|| t.equalsIgnoreCase("Los Angeles Angels")
-						|| t.equalsIgnoreCase("Oakland Athletics")) && !americanWest.isMember(testT)) {
+						|| t.equalsIgnoreCase("Los Angeles Angels") || t
+							.equalsIgnoreCase("Oakland Athletics"))
+						&& !americanWest.isMember(testT)) {
 					americanWest.addTeam(testT);
 				}
 
@@ -320,8 +290,9 @@ public class Parser {
 				if ((t.equalsIgnoreCase("Atlanta Braves")
 						|| t.equalsIgnoreCase("Miami Marlins")
 						|| t.equalsIgnoreCase("New York Mets")
-						|| t.equalsIgnoreCase("Philadelphia Phillies")
-						|| t.equalsIgnoreCase("Washington Nationals")) && !nationalEast.isMember(testT)) {
+						|| t.equalsIgnoreCase("Philadelphia Phillies") || t
+							.equalsIgnoreCase("Washington Nationals"))
+						&& !nationalEast.isMember(testT)) {
 					nationalEast.addTeam(testT);
 				}
 
@@ -329,8 +300,9 @@ public class Parser {
 				if ((t.equalsIgnoreCase("Chicago Cubs")
 						|| t.equalsIgnoreCase("Cincinnati Reds")
 						|| t.equalsIgnoreCase("Milwaukee Brewers")
-						|| t.equalsIgnoreCase("Pittsburgh Pirates")
-						|| t.equalsIgnoreCase("St.Louis Cardinals") ) && !nationalCentral.isMember(testT) ) {
+						|| t.equalsIgnoreCase("Pittsburgh Pirates") || t
+							.equalsIgnoreCase("St.Louis Cardinals"))
+						&& !nationalCentral.isMember(testT)) {
 					nationalCentral.addTeam(testT);
 				}
 
@@ -338,48 +310,30 @@ public class Parser {
 				if ((t.equalsIgnoreCase("Arizona Diamondbacks")
 						|| t.equalsIgnoreCase("Colorado Rockies")
 						|| t.equalsIgnoreCase("San Francisco Giants")
-						|| t.equalsIgnoreCase("Los Angeles Dodgers")
-						|| t.equalsIgnoreCase("San Diego Padres")) && !nationalWest.isMember(testT)) {
+						|| t.equalsIgnoreCase("Los Angeles Dodgers") || t
+							.equalsIgnoreCase("San Diego Padres"))
+						&& !nationalWest.isMember(testT)) {
 					nationalWest.addTeam(testT);
 				}
-				
-				//System.out.println(americanEast);
-				//System.out.println(americanCentral);
-				//System.out.println(americanWest);
-				
-				//System.out.println(nationalEast);
-				//System.out.println(nationalCentral);
-				//System.out.println(nationalWest);
-				
-				
-				
+
+				// System.out.println(americanEast);
+				// System.out.println(americanCentral);
+				// System.out.println(americanWest);
+
+				// System.out.println(nationalEast);
+				// System.out.println(nationalCentral);
+				// System.out.println(nationalWest);
+
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("Wrong filename");
 		}
-	}// added for constructor 	
+	}// added for constructor
 
-	
 	public String toString() {
-		return String.format("%s", nationalEast,nationalCentral,nationalWest);
+		return String.format("%s", nationalEast, nationalCentral, nationalWest);
 	}
-	
-
 
 	/** used to remove any leading/trailing spaces randomly in the file */
 	public static String removeSpaces(String name) {
