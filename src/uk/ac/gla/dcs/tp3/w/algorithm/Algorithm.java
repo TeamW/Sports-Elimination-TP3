@@ -133,7 +133,7 @@ public class Algorithm {
 			}
 			current = next;
 		}
-		if (capacity < 0)
+		if (capacity <= 0)
 			return null;
 		// If the sink does not have a predecessor (defined as -1)
 		// then there is no residual path.
