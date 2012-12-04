@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w.ui;
 
-import uk.ac.gla.dcs.tp3.w.Main;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 
 import java.awt.BorderLayout;
@@ -84,8 +83,6 @@ public class UI extends JFrame {
                 "Points",
                 "Games Played",
                 "Is Eliminated"};
-
-	     //String[][] data = new String[division.getTeams().size()][columnNames.length];
 
 	     boolean check = false;
 	     if(league.equals("National"))
