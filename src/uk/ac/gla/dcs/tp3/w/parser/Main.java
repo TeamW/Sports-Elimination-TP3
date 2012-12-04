@@ -17,9 +17,7 @@ public class Main {
 		try {
 			File source = new File(System.getProperty("user.dir")
 					+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
-
 			p = new Parser(source);
-
 		} catch (Exception e) {
 			System.out.println("Wrong filename");
 		}
