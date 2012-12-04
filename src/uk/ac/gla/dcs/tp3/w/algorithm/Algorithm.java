@@ -67,9 +67,8 @@ public class Algorithm {
 		// graph.
 		while ((path = residualPath(residual)) != null) {
 			cap -= path.getCapacity();
-			if (true) // change to verbose after fixing
+			if (verbose){ // change to verbose after fixing
 				System.out.println("Additional flow: " + path.getCapacity());
-			if (true) { // change to verbose after fixing
 				System.out.print("Path found: ");
 				for (int i : path.getPath()) {
 					System.out.print(i + " ");
@@ -153,12 +152,15 @@ public class Algorithm {
 		// If the sink does not have a predecessor (defined as -1)
 		// then there is no residual path.
 		int[] path = new int[backPath.size()];
-		System.out.print("Pop stack of size " + path.length +": ");
+		if (verbose)
+			System.out.print("Pop stack of size " + path.length +": ");
 		for (int i = 0; i < path.length; i++) {
 			path[i] = backPath.pop();
-			System.out.print(path[i] + " ");
+			if(verbose)
+				System.out.print(path[i] + " ");
 		}
-		System.out.println();
+		if(verbose)
+			System.out.println();
 		return path.length == 1 ? null : new Path(path, capacity);
 	}
 
