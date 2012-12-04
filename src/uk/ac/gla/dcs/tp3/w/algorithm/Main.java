@@ -33,7 +33,7 @@ public class Main {
 
 		Team montreal = new Team();
 		montreal.setName("Montreal");
-		montreal.setGamesPlayed(170 - 7);
+		montreal.setGamesPlayed(170 - 5);
 		montreal.setPoints(76);
 
 		ArrayList<Match> atlantaMatches = new ArrayList<Match>();
@@ -57,6 +57,7 @@ public class Main {
 			newYorkMatches.add(atlVny);
 			allMatches.add(atlVny);
 		}
+		
 
 		Match atlVmon = new Match();
 		atlVmon.setHomeTeam(atlanta);
@@ -94,7 +95,7 @@ public class Main {
 		teams.add(montreal);
 
 		Division d = new Division(teams, allMatches);
-
+		/*
 		Graph g = new Graph(d, philadelphia);
 		System.out.println("Initial graph output from here.\n\n\n");
 		LinkedList<AdjListNode> list = g.getSource().getAdjList();
@@ -162,6 +163,7 @@ public class Main {
 						+ n.getFlow());
 			}
 		}
+		*/
 		System.out.println();
 		Algorithm test = new Algorithm(d);
 		//test.setVerbose();

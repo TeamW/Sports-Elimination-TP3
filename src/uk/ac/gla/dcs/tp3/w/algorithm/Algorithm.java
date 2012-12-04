@@ -52,13 +52,15 @@ public class Algorithm {
 				n.setFlow(0);
 			}
 		}
-		ResidualGraph residual = new ResidualGraph(g);
 		int cap = 0;
-		int[][] matrix = residual.getMatrix();
-		for (int weight : matrix[0]) {
-			cap += weight;
+		Vertex v = g.getSource();
+		for (AdjListNode a: v.getAdjList()){
+			if(verbose)
+				System.out.println(a.getCapacity());
+			cap += a.getCapacity();
 		}
-		if (true) // change to verbose after fixing
+		ResidualGraph residual = new ResidualGraph(g);
+		if (verbose)
 			System.out.println("Need flow: " + cap);
 		Path path;
 		// While there is a path p from the source to the sink in the residual
@@ -98,7 +100,7 @@ public class Algorithm {
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
 			if (verbose)
-				System.out.println("New Residual Graph Created");
+				System.out.println("New Residual Graph Created\n");
 
 		}
 		if (verbose)
@@ -151,8 +153,8 @@ public class Algorithm {
 		// If the sink does not have a predecessor (defined as -1)
 		// then there is no residual path.
 		int[] path = new int[backPath.size()];
-		System.out.print("Pop stack: ");
-		for (int i = 0; i < backPath.size(); i++) {
+		System.out.print("Pop stack of size " + path.length +": ");
+		for (int i = 0; i < path.length; i++) {
 			path[i] = backPath.pop();
 			System.out.print(path[i] + " ");
 		}
