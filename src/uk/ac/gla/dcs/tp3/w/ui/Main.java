@@ -36,6 +36,7 @@ public class Main {
 		atlanta.setName("Atlanta");
 		atlanta.setGamesPlayed(170 - 8);
 		atlanta.setPoints(83);
+		atlanta.setNational(true);
 
 		Team philadelphia = new Team();
 		philadelphia.setName("Philadelphia");
@@ -46,6 +47,7 @@ public class Main {
 		newYork.setName("New York");
 		newYork.setGamesPlayed(170 - 7);
 		newYork.setPoints(78);
+		newYork.setNational(false);
 
 		Team montreal = new Team();
 		montreal.setName("Montreal");

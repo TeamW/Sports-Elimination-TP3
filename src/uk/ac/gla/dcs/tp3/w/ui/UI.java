@@ -6,6 +6,7 @@ import uk.ac.gla.dcs.tp3.w.league.Division;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.util.Enumeration;
 
 import javax.swing.*;
 
@@ -16,12 +17,16 @@ import javax.swing.*;
 public class UI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+	JTable table;
+	final Division division;
+	String[][] data;
+	
 	public UI(Division d) {
-        initUI(d);
+		division = d;
+        initUI();
     }
 	
-	public final void initUI(Division d) {
+	public final void initUI() {
 		 //full screen panel
 		 JPanel screenPanel = new JPanel();
 		 getContentPane().add(screenPanel);
@@ -49,7 +54,7 @@ public class UI extends JFrame {
 	     screenPanel.add(navPanel, BorderLayout.PAGE_END);
 	     
 	     //set up table
-	     initTable(tablePanel, d);
+	     initTable(tablePanel);
 
 	     //NAV panel buttons
 	     initNavPanel(navPanel);
@@ -65,32 +70,99 @@ public class UI extends JFrame {
 	     setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	private void initTable(JPanel tablePanel, Division d)
+	private void setTableByLeague(ButtonGroup group){
+		String league = "";
+		
+	    for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
+	    	AbstractButton button = buttons.nextElement();
+	        if (button.isSelected()) {
+	        	league = button.getText();
+	        }
+	    }
+	            
+		System.out.println("League as: " +league);
+		String[] columnNames = {"Team",
+                "Points",
+                "Games Played",
+                "Is Eliminated"};
+
+	     //String[][] data = new String[division.getTeams().size()][columnNames.length];
+
+	     boolean check = false;
+	     if(league.equals("National"))
+	    	 check = true;
+	     
+	     for(int i = 0; i < division.getTeams().size(); i++){
+    			 for(int j = 0; j < columnNames.length; j++){
+    				 table.getModel().setValueAt("", i, j);
+    		 }
+         }
+	     
+	     int rowCounter = 0;
+	     if(division != null){
+	    	 for(int i = 0; i < division.getTeams().size(); i++){
+	    		 if(division.getTeams().get(i).isNational() == check){
+	    			 for(int j = 0; j < columnNames.length; j++){
+	    				 System.out.println("Trying column "  + j + " and row " + i);
+	    				 switch(j){
+	    		 			case(0):{
+	    		 				//data[i][j] = division.getTeams().get(i).getName();
+	    		 				data[rowCounter][j] = division.getTeams().get(i).getName();
+	    		 				break;
+	    		 			}
+	    		 			case(1):{
+	    		 				//data[i][j] = String.valueOf(division.getTeams().get(i).getPoints());
+	    		 				data[rowCounter][j] = String.valueOf(division.getTeams().get(i).getPoints());
+	    		 				break;
+	    		 			}
+	    		 			case(2):{
+	    		 				data[rowCounter][j] = String.valueOf(division.getTeams().get(i).getGamesPlayed());
+	    		 				
+	    		 				break;
+	    		 			}
+	    		 			case(3):{
+	    		 				data[rowCounter][j] = String.valueOf(division.getTeams().get(i).isEliminated());
+	  
+	    		 				break;
+	    		 			}
+	    				 }
+	    			 }
+	    			 rowCounter++;
+	    		 }
+	    	 }
+	    	 System.out.println("Creating new table ");
+	    	 //table = new JTable(data, columnNames);
+	    	 //table.repaint();
+	    	 //table.getModel().setValueAt(aValue, rowIndex, columnIndex)
+	     }
+	}
+	
+	private void initTable(JPanel tablePanel)
 	{
 		String[] columnNames = {"Team",
                 "Points",
                 "Games Played",
                 "Is Eliminated"};
 
-	     String[][] data = new String[d.getTeams().size()][columnNames.length];
+	     data = new String[division.getTeams().size()][columnNames.length];
 	     
-	     for(int i = 0; i < d.getTeams().size(); i++){
+	     for(int i = 0; i < division.getTeams().size(); i++){
 	    	 for(int j = 0; j < columnNames.length; j++){
 	    		 switch(j){
 	    		 	case(0):{
-	    		 		data[i][j] = d.getTeams().get(i).getName();
+	    		 		data[i][j] = division.getTeams().get(i).getName();
 	    		 		break;
 	    		 	}
 	    		 	case(1):{
-	    		 		data[i][j] = String.valueOf(d.getTeams().get(i).getPoints());
+	    		 		data[i][j] = String.valueOf(division.getTeams().get(i).getPoints());
 	    		 		break;
 	    		 	}
 	    		 	case(2):{
-	    		 		data[i][j] = String.valueOf(d.getTeams().get(i).getGamesPlayed());
+	    		 		data[i][j] = String.valueOf(division.getTeams().get(i).getGamesPlayed());
 	    		 		break;
 	    		 	}
 	    		 	case(3):{
-	    		 		data[i][j] = String.valueOf(d.getTeams().get(i).isEliminated());
+	    		 		data[i][j] = String.valueOf(division.getTeams().get(i).isEliminated());
 	    		 		break;
 	    		 	}
 	    		 }
@@ -98,8 +170,9 @@ public class UI extends JFrame {
 	    	 }
 	     }
 
-	     final JTable table = new JTable(data, columnNames);
+	     table = new JTable(data, columnNames);
 	     table.setFillsViewportHeight(true);
+	     table.setAutoCreateRowSorter(true);
 	     
 	     //Create the scroll pane and add the table to it.
 	     JScrollPane scrollPane = new JScrollPane(table);
@@ -132,12 +205,16 @@ public class UI extends JFrame {
 	
 	private void initRadioButtons(JPanel radioPanel)
 	{
+		//radio button groups
+		final ButtonGroup leagueGroup = new ButtonGroup();
+		final ButtonGroup divisionGroup = new ButtonGroup();
+		
 		//button change listeners
 		ActionListener leagueListener = new ActionListener() {
 	         public void actionPerformed(ActionEvent event) 
 	         {
 	        	 //filter by league
-	        	 
+	        	 setTableByLeague(leagueGroup);
 	        }
 		};
 		ActionListener divisionListener = new ActionListener() {
@@ -146,11 +223,7 @@ public class UI extends JFrame {
 	        	 System.out.println("Changed the division");
 	        }
 		};
-		
-		//radio button groups
-		ButtonGroup leagueGroup = new ButtonGroup();
-		ButtonGroup divisionGroup = new ButtonGroup();
-		
+
 		//now set up each button and add it to the group
 		JRadioButton rButton1 = new JRadioButton("National");
 		rButton1.setSelected(true);
@@ -194,6 +267,8 @@ public class UI extends JFrame {
 		});
 		radioPanel.add(Box.createRigidArea(new Dimension(50,0)));
 		radioPanel.add(quitButton);
+		
+		
 	}
 
 }
