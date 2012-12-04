@@ -1,9 +1,11 @@
 package uk.ac.gla.dcs.tp3.w.ui;
 
+import uk.ac.gla.dcs.tp3.w.Main;
+import uk.ac.gla.dcs.tp3.w.league.Division;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -15,11 +17,11 @@ public class UI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public UI() {
-        initUI();
+	public UI(Division d) {
+        initUI(d);
     }
 	
-	public final void initUI() {
+	public final void initUI(Division d) {
 		 //full screen panel
 		 JPanel screenPanel = new JPanel();
 		 getContentPane().add(screenPanel);
@@ -47,7 +49,7 @@ public class UI extends JFrame {
 	     screenPanel.add(navPanel, BorderLayout.PAGE_END);
 	     
 	     //set up table
-	     initTable(tablePanel);
+	     initTable(tablePanel, d);
 
 	     //NAV panel buttons
 	     initNavPanel(navPanel);
@@ -63,29 +65,40 @@ public class UI extends JFrame {
 	     setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	private void initTable(JPanel tablePanel)
+	private void initTable(JPanel tablePanel, Division d)
 	{
 		String[] columnNames = {"Team",
-                "Winning %",
-                "Wins",
-                "Losses",
+                "Points",
+                "Games Played",
                 "Is Eliminated"};
 
-	     Object[][] data = {
-	    		 {"Kathy", "Smith",
-	    			 "Snowboarding", new Integer(5), new Boolean(false)},
-	    			 {"John", "Doe",
-	    				 "Rowing", new Integer(3), new Boolean(true)},
-	    				 {"Sue", "Black",
-	    					 "Knitting", new Integer(2), new Boolean(false)},
-	    					 {"Jane", "White",
-	    						 "Speed reading", new Integer(20), new Boolean(true)},
-	    						 {"Joe", "Brown",
-	    							 "Pool", new Integer(10), new Boolean(false)}
-	     };
+	     String[][] data = new String[d.getTeams().size()][columnNames.length];
+	     
+	     for(int i = 0; i < d.getTeams().size(); i++){
+	    	 for(int j = 0; j < columnNames.length; j++){
+	    		 switch(j){
+	    		 	case(0):{
+	    		 		data[i][j] = d.getTeams().get(i).getName();
+	    		 		break;
+	    		 	}
+	    		 	case(1):{
+	    		 		data[i][j] = String.valueOf(d.getTeams().get(i).getPoints());
+	    		 		break;
+	    		 	}
+	    		 	case(2):{
+	    		 		data[i][j] = String.valueOf(d.getTeams().get(i).getGamesPlayed());
+	    		 		break;
+	    		 	}
+	    		 	case(3):{
+	    		 		data[i][j] = String.valueOf(d.getTeams().get(i).isEliminated());
+	    		 		break;
+	    		 	}
+	    		 }
+	 
+	    	 }
+	     }
 
 	     final JTable table = new JTable(data, columnNames);
-	     //table.setPreferredScrollableViewportSize(new Dimension(500, 400));
 	     table.setFillsViewportHeight(true);
 	     
 	     //Create the scroll pane and add the table to it.
@@ -119,12 +132,18 @@ public class UI extends JFrame {
 	
 	private void initRadioButtons(JPanel radioPanel)
 	{
-		//button change listener
-		ActionListener radioListener = new ActionListener() 
-		{
+		//button change listeners
+		ActionListener leagueListener = new ActionListener() {
 	         public void actionPerformed(ActionEvent event) 
 	         {
-	             System.out.println("Listener 1 activated");
+	        	 //filter by league
+	        	 
+	        }
+		};
+		ActionListener divisionListener = new ActionListener() {
+	         public void actionPerformed(ActionEvent event) 
+	         {
+	        	 System.out.println("Changed the division");
 	        }
 		};
 		
@@ -137,31 +156,31 @@ public class UI extends JFrame {
 		rButton1.setSelected(true);
 		leagueGroup.add(rButton1);
 		radioPanel.add(rButton1);
-		rButton1.addActionListener(radioListener);
+		rButton1.addActionListener(leagueListener);
 		radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
 		JRadioButton rButton2 = new JRadioButton("American");
-		rButton2.addActionListener(radioListener);
+		rButton2.addActionListener(leagueListener);
 		leagueGroup.add(rButton2);
 		radioPanel.add(rButton2);
 		radioPanel.add(Box.createRigidArea(new Dimension(240,0)));
 
 		JRadioButton rButton3 = new JRadioButton("West");
 		rButton3.setSelected(true);
-		rButton3.addActionListener(radioListener);
+		rButton3.addActionListener(divisionListener);
 		divisionGroup.add(rButton3);
 		radioPanel.add(rButton3);
 		radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
 		JRadioButton rButton4 = new JRadioButton("Central");
 		divisionGroup.add(rButton4);
-		rButton4.addActionListener(radioListener);
+		rButton4.addActionListener(divisionListener);
 		radioPanel.add(rButton4);
 		radioPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
 		JRadioButton rButton5 = new JRadioButton("East");
 		divisionGroup.add(rButton5);
-		rButton5.addActionListener(radioListener);
+		rButton5.addActionListener(divisionListener);
 		radioPanel.add(rButton5);
 		radioPanel.add(Box.createRigidArea(new Dimension(34,0)));
 
