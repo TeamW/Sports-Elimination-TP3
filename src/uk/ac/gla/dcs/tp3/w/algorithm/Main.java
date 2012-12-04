@@ -1,10 +1,10 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-import uk.ac.gla.dcs.tp3.w.league.*;
-import uk.ac.gla.dcs.tp3.w.algorithm.Graph;
+import uk.ac.gla.dcs.tp3.w.league.Division;
+import uk.ac.gla.dcs.tp3.w.league.Match;
+import uk.ac.gla.dcs.tp3.w.league.Team;
 
 /**
  * @author gordon
@@ -57,7 +57,6 @@ public class Main {
 			newYorkMatches.add(atlVny);
 			allMatches.add(atlVny);
 		}
-		
 
 		Match atlVmon = new Match();
 		atlVmon.setHomeTeam(atlanta);
@@ -95,83 +94,16 @@ public class Main {
 		teams.add(montreal);
 
 		Division d = new Division(teams, allMatches);
-		/*
-		Graph g = new Graph(d, philadelphia);
-		System.out.println("Initial graph output from here.\n\n\n");
-		LinkedList<AdjListNode> list = g.getSource().getAdjList();
-		for (AdjListNode n : list) {
-			PairVertex v = (PairVertex) n.getVertex();
-			System.out.println("Source to " + v.getTeamA().getName() + " and "
-					+ v.getTeamB().getName() + " has capacity "
-					+ n.getCapacity());
-			for (AdjListNode m : v.getAdjList()) {
-				TeamVertex w = (TeamVertex) m.getVertex();
-				System.out.println("\t Pair Vertex to " + w.getTeam().getName()
-						+ " has capacity " + n.getCapacity());
-				for (AdjListNode b : w.getAdjList()) {
-					Vertex x = b.getVertex();
-					if (x != g.getSink()) {
-						System.out.println("Not adjacent to sink.");
-					}
-					System.out.println("\t\t Team vertex "
-							+ w.getTeam().getName() + " to sink has capacity "
-							+ b.getCapacity());
-				}
-			}
-		}
-		System.out.println("\n\n\nBFS output from here.\n\n\n");
-		g.bfs();
-		for (Vertex v : g.getV()) {
-			Vertex pred = g.getV()[v.getPredecessor()];
-			if (v instanceof TeamVertex) {
-				TeamVertex tv = (TeamVertex) v;
-				System.out.print("\"" + tv.getTeam().getName()
-						+ "\" has predecessor ");
-			} else if (v instanceof PairVertex) {
-				PairVertex pv = (PairVertex) v;
-				System.out.print("\"" + pv.getTeamA().getName() + " and "
-						+ pv.getTeamB().getName() + "\" has predecessor ");
-			} else {
-				System.out.print("\"" + v.getIndex() + "\" has predecessor ");
-			}
-			if (pred instanceof TeamVertex) {
-				TeamVertex tv = (TeamVertex) pred;
-				System.out.print("\"" + tv.getTeam().getName() + "\"");
-			} else if (pred instanceof PairVertex) {
-				PairVertex pv = (PairVertex) pred;
-				System.out.print("\"" + pv.getTeamA().getName() + " and "
-						+ pv.getTeamB().getName() + "\"");
-			} else {
-				System.out.print("\"" + pred.getIndex() + "\"");
-			}
-			System.out.println();
-		}
-		System.out.println("\n\n\nResidual graph output from here.\n\n\n");
-		ResidualGraph rG = new ResidualGraph(g);
-		for (Vertex v : rG.getV()) {
-			list = v.getAdjList();
-			System.out.println(list.size()
-					+ " nodes in adjacency list for vertex " + v.getIndex());
-		}
-		list = rG.getV()[0].getAdjList();
-		for (Vertex v : rG.getV()) {
-			list = v.getAdjList();
-			for (AdjListNode n : list) {
-				System.out.println("Vertex " + v.getIndex()
-						+ " is adjacent to: " + n.getVertex().getIndex()
-						+ " with capacity " + n.getCapacity() + " and flow "
-						+ n.getFlow());
-			}
-		}
-		System.out.println();
-		*/
 		Algorithm test = new Algorithm(d);
-		//test.setVerbose();
-		for (Team t: teams) {
-			if(test.isEliminated(t)) {
+
+		// test.setVerbose();
+
+		for (Team t : teams) {
+			if (test.isEliminated(t)) {
 				System.out.println(t.getName() + " is eliminated.");
 			} else {
-				System.out.println(t.getName() + " still has a chance of winning.");
+				System.out.println(t.getName()
+						+ " still has a chance of winning.");
 			}
 		}
 	}

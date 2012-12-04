@@ -7,15 +7,10 @@ import java.util.LinkedList;
  */
 public class Vertex {
 
-	private LinkedList<AdjListNode> adjList; // the adjacency list of the vertex
-	private int index; // the index of the vertex
-
-	// possibly other fields, for example representing data
-	// stored at the node, whether the vertex has been visited
-	// in a traversal, its predecessor in such a traversal, etc.
-
-	boolean visited; // whether vertex has been visited in a traversal
-	int predecessor; // index of predecessor vertex in a traversal
+	private LinkedList<AdjListNode> adjList;
+	private int index;
+	boolean visited;
+	int predecessor;
 
 	public Vertex() {
 		this(0);

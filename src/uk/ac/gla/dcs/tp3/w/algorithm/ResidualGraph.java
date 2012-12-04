@@ -12,9 +12,8 @@ public class ResidualGraph extends Graph {
 		setSource(vertices[0]);
 		setSink(vertices[vertices.length - 1]);
 		// Create a fresh adjacency list representation
-		for (Vertex v : vertices) {
+		for (Vertex v : vertices)
 			v.setAdjList(new LinkedList<AdjListNode>());
-		}
 		// Create backwards and forwards edges
 		for (int i = 0; i < vertices.length; i++) {
 			Vertex original = g.getV()[i];

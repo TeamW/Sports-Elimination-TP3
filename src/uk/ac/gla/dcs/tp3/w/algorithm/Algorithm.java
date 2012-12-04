@@ -47,15 +47,13 @@ public class Algorithm {
 	private boolean fordFulkerson(Team t) {
 		g = new Graph(d, t);
 		// For each edge in the graph g, set the flow to be 0.
-		for (Vertex v : g.getV()) {
-			for (AdjListNode n : v.getAdjList()) {
+		for (Vertex v : g.getV())
+			for (AdjListNode n : v.getAdjList())
 				n.setFlow(0);
-			}
-		}
 		int cap = 0;
 		Vertex v = g.getSource();
-		for (AdjListNode a: v.getAdjList()){
-			if(verbose)
+		for (AdjListNode a : v.getAdjList()) {
+			if (verbose)
 				System.out.println(a.getCapacity());
 			cap += a.getCapacity();
 		}
@@ -67,29 +65,24 @@ public class Algorithm {
 		// graph.
 		while ((path = residualPath(residual)) != null) {
 			cap -= path.getCapacity();
-			if (verbose){ // change to verbose after fixing
+			if (verbose) {
 				System.out.println("Additional flow: " + path.getCapacity());
 				System.out.print("Path found: ");
-				for (int i : path.getPath()) {
+				for (int i : path.getPath())
 					System.out.print(i + " ");
-				}
 				System.out.println();
 			}
 			int[] pathnodes = path.getPath();
 			for (int j = 1; j < pathnodes.length; j++) {
 				int i = j - 1;
 				if (pathnodes[i] < pathnodes[j]) {
-					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList()) {
-						if (a.getVertex().getIndex() == pathnodes[j]) {
+					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList())
+						if (a.getVertex().getIndex() == pathnodes[j])
 							a.setFlow(a.getFlow() + path.getCapacity());
-						}
-					}
 				} else {
-					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList()) {
-						if (a.getVertex().getIndex() == pathnodes[j]) {
+					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList())
+						if (a.getVertex().getIndex() == pathnodes[j])
 							a.setFlow(a.getFlow() - path.getCapacity());
-						}
-					}
 				}
 			}
 			// Find the capacity c of the residual graph
@@ -100,7 +93,6 @@ public class Algorithm {
 			residual = new ResidualGraph(g);
 			if (verbose)
 				System.out.println("New Residual Graph Created\n");
-
 		}
 		if (verbose)
 			System.out.println("Remaining flow to find: " + cap);
@@ -128,38 +120,38 @@ public class Algorithm {
 		int next;
 		int current;
 		int capacity = Integer.MAX_VALUE;
-		if (verbose) {
-			for (Vertex v : g.getV()) {
+		if (verbose)
+			for (Vertex v : g.getV())
 				System.out.println("Vertex " + v.getIndex()
 						+ " has predecessor " + v.getPredecessor());
-			}
-		}
-		for (next = current = g.getSink().getIndex(); next >= 0; next = g
+		for (next = current = g.getSink().getIndex(); next >= 0; current = next, next = g
 				.getV()[next].getPredecessor()) {
-			if (g.getV()[next].getPredecessor() == next && next != 0) {
+			// If we're stuck outside the source, we're finished.
+			if (g.getV()[next].getPredecessor() == next && next != 0)
 				return null;
-			}
+			// Add next node to the path.
 			backPath.add(next);
+			// Ensure current path capacity is at it's lowest possible value
 			if (current != next && matrixrep[next][current] < capacity)
 				capacity = matrixrep[next][current];
-			if (next == 0) {
+			// If we're at the source, the path has been found.
+			if (next == 0)
 				break;
-			}
-			current = next;
 		}
+		// A non-positive capacity means we're finished.
 		if (capacity <= 0)
 			return null;
 		// If the sink does not have a predecessor (defined as -1)
 		// then there is no residual path.
 		int[] path = new int[backPath.size()];
 		if (verbose)
-			System.out.print("Pop stack of size " + path.length +": ");
+			System.out.print("Pop stack of size " + path.length + ": ");
 		for (int i = 0; i < path.length; i++) {
 			path[i] = backPath.pop();
-			if(verbose)
+			if (verbose)
 				System.out.print(path[i] + " ");
 		}
-		if(verbose)
+		if (verbose)
 			System.out.println();
 		return path.length == 1 ? null : new Path(path, capacity);
 	}
