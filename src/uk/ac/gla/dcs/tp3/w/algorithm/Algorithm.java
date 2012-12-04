@@ -151,9 +151,12 @@ public class Algorithm {
 		// If the sink does not have a predecessor (defined as -1)
 		// then there is no residual path.
 		int[] path = new int[backPath.size()];
+		System.out.print("Pop stack: ");
 		for (int i = 0; i < backPath.size(); i++) {
 			path[i] = backPath.pop();
+			System.out.print(path[i] + " ");
 		}
+		System.out.println();
 		return path.length == 1 ? null : new Path(path, capacity);
 	}
 
