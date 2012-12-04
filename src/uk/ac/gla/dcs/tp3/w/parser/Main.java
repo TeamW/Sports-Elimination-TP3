@@ -14,23 +14,23 @@ public class Main {
 		// import the file
 		Parser p = null;
 
-		try {
-			File source = new File(System.getProperty("user.dir")
-					+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+		File source = new File(System.getProperty("user.dir")
+				+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+		if (source.exists()) {
 			p = new Parser(source);
-		} catch (Exception e) {
-			System.out.println("Wrong filename");
+		} else {
+			System.err.println("File not found.");
+			return;
 		}
 
-		// Test to see if Parser is working
-
-		System.out.println(p.getAmericanCentral());
-		System.out.println(p.getAmericanEast());
-		System.out.println(p.getAmericanWest());
-
-		System.out.println(p.getNationalCentral());
-		System.out.println(p.getNationalEast());
-		System.out.println(p.getNationalWest());
+		if (p.isVerbose()) {
+			System.out.println(p.getAmericanCentral());
+			System.out.println(p.getAmericanEast());
+			System.out.println(p.getAmericanWest());
+			System.out.println(p.getNationalCentral());
+			System.out.println(p.getNationalEast());
+			System.out.println(p.getNationalWest());
+		}
 
 		// Create algorithm for division.
 		Algorithm algorithm = new Algorithm(p.getAmericanCentral());
