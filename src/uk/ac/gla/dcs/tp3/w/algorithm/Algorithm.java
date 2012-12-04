@@ -96,9 +96,6 @@ public class Algorithm {
 		}
 		if (verbose)
 			System.out.println("Remaining flow to find: " + cap);
-		// If final flow of graph is saturating, team has not been eliminated,
-		// return false.
-		// Otherwise, team has been eliminated, return true.
 
 		// Extension: Max Flow-Min Cut Theorem.
 		// Overview:
@@ -109,6 +106,10 @@ public class Algorithm {
 		// The team nodes that are in B are the teams responsible for the
 		// elimination of team t. These
 		// teams for the certificate of elimination.
+
+		// If final flow of graph is saturating, team has not been eliminated,
+		// return false.
+		// Otherwise, team has been eliminated, return true.
 		return cap != 0;
 	}
 
@@ -117,9 +118,7 @@ public class Algorithm {
 		g.bfs();
 		Stack<Integer> backPath = new Stack<Integer>();
 		int[][] matrixrep = g.getMatrix();
-		int next;
-		int current;
-		int capacity = Integer.MAX_VALUE;
+		int next, current, capacity = Integer.MAX_VALUE;
 		if (verbose)
 			for (Vertex v : g.getV())
 				System.out.println("Vertex " + v.getIndex()
