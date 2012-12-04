@@ -8,6 +8,7 @@
     James Gallagher: 0800899G\\
     Dr David Manlove: Project Supervisor
 }
+
 \date{December 5, 2012}
 \begin{document}
 \frame{\titlepage}
@@ -32,19 +33,19 @@
   \item<6-> Real world application of Graph Theory.
   \end{itemize}
 }
+
 \frame{
   \frametitle{Algorithm}
   \begin{itemize}
   \item<2-> Revolves around creation of graphs and the flow along them.
-  \item<3-> Currently creates all graphs and passes flow between them. Final
-  bug fixes are currently being coded.
-  \item<4-> Passing flow through the graph will allow us to determine if the
-  given team X can win the league.
+  \item<3-> Currently can create all graphs and pushes flow along a particular graph.
+  \item<4-> Pushing flow through the graph will allow us to determine if the
+  given team X is eliminated from the league.
   \item<5-> A team X can win the league if it is possible for there to be a
   saturating flow. A flow is saturated if the total flow from the source equals
   the total capacity from the source.
-  \item<6-> By definition, everything leaving the source has to arrive at the
-  sink.
+  \item<6-> (By definition, everything leaving the source has to arrive at the
+  sink.)
   \end{itemize}
 }
 \frame{
