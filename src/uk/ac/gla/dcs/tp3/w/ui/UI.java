@@ -64,7 +64,7 @@ public class UI extends JFrame {
 	     //set general frame stuff
 	     setTitle("Team W UI early iteration");
 	     setResizable(false);
-	     setSize(800, 600);
+	     setSize(800, 540);
 	     setLocationRelativeTo(null);
 	     setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -242,7 +242,7 @@ public class UI extends JFrame {
 		divisionGroup.add(rButton5);
 		rButton5.addActionListener(divisionListener);
 		radioPanel.add(rButton5);
-		radioPanel.add(Box.createRigidArea(new Dimension(34,0)));
+		radioPanel.add(Box.createRigidArea(new Dimension(28,0)));
 
 		//set up the quit button
 		JButton quitButton = new JButton("Quit");
