@@ -3,7 +3,7 @@
 \author{
     Gordon Reid: 1002536R\\
     Ryan Wells: 1002253W\\
-    Kristopher Stewart: 1007175S\\
+    Kris Stewart: 1007175S\\
     David Selkirk: 1003646S\\
     James Gallagher: 0800899G\\
     Dr David Manlove: Project Supervisor
@@ -15,7 +15,7 @@
 \section{Project outline}
 \section{Progress so far}
 \subsection{Algorithm - Gordon Reid and Ryan Wells}
-\subsection{Parser - Kristopher Stewart and James Gallagher}
+\subsection{Parser - Kris Stewart and James Gallagher}
 \subsection{User Interface - David Selkirk}
 \frame{
   \frametitle{Project outline}
@@ -30,6 +30,15 @@
   \end{itemize}
 }
 \frame{
+  \frametitle{Example}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=\textwidth]{Example.png}
+  \end{figure}
+  \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
+  \end{center}
+}
+\frame{
   \frametitle{Algorithm}
   \pause
   \begin{center}
@@ -40,25 +49,15 @@
   \end{center}
   \begin{itemize}
   \item<2-> Revolves around creation of graphs and the flow along them.
-  \item<3-> Currently can create all graphs and pushes flow along a particular 
-  graph.
-  \item<4-> Pushing flow through the graph will allow us to determine if the
+  \item<3-> Pushing flow through the graph will allow us to determine if the
   given team X is eliminated from the league.
-  \item<5-> A team X can win the league if it is possible for there to be a
+  \item<4-> A team X can win the league if it is possible for there to be a
   saturating flow. A flow is saturated if the total flow from the source equals
   the total capacity from the source.
-  \item<6-> All flow leaving the source has to arrive at the sink.
+  \item<5-> All flow leaving the source has to arrive at the sink.
+  \item<6-> Currently can create all graphs and pushes flow along a 
+  particular graph.
   \end{itemize}
-}
-\frame{
-  \frametitle{Example}
-  \pause
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=\textwidth]{Example.png}
-  \end{figure}
-  \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
-  \end{center}
 }
 \frame{
   \frametitle{Parser}
@@ -72,7 +71,7 @@
   \item<2-> Uses basic string comparison to put the relevant team in the
   correct League and Division.
   \item<3-> Have considered future plans to parse a web page.
-  \item<4->Finding the correct page has been proving problematic.
+  \item<4-> Our current source is not suitable for real-time updating.
   \item<5-> As a team we are unsure if we would like to implement this feature
   or concentrate our energies on other features for example, making a web-based
   UI.    
@@ -101,8 +100,5 @@
   \begin{figure}
   \includegraphics[width=\textwidth]{InitialUI.png}
   \end{figure}
-\begin{itemize}
-  \item<2-> Future UI designs will build on this early template.
-  \end{itemize}
 }
 \end{document}
