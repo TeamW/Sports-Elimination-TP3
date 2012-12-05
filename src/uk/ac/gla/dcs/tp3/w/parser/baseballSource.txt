@@ -3,8 +3,8 @@
 01:15	St.Louis Cardinals - Cincinnati Reds		1:0
 01:10	Kansas City Royals - Detroit Tigers		0:1
 01:10	Milwaukee Brewers - San Diego Padres		6:7
-00:15	Los Angeles Dodgers - San Francisco Giants		5:1
-00:10	Arizona Diamondbacks - Colorado Rockies		1:2
+00:15	Los Angeles Dodgers - San Francisco Giants	5:1
+00:10	Arizona Diamondbacks - Colorado Rockies	1:2
 00:10	Tampa Bay Rays - Baltimore Orioles		4:1
 00:07	Toronto Blue Jays - Minnesota Twins		2:1
 00:05	Cleveland Indians - Chicago White Sox		0:9
