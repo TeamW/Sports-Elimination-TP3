@@ -3,12 +3,19 @@
  */
 package uk.ac.gla.dcs.tp3.w;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
+import uk.ac.gla.dcs.tp3.w.parser.Parser;
+import uk.ac.gla.dcs.tp3.w.ui.UI;
 
 /**
  * @author gordon
@@ -20,14 +27,48 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// Create test division.
-		Division testDivision = testUIAndAlgorithm();
+		Parser p = null;
+
+		File source = new File(System.getProperty("user.dir")
+				+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+		if (source.exists()) {
+			p = new Parser(source);
+		} else {
+			System.err.println("File not found.");
+			return;
+		}
+		
 		// Create algorithm for division.
-		Algorithm algorithm = new Algorithm(testDivision);
+		Algorithm algorithm = new Algorithm(p.getAmericanCentral());
+
 		// Find out what teams are eliminated.
-		for (Team t : testDivision.getTeams()) {
+		for (Team t : p.getAmericanCentral().getTeams()) {
 			t.setEliminated(algorithm.isEliminated(t));
 		}
+		
+		final Division d = p.getAmericanCentral();
+
+		try {
+			// Set cross-platform Java L&F (also called "Metal")
+			UIManager.setLookAndFeel(UIManager
+					.getCrossPlatformLookAndFeelClassName());
+		} catch (UnsupportedLookAndFeelException e) {
+			// handle exception
+		} catch (ClassNotFoundException e) {
+			// handle exception
+		} catch (InstantiationException e) {
+			// handle exception
+		} catch (IllegalAccessException e) {
+			// handle exception
+		}
+
+		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				UI ui = new UI(d);
+				ui.setVisible(true);
+			}
+		});
 	}
 
 	private static Division testUIAndAlgorithm() {
@@ -108,6 +149,13 @@ public class Main {
 		teams.add(newYork);
 		teams.add(montreal);
 
+		Division testDivision = new Division(teams, allMatches);
+		// Create algorithm for division.
+		Algorithm algorithm = new Algorithm(testDivision);
+		// Find out what teams are eliminated.
+		for (Team t : testDivision.getTeams()) {
+			t.setEliminated(algorithm.isEliminated(t));
+		}
 		return new Division(teams, allMatches);
 	}
 
