@@ -1,6 +1,3 @@
-/**
- * 
- */
 package uk.ac.gla.dcs.tp3.w;
 
 import java.io.File;
@@ -13,25 +10,18 @@ import uk.ac.gla.dcs.tp3.w.league.Team;
 import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.ui.UI;
 
-/**
- * @author gordon
- * 
- */
 public class Main {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Parser p = null;
 		File source = new File(System.getProperty("user.dir")
 				+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
-		if (source.exists()) {
+		if (source.exists())
 			p = new Parser(source);
-		} else {
+		else
 			System.err.println("File not found.");
+		if (p == null)
 			return;
-		}
 		// Create algorithm for division.
 		Algorithm algorithm = new Algorithm(p.getAmericanCentral());
 		// Find out what teams are eliminated.
