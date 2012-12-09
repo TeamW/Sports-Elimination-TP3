@@ -43,15 +43,15 @@ public class Date {
 	}
 
 	public boolean before(Date date) {
-		return year < date.getYear() ? true : beforeMonth(date);
-	}
-
-	private boolean beforeMonth(Date date) {
-		return month < date.getMonth() ? true : beforeDay(date);
-	}
-
-	private boolean beforeDay(Date date) {
-		return day < date.getDay();
+		if (year < date.getYear())
+			return true;
+		else if (year == date.getYear())
+			if (month < date.getMonth())
+				return true;
+			else if (month == date.getMonth())
+				if (day < date.getDay())
+					return true;
+		return false;
 	}
 
 	public static void main(String[] args) {
