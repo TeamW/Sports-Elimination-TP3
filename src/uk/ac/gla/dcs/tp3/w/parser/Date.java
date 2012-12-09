@@ -13,6 +13,10 @@ public class Date {
 	}
 
 	public Date(int d, int m, int y) {
+		if (!validDate(d, m, y)) {
+			System.out.println("Erroneous date.");
+			return;
+		}
 		day = d;
 		month = m;
 		year = y;
@@ -54,10 +58,23 @@ public class Date {
 		return false;
 	}
 
+	private static boolean validDate(int d, int m, int y) {
+		if (m < 1 || m > 12 || y < 1 || d < 1)
+			return false;
+		int numberOfDays = Month.daysInMonth(m, y);
+		if (d > numberOfDays)
+			return false;
+		return true;
+	}
+
 	public static void main(String[] args) {
 		Date d1 = new Date(1, 1, 2011);
 		Date d2 = new Date(1, 1, 2011);
 		System.out.println(d1.before(d2));
+		System.out.println(Month.getMonthName(2));
+		String month = "Feb";
+		System.out.println(Month.getMonthNumber(month.toUpperCase()));
+		System.out.println(Month.daysInMonth(2, 2010));
 	}
 
 }
