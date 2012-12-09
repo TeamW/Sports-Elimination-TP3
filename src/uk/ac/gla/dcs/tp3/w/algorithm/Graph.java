@@ -14,9 +14,6 @@ public class Graph {
 	private Vertex source;
 	private Vertex sink;
 
-	/**
-	 * No param constructor to create an empty Graph object
-	 */
 	public Graph() {
 		this(null, null);
 	}
@@ -35,7 +32,8 @@ public class Graph {
 	public Graph(Division d, Team t) {
 		if (d == null || t == null)
 			return;
-		// Work out constant W
+		// Work out constant W: team t's points and the number of games
+		// remaining.
 		int W = t.getPoints() + t.getUpcomingMatches().size();
 		// Number of team nodes is one less than total number of teams.
 		// The team nodes do not include the team being tested for elimination.
@@ -276,22 +274,30 @@ public class Graph {
 	 * carry out a breadth first search/traversal of the graph
 	 */
 	public void bfs() {
+		// Ensure all vertices are initially classed as unvisited.
 		for (Vertex v : vertices)
 			v.setVisited(false);
+		// A queue will be used to know which vertex to visit next
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
 		for (Vertex v : vertices) {
+			// An unvisited vertex should be set as visited, have its
+			// predecessor initialised to itself, and add to the queue.
 			if (!v.getVisited()) {
 				v.setVisited(true);
-				v.setPredecessor(v.getIndex());
+				v.setPred(v.getIndex());
 				queue.add(v);
+				// While there is still a vertex to look at...
 				while (!queue.isEmpty()) {
+					// For every vertex adjacent to the removed vertex that has
+					// not been visited: set as visited, have its predecessor
+					// initialised to itself, and add to the queue.
 					Vertex u = queue.removeFirst();
 					LinkedList<AdjListNode> list = u.getAdjList();
 					for (AdjListNode node : list) {
 						Vertex w = node.getVertex();
 						if (!w.getVisited()) {
 							w.setVisited(true);
-							w.setPredecessor(u.getIndex());
+							w.setPred(u.getIndex());
 							queue.add(w);
 						}
 					}

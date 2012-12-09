@@ -98,13 +98,10 @@ public class Main {
 
 		// test.setVerbose();
 
-		for (Team t : teams) {
-			if (test.isEliminated(t)) {
-				System.out.println(t.getName() + " is eliminated.");
-			} else {
-				System.out.println(t.getName()
-						+ " still has a chance of winning.");
-			}
-		}
+		for (Team t : teams)
+			if (test.isEliminated(t))
+				System.out.println(t.getName() + ":\teliminated");
+			else
+				System.out.println(t.getName() + ":\tisn't elminated");
 	}
 }

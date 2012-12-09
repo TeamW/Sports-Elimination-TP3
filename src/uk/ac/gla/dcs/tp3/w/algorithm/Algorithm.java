@@ -9,6 +9,7 @@ public class Algorithm {
 
 	private Graph g;
 	private Division d;
+	@SuppressWarnings("unused")
 	private static boolean verbose = false;
 
 	public Algorithm() {
@@ -37,6 +38,7 @@ public class Algorithm {
 	}
 
 	public boolean isEliminated(Team t) {
+		// If the team is already known to be eliminated, just return true.
 		return t.isEliminated() ? true : fordFulkerson(t);
 	}
 
@@ -45,57 +47,45 @@ public class Algorithm {
 	}
 
 	private boolean fordFulkerson(Team t) {
+		// Create initial graph
 		g = new Graph(d, t);
 		// For each edge in the graph g, set the flow to be 0.
 		for (Vertex v : g.getV())
 			for (AdjListNode n : v.getAdjList())
 				n.setFlow(0);
+		// Cap states the maximum possible flow away from source.
 		int cap = 0;
-		Vertex v = g.getSource();
-		for (AdjListNode a : v.getAdjList()) {
-			if (verbose)
-				System.out.println(a.getCapacity());
+		for (AdjListNode a : g.getSource().getAdjList())
 			cap += a.getCapacity();
-		}
+		// Create initial residual graph for algorithm.
 		ResidualGraph residual = new ResidualGraph(g);
-		if (verbose)
-			System.out.println("Need flow: " + cap);
+		// Path will store the residual path (if it exists)
 		Path path;
-		// While there is a path p from the source to the sink in the residual
-		// graph.
+		// Algorithm continues while a residual path exists
 		while ((path = residualPath(residual)) != null) {
+			// Reduce cap by the amount of flow that can be added in this
+			// iteration.
 			cap -= path.getCapacity();
-			if (verbose) {
-				System.out.println("Additional flow: " + path.getCapacity());
-				System.out.print("Path found: ");
-				for (int i : path.getPath())
-					System.out.print(i + " ");
-				System.out.println();
-			}
+			// For each node in the path, add/remove the path's capacity from
+			// the edges flow. Add to forward edges, remove from backward edges.
 			int[] pathnodes = path.getPath();
 			for (int j = 1; j < pathnodes.length; j++) {
 				int i = j - 1;
 				if (pathnodes[i] < pathnodes[j]) {
 					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList())
+						// Forward edge, add flow.
 						if (a.getVertex().getIndex() == pathnodes[j])
 							a.setFlow(a.getFlow() + path.getCapacity());
 				} else {
 					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList())
+						// Backward edge, remove flow.
 						if (a.getVertex().getIndex() == pathnodes[j])
 							a.setFlow(a.getFlow() - path.getCapacity());
 				}
 			}
-			// Find the capacity c of the residual graph
-			// For each edge in the path p
-			if (verbose)
-				System.out.println("Capacity: " + path.getCapacity());
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
-			if (verbose)
-				System.out.println("New Residual Graph Created\n");
 		}
-		if (verbose)
-			System.out.println("Remaining flow to find: " + cap);
 
 		// Extension: Max Flow-Min Cut Theorem.
 		// Overview:
@@ -116,43 +106,36 @@ public class Algorithm {
 	private static Path residualPath(ResidualGraph g) {
 		// Perform BFS from source on graph
 		g.bfs();
+		// Since we'll work out path from sink to source, it will be added to a
+		// stack then popped until empty to store path in correct direction.
 		Stack<Integer> backPath = new Stack<Integer>();
-		int[][] matrixrep = g.getMatrix();
+		// Use matrix representation of edge capacities to speed up this method.
+		int[][] matrix = g.getMatrix();
 		int next, current, capacity = Integer.MAX_VALUE;
-		if (verbose)
-			for (Vertex v : g.getV())
-				System.out.println("Vertex " + v.getIndex()
-						+ " has predecessor " + v.getPredecessor());
-		for (next = current = g.getSink().getIndex(); next >= 0; current = next, next = g
-				.getV()[next].getPredecessor()) {
+		// Start at sink, try to work back up to source (vertex 0)
+		Vertex v[] = g.getV();
+		next = current = g.getSink().getIndex();
+		// Until we either get stuck, or get to the source, keep going.
+		while (true) {
 			// If we're stuck outside the source, we're finished.
-			if (g.getV()[next].getPredecessor() == next && next != 0)
+			if (v[next].getPred() == next && next != 0)
 				return null;
 			// Add next node to the path.
 			backPath.add(next);
 			// Ensure current path capacity is at it's lowest possible value
-			if (current != next && matrixrep[next][current] < capacity)
-				capacity = matrixrep[next][current];
+			if (current != next && matrix[next][current] < capacity)
+				capacity = matrix[next][current];
 			// If we're at the source, the path has been found.
 			if (next == 0)
 				break;
+			// Bump up one step up the path
+			current = next;
+			next = v[next].getPred();
 		}
-		// A non-positive capacity means we're finished.
-		if (capacity <= 0)
-			return null;
-		// If the sink does not have a predecessor (defined as -1)
-		// then there is no residual path.
+		// Pop everything from the stack to make the path in source->sink order.
 		int[] path = new int[backPath.size()];
-		if (verbose)
-			System.out.print("Pop stack of size " + path.length + ": ");
-		for (int i = 0; i < path.length; i++) {
+		for (int i = 0; i < path.length; i++)
 			path[i] = backPath.pop();
-			if (verbose)
-				System.out.print(path[i] + " ");
-		}
-		if (verbose)
-			System.out.println();
-		return path.length == 1 ? null : new Path(path, capacity);
+		return new Path(path, capacity);
 	}
-
 }

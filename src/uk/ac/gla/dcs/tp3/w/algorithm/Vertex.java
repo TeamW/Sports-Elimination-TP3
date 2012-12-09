@@ -33,7 +33,7 @@ public class Vertex {
 		adjList = new LinkedList<AdjListNode>(v.getAdjList());
 		index = v.getIndex();
 		visited = v.getVisited();
-		predecessor = v.getPredecessor();
+		predecessor = v.getPred();
 	}
 
 	public LinkedList<AdjListNode> getAdjList() {
@@ -56,11 +56,11 @@ public class Vertex {
 		visited = b;
 	}
 
-	public int getPredecessor() {
+	public int getPred() {
 		return predecessor;
 	}
 
-	public void setPredecessor(int n) {
+	public void setPred(int n) {
 		predecessor = n;
 	}
 
