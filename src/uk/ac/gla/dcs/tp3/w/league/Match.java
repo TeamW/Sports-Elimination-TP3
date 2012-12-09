@@ -1,6 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.league;
 
-import java.util.Date;
+import uk.ac.gla.dcs.tp3.w.parser.Date;
 
 /**
  * This class has many members. The class holds the information, and result of,
