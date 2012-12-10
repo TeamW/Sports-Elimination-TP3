@@ -12,36 +12,80 @@ public class Algorithm {
 	@SuppressWarnings("unused")
 	private static boolean verbose = false;
 
+	/**
+	 * No argument constructor.
+	 */
 	public Algorithm() {
 		this(null);
 	}
 
+	/**
+	 * Parameterised constructor.
+	 * 
+	 * @param Division
+	 *            div
+	 */
 	public Algorithm(Division div) {
 		g = null;
 		d = div;
 	}
 
+	/**
+	 * Returns this algorithms Graph
+	 * 
+	 * @return Graph
+	 */
 	public Graph getG() {
 		return g;
 	}
 
+	/**
+	 * Sets this algorithms Graph
+	 * 
+	 * @param Graph
+	 *            g
+	 */
 	public void setG(Graph g) {
 		this.g = g;
 	}
 
+	/**
+	 * Returns this algorithms Division
+	 * 
+	 * @return Division
+	 */
 	public Division getD() {
 		return d;
 	}
 
+	/**
+	 * Sets this algorithms Division
+	 * 
+	 * @param Division
+	 *            d
+	 */
 	public void setD(Division d) {
 		this.d = d;
 	}
 
+	/**
+	 * Checks whether or not a specified team is eliminated.
+	 * 
+	 * The algorithm is only run if the teams status is currently false.
+	 * 
+	 * @param Team
+	 *            t
+	 * @return boolean
+	 */
 	public boolean isEliminated(Team t) {
 		// If the team is already known to be eliminated, just return true.
 		return t.isEliminated() ? true : fordFulkerson(t);
 	}
 
+	/**
+	 * Sets the verbose flag for the algorithm, useful information is printed on
+	 * System.out
+	 */
 	public void setVerbose() {
 		verbose = true;
 	}
@@ -106,7 +150,8 @@ public class Algorithm {
 	private static Path residualPath(ResidualGraph g) {
 		// Perform BFS from source on graph
 		g.bfs();
-		// Since we'll work out a path from sink to source, it will be added to a
+		// Since we'll work out a path from sink to source, it will be added to
+		// a
 		// stack then popped until empty to store path in correct direction.
 		Stack<Integer> backPath = new Stack<Integer>();
 		// Use matrix representation of edge capacities to speed up this method.
@@ -138,35 +183,47 @@ public class Algorithm {
 			path[i] = backPath.pop();
 		return new Path(path, capacity);
 	}
-	
-	//Currently returns the value of the highest eliminated team.
-	//Note, this value corresponds to teams being ordered in non-
-	//descending order by wins+gamesRemaning.
-	public void updateDivisionElim(Division d){
+
+	/**
+	 * Updates the entire Divisions elimination status.
+	 * 
+	 * This method sorts the Teams in non-descending order by wins and games
+	 * remaining and then uses binary search to eliminate teams.
+	 * 
+	 * @param Division
+	 *            d
+	 */
+	public void updateDivisionElim(Division d) {
 		Team[] teams = (Team[]) d.getTeams().toArray();
-		for(int i = 0; i<teams.length; i++){
-			for(int j = 0; j<teams.length; i ++){
-				if (teams[i].compareTo(teams[j])>0){
+		// Sorts teams into non-descending order by wins and games remaining
+		for (int i = 0; i < teams.length; i++) {
+			for (int j = 0; j < teams.length; i++) {
+				if (teams[i].compareTo(teams[j]) > 0) {
 					Team temp = teams[i];
 					teams[i] = teams[j];
 					teams[j] = temp;
 				}
 			}
 		}
-		int lastElim = binaryDetermine(teams,0,teams.length,-1);
-		for (int i = 0; i<=lastElim;i++){
+		// Determine the highest team that has been eliminated.
+		int lastElim = binaryDetermine(teams, 0, teams.length, -1);
+		// Eliminate this team and all teams below it.
+		for (int i = 0; i <= lastElim; i++) {
 			teams[i].setEliminated(true);
 		}
 	}
-	
-	private int binaryDetermine(Team[] T, int s, int e, int highestElim){
-		if (e<s||s>e||s<0||e>T.length) return highestElim;
-		int mid = (s+e)/2;
-		if(fordFulkerson(T[mid])){
+
+	private int binaryDetermine(Team[] T, int s, int e, int highestElim) {
+		// Stop conditions
+		if (e < s || s > e || s < 0 || e > T.length)
+			return highestElim;
+		// Binary search
+		int mid = (s + e) / 2;
+		if (fordFulkerson(T[mid])) {
+			// only updates highestElim in the upper sections.
 			highestElim = mid;
-			return binaryDetermine(T,mid+1,e,highestElim);
-		}
-		else
-			return binaryDetermine(T,s,mid-1,highestElim);		
+			return binaryDetermine(T, mid + 1, e, highestElim);
+		} else
+			return binaryDetermine(T, s, mid - 1, highestElim);
 	}
 }

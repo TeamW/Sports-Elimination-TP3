@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * @author Team W
  * @version 1.0
  */
+@SuppressWarnings("unchecked")
 public class Team implements Comparable{
 	private String name;
 	private int points = 0;
@@ -58,23 +59,42 @@ public class Team implements Comparable{
 
 	}
 
+	/**
+	 * Returns the boolean holding the value of a teams National League Status
+	 * @return Boolean
+	 */
 	public boolean isNational() {
 		return isNational;
 	}
 
+	/**
+	 * Sets the boolean value of a teams National League Status
+	 * @param boolean isNational
+	 */
 	public void setNational(boolean isNational) {
 		this.isNational = isNational;
 	}
 
+	/**
+	 * Returns the String value of a teams region.
+	 * @return String 
+	 */
 	public String getWhatRegion() {
 		return whatRegion;
 	}
 
+	/**
+	 * Sets the String value of a teams region.
+	 * @param String whatRegion
+	 */
 	public void setWhatRegion(String whatRegion) {
 		this.whatRegion = whatRegion;
 	}
 
-	/** Constructor to create team object with only a name */
+	/** 
+	 * Constructor to create team object with only a name.
+	 * @param String name 
+	 * */
 	public Team(String name) {
 		this.name = name;
 		points = 0;
@@ -292,7 +312,11 @@ public class Team implements Comparable{
 			return null;
 		return m;
 	}
-
+	/**
+	 * Returns a String interpretation of the team.
+	 * 
+	 * @return String 
+	 */
 	public String toString() {
 		return String.format("%s%d | %d", name, name.length(), points);
 	}
@@ -313,6 +337,9 @@ public class Team implements Comparable{
 		return false;
 	}
 	
+	/**
+	 * Implementation of the compareTo() method of Comparable
+	 */
 	public int compareTo(Object otherTeam){
 		if (otherTeam instanceof Team){
 			
