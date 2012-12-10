@@ -142,29 +142,21 @@ public class Algorithm {
 	//Currently returns the value of the highest eliminated team.
 	//Note, this value corresponds to teams being ordered in non-
 	//descending order by wins+gamesRemaning.
-	public int determineAll(Division d){
+	public void updateDivisionElim(Division d){
 		Team[] teams = (Team[]) d.getTeams().toArray();
-		int[] scores = new int[teams.length];
-		for (int i = 0; i<teams.length; i++){
-			scores[i] = teams[i].getUpcomingMatches().size() + teams[i].getPoints();
-		}
-		
 		for(int i = 0; i<teams.length; i++){
 			for(int j = 0; j<teams.length; i ++){
-				if (scores[i]<scores[j]){
-					Team tempT = teams[i];
-					int tempS = scores[i];
+				if (teams[i].compareTo(teams[j])>0){
+					Team temp = teams[i];
 					teams[i] = teams[j];
-					scores[i] = scores[j];
-					teams[j] = tempT;
-					scores[j] = tempS;
+					teams[j] = temp;
 				}
 			}
 		}
-		
-		int start = 0;
-		int end = teams.length;
-		return binaryDetermine(teams,start,end,-1);
+		int lastElim = binaryDetermine(teams,0,teams.length,-1);
+		for (int i = 0; i<=lastElim;i++){
+			teams[i].setEliminated(true);
+		}
 	}
 	
 	private int binaryDetermine(Team[] T, int s, int e, int highestElim){
@@ -175,7 +167,6 @@ public class Algorithm {
 			return binaryDetermine(T,mid+1,e,highestElim);
 		}
 		else
-			return binaryDetermine(T,s,mid-1,highestElim);
-				
+			return binaryDetermine(T,s,mid-1,highestElim);		
 	}
 }
