@@ -106,7 +106,7 @@ public class Algorithm {
 	private static Path residualPath(ResidualGraph g) {
 		// Perform BFS from source on graph
 		g.bfs();
-		// Since we'll work out path from sink to source, it will be added to a
+		// Since we'll work out a path from sink to source, it will be added to a
 		// stack then popped until empty to store path in correct direction.
 		Stack<Integer> backPath = new Stack<Integer>();
 		// Use matrix representation of edge capacities to speed up this method.
@@ -125,7 +125,7 @@ public class Algorithm {
 			// Ensure current path capacity is at it's lowest possible value
 			if (current != next && matrix[next][current] < capacity)
 				capacity = matrix[next][current];
-			// If we're at the source, the path has been found.
+			// If we're at the source, one path has been found.
 			if (next == 0)
 				break;
 			// Bump up one step up the path
@@ -137,5 +137,45 @@ public class Algorithm {
 		for (int i = 0; i < path.length; i++)
 			path[i] = backPath.pop();
 		return new Path(path, capacity);
+	}
+	
+	//Currently returns the value of the highest eliminated team.
+	//Note, this value corresponds to teams being ordered in non-
+	//descending order by wins+gamesRemaning.
+	public int determineAll(Division d){
+		Team[] teams = (Team[]) d.getTeams().toArray();
+		int[] scores = new int[teams.length];
+		for (int i = 0; i<teams.length; i++){
+			scores[i] = teams[i].getUpcomingMatches().size() + teams[i].getPoints();
+		}
+		
+		for(int i = 0; i<teams.length; i++){
+			for(int j = 0; j<teams.length; i ++){
+				if (scores[i]<scores[j]){
+					Team tempT = teams[i];
+					int tempS = scores[i];
+					teams[i] = teams[j];
+					scores[i] = scores[j];
+					teams[j] = tempT;
+					scores[j] = tempS;
+				}
+			}
+		}
+		
+		int start = 0;
+		int end = teams.length;
+		return binaryDetermine(teams,start,end,-1);
+	}
+	
+	private int binaryDetermine(Team[] T, int s, int e, int highestElim){
+		if (e<s||s>e||s<0||e>T.length) return highestElim;
+		int mid = (s+e)/2;
+		if(fordFulkerson(T[mid])){
+			highestElim = mid;
+			return binaryDetermine(T,mid+1,e,highestElim);
+		}
+		else
+			return binaryDetermine(T,s,mid-1,highestElim);
+				
 	}
 }
