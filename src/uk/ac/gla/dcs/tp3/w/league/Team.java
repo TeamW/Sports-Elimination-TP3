@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Team W
  * @version 1.0
  */
-public class Team {
+public class Team implements Comparable{
 	private String name;
 	private int points = 0;
 	private int gamesPlayed;
@@ -311,6 +311,18 @@ public class Team {
 					: (this.name.equals(other.getName()));
 		}
 		return false;
+	}
+	
+	public int compareTo(Object otherTeam){
+		if (otherTeam instanceof Team){
+			
+			int thisValue = this.getPoints() + this.getUpcomingMatches().size();
+			int otherValue = ((Team) otherTeam).getPoints() + ((Team) otherTeam).getUpcomingMatches().size();
+			if (thisValue<otherValue) return -1;
+			else if(thisValue>otherValue) return 1;
+			else return 0;
+		}
+		throw new ClassCastException("Object comparing to not of instance team, instance of: " +otherTeam.getClass());
 	}
 
 }
