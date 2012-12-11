@@ -194,10 +194,10 @@ public class Algorithm {
 	 *            d
 	 */
 	public void updateDivisionElim(Division d) {
-		Team[] teams = (Team[]) d.getTeams().toArray();
+		Team[] teams = d.teamsToArray();
 		// Sorts teams into non-descending order by wins and games remaining
 		for (int i = 0; i < teams.length; i++) {
-			for (int j = 0; j < teams.length; i++) {
+			for (int j = 0; j < teams.length; j++) {
 				if (teams[i].compareTo(teams[j]) > 0) {
 					Team temp = teams[i];
 					teams[i] = teams[j];
