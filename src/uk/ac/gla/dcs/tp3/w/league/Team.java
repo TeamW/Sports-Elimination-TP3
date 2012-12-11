@@ -349,14 +349,9 @@ public class Team implements Comparable<Team> {
 	 */
 	public int compareTo(Team otherTeam) {
 		int thisValue = this.getPoints() + this.getUpcomingMatches().size();
-		int otherValue = ((Team) otherTeam).getPoints()
-				+ ((Team) otherTeam).getUpcomingMatches().size();
-		if (thisValue < otherValue)
-			return -1;
-		else if (thisValue > otherValue)
-			return 1;
-		else
-			return 0;
+		int otherValue = otherTeam.getPoints()
+				+ otherTeam.getUpcomingMatches().size();
+		return thisValue - otherValue;
 
 	}
 
