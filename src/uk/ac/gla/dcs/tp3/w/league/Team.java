@@ -10,8 +10,7 @@ import java.util.ArrayList;
  * @author Team W
  * @version 1.0
  */
-@SuppressWarnings("unchecked")
-public class Team implements Comparable{
+public class Team implements Comparable<Team> {
 	private String name;
 	private int points = 0;
 	private int gamesPlayed;
@@ -61,6 +60,7 @@ public class Team implements Comparable{
 
 	/**
 	 * Returns the boolean holding the value of a teams National League Status
+	 * 
 	 * @return Boolean
 	 */
 	public boolean isNational() {
@@ -69,6 +69,7 @@ public class Team implements Comparable{
 
 	/**
 	 * Sets the boolean value of a teams National League Status
+	 * 
 	 * @param boolean isNational
 	 */
 	public void setNational(boolean isNational) {
@@ -77,7 +78,8 @@ public class Team implements Comparable{
 
 	/**
 	 * Returns the String value of a teams region.
-	 * @return String 
+	 * 
+	 * @return String
 	 */
 	public String getWhatRegion() {
 		return whatRegion;
@@ -85,15 +87,19 @@ public class Team implements Comparable{
 
 	/**
 	 * Sets the String value of a teams region.
-	 * @param String whatRegion
+	 * 
+	 * @param String
+	 *            whatRegion
 	 */
 	public void setWhatRegion(String whatRegion) {
 		this.whatRegion = whatRegion;
 	}
 
-	/** 
+	/**
 	 * Constructor to create team object with only a name.
-	 * @param String name 
+	 * 
+	 * @param String
+	 *            name
 	 * */
 	public Team(String name) {
 		this.name = name;
@@ -312,10 +318,11 @@ public class Team implements Comparable{
 			return null;
 		return m;
 	}
+
 	/**
 	 * Returns a String interpretation of the team.
 	 * 
-	 * @return String 
+	 * @return String
 	 */
 	public String toString() {
 		return String.format("%s%d | %d", name, name.length(), points);
@@ -336,20 +343,21 @@ public class Team implements Comparable{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Implementation of the compareTo() method of Comparable
 	 */
-	public int compareTo(Object otherTeam){
-		if (otherTeam instanceof Team){
-			
-			int thisValue = this.getPoints() + this.getUpcomingMatches().size();
-			int otherValue = ((Team) otherTeam).getPoints() + ((Team) otherTeam).getUpcomingMatches().size();
-			if (thisValue<otherValue) return -1;
-			else if(thisValue>otherValue) return 1;
-			else return 0;
-		}
-		throw new ClassCastException("Object comparing to not of instance team, instance of: " +otherTeam.getClass());
+	public int compareTo(Team otherTeam) {
+		int thisValue = this.getPoints() + this.getUpcomingMatches().size();
+		int otherValue = ((Team) otherTeam).getPoints()
+				+ ((Team) otherTeam).getUpcomingMatches().size();
+		if (thisValue < otherValue)
+			return -1;
+		else if (thisValue > otherValue)
+			return 1;
+		else
+			return 0;
+
 	}
 
 }
