@@ -219,6 +219,8 @@ public class Algorithm {
 			return highestElim;
 		// Binary search
 		int mid = (s + e) / 2;
+		if (mid >= T.length)
+			return highestElim;
 		if (fordFulkerson(T[mid])) {
 			// only updates highestElim in the upper sections.
 			highestElim = mid;
