@@ -22,8 +22,15 @@ public class Main {
 			System.err.println("File not found.");
 		if (p == null)
 			return;
+		
+		
+		
 		// Create algorithm for division.
 		Algorithm algorithm = new Algorithm(p.getAmericanCentral());
+		
+		
+		
+		
 		// Find out what teams are eliminated.
 		for (Team t : p.getAmericanCentral().getTeams())
 			t.setEliminated(algorithm.isEliminated(t));

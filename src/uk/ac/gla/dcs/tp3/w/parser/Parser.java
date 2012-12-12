@@ -139,20 +139,44 @@ public class Parser {
 				 * date of this match occurring with the emulated date, if so
 				 * don't calculate scores
 				 * */
+				
+								
 				if (score1 > score2) {
 					for (Team t : theLeague.getTeams()) {
 						if (t.equals(t1)) {
 							t.setPoints(t.getPoints() + 1);
+							t.setGamesPlayed(t.getGamesPlayed()+1);
 							break;
 						}
 					}
+					
+					for (Team t : theLeague.getTeams()) {
+						if (t.equals(t2)) {
+							t.setGamesPlayed(t.getGamesPlayed()+1);
+							break;
+						}
+					}
+					
+					
+					
+					
+					
 				} else {
 					for (Team t : theLeague.getTeams()) {
 						if (t.equals(t2)) {
 							t.setPoints(t.getPoints() + 1);
+							t.setGamesPlayed(t.getGamesPlayed()+1);
 							break;
 						}
 					}
+					
+					for (Team t : theLeague.getTeams()) {
+						if (t.equals(t1)) {
+							t.setGamesPlayed(t.getGamesPlayed()+1);
+							break;
+						}
+					}
+					
 				}
 			}
 			postponedCheck = false;
@@ -160,10 +184,13 @@ public class Parser {
 			/** Checking if team exists in league or if not, add it */
 			if (!theLeague.isMember(t1)) {
 				theLeague.addTeam(new Team(removeSpaces(team1Name)));
-			}
+			}				
 			if (!theLeague.isMember(t2)) {
 				theLeague.addTeam(new Team(removeSpaces(team2Name)));
 			}
+			
+			
+			
 
 			/** Getting the Team objects out of main storage */
 			Team temp1 = null, temp2 = null;
@@ -175,6 +202,7 @@ public class Parser {
 			for (Team t : theLeague.getTeams()) {
 				if (t.equals(t2)) {
 					temp2 = t;
+					
 				}
 			}
 
