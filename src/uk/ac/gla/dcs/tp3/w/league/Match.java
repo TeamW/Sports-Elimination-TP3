@@ -158,7 +158,7 @@ public class Match {
 		}
 		return played = true;
 	}
-	
+
 	public boolean isPlayed() {
 		return played;
 	}

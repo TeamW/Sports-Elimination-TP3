@@ -112,14 +112,14 @@ public class Division {
 	public String toString() {
 		return String.format("%s", teams);
 	}
-	
+
 	/**
 	 * Override of toArray() method
 	 */
 	public Team[] teamsToArray() {
 		Team[] array = new Team[teams.size()];
 		int i = 0;
-		for (Team t: teams)
+		for (Team t : teams)
 			array[i++] = t;
 		return array;
 	}
