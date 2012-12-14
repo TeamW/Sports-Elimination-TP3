@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 //import java.util.Date;
 import java.util.Scanner;
-
 import uk.ac.gla.dcs.tp3.w.league.*;
 
 /**
@@ -12,7 +11,6 @@ import uk.ac.gla.dcs.tp3.w.league.*;
  * 
  */
 public class Parser {
-
 	// National League Divisions
 	private Division nationalEast = new Division();
 	private Division nationalCentral = new Division();
@@ -21,32 +19,25 @@ public class Parser {
 	private Division americanEast = new Division();
 	private Division americanCentral = new Division();
 	private Division americanWest = new Division();
-
 	private boolean verbose = false;
 
 	public Parser(File f) {
 		// ArrayList<Division> leagueEachDay = new ArrayList<Division>();
 		// //array of
 		// days in season each with seperate state
-		Division theLeague = new Division(); // -- edit
-
 		boolean postponedCheck = false;
 		String thisLine = "", date = "";
 		Date d = new Date();
 		Scanner fileScanner, lineScanner;
 		int score1 = 0, score2 = 0;
-
 		try {
 			fileScanner = new Scanner(f);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;
 		}
-
 		thisLine = fileScanner.nextLine();
 
-		// leagueEachDay.add(new Division()); //date emulation (adding a day
-		// and manipulating it's state below)
 		while (fileScanner.hasNextLine() || thisLine.isEmpty()) {
 			/** Setting the date */
 			if (thisLine.isEmpty()) {
@@ -54,13 +45,11 @@ public class Parser {
 				lineScanner = new Scanner(date);
 				d.setDate(lineScanner.nextInt()); // setting day
 				String m = lineScanner.next();
-				d.setMonth(getMonth(m) - 1); // month converted to a number
+				d.setMonth(Month.getMonthNumber(m.toUpperCase())); // month converted to a number
 				// and stored
 				d.setYear(lineScanner.nextInt()); // year
 			}
-
 			/** Checking to see if we're on the same day */
-
 			thisLine = fileScanner.nextLine(); // get each line one at a
 			// time(within a day)
 			if (thisLine.isEmpty()) {
@@ -68,19 +57,15 @@ public class Parser {
 			}
 			lineScanner = new Scanner(thisLine); // start new scanner to
 			// scan particular line
-
 			/** parsing out information from a particular line */
-			String time = "", team1Name = "", team2Name = "", scoreOne = "", scoreTwo = "";
-			time = lineScanner.next(); // store time
+			String team1Name = "", team2Name = "", scoreOne = "", scoreTwo = "";
+			lineScanner.next(); // skip time
 			boolean hyphenCheck = false, atScore2 = false;
-
 			// loop through characters in the line starting at first team
 			// name
 			for (int i = 6; i < thisLine.length(); i++) {
 				char c = thisLine.charAt(i);
-
 				// time here
-
 				// check & add char to team 1's name
 				if (c != '-' && hyphenCheck == false) {
 					team1Name += c;
@@ -110,7 +95,6 @@ public class Parser {
 					} else if (c == '$') {
 						postponedCheck = true;
 					}
-
 					/** setting score's for teams 1 and 2 */
 					if (atScore2) {
 						scoreTwo += c;
@@ -118,196 +102,613 @@ public class Parser {
 						scoreOne += c;
 					}
 				}
+			} // - loop over line
+				// creating 2 temporary team objects to store parsed info
+			Team t1 = new Team(team1Name.trim());
+			Team t2 = new Team(team2Name.trim());
+			/** add first team to correct division if not already there */
+
+			// Set American Division : East
+			if ((t1.getName().equalsIgnoreCase("Baltimore Orioles")
+					|| t1.getName().equalsIgnoreCase("Boston Red Sox")
+					|| t1.getName().equalsIgnoreCase("New York Yankees")
+					|| t1.getName().equalsIgnoreCase("Tampa Bay Rays") || t1
+					.getName().equalsIgnoreCase("Toronto Blue Jays"))
+					&& !americanEast.isMember(t1)) {
+				americanEast.addTeam(t1);
 			}
 
-			// creating 2 temporary
-			// team objects
-			// to store
-			// parsed info
-			Team t1 = new Team(removeSpaces(team1Name));
-			Team t2 = new Team(removeSpaces(team2Name)); // handle null
-			// pointer error
+			// Set American Division : Central
+			if ((t1.getName().equalsIgnoreCase("Chicago White Sox")
+					|| t1.getName().equalsIgnoreCase("Cleveland Indians")
+					|| t1.getName().equalsIgnoreCase("Detroit Tigers")
+					|| t1.getName().equalsIgnoreCase("Kansas City Royals") || t1
+					.getName().equalsIgnoreCase("Minnesota Twins"))
+					&& !americanCentral.isMember(t1)) {
+				americanCentral.addTeam(t1);
+			}
 
-			// convert score to integers if the match was not postponed
+			// Set American Division : West
+			if ((t1.getName().equalsIgnoreCase("Seattle Mariners")
+					|| t1.getName().equalsIgnoreCase("Texas Rangers")
+					|| t1.getName().equalsIgnoreCase("Houston Astros")
+					|| t1.getName().equalsIgnoreCase("Los Angeles Angels") || t1
+					.getName().equalsIgnoreCase("Oakland Athletics"))
+					&& !americanWest.isMember(t1)) {
+				americanWest.addTeam(t1);
+			}
+
+			// Set National Division : East
+			if ((t1.getName().equalsIgnoreCase("Atlanta Braves")
+					|| t1.getName().equalsIgnoreCase("Miami Marlins")
+					|| t1.getName().equalsIgnoreCase("New York Mets")
+					|| t1.getName().equalsIgnoreCase("Philadelphia Phillies") || t1
+					.getName().equalsIgnoreCase("Washington Nationals"))
+					&& !nationalEast.isMember(t1)) {
+				nationalEast.addTeam(t1);
+			}
+
+			// Set National Division : Central
+			if ((t1.getName().equalsIgnoreCase("Chicago Cubs")
+					|| t1.getName().equalsIgnoreCase("Cincinnati Reds")
+					|| t1.getName().equalsIgnoreCase("Milwaukee Brewers")
+					|| t1.getName().equalsIgnoreCase("Pittsburgh Pirates") || t1
+					.getName().equalsIgnoreCase("St.Louis Cardinals"))
+					&& !nationalCentral.isMember(t1)) {
+				nationalCentral.addTeam(t1);
+			}
+
+			// Set National Division : West
+			if ((t1.getName().equalsIgnoreCase("Arizona Diamondbacks")
+					|| t1.getName().equalsIgnoreCase("Colorado Rockies")
+					|| t1.getName().equalsIgnoreCase("San Francisco Giants")
+					|| t1.getName().equalsIgnoreCase("Los Angeles Dodgers") || t1
+					.getName().equalsIgnoreCase("San Diego Padres"))
+					&& !nationalWest.isMember(t1)) {
+				nationalWest.addTeam(t1);
+			}
+
+			/** add second team to correct division if not already there */
+			// Set American Division : East
+			if ((t2.getName().equalsIgnoreCase("Baltimore Orioles")
+					|| t2.getName().equalsIgnoreCase("Boston Red Sox")
+					|| t2.getName().equalsIgnoreCase("New York Yankees")
+					|| t2.getName().equalsIgnoreCase("Tampa Bay Rays") || t2
+					.getName().equalsIgnoreCase("Toronto Blue Jays"))
+					&& !americanEast.isMember(t2)) {
+				americanEast.addTeam(t2);
+			}
+
+			// Set American Division : Central
+			if ((t2.getName().equalsIgnoreCase("Chicago White Sox")
+					|| t2.getName().equalsIgnoreCase("Cleveland Indians")
+					|| t2.getName().equalsIgnoreCase("Detroit Tigers")
+					|| t2.getName().equalsIgnoreCase("Kansas City Royals") || t2
+					.getName().equalsIgnoreCase("Minnesota Twins"))
+					&& !americanCentral.isMember(t2)) {
+				americanCentral.addTeam(t2);
+			}
+
+			// Set American Division : West
+			if ((t2.getName().equalsIgnoreCase("Seattle Mariners")
+					|| t2.getName().equalsIgnoreCase("Texas Rangers")
+					|| t2.getName().equalsIgnoreCase("Houston Astros")
+					|| t2.getName().equalsIgnoreCase("Los Angeles Angels") || t2
+					.getName().equalsIgnoreCase("Oakland Athletics"))
+					&& !americanWest.isMember(t2)) {
+				americanWest.addTeam(t2);
+			}
+
+			// Set National Division : East
+			if ((t2.getName().equalsIgnoreCase("Atlanta Braves")
+					|| t2.getName().equalsIgnoreCase("Miami Marlins")
+					|| t2.getName().equalsIgnoreCase("New York Mets")
+					|| t2.getName().equalsIgnoreCase("Philadelphia Phillies") || t2
+					.getName().equalsIgnoreCase("Washington Nationals"))
+					&& !nationalEast.isMember(t2)) {
+				nationalEast.addTeam(t2);
+			}
+
+			// Set National Division : Central
+			if ((t2.getName().equalsIgnoreCase("Chicago Cubs")
+					|| t2.getName().equalsIgnoreCase("Cincinnati Reds")
+					|| t2.getName().equalsIgnoreCase("Milwaukee Brewers")
+					|| t2.getName().equalsIgnoreCase("Pittsburgh Pirates") || t2
+					.getName().equalsIgnoreCase("St.Louis Cardinals"))
+					&& !nationalCentral.isMember(t2)) {
+				nationalCentral.addTeam(t2);
+			}
+
+			// Set National Division : West
+			if ((t2.getName().equalsIgnoreCase("Arizona Diamondbacks")
+					|| t2.getName().equalsIgnoreCase("Colorado Rockies")
+					|| t2.getName().equalsIgnoreCase("San Francisco Giants")
+					|| t2.getName().equalsIgnoreCase("Los Angeles Dodgers") || t2
+					.getName().equalsIgnoreCase("San Diego Padres"))
+					&& !nationalWest.isMember(t2)) {
+				nationalWest.addTeam(t2);
+			}
+
+			/** Creating the match object with them + scores */
+			Match match = new Match(t1, t2, score1, score2, d, false);
+			/** convert score to integers if the match was not postponed */
 			if (!postponedCheck) {
 				score1 = Integer.parseInt(scoreOne);
 				score2 = Integer.parseInt(scoreTwo);
 
-				/**
-				 * allocating points to the team which won the match + another
-				 * if statement surrounding this to check if we're before the
-				 * date of this match occurring with the emulated date, if so
-				 * don't calculate scores
-				 * */
-				
-								
 				if (score1 > score2) {
-					for (Team t : theLeague.getTeams()) {
-						if (t.equals(t1)) {
-							t.setPoints(t.getPoints() + 1);
-							t.setGamesPlayed(t.getGamesPlayed()+1);
-							break;
-						}
-					}
-					
-					for (Team t : theLeague.getTeams()) {
-						if (t.equals(t2)) {
-							t.setGamesPlayed(t.getGamesPlayed()+1);
-							break;
-						}
-					}
-					
-					
-					
-					
-					
-				} else {
-					for (Team t : theLeague.getTeams()) {
-						if (t.equals(t2)) {
-							t.setPoints(t.getPoints() + 1);
-							t.setGamesPlayed(t.getGamesPlayed()+1);
-							break;
-						}
-					}
-					
-					for (Team t : theLeague.getTeams()) {
-						if (t.equals(t1)) {
-							t.setGamesPlayed(t.getGamesPlayed()+1);
-							break;
-						}
-					}
-					
-				}
-			}
-			postponedCheck = false;
 
-			/** Checking if team exists in league or if not, add it */
-			if (!theLeague.isMember(t1)) {
-				theLeague.addTeam(new Team(removeSpaces(team1Name)));
-			}				
-			if (!theLeague.isMember(t2)) {
-				theLeague.addTeam(new Team(removeSpaces(team2Name)));
-			}
-			
-			
-			
+					// if team 1 wins
 
-			/** Getting the Team objects out of main storage */
-			Team temp1 = null, temp2 = null;
-			for (Team t : theLeague.getTeams()) {
-				if (t.equals(t1)) {
-					temp1 = t;
-				}
-			}
-			for (Team t : theLeague.getTeams()) {
-				if (t.equals(t2)) {
-					temp2 = t;
-					
-				}
-			}
+					/**
+					 * increment games played for team 1 if they won the game,
+					 * increase points and add fixture
+					 */
 
-			/** and then creating the match object with them + scores */
-			Match match = new Match(temp1, temp2, score1, score2, d, false);
-			theLeague.addFixture(match);
+					if (nationalCentral.isMember(t1)) {
+						for (int x = 0; x < nationalCentral.getTeams().size(); x++)
+							if (nationalCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								nationalCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								nationalCentral
+										.getTeams()
+										.get(x)
+										.setPoints(
+												nationalCentral.getTeams()
+														.get(x).getPoints() + 1);
+								nationalCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+								nationalCentral.addFixture(match);
+							}
+					}
+					if (nationalEast.isMember(t1)) {
+						for (int x = 0; x < nationalEast.getTeams().size(); x++)
+							if (nationalEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								nationalEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalEast
+										.getTeams()
+										.get(x)
+										.setPoints(
+												nationalEast.getTeams().get(x)
+														.getPoints() + 1);
+								nationalEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+								nationalEast.addFixture(match);
+							}
+					}
+					if (nationalWest.isMember(t1)) {
+						for (int x = 0; x < nationalWest.getTeams().size(); x++)
+							if (nationalWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								nationalWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalWest
+										.getTeams()
+										.get(x)
+										.setPoints(
+												nationalWest.getTeams().get(x)
+														.getPoints() + 1);
+								nationalWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+								nationalWest.addFixture(match);
+							}
+					}
+					if (americanCentral.isMember(t1)) {
+						for (int x = 0; x < americanCentral.getTeams().size(); x++)
+							if (americanCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								americanCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								americanCentral
+										.getTeams()
+										.get(x)
+										.setPoints(
+												americanCentral.getTeams()
+														.get(x).getPoints() + 1);
+								americanCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+								americanCentral.addFixture(match);
+							}
+					}
+					if (americanEast.isMember(t1)) {
+						for (int x = 0; x < americanEast.getTeams().size(); x++)
+							if (americanEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								americanEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanEast
+										.getTeams()
+										.get(x)
+										.setPoints(
+												americanEast.getTeams().get(x)
+														.getPoints() + 1);
+								americanEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+								americanEast.addFixture(match);
+							}
+					}
+					if (americanWest.isMember(t1)) {
+						for (int x = 0; x < americanWest.getTeams().size(); x++)
+							if (americanWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								americanWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanWest
+										.getTeams()
+										.get(x)
+										.setPoints(
+												americanWest.getTeams().get(x)
+														.getPoints() + 1);
+								americanWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+								americanWest.addFixture(match);
+							}
+					}
 
-			/** add the match to the upcoming matches of both teams */
-			for (Team t : theLeague.getTeams()) {
-				if (t.equals(t1)) {
-					t.addUpcomingMatch(match);
-					break;
+					/** increment games played for team 2 and add fixture */
+
+					if (nationalCentral.isMember(t2)) {
+						for (int x = 0; x < nationalCentral.getTeams().size(); x++)
+							if (nationalCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								nationalCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								nationalCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+
+							}
+					}
+					if (nationalEast.isMember(t2)) {
+						for (int x = 0; x < nationalEast.getTeams().size(); x++)
+							if (nationalEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								nationalEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (nationalWest.isMember(t2)) {
+						for (int x = 0; x < nationalWest.getTeams().size(); x++)
+							if (nationalWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								nationalWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanCentral.isMember(t2)) {
+						for (int x = 0; x < americanCentral.getTeams().size(); x++)
+							if (americanCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								americanCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								americanCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanEast.isMember(t2)) {
+						for (int x = 0; x < americanEast.getTeams().size(); x++)
+							if (americanEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								americanEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanWest.isMember(t2)) {
+						for (int x = 0; x < americanWest.getTeams().size(); x++)
+							if (americanWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								americanWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+
 				}
-			}
-			for (Team t : theLeague.getTeams()) {
-				if (t.equals(t2)) {
-					t.addUpcomingMatch(match);
-					break;
+
+				else {
+
+					// if team 2 wins
+
+					/**
+					 * increment games played for team 2 if they won the game,
+					 * increase points and add fixture
+					 */
+
+					if (nationalCentral.isMember(t2)) {
+						for (int x = 0; x < nationalCentral.getTeams().size(); x++)
+							if (nationalCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								nationalCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								nationalCentral
+										.getTeams()
+										.get(x)
+										.setPoints(
+												nationalCentral.getTeams()
+														.get(x).getPoints() + 1);
+								nationalCentral.addFixture(match);
+								nationalCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (nationalEast.isMember(t2)) {
+						for (int x = 0; x < nationalEast.getTeams().size(); x++)
+							if (nationalEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								nationalEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalEast
+										.getTeams()
+										.get(x)
+										.setPoints(
+												nationalEast.getTeams().get(x)
+														.getPoints() + 1);
+								nationalEast.addFixture(match);
+								nationalEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (nationalWest.isMember(t2)) {
+						for (int x = 0; x < nationalWest.getTeams().size(); x++)
+							if (nationalWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								nationalWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalWest
+										.getTeams()
+										.get(x)
+										.setPoints(
+												nationalWest.getTeams().get(x)
+														.getPoints() + 1);
+								nationalWest.addFixture(match);
+								nationalWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanCentral.isMember(t2)) {
+						for (int x = 0; x < americanCentral.getTeams().size(); x++)
+							if (americanCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								americanCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								americanCentral
+										.getTeams()
+										.get(x)
+										.setPoints(
+												americanCentral.getTeams()
+														.get(x).getPoints() + 1);
+								americanCentral.addFixture(match);
+								americanCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanEast.isMember(t2)) {
+						for (int x = 0; x < americanEast.getTeams().size(); x++)
+							if (americanEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								americanEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanEast
+										.getTeams()
+										.get(x)
+										.setPoints(
+												americanEast.getTeams().get(x)
+														.getPoints() + 1);
+								americanEast.addFixture(match);
+								americanEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanWest.isMember(t2)) {
+						for (int x = 0; x < americanWest.getTeams().size(); x++)
+							if (americanWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t2.getName())) {
+								americanWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanWest
+										.getTeams()
+										.get(x)
+										.setPoints(
+												americanWest.getTeams().get(x)
+														.getPoints() + 1);
+								americanWest.addFixture(match);
+								americanWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+
+					/**
+					 * increment games played for team 2 if they lost the game,
+					 * and add fixture
+					 */
+
+					if (nationalCentral.isMember(t1)) {
+						for (int x = 0; x < nationalCentral.getTeams().size(); x++)
+							if (nationalCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								nationalCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								nationalCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (nationalEast.isMember(t1)) {
+						for (int x = 0; x < nationalEast.getTeams().size(); x++)
+							if (nationalEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								nationalEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (nationalWest.isMember(t1)) {
+						for (int x = 0; x < nationalWest.getTeams().size(); x++)
+							if (nationalWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								nationalWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												nationalWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								nationalWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanCentral.isMember(t1)) {
+						for (int x = 0; x < americanCentral.getTeams().size(); x++)
+							if (americanCentral.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								americanCentral
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanCentral.getTeams()
+														.get(x)
+														.getGamesPlayed() + 1);
+								americanCentral.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanEast.isMember(t1)) {
+						for (int x = 0; x < americanEast.getTeams().size(); x++)
+							if (americanEast.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								americanEast
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanEast.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanEast.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+					if (americanWest.isMember(t1)) {
+						for (int x = 0; x < americanWest.getTeams().size(); x++)
+							if (americanWest.getTeams().get(x).getName()
+									.equalsIgnoreCase(t1.getName())) {
+								americanWest
+										.getTeams()
+										.get(x)
+										.setGamesPlayed(
+												americanWest.getTeams().get(x)
+														.getGamesPlayed() + 1);
+								americanWest.getTeams().get(x)
+										.addUpcomingMatch(match);
+							}
+					}
+
 				}
+
 			}
 
 		}// end of while loop
 
-		// check file has been parsed properly
-		// System.out.println(theLeague);
+		System.out.println(americanEast);
+		System.out.println(americanCentral);
+		System.out.println(americanWest);
+		System.out.println(nationalEast);
+		System.out.println(nationalCentral);
+		System.out.println(nationalWest);
 
-		// split up theLeague into 6 smaller divisions
-
-		for (int x = 0; x < theLeague.getTeams().size(); x++) {
-
-			String tt = removeSpaces(theLeague.getTeams().get(x).getName());
-
-			String t = tt.trim();
-
-			Team testT = theLeague.getTeams().get(x);
-
-			// Set American Division : East
-			if (t.equalsIgnoreCase("Baltimore Orioles")
-					|| t.equalsIgnoreCase("Boston Red Sox")
-					|| t.equalsIgnoreCase("New York Yankees")
-					|| t.equalsIgnoreCase("Tampa Bay Rays")
-					|| t.equalsIgnoreCase("Toronto Blue Jays")
-					&& !americanEast.isMember(testT)) {
-				americanEast.addTeam(testT);
-			}
-
-			// Set American Division : Central
-			if ((t.equalsIgnoreCase("Chicago White Sox")
-					|| t.equalsIgnoreCase("Cleveland Indians")
-					|| t.equalsIgnoreCase("Detroit Tigers")
-					|| t.equalsIgnoreCase("Kansas City Royals") || t
-						.equalsIgnoreCase("Minnesota Twins"))
-					&& !americanCentral.isMember(testT)) {
-				americanCentral.addTeam(testT);
-			}
-
-			// Set American Division : West
-			if ((t.equalsIgnoreCase("Seattle Mariners")
-					|| t.equalsIgnoreCase("Texas Rangers")
-					|| t.equalsIgnoreCase("Houston Astros")
-					|| t.equalsIgnoreCase("Los Angeles Angels") || t
-						.equalsIgnoreCase("Oakland Athletics"))
-					&& !americanWest.isMember(testT)) {
-				americanWest.addTeam(testT);
-			}
-
-			// Set National Division : East
-			if ((t.equalsIgnoreCase("Atlanta Braves")
-					|| t.equalsIgnoreCase("Miami Marlins")
-					|| t.equalsIgnoreCase("New York Mets")
-					|| t.equalsIgnoreCase("Philadelphia Phillies") || t
-						.equalsIgnoreCase("Washington Nationals"))
-					&& !nationalEast.isMember(testT)) {
-				nationalEast.addTeam(testT);
-			}
-
-			// Set National Division : Central
-			if ((t.equalsIgnoreCase("Chicago Cubs")
-					|| t.equalsIgnoreCase("Cincinnati Reds")
-					|| t.equalsIgnoreCase("Milwaukee Brewers")
-					|| t.equalsIgnoreCase("Pittsburgh Pirates") || t
-						.equalsIgnoreCase("St.Louis Cardinals"))
-					&& !nationalCentral.isMember(testT)) {
-				nationalCentral.addTeam(testT);
-			}
-
-			// Set National Division : West
-			if ((t.equalsIgnoreCase("Arizona Diamondbacks")
-					|| t.equalsIgnoreCase("Colorado Rockies")
-					|| t.equalsIgnoreCase("San Francisco Giants")
-					|| t.equalsIgnoreCase("Los Angeles Dodgers") || t
-						.equalsIgnoreCase("San Diego Padres"))
-					&& !nationalWest.isMember(testT)) {
-				nationalWest.addTeam(testT);
-			}
-
-			// System.out.println(americanEast);
-			// System.out.println(americanCentral);
-			// System.out.println(americanWest);
-
-			// System.out.println(nationalEast);
-			// System.out.println(nationalCentral);
-			// System.out.println(nationalWest);
-
-		}
 	}// added for constructor
 
 	public Division getNationalEast() {
@@ -360,46 +761,6 @@ public class Parser {
 
 	public String toString() {
 		return String.format("%s", nationalEast, nationalCentral, nationalWest);
-	}
-
-	/** used to remove any leading/trailing spaces randomly in the file */
-	public static String removeSpaces(String name) {
-		String fullName = "";
-		String[] team = name.split("\\s+");
-		for (String x : team) {
-			fullName = fullName + " " + x;
-		}
-		return fullName;
-	}
-
-	/** Method to convert from string to int */
-	public static int getMonth(String month) {
-		month = month.toLowerCase();
-		if (month.equals("jan")) {
-			return 1;
-		} else if (month.equals("feb")) {
-			return 2;
-		} else if (month.equals("mar")) {
-			return 3;
-		} else if (month.equals("apr")) {
-			return 4;
-		} else if (month.equals("may")) {
-			return 5;
-		} else if (month.equals("jun")) {
-			return 6;
-		} else if (month.equals("jul")) {
-			return 7;
-		} else if (month.equals("aug")) {
-			return 8;
-		} else if (month.equals("sep")) {
-			return 9;
-		} else if (month.equals("oct")) {
-			return 10;
-		} else if (month.equals("nov")) {
-			return 11;
-		} else {
-			return 12;
-		}
 	}
 
 	public boolean isVerbose() {
