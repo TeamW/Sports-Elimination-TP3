@@ -97,9 +97,9 @@ public class Main {
 		Algorithm test = new Algorithm(d);
 
 		// test.setVerbose();
-		test.updateDivisionElim(d);
+		// test.updateDivisionElim(d);
 		for (Team t : teams)
-			if (t.isEliminated())
+			if (test.isEliminated(t))
 				System.out.println(t.getName() + ":\teliminated");
 			else
 				System.out.println(t.getName() + ":\tisn't elminated");

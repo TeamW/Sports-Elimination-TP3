@@ -131,20 +131,27 @@ public class Algorithm {
 			residual = new ResidualGraph(g);
 		}
 
-		// Extension: Max Flow-Min Cut Theorem.
-		// Overview:
-		// The value of a maximum flow is equal to the capacity of a minimum
-		// cut.
-		// Obtain two sets of vertices, A and B. The source is a member of A.
-		// The sink is a member of B.
-		// The team nodes that are in B are the teams responsible for the
-		// elimination of team t. These
-		// teams for the certificate of elimination.
-
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.
-		return cap != 0;
+		if (cap != 0) {
+			residual.bfs();
+			for (Vertex v : residual.getV()) {
+				if (g.getV()[v.getIndex()] instanceof TeamVertex) {
+					TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
+					if (v.getVisited()) {
+						t.getEliminatedBy().add(elim.getTeam());
+					}
+				}
+			}
+			// Test output from above
+			System.out.println("\n" + t.getName() + " eliminated by:");
+			for (Team elimBy : t.getEliminatedBy())
+				System.out.println(elimBy.getName());
+			System.out.println();
+			return true;
+		}
+		return false;
 	}
 
 	private static Path residualPath(ResidualGraph g) {
