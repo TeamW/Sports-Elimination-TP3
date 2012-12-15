@@ -240,7 +240,7 @@ public class AlgorithmTest {
 			}
 		}
 	}
-	
+
 	@Test
 	public void testWayneNewYorkCertificateOfElimination() {
 		generateWayne();
