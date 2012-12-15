@@ -325,7 +325,7 @@ public class Team implements Comparable<Team> {
 	 * @return String
 	 */
 	public String toString() {
-		return String.format("%s%d | %d", name, name.length(), points);
+		return String.format("%s", this.name);
 	}
 
 	/**

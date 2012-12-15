@@ -110,7 +110,7 @@ public class Division {
 	}
 
 	public String toString() {
-		return String.format("%s", teams);
+		return String.format("%s\n%s\n%s\n%s\n", "Division fixtures", fixtures, "Division teams", teams);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package uk.ac.gla.dcs.tp3.w.parser;
+package uk.ac.gla.dcs.tp3.w.league;
 
 import java.util.HashMap;
 import java.util.Map;

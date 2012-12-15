@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w.league;
 
-import uk.ac.gla.dcs.tp3.w.parser.Date;
 
 /**
  * This class has many members. The class holds the information, and result of,
@@ -187,7 +186,7 @@ public class Match {
 	}
 
 	public String toString() {
-		return String.format("%s vs. %s", homeTeam, awayTeam);
+		return String.format("%s vs. %s on %s", homeTeam, awayTeam, date);
 	}
 
 	/**

@@ -1,4 +1,5 @@
-package uk.ac.gla.dcs.tp3.w.parser;
+package uk.ac.gla.dcs.tp3.w.league;
+
 
 public class Date {
 
@@ -65,6 +66,10 @@ public class Date {
 		if (d > numberOfDays)
 			return false;
 		return true;
+	}
+	
+	public String toString() {
+		return String.format("%d/%d/%d", day, month, year);
 	}
 
 	public static void main(String[] args) {
