@@ -305,4 +305,22 @@ public class Graph {
 			}
 		}
 	}
+	
+	public void certificateOfEliminationHelper() {
+		for (Vertex v : vertices)
+			v.setVisited(false);
+		LinkedList<Vertex> queue = new LinkedList<Vertex>();
+		queue.add(vertices[0]);
+		while(!queue.isEmpty()) {
+			Vertex v = queue.removeFirst();
+			LinkedList<AdjListNode> list = v.getAdjList();
+			for (AdjListNode n : list) {
+				Vertex w = n.getVertex();
+				if (!w.getVisited()) {
+					w.setVisited(true);
+					queue.add(w);
+				}
+			}
+		}
+	}
 }

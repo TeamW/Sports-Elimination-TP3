@@ -9,7 +9,6 @@ public class Algorithm {
 
 	private Graph g;
 	private Division d;
-	@SuppressWarnings("unused")
 	private static boolean verbose = false;
 
 	/**
@@ -135,20 +134,21 @@ public class Algorithm {
 		// return false.
 		// Otherwise, team has been eliminated, return true.
 		if (cap != 0) {
-			residual.bfs();
+			residual.certificateOfEliminationHelper();
 			for (Vertex v : residual.getV()) {
 				if (g.getV()[v.getIndex()] instanceof TeamVertex) {
 					TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
-					if (v.getVisited()) {
+					if (v.getVisited())
 						t.getEliminatedBy().add(elim.getTeam());
-					}
 				}
 			}
-			// Test output from above
-			System.out.println("\n" + t.getName() + " eliminated by:");
-			for (Team elimBy : t.getEliminatedBy())
-				System.out.println(elimBy.getName());
-			System.out.println();
+			if (verbose) {
+				// Test output from above
+				System.out.println("\n" + t.getName() + " eliminated by:");
+				for (Team elimBy : t.getEliminatedBy())
+					System.out.println(elimBy.getName());
+				System.out.println();
+			}
 			return true;
 		}
 		return false;

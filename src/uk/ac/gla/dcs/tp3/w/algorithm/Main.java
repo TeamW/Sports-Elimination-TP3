@@ -96,7 +96,7 @@ public class Main {
 		Division d = new Division(teams, allMatches);
 		Algorithm test = new Algorithm(d);
 
-		// test.setVerbose();
+		test.setVerbose();
 		// test.updateDivisionElim(d);
 		for (Team t : teams)
 			if (test.isEliminated(t))
