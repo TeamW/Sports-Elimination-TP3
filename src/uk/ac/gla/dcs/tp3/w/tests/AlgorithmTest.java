@@ -94,6 +94,19 @@ public class AlgorithmTest {
 		}
 	}
 
+	@Test
+	public void testWayneAtlantaCertificateOfElimination() {
+		generateWayne();
+		for (Team t : alg.getD().getTeams()) {
+			if (t.getName().equalsIgnoreCase("Atlanta")) {
+				t.setEliminated(alg.isEliminated(t));
+				Object[] teams = t.getEliminatedBy().toArray();
+				Object[] result = {};
+				assertArrayEquals(teams, result);
+			}
+		}
+	}
+
 	/*
 	 * PHILADELPHIA TESTS
 	 */
@@ -163,6 +176,19 @@ public class AlgorithmTest {
 		}
 	}
 
+	@Test
+	public void testWaynePhiladelphiaCertificateOfElimination() {
+		generateWayne();
+		for (Team t : alg.getD().getTeams()) {
+			if (t.getName().equalsIgnoreCase("Philadelphia")) {
+				t.setEliminated(alg.isEliminated(t));
+				Object[] teams = t.getEliminatedBy().toArray();
+				Object[] result = { new Team("New York"), new Team("Atlanta") };
+				assertArrayEquals(teams, result);
+			}
+		}
+	}
+
 	/*
 	 * NEW YORK TESTS
 	 */
@@ -211,6 +237,19 @@ public class AlgorithmTest {
 				}
 				assertEquals(5, capacity);
 				break;
+			}
+		}
+	}
+	
+	@Test
+	public void testWayneNewYorkCertificateOfElimination() {
+		generateWayne();
+		for (Team t : alg.getD().getTeams()) {
+			if (t.getName().equalsIgnoreCase("New York")) {
+				t.setEliminated(alg.isEliminated(t));
+				Object[] teams = t.getEliminatedBy().toArray();
+				Object[] result = {};
+				assertArrayEquals(teams, result);
 			}
 		}
 	}
@@ -297,6 +336,20 @@ public class AlgorithmTest {
 				}
 				assertEquals(3, flow);
 				break;
+			}
+		}
+	}
+
+	@Test
+	public void testWayneMontrealCertificateOfElimination() {
+		generateWayne();
+		for (Team t : alg.getD().getTeams()) {
+			if (t.getName().equalsIgnoreCase("Montreal")) {
+				t.setEliminated(alg.isEliminated(t));
+				Object[] teams = t.getEliminatedBy().toArray();
+				Object[] result = { new Team("New York"),
+						new Team("Philadelphia"), new Team("Atlanta") };
+				assertArrayEquals(teams, result);
 			}
 		}
 	}
