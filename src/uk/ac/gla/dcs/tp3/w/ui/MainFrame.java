@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.*;
+import javax.swing.RowSorter.SortKey;
 
 public class MainFrame extends JFrame {
 
@@ -157,8 +158,8 @@ public class MainFrame extends JFrame {
 		table = new Table(divisions);
 		table.setFillsViewportHeight(true);
 		table.setAutoCreateRowSorter(true);
-		DefaultRowSorter sorter = ((DefaultRowSorter) table.getRowSorter());
-		ArrayList list = new ArrayList();
+		DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table.getRowSorter());
+		ArrayList<SortKey> list = new ArrayList<SortKey>();
 		list.add(new RowSorter.SortKey(1, SortOrder.DESCENDING));
 		sorter.setSortKeys(list);
 		sorter.sort();

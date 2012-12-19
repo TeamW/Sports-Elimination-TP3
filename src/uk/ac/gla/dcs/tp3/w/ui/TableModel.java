@@ -40,6 +40,18 @@ public class TableModel extends AbstractTableModel {
 		return (temp == null) ? 0 : temp.getTeams().size();
 	}
 
+	
+	public Class<?> getColumnClass(int col) {
+		switch (col) {
+		case (1):
+			return Integer.class;
+		case (2):
+			return Integer.class;
+		default:
+			return String.class;
+		}
+	}
+
 	public Object getValueAt(int row, int col) {
 		Division temp = data.get(current);
 		if (temp == null)
