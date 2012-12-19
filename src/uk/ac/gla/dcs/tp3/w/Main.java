@@ -30,13 +30,16 @@ public class Main {
 		// Find out what teams are eliminated.
 		for (Team t : p.getAmericanCentral().getTeams())
 			t.setEliminated(algorithm.isEliminated(t));
-		final Division d = p.getAmericanCentral();
 		final HashMap<String, Division> map = new HashMap<String, Division>();
-		map.put("American Central", d);
+		map.put("American Central", p.getAmericanCentral());
+		map.put("American East", p.getAmericanEast());
+		map.put("American West", p.getAmericanWest());
+		map.put("National Central", p.getNationalCentral());
+		map.put("National East", p.getNationalEast());
+		map.put("National West", p.getNationalWest());
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainFrame ui = new MainFrame(map);
-				ui.setVisible(true);
+				new MainFrame(map);
 			}
 		});
 	}
