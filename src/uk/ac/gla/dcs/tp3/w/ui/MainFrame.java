@@ -62,6 +62,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		pack();
+		this.setMinimumSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
 	private void initRadioButtons(JPanel radioPanel) {
