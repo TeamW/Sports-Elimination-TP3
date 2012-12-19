@@ -1,6 +1,7 @@
 package uk.ac.gla.dcs.tp3.w.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
 
@@ -9,28 +10,17 @@ import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
-/**
- * @author gordon
- * 
- */
 public class Main {
 
-	// TEST EDIT
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-
-		// TODO Auto-generated method stub
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				UI ui = new UI(getTestDivision());
-				ui.setVisible(true);
+				new MainFrame(getTestDivision());
 			}
 		});
 	}
 
-	public static Division getTestDivision() {
+	public static HashMap<String, Division> getTestDivision() {
 		Team atlanta = new Team();
 		atlanta.setName("Atlanta");
 		atlanta.setGamesPlayed(170 - 8);
@@ -114,7 +104,9 @@ public class Main {
 		Algorithm a = new Algorithm(d);
 		for (Team t : teams)
 			t.setEliminated(a.isEliminated(t));
-		return d;
+		HashMap<String, Division> map = new HashMap<String, Division>();
+		map.put("American Central", d);
+		return map;
 	}
 
 }
