@@ -14,6 +14,7 @@ import javax.swing.RowSorter.SortKey;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static final double SPACING_CONSTANT = 1.25;
 	private HashMap<String, Division> divisions;
 	private Table table;
 
@@ -59,7 +60,8 @@ public class MainFrame extends JFrame {
 		setLocation(100, 100);
 		setVisible(true);
 		pack();
-		this.setMinimumSize(new Dimension(this.getWidth(), this.getHeight()));
+		this.setMinimumSize(new Dimension(
+				(int) (this.getWidth() * SPACING_CONSTANT), this.getHeight()));
 	}
 
 	private void initRadioButtons(JPanel radioPanel) {
@@ -107,8 +109,7 @@ public class MainFrame extends JFrame {
 			leaguePanel.add(rButton1);
 			rButton1.addActionListener(leagueListener);
 		}
-		radioPanel.add(leaguePanel);
-		radioPanel.add(Box.createRigidArea(new Dimension(100, 0)));
+		radioPanel.add(leaguePanel, BorderLayout.WEST);
 
 		JPanel divisionPanel = new JPanel();
 		divisionPanel.add(new JLabel("Division: "));
@@ -121,7 +122,7 @@ public class MainFrame extends JFrame {
 			divisionGroup.add(rButton3);
 			divisionPanel.add(rButton3);
 		}
-		radioPanel.add(divisionPanel);
+		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 
 		// set up the quit button
 		JButton quitButton = new JButton("Quit");
@@ -131,8 +132,7 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-		radioPanel.add(Box.createRigidArea(new Dimension(100, 0)));
-		radioPanel.add(quitButton);
+		radioPanel.add(quitButton, BorderLayout.EAST);
 	}
 
 	private void initNavPanel(JPanel navPanel) {
@@ -158,7 +158,8 @@ public class MainFrame extends JFrame {
 		table = new Table(divisions);
 		table.setFillsViewportHeight(true);
 		table.setAutoCreateRowSorter(true);
-		DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table.getRowSorter());
+		DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table
+				.getRowSorter());
 		ArrayList<SortKey> list = new ArrayList<SortKey>();
 		list.add(new RowSorter.SortKey(1, SortOrder.DESCENDING));
 		sorter.setSortKeys(list);
