@@ -1,6 +1,7 @@
 package uk.ac.gla.dcs.tp3.w;
 
 import java.io.File;
+import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
 
@@ -30,9 +31,11 @@ public class Main {
 		for (Team t : p.getAmericanCentral().getTeams())
 			t.setEliminated(algorithm.isEliminated(t));
 		final Division d = p.getAmericanCentral();
+		final HashMap<String, Division> map = new HashMap<String, Division>();
+		map.put("Americal Central", d);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				UI ui = new UI(d);
+				UI ui = new UI(map);
 				ui.setVisible(true);
 			}
 		});
