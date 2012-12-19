@@ -5,6 +5,7 @@ import uk.ac.gla.dcs.tp3.w.league.Division;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.*;
@@ -155,6 +156,12 @@ public class MainFrame extends JFrame {
 	private void initTable(JPanel tablePanel) {
 		table = new Table(divisions);
 		table.setFillsViewportHeight(true);
+		table.setAutoCreateRowSorter(true);
+		DefaultRowSorter sorter = ((DefaultRowSorter) table.getRowSorter());
+		ArrayList list = new ArrayList();
+		list.add(new RowSorter.SortKey(1, SortOrder.DESCENDING));
+		sorter.setSortKeys(list);
+		sorter.sort();
 		JScrollPane sP = new JScrollPane(table);
 		tablePanel.add(sP);
 	}
