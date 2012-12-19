@@ -17,11 +17,11 @@ public class TableModel extends AbstractTableModel {
 	public TableModel(HashMap<String, Division> d) {
 		data = d;
 	}
-	
+
 	public String getCurrent() {
 		return current;
 	}
-	
+
 	public void setCurrent(String s) {
 		current = s;
 		this.fireTableDataChanged();

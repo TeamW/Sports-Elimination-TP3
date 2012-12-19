@@ -4,7 +4,6 @@ import uk.ac.gla.dcs.tp3.w.league.Division;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.*;
 import java.util.HashMap;
 
@@ -55,11 +54,7 @@ public class MainFrame extends JFrame {
 
 		// set general frame stuff
 		setTitle("Team W - Algorithms for Sports Eliminations");
-		Dimension location = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = location.width - this.getWidth();
-		int height = location.height - this.getHeight();
-		setLocation(width / 2, height / 2);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		pack();
 		this.setMinimumSize(new Dimension(this.getWidth(), this.getHeight()));
@@ -99,38 +94,32 @@ public class MainFrame extends JFrame {
 
 		};
 
-		// now set up each button and add it to the group
-		JRadioButton rButton1 = new JRadioButton("National");
-		rButton1.setSelected(true);
-		leagueGroup.add(rButton1);
-		radioPanel.add(rButton1);
-		rButton1.addActionListener(leagueListener);
-		radioPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+		JPanel leaguePanel = new JPanel();
+		leaguePanel.add(new JLabel("League: "));
+		String[] leagues = { "National", "American" };
+		for (String s : leagues) {
+			JRadioButton rButton1 = new JRadioButton(s);
+			if (s.equals("National"))
+				rButton1.setSelected(true);
+			leagueGroup.add(rButton1);
+			leaguePanel.add(rButton1);
+			rButton1.addActionListener(leagueListener);
+		}
+		radioPanel.add(leaguePanel);
+		radioPanel.add(Box.createRigidArea(new Dimension(100, 0)));
 
-		JRadioButton rButton2 = new JRadioButton("American");
-		rButton2.addActionListener(leagueListener);
-		leagueGroup.add(rButton2);
-		radioPanel.add(rButton2);
-		radioPanel.add(Box.createRigidArea(new Dimension(240, 0)));
-
-		JRadioButton rButton3 = new JRadioButton("West");
-		rButton3.setSelected(true);
-		rButton3.addActionListener(divisionListener);
-		divisionGroup.add(rButton3);
-		radioPanel.add(rButton3);
-		radioPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-
-		JRadioButton rButton4 = new JRadioButton("Central");
-		divisionGroup.add(rButton4);
-		rButton4.addActionListener(divisionListener);
-		radioPanel.add(rButton4);
-		radioPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-
-		JRadioButton rButton5 = new JRadioButton("East");
-		divisionGroup.add(rButton5);
-		rButton5.addActionListener(divisionListener);
-		radioPanel.add(rButton5);
-		radioPanel.add(Box.createRigidArea(new Dimension(28, 0)));
+		JPanel divisionPanel = new JPanel();
+		divisionPanel.add(new JLabel("Division: "));
+		String[] divisions = { "West", "Central", "East" };
+		for (String s : divisions) {
+			JRadioButton rButton3 = new JRadioButton(s);
+			if (s.equals("West"))
+				rButton3.setSelected(true);
+			rButton3.addActionListener(divisionListener);
+			divisionGroup.add(rButton3);
+			divisionPanel.add(rButton3);
+		}
+		radioPanel.add(divisionPanel);
 
 		// set up the quit button
 		JButton quitButton = new JButton("Quit");
@@ -140,7 +129,7 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-		radioPanel.add(Box.createRigidArea(new Dimension(50, 0)));
+		radioPanel.add(Box.createRigidArea(new Dimension(100, 0)));
 		radioPanel.add(quitButton);
 	}
 
