@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
 
 		// set general frame stuff
 		setTitle("Team W - Algorithms for Sports Eliminations");
-		setLocationRelativeTo(null);
+		setLocation(100, 100);
 		setVisible(true);
 		pack();
 		this.setMinimumSize(new Dimension(this.getWidth(), this.getHeight()));
