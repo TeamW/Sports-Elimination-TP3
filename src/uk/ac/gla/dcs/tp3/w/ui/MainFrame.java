@@ -55,13 +55,13 @@ public class MainFrame extends JFrame {
 
 		// set general frame stuff
 		setTitle("Team W - Algorithms for Sports Eliminations");
-		setSize(640, 480);
 		Dimension location = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = location.width - this.getWidth();
 		int height = location.height - this.getHeight();
 		setLocation(width / 2, height / 2);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		pack();
 	}
 
 	private void initRadioButtons(JPanel radioPanel) {
