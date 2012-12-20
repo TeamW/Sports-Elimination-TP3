@@ -61,7 +61,7 @@ public class TableModel extends AbstractTableModel {
 		Team[] t = temp.teamsToArray();
 		switch (col) {
 		case (0):
-			return t[row];
+			return t[row].getName();
 		case (1):
 			return t[row].getPoints();
 		case (2):
