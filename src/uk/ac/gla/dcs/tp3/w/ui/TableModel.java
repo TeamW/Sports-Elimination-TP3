@@ -47,6 +47,8 @@ public class TableModel extends AbstractTableModel {
 			return Integer.class;
 		case (2):
 			return Integer.class;
+		case(3):
+			return Boolean.class;
 		default:
 			return String.class;
 		}
