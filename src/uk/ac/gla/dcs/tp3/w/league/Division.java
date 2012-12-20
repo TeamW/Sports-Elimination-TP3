@@ -11,9 +11,8 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class Division {
-	// overall standings
+
 	private ArrayList<Team> teams;
-	// overall fixtures
 	private ArrayList<Match> fixtures;
 
 	/**
@@ -101,6 +100,13 @@ public class Division {
 		teams.add(t);
 	}
 
+	/**
+	 * Returns true if the given team object is contained within the team array.
+	 * 
+	 * @param t
+	 *            The team being tested.
+	 * @return True if team is in the list, false otherwise.
+	 */
 	public boolean isMember(Team t) {
 		if (!teams.isEmpty()) {
 			if (teams.contains(t))
@@ -110,11 +116,17 @@ public class Division {
 	}
 
 	public String toString() {
-		return String.format("%s\n%s\n%s\n%s\n", "Division fixtures", fixtures, "Division teams", teams);
+		return String.format("%s\n%s\n%s\n%s\n", "Division fixtures", fixtures,
+				"Division teams", teams);
 	}
 
 	/**
-	 * Override of toArray() method
+	 * Returns an array of teams. This is used instead of toArray() since that
+	 * method returns an array of objects that cannot be easily cast by the
+	 * client to a Team array.
+	 * 
+	 * @return A Team array (Team[]) of every team participating in the
+	 *         division.
 	 */
 	public Team[] teamsToArray() {
 		Team[] array = new Team[teams.size()];

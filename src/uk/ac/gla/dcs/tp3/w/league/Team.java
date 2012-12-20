@@ -25,7 +25,8 @@ public class Team implements Comparable<Team> {
 	 * false.
 	 */
 	public Team() {
-		this("", -1, -1, false, new ArrayList<Match>(), new ArrayList<Team>(), false, "");
+		this("", -1, -1, false, new ArrayList<Match>(), new ArrayList<Team>(),
+				false, "");
 	}
 
 	/**

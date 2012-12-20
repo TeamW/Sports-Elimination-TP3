@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w.league;
 
-
 /**
  * This class has many members. The class holds the information, and result of,
  * a match between two teams. This is an element of the fixture list which is

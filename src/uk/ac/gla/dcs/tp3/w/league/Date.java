@@ -1,6 +1,12 @@
 package uk.ac.gla.dcs.tp3.w.league;
 
-
+/**
+ * A simple date class that supports leap years and conversions between month
+ * name and number of days in the month.
+ * 
+ * @author Team W
+ * @version 1.0
+ */
 public class Date {
 
 	private int day;
@@ -47,6 +53,14 @@ public class Date {
 		year = y;
 	}
 
+	/**
+	 * Does as it says on the tin. Returns true if the date is before the passed
+	 * in date, false otherwise. Assumes both dates are valid.
+	 * 
+	 * @param date
+	 *            Date being tested against this date.
+	 * @return Returns true if this date is before given date, false otherwise.
+	 */
 	public boolean before(Date date) {
 		if (year < date.getYear())
 			return true;
@@ -59,6 +73,19 @@ public class Date {
 		return false;
 	}
 
+	/**
+	 * A simple method which takes in integer representation of the date
+	 * elements and returns a boolean representing whether or not the date is
+	 * valid. Supports leap years.
+	 * 
+	 * @param d
+	 *            Day of date being tested
+	 * @param m
+	 *            Month of date being tested
+	 * @param y
+	 *            Year of date being tested
+	 * @return True if date is valid, false otherwise.
+	 */
 	private static boolean validDate(int d, int m, int y) {
 		if (m < 1 || m > 12 || y < 1 || d < 1)
 			return false;
@@ -67,19 +94,9 @@ public class Date {
 			return false;
 		return true;
 	}
-	
+
 	public String toString() {
 		return String.format("%d/%d/%d", day, month, year);
-	}
-
-	public static void main(String[] args) {
-		Date d1 = new Date(1, 1, 2011);
-		Date d2 = new Date(1, 1, 2011);
-		System.out.println(d1.before(d2));
-		System.out.println(Month.getMonthName(2));
-		String month = "Feb";
-		System.out.println(Month.getMonthNumber(month.toUpperCase()));
-		System.out.println(Month.daysInMonth(2, 2010));
 	}
 
 }
