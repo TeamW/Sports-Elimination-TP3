@@ -37,8 +37,13 @@ public class Parser {
 			return;
 		}
 		thisLine = fileScanner.nextLine();
+		
+		int lCount = 0;
 
 		while (fileScanner.hasNextLine() || thisLine.isEmpty()) {
+			
+			postponedCheck = false;
+			
 			/** Setting the date */
 			if (thisLine.isEmpty()) {
 				date = fileScanner.nextLine();
@@ -231,6 +236,8 @@ public class Parser {
 
 			/** Creating the match object with them + scores */
 			Match match = new Match(t1, t2, score1, score2, d, false);
+			
+			
 			/** convert score to integers if the match was not postponed */
 			if (!postponedCheck) {
 				score1 = Integer.parseInt(scoreOne);
@@ -699,6 +706,13 @@ public class Parser {
 				}
 
 			}
+			
+		if(lCount == 2430)	
+			System.out.println("break for inspection");
+			
+			
+		lCount++;	
+		System.out.println(lCount);
 
 		}// end of while loop
 
