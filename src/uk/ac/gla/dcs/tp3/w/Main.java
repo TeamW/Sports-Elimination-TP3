@@ -27,9 +27,6 @@ public class Main {
 		// Create algorithm for division.
 		Algorithm algorithm = new Algorithm(p.getAmericanCentral());
 
-		// Find out what teams are eliminated.
-		for (Team t : p.getAmericanCentral().getTeams())
-			t.setEliminated(algorithm.isEliminated(t));
 		final HashMap<String, Division> map = new HashMap<String, Division>();
 		map.put("American Central", p.getAmericanCentral());
 		map.put("American East", p.getAmericanEast());
@@ -37,6 +34,13 @@ public class Main {
 		map.put("National Central", p.getNationalCentral());
 		map.put("National East", p.getNationalEast());
 		map.put("National West", p.getNationalWest());
+		for (Division d : map.values()) {
+			algorithm = new Algorithm(d);
+			for (Team t : d.getTeams()) {
+				algorithm.isEliminated(t);
+				System.out.println(t.getUpcomingMatches().size());
+			}
+		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new MainFrame(map);
