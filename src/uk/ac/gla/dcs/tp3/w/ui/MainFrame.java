@@ -187,6 +187,7 @@ public class MainFrame extends JFrame {
 
 			private void showElimination(Team t) {
 				String s = t.getName() + " has been eliminated by ";
+				String cOE = "Certificate of elimination for " + t.getName();
 				int size = t.getEliminatedBy().size();
 				int i = 0;
 				for (Team team : t.getEliminatedBy()) {
@@ -196,7 +197,8 @@ public class MainFrame extends JFrame {
 					else
 						s += "and " + team.getName() + ".";
 				}
-				JOptionPane.showMessageDialog(getParent(), s);
+				JOptionPane.showMessageDialog(getParent(), s, cOE,
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 
 			public void mousePressed(MouseEvent e) {
