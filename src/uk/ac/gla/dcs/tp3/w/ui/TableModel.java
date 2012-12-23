@@ -40,14 +40,13 @@ public class TableModel extends AbstractTableModel {
 		return (temp == null) ? 0 : temp.getTeams().size();
 	}
 
-	
 	public Class<?> getColumnClass(int col) {
 		switch (col) {
 		case (1):
 			return Integer.class;
 		case (2):
 			return Integer.class;
-		case(3):
+		case (3):
 			return Boolean.class;
 		default:
 			return String.class;

@@ -1,6 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.ui;
 
-import uk.ac.gla.dcs.tp3.w.league.Division;
+import uk.ac.gla.dcs.tp3.w.league.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -158,6 +158,59 @@ public class MainFrame extends JFrame {
 		table = new Table(divisions);
 		table.setFillsViewportHeight(true);
 		table.setAutoCreateRowSorter(true);
+		table.addMouseListener(new MouseListener() {
+			String s;
+			Division d;
+			int c, r;
+
+			public void mouseClicked(MouseEvent e) {
+				if (validClick()) {
+					s = (String) table.getValueAt(r, 0);
+					d = divisions.get(table.getCurrent());
+					if (d != null)
+						for (Team team : d.getTeams())
+							if (validTeam(team))
+								showElimination(team);
+				}
+			}
+
+			private boolean validClick() {
+				c = table.getSelectedColumn();
+				r = table.getSelectedRow();
+				return c == 3 && table.getValueAt(r, 0) instanceof String;
+			}
+
+			private boolean validTeam(Team team) {
+				return team.getName().equalsIgnoreCase(s)
+						&& team.isEliminated();
+			}
+
+			private void showElimination(Team t) {
+				String s = "Team " + t.getName() + " has been eliminated by: ";
+				int size = t.getEliminatedBy().size();
+				int i = 0;
+				for (Team team : t.getEliminatedBy()) {
+					i++;
+					if (i < size)
+						s += team.getName() + ", ";
+					else
+						s += "and " + team.getName() + ".";
+				}
+				System.out.println(s);
+			}
+
+			public void mousePressed(MouseEvent e) {
+			}
+
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			public void mouseExited(MouseEvent e) {
+			}
+		});
 		DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table
 				.getRowSorter());
 		ArrayList<SortKey> list = new ArrayList<SortKey>();
