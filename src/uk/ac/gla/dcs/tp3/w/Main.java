@@ -13,19 +13,22 @@ import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 
 public class Main {
 
+	private static final String DEFAULT_FILE = System.getProperty("user.dir")
+			+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
+
 	public static void main(String[] args) {
 		Parser p = null;
-		File source = new File(System.getProperty("user.dir")
-				+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+		File source;
+		if (args.length == 0)
+			source = new File(DEFAULT_FILE);
+		else
+			source = new File(args[0]);
 		if (source.exists())
 			p = new Parser(source);
 		else
 			System.err.println("File not found.");
 		if (p == null)
 			return;
-
-		// Create algorithm for division.
-		Algorithm algorithm = new Algorithm(p.getAmericanCentral());
 
 		final HashMap<String, Division> map = new HashMap<String, Division>();
 		map.put("American Central", p.getAmericanCentral());
@@ -34,12 +37,11 @@ public class Main {
 		map.put("National Central", p.getNationalCentral());
 		map.put("National East", p.getNationalEast());
 		map.put("National West", p.getNationalWest());
+		Algorithm algorithm = new Algorithm();
 		for (Division d : map.values()) {
 			algorithm = new Algorithm(d);
-			for (Team t : d.getTeams()) {
+			for (Team t : d.getTeams())
 				algorithm.isEliminated(t);
-				System.out.println(t.getUpcomingMatches().size());
-			}
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
