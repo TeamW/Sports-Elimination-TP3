@@ -41,7 +41,7 @@ public class Main {
 		for (Division d : map.values()) {
 			algorithm = new Algorithm(d);
 			for (Team t : d.getTeams())
-				algorithm.isEliminated(t);
+				t.setEliminated(algorithm.isEliminated(t));
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
