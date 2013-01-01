@@ -79,7 +79,6 @@ public class Main {
 			philadelphiaMatches.add(philVmon);
 			montrealMatches.add(philVmon);
 			allMatches.add(philVmon);
-
 		}
 
 		Match nyVmon = new Match();

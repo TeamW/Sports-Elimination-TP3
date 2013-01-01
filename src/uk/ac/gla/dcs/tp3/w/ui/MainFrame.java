@@ -14,9 +14,11 @@ import javax.swing.RowSorter.SortKey;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final double SPACING_CONSTANT = 1.25;
+	private static final double SPACING = 1.25;
 	private HashMap<String, Division> divisions;
 	private Table table;
+	private String[] leagues = { "National", "American" };
+	private String[] divisionNames = { "West", "Central", "East" };
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -24,44 +26,35 @@ public class MainFrame extends JFrame {
 	}
 
 	public final void initUI() {
-		// full screen panel
-		JPanel screenPanel = new JPanel();
-		getContentPane().add(screenPanel);
-
-		// the table panel
-		JPanel tablePanel = new JPanel();
-
-		// the navigation panel
-		JPanel navPanel = new JPanel();
-
-		// the radio buttons panel
+		// Set up the panels with appropriate layout managers
+		JPanel screenPanel = new JPanel(new BorderLayout());
+		JPanel tablePanel = new JPanel(new BorderLayout());
+		JPanel navPanel = new JPanel(new BorderLayout());
 		JPanel radioPanel = new JPanel();
-
-		// set layouts and add the panels to the screen panel
-		screenPanel.setLayout(new BorderLayout());
 		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.X_AXIS));
-		tablePanel.setLayout(new BorderLayout());
-		navPanel.setLayout(new BorderLayout());
+
+		// Add panels to the screen panel and then add that to the JFrame
 		screenPanel.add(radioPanel, BorderLayout.PAGE_START);
 		screenPanel.add(tablePanel, BorderLayout.CENTER);
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
+		getContentPane().add(screenPanel);
 
-		// set up table
-		initTable(tablePanel);
-
-		// NAV panel buttons
-		initNavPanel(navPanel);
-
-		// Create the radio buttons.
+		// Add the division and league radio buttons
 		initRadioButtons(radioPanel);
 
-		// set general frame stuff
+		// Add the JTable for showing league data
+		initTable(tablePanel);
+
+		// Add the panel that shows the previous/next week buttons
+		initNavPanel(navPanel);
+
+		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
 		setLocation(100, 100);
 		setVisible(true);
 		pack();
-		this.setMinimumSize(new Dimension(
-				(int) (this.getWidth() * SPACING_CONSTANT), this.getHeight()));
+		setSize((int) (getWidth() * SPACING), getHeight());
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
 
 	private void initRadioButtons(JPanel radioPanel) {
@@ -100,7 +93,6 @@ public class MainFrame extends JFrame {
 
 		JPanel leaguePanel = new JPanel();
 		leaguePanel.add(new JLabel("League: "));
-		String[] leagues = { "National", "American" };
 		for (String s : leagues) {
 			JRadioButton rButton1 = new JRadioButton(s);
 			if (s.equals("National"))
@@ -113,8 +105,7 @@ public class MainFrame extends JFrame {
 
 		JPanel divisionPanel = new JPanel();
 		divisionPanel.add(new JLabel("Division: "));
-		String[] divisions = { "West", "Central", "East" };
-		for (String s : divisions) {
+		for (String s : divisionNames) {
 			JRadioButton rButton3 = new JRadioButton(s);
 			if (s.equals("West"))
 				rButton3.setSelected(true);
@@ -124,7 +115,6 @@ public class MainFrame extends JFrame {
 		}
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 
-		// set up the quit button
 		JButton quitButton = new JButton("Quit");
 		quitButton.setToolTipText("Click here to exit");
 		quitButton.addActionListener(new ActionListener() {
@@ -158,61 +148,7 @@ public class MainFrame extends JFrame {
 		table = new Table(divisions);
 		table.setFillsViewportHeight(true);
 		table.setAutoCreateRowSorter(true);
-		table.addMouseListener(new MouseListener() {
-			String s;
-			Division d;
-			int c, r;
-
-			public void mouseClicked(MouseEvent e) {
-				if (validClick()) {
-					s = (String) table.getValueAt(r, 0);
-					d = divisions.get(table.getCurrent());
-					if (d != null)
-						for (Team team : d.getTeams())
-							if (validTeam(team))
-								showElimination(team);
-				}
-			}
-
-			private boolean validClick() {
-				c = table.getSelectedColumn();
-				r = table.getSelectedRow();
-				return c == 3 && table.getValueAt(r, 0) instanceof String;
-			}
-
-			private boolean validTeam(Team team) {
-				return team.getName().equalsIgnoreCase(s)
-						&& team.isEliminated();
-			}
-
-			private void showElimination(Team t) {
-				String s = t.getName() + " has been eliminated by ";
-				String cOE = "Certificate of elimination for " + t.getName();
-				int size = t.getEliminatedBy().size();
-				int i = 0;
-				for (Team team : t.getEliminatedBy()) {
-					i++;
-					if (i < size)
-						s += team.getName() + ", ";
-					else
-						s += "and " + team.getName() + ".";
-				}
-				JOptionPane.showMessageDialog(getParent(), s, cOE,
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-
-			public void mousePressed(MouseEvent e) {
-			}
-
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-		});
+		table.addMouseListener(new TableMouseListener(table, divisions, this));
 		DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table
 				.getRowSorter());
 		ArrayList<SortKey> list = new ArrayList<SortKey>();
