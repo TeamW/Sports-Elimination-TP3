@@ -209,7 +209,7 @@ public class Algorithm {
 	}
 
 	/**
-	 * Updates the entire Divisions elimination status.
+	 * Updates the entire Divisions elimination status
 	 * 
 	 * This method sorts the Teams in non-descending order by wins and games
 	 * remaining and then uses binary search to eliminate teams.
