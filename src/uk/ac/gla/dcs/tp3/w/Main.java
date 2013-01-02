@@ -14,13 +14,14 @@ import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 public class Main {
 
 	private static final String DEFAULT_FILE = System.getProperty("user.dir")
-			+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
+			+ "/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
 
 	public static void main(String[] args) {
 		Parser p = null;
 		File source;
-		if (args.length == 0)
-			source = new File(DEFAULT_FILE);
+		if (args.length == 0){
+			System.out.println(DEFAULT_FILE);
+			source = new File(DEFAULT_FILE);}
 		else
 			source = new File(args[0]);
 		if (source.exists())
