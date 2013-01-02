@@ -132,6 +132,10 @@ public class Algorithm {
 		}
 		if(verbose){
 		    int teamToSinkRemain=0;
+		    int floatOut=0;
+		    for(AdjListNode a: g.getV()[0].getAdjList()){
+		    	floatOut+=(a.getCapacity());
+		    }
 		    for (Vertex v : g.getV()){
 		    	if(g.getV()[v.getIndex()] instanceof TeamVertex){
 		    		TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
@@ -140,6 +144,7 @@ public class Algorithm {
 		    		}
 		    	}
 		    }
+		    System.out.println("Total From Float: " + floatOut);
 			System.out.println("Total Remaining Games: " +teamToSinkRemain);   
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
