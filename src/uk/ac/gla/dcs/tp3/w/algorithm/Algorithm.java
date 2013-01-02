@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.Division;
@@ -129,7 +130,18 @@ public class Algorithm {
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
 		}
-
+		if(verbose){
+		    int teamToSinkRemain=0;
+		    for (Vertex v : g.getV()){
+		    	if(g.getV()[v.getIndex()] instanceof TeamVertex){
+		    		TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
+		    		for(AdjListNode a: TV.getAdjList()){
+		    			teamToSinkRemain+=(a.getCapacity()-a.getFlow());
+		    		}
+		    	}
+		    }
+			System.out.println("Total Remaining Games: " +teamToSinkRemain);   
+		}
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.
