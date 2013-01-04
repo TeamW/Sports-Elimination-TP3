@@ -24,6 +24,16 @@ public class DateTime extends Date {
 		hour = h;
 		this.min = min;
 	}
+	
+	public DateTime(Date D, int h, int m){
+		super(D.getDay(), D.getMonth(), D.getYear());
+		if (!validateTime(h, min)) {
+			System.out.println("Erroneous time.");
+			return;
+		}
+		hour = h;
+		this.min = min;
+	}
 
 	public int getHour() {
 		return hour;
