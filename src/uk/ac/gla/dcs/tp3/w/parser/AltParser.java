@@ -39,6 +39,7 @@ public class AltParser {
 			else if (splitLine.length == 3){
 				int day = Integer.parseInt(splitLine[0]);
 				int year = Integer.parseInt(splitLine[2]);
+				current = new Date(day, splitLine[1], year);
 			}
 			else{
 			}
