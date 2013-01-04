@@ -32,7 +32,7 @@ public class DateTime extends Date {
 			return;
 		}
 		hour = h;
-		this.min = min;
+		this.min = m;
 	}
 
 	public int getHour() {
