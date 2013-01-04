@@ -14,7 +14,7 @@ public class Match {
 	private Team awayTeam;
 	private int homeScore;
 	private int awayScore;
-	private Date date;
+	private DateTime date;
 	private boolean played;
 
 	/**
@@ -34,14 +34,13 @@ public class Match {
 	 *            The away team
 	 * @param hs
 	 *            The home team's score
-	 * @param as
-	 *            The away team's score
+	 * @param as The away team's score
 	 * @param d
-	 *            The date the match is played
+	 *            The date and time the match is played
 	 * @param b
 	 *            A boolean to show if the match has been played or not.
 	 */
-	public Match(Team h, Team a, int hs, int as, Date d, boolean b) {
+	public Match(Team h, Team a, int hs, int as, DateTime d, boolean b) {
 		homeTeam = h;
 		awayTeam = a;
 		homeScore = hs;
@@ -131,7 +130,7 @@ public class Match {
 	 * 
 	 * @return Date for when the match will be played
 	 */
-	public Date getDate() {
+	public DateTime getDateTime() {
 		return date;
 	}
 
@@ -141,7 +140,7 @@ public class Match {
 	 * @param date
 	 *            Date for when the match will be played
 	 */
-	public void setDate(Date date) {
+	public void setDate(DateTime date) {
 		this.date = date;
 	}
 
