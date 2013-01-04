@@ -1,15 +1,16 @@
 package uk.ac.gla.dcs.tp3.w.parser;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
-import uk.ac.gla.dcs.tp3.w.league.Date;
-import uk.ac.gla.dcs.tp3.w.league.DateTime;
+import uk.ac.gla.dcs.tp3.w.league.*;
 
 public class AltParser {
 
 	private boolean verbose = false;
+	private Date current = new Date();
+	private HashMap<String, Division> divisions;
 
 	public AltParser() {
 	}
@@ -17,8 +18,7 @@ public class AltParser {
 	public boolean parse(String fileName) {
 		File f;
 		Scanner fs;
-		String line;
-		String[] splitLine;
+		String[] line;
 		try {
 			f = new File(fileName);
 			fs = new Scanner(f);
@@ -26,84 +26,73 @@ public class AltParser {
 			e.printStackTrace();
 			return false;
 		}
-
-		Date current = new Date();
-
 		while (fs.hasNextLine()) {
-			line = fs.nextLine();
-			splitLine = line.split(" ");
+			line = fs.nextLine().split(" ");
 			if (verbose) {
 				System.out.print("[");
-				for (String s : splitLine)
+				for (String s : line)
 					System.out.print(s + ", ");
-				System.out.println("]: Length = " + splitLine.length);
+				System.out.println("]: Length = " + line.length);
 			}
-			if (splitLine.length == 1) {
+			if (line.length <= 1)
 				continue;
-			} else if (splitLine.length == 3) {
-				int day = Integer.parseInt(splitLine[0]);
-				int year = Integer.parseInt(splitLine[2]);
-				System.out.println(day + " " + splitLine[1] + " " + year);
-				current = new Date(day, splitLine[1], year);
-
-				if (verbose) {
-					System.out.println("--------------------\n" + "NEW DATE: "
-							+ current.toString() + "\n--------------------");
-				}
-			} else {
-				String time = splitLine[0];
-				String[] timeSplit = time.split(":");
-				DateTime matchDate = new DateTime(current, Integer
-						.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]));
-
-				int firstScore = -1;
-				int secondScore = -1;
-				String score = splitLine[splitLine.length - 1];
-				String[] scoreSplit = score.split(":");
-				if (scoreSplit.length > 1) {
-					firstScore = Integer.parseInt(scoreSplit[0]);
-					secondScore = Integer.parseInt(scoreSplit[1]);
-				}
-
-				StringBuilder firstTeamsb = new StringBuilder();
-				StringBuilder secondTeamsb = new StringBuilder();
-				for (int i = 1; i < splitLine.length - 2; i++) {
-					if (splitLine[i] == "-") {
-						for (int j = i + 1; j < splitLine.length - 2; j++) {
-							if (secondTeamsb.length() != 0)
-								secondTeamsb.append(" ");
-							secondTeamsb.append(splitLine[j]);
-						}
-						break;
-					}
-					if (firstTeamsb.length() != 0)
-						firstTeamsb.append(" ");
-					firstTeamsb.append(splitLine[i]);
-				}
-
-				String firstTeam = firstTeamsb.toString();
-				String secondTeam = secondTeamsb.toString();
-				/*
-				 * Everything is now in variables to be added to match/league
-				 * classes I think. Tested using baseballSource.txt.
-				 */
-
-				if (verbose) {
-					System.out.println("MATCH:");
-					System.out.println("\t" + firstTeam + " plays "
-							+ secondTeam);
-					System.out.println("\t\ton: " + matchDate.toString());
-					System.out.println("\t\tresult: " + firstScore + ":"
-							+ secondScore);
-				}
-			}
+			else if (line.length == 3)
+				newDate(line);
+			else
+				newMatch(line);
 		}
-
+		fs.close();
 		return true;
+	}
+
+	private void newDate(String[] line) {
+		int day = Integer.parseInt(line[0]);
+		int year = Integer.parseInt(line[2]);
+		current = new Date(day, line[1], year);
+		if (verbose) {
+			System.out.println(day + " " + line[1] + " " + year);
+			System.out.println("--------------------\n" + "NEW DATE: "
+					+ current + "\n--------------------");
+		}
+	}
+
+	private void newMatch(String[] line) {
+		String[] time = line[0].split(":");
+		DateTime matchDate = new DateTime(current, Integer.parseInt(time[0]),
+				Integer.parseInt(time[1]));
+		int firstScore = -1;
+		int secondScore = -1;
+		String[] score = line[line.length - 1].split(":");
+		boolean played = false;
+		if (score.length == 2) {
+			firstScore = Integer.parseInt(score[0]);
+			secondScore = Integer.parseInt(score[1]);
+			played = true;
+		}
+		String firstTeam = "";
+		String secondTeam = "";
+		int i = 1;
+		for (i = 1; !line[i].equals("-"); i++)
+			firstTeam += line[i] + " ";
+		firstTeam = firstTeam.trim();
+		for (i++; i < line.length - 2; i++)
+			secondTeam += line[i] + " ";
+		secondTeam = secondTeam.trim();
+		if (verbose) {
+			System.out.println("MATCH:");
+			System.out.println("\t" + firstTeam + " plays " + secondTeam);
+			System.out.println("\t\ton: " + matchDate);
+			System.out.println("\t\tresult: " + firstScore + ":" + secondScore);
+			System.out.println("\t\tplayed: " + played);
+		}
 	}
 
 	public void setVerbose() {
 		verbose = true;
+	}
+
+	public HashMap<String, Division> getDivisions() {
+		return divisions;
 	}
 
 	public static void main(String[] args) {
