@@ -28,6 +28,34 @@ public class Date {
 		month = m;
 		year = y;
 	}
+	
+	public Date(int d, String M, int y){
+		int mn;
+		String m = M.toLowerCase();
+		if (m == "january" || m == "jan") mn = 1;
+		else if (m == "february"|| m == "feb") mn = 2;
+		else if (m == "march" || m == "mar") mn = 3;
+		else if (m == "april" || m == "apr") mn = 4;
+		else if (m == "may") mn = 5;
+		else if (m == "june" || m == "jun") mn = 6;
+		else if (m == "july" || m == "jul") mn = 7;
+		else if (m == "august" || m == "aug") mn = 8;
+		else if (m == "september" || m == "sep") mn = 9;
+		else if (m == "october" || m == "oct") mn = 10;
+		else if (m == "november" || m == "nov") mn = 11;
+		else if (m == "december" || m == "dec") mn = 12;
+		else{
+			System.out.println("Erroneous date.");
+			return;
+		}
+		if (!validDate(d, mn, y)) {
+			System.out.println("Erroneous date.");
+			return;
+		}
+		day = d;
+		month = mn;
+		year = y;
+	}
 
 	public int getDay() {
 		return day;

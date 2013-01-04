@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import uk.ac.gla.dcs.tp3.w.league.Date;
+
 public class AltParser {
 
 	private boolean verbose = false;
@@ -22,6 +24,8 @@ public class AltParser {
 			return false;
 		}
 		
+		Date current;
+		
 		while(fs.hasNextLine()){
 			line = fs.nextLine();
 			splitLine = line.split(" ");
@@ -29,11 +33,15 @@ public class AltParser {
 				System.out.print("[");
 				for(String s : splitLine)
 					System.out.print(s+", ");
-				System.out.println("]");
+				System.out.println("]: Length = " +splitLine.length);
 			}
-			/**
-			if (splitLine.length == 0){break;}
-			else if (splitLine.length == 3){}*/
+			if (splitLine.length == 1){break;}
+			else if (splitLine.length == 3){
+				int day = Integer.parseInt(splitLine[0]);
+				int year = Integer.parseInt(splitLine[2]);
+			}
+			else{
+			}
 		}
 		
 		return true;
