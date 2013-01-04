@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.Division;
