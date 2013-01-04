@@ -85,9 +85,8 @@ public class Division {
 	 *            The match to add to the fixture list.
 	 */
 	public void addFixture(Match m) {
-		if (!fixtures.contains(m)) {
+		if (!fixtures.contains(m))
 			fixtures.add(m);
-		}
 	}
 
 	/**
@@ -97,7 +96,8 @@ public class Division {
 	 *            The team to be added to the team array.
 	 */
 	public void addTeam(Team t) {
-		teams.add(t);
+		if (!teams.contains(t))
+			teams.add(t);
 	}
 
 	/**
@@ -108,11 +108,7 @@ public class Division {
 	 * @return True if team is in the list, false otherwise.
 	 */
 	public boolean isMember(Team t) {
-		if (!teams.isEmpty()) {
-			if (teams.contains(t))
-				return true;
-		}
-		return false;
+		return (!teams.isEmpty()) ? teams.contains(t) : false;
 	}
 
 	public String toString() {
