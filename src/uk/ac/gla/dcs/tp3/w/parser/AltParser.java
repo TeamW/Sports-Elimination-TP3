@@ -10,7 +10,7 @@ public class AltParser {
 
 	private boolean verbose = false;
 	private Date current = new Date();
-	private HashMap<String, Division> divisions;
+	private HashMap<String, Division> divisions = new HashMap<String, Division>();
 
 	public AltParser() {
 	}
@@ -85,6 +85,32 @@ public class AltParser {
 			System.out.println("\t\tresult: " + firstScore + ":" + secondScore);
 			System.out.println("\t\tplayed: " + played);
 		}
+		Team homeTeam = getTeam(firstTeam);
+		Team awayTeam = getTeam(secondTeam);
+		String divisionName = getDivision(homeTeam);
+		Division d = divisions.get(divisionName);
+		if (d == null)
+			return;
+		Match m = new Match(homeTeam, awayTeam, firstScore, secondScore,
+				matchDate, false);
+		homeTeam.addUpcomingMatch(m);
+		awayTeam.addUpcomingMatch(m);
+		if(played)
+			m.updatePointsAndPlayGame();
+		d.addFixture(m);
+		d.addTeam(homeTeam);
+		d.addTeam(awayTeam);
+	}
+
+	private String getDivision(Team t) {
+		// Get division name that contains team t.
+		return null;
+	}
+
+	private Team getTeam(String t) {
+		// Search appropriate division for team t. If team not there, create
+		// team.
+		return null;
 	}
 
 	public void setVerbose() {
