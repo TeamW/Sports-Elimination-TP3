@@ -32,32 +32,32 @@ public class Date {
 	public Date(int d, String M, int y) {
 		int mn;
 		String m = M.toLowerCase();
-		if (m == "january" || m == "jan")
+		if (m.equals("january") || m.equals("jan"))
 			mn = 1;
-		else if (m == "february" || m == "feb")
+		else if (m.equals("february") || m.equals("feb"))
 			mn = 2;
-		else if (m == "march" || m == "mar")
+		else if (m.equals("march") || m.equals("mar"))
 			mn = 3;
-		else if (m == "april" || m == "apr")
+		else if (m.equals("april") || m.equals("apr"))
 			mn = 4;
-		else if (m == "may")
+		else if (m.equals("may"))
 			mn = 5;
-		else if (m == "june" || m == "jun")
+		else if (m.equals("june") || m.equals("jun"))
 			mn = 6;
-		else if (m == "july" || m == "jul")
+		else if (m.equals("july") || m.equals("jul"))
 			mn = 7;
-		else if (m == "august" || m == "aug")
+		else if (m.equals("august") || m.equals("aug"))
 			mn = 8;
-		else if (m == "september" || m == "sep")
+		else if (m.equals("september") || m.equals("sep"))
 			mn = 9;
-		else if (m == "october" || m == "oct")
+		else if (m.equals("october") || m.equals("oct"))
 			mn = 10;
-		else if (m == "november" || m == "nov")
+		else if (m.equals("november") || m.equals("nov"))
 			mn = 11;
-		else if (m == "december" || m == "dec")
+		else if (m.equals("december") || m.equals("dec"))
 			mn = 12;
 		else {
-			System.out.println("Erroneous date.");
+			System.out.println("Erroneous date Ryan.");
 			return;
 		}
 		if (!validDate(d, mn, y)) {

@@ -2,9 +2,13 @@ package uk.ac.gla.dcs.tp3.w.league;
 
 public class DateTime extends Date {
 
-	private int hour;
-	private int min;
+	private int hour = 0;
+	private int min = 0;
 
+	public DateTime(){
+		super();
+	}
+	
 	public DateTime(int d, int m, int y, int h, int min) {
 		super(d, m, y);
 		if (!validateTime(h, min)) {
@@ -24,8 +28,8 @@ public class DateTime extends Date {
 		hour = h;
 		this.min = min;
 	}
-	
-	public DateTime(Date D, int h, int m){
+
+	public DateTime(Date D, int h, int m) {
 		super(D.getDay(), D.getMonth(), D.getYear());
 		if (!validateTime(h, min)) {
 			System.out.println("Erroneous time.");
@@ -41,6 +45,24 @@ public class DateTime extends Date {
 
 	public int getMinute() {
 		return min;
+	}
+
+	public Date getdateOnly() {
+		return new Date(this.getDay(), this.getMonth(), this.getYear());
+	}
+
+	public String formatTime() {
+		String strhr;
+		String strmin;
+		if (this.hour < 10)
+			strhr = "0" + this.hour;
+		else
+			strhr = "" + this.hour;
+		if (this.min < 10)
+			strmin = "0" + this.min;
+		else
+			strmin = "" + this.min;
+		return strhr + ":" + strmin;
 	}
 
 	private boolean validateTime(int h, int m) {
@@ -60,5 +82,9 @@ public class DateTime extends Date {
 					if (this.getMinute() < DT.getMinute())
 						return true;
 		return false;
+	}
+	
+	public String toString(){
+		return String.format("%d/%d/%d %s", this.getDay(),this.getMonth(),this.getYear(), this.formatTime());
 	}
 }
