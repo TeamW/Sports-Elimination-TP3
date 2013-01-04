@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum Month {
 	JAN("January", 1, 31), FEB("February", 2, 28), MAR("March", 3, 31), APR(
-			"April", 4, 30), MAY("May", 4, 31), JUN("June", 6, 30), JUL("July",
+			"April", 4, 30), MAY("May", 5, 31), JUN("June", 6, 30), JUL("July",
 			7, 31), AUG("August", 8, 31), SEP("September", 9, 30), OCT(
 			"October", 10, 31), NOV("November", 11, 30), DEC("December", 12, 31);
 
