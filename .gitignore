@@ -14,7 +14,7 @@ presentation/presentation.aux
 
 presentation/presentation.out
 
-presentation/presentation.pdf
+*.pdf
 
 presentation/presentation.nav
 
@@ -25,3 +25,15 @@ presentation/presentation.synctex.gz
 presentation/presentation.toc
 
 presentation/presentation.key
+
+*.aux
+
+*.bbl
+
+*.blg
+
+*.out
+
+*.toc
+
+*.log
