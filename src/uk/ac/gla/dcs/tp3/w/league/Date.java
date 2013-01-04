@@ -135,6 +135,11 @@ public class Date {
 		return true;
 	}
 
+	public boolean equals(Date d) {
+		return (day == d.getDay() && month == d.getMonth() && year == d
+				.getYear());
+	}
+
 	public String toString() {
 		return String.format("%d/%d/%d", day, month, year);
 	}

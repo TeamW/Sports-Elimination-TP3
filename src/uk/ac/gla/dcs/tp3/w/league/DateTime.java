@@ -5,10 +5,10 @@ public class DateTime extends Date {
 	private int hour = 0;
 	private int min = 0;
 
-	public DateTime(){
+	public DateTime() {
 		super();
 	}
-	
+
 	public DateTime(int d, int m, int y, int h, int min) {
 		super(d, m, y);
 		if (!validateTime(h, min)) {
@@ -47,7 +47,7 @@ public class DateTime extends Date {
 		return min;
 	}
 
-	public Date getdateOnly() {
+	public Date getDateOnly() {
 		return new Date(this.getDay(), this.getMonth(), this.getYear());
 	}
 
@@ -66,25 +66,21 @@ public class DateTime extends Date {
 	}
 
 	private boolean validateTime(int h, int m) {
-		return (0 <= h && h < 24 && 0 <= m && h < 60);
+		return (0 <= h && h < 24 && 0 <= m && m < 60);
 	}
 
 	public boolean before(DateTime DT) {
-		if (this.getYear() < DT.getYear())
+		if (!super.before(this) && !super.equals(DT))
+			return false;
+		if (hour < DT.getHour())
 			return true;
-		else if (this.getYear() == DT.getYear())
-			if (this.getMonth() < DT.getMonth())
-				return true;
-			else if (this.getMonth() == DT.getMonth())
-				if (this.getDay() < DT.getDay())
-					return true;
-				else if (this.getHour() == DT.getHour())
-					if (this.getMinute() < DT.getMinute())
-						return true;
+		else if (getHour() == DT.getHour() && getMinute() < DT.getMinute())
+			return true;
 		return false;
 	}
-	
-	public String toString(){
-		return String.format("%d/%d/%d %s", this.getDay(),this.getMonth(),this.getYear(), this.formatTime());
+
+	public String toString() {
+		return String.format("%d/%d/%d %s", this.getDay(), this.getMonth(),
+				this.getYear(), formatTime());
 	}
 }
