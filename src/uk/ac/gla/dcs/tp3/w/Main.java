@@ -14,7 +14,7 @@ import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 public class Main {
 
 	private static final String DEFAULT_FILE = System.getProperty("user.dir")
-			+ "/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
+			+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
 
 	public static void main(String[] args) {
 		Parser p = null;

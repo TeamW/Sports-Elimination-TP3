@@ -132,6 +132,7 @@ public class Algorithm {
 		}
 		if(verbose){
 		    int teamToSinkRemain=0;
+		    int minTeamToSink = Integer.MAX_VALUE;
 		    int floatOut=0;
 		    for(AdjListNode a: g.getV()[0].getAdjList()){
 		    	floatOut+=(a.getCapacity());
@@ -140,12 +141,16 @@ public class Algorithm {
 		    	if(g.getV()[v.getIndex()] instanceof TeamVertex){
 		    		TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
 		    		for(AdjListNode a: TV.getAdjList()){
-		    			teamToSinkRemain+=(a.getCapacity()-a.getFlow());
+		    			int next = (a.getCapacity()-a.getFlow());
+		    			teamToSinkRemain+=next;
+		    			if (next<minTeamToSink)
+		    				minTeamToSink=next;
 		    		}
 		    	}
 		    }
 		    System.out.println("Total From Float: " + floatOut);
-			System.out.println("Total Remaining Games: " +teamToSinkRemain);   
+			System.out.println("Total Remaining Games: " +teamToSinkRemain);
+			System.out.println("Min from team to sink: " + minTeamToSink);
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
