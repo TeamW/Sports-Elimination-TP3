@@ -16,12 +16,10 @@ public class AltParser {
 	}
 
 	public boolean parse(String fileName) {
-		File f;
 		Scanner fs;
 		String[] line;
 		try {
-			f = new File(fileName);
-			fs = new Scanner(f);
+			fs = new Scanner(new File(fileName));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return false;
@@ -35,12 +33,11 @@ public class AltParser {
 					System.out.print(s + ", ");
 				System.out.println("]: Length = " + line.length);
 			}
-			if (line.length <= 1)
-				continue;
-			else if (line.length == 3)
-				newDate(line);
-			else
-				newMatch(line);
+			if (line.length > 1)
+				if (line.length == 3)
+					newDate(line);
+				else
+					newMatch(line);
 		}
 		fs.close();
 		return true;
@@ -64,13 +61,13 @@ public class AltParser {
 		String[] time = line[0].split(":");
 		DateTime matchDate = new DateTime(current, Integer.parseInt(time[0]),
 				Integer.parseInt(time[1]));
-		int firstScore = -1;
-		int secondScore = -1;
+		int homeScore = -1;
+		int awayScore = -1;
 		String[] score = line[line.length - 1].split(":");
 		boolean played = false;
 		if (score.length == 2) {
-			firstScore = Integer.parseInt(score[0]);
-			secondScore = Integer.parseInt(score[1]);
+			homeScore = Integer.parseInt(score[0]);
+			awayScore = Integer.parseInt(score[1]);
 			played = true;
 		}
 		String firstTeam = "";
@@ -86,16 +83,15 @@ public class AltParser {
 			System.out.println("MATCH:");
 			System.out.println("\t" + firstTeam + " plays " + secondTeam);
 			System.out.println("\t\ton: " + matchDate);
-			System.out.println("\t\tresult: " + firstScore + ":" + secondScore);
+			System.out.println("\t\tresult: " + homeScore + ":" + awayScore);
 			System.out.println("\t\tplayed: " + played);
 		}
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
-		String divisionName = getDivision(homeTeam);
-		Division d = divisions.get(divisionName);
+		Division d = divisions.get(getDivisionName(homeTeam));
 		if (d == null)
 			return;
-		Match m = new Match(homeTeam, awayTeam, firstScore, secondScore,
+		Match m = new Match(homeTeam, awayTeam, homeScore, awayScore,
 				matchDate, false);
 		homeTeam.addUpcomingMatch(m);
 		awayTeam.addUpcomingMatch(m);
@@ -106,7 +102,7 @@ public class AltParser {
 		d.addTeam(awayTeam);
 	}
 
-	private String getDivision(Team t) {
+	private String getDivisionName(Team t) {
 		for (Division d : divisions.values())
 			if (d.getTeams().contains(t))
 				return d.getName();
@@ -114,7 +110,6 @@ public class AltParser {
 	}
 
 	private Team getTeam(String s) {
-		// Search divisions for Team with name t then return it.
 		for (Division d : divisions.values())
 			for (Team t : d.getTeams())
 				if (t.getName().equalsIgnoreCase(s))
