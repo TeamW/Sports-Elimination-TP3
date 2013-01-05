@@ -30,42 +30,13 @@ public class Date {
 	}
 
 	public Date(int d, String M, int y) {
-		int mn;
-		String m = M.toLowerCase();
-		if (m.equals("january") || m.equals("jan"))
-			mn = 1;
-		else if (m.equals("february") || m.equals("feb"))
-			mn = 2;
-		else if (m.equals("march") || m.equals("mar"))
-			mn = 3;
-		else if (m.equals("april") || m.equals("apr"))
-			mn = 4;
-		else if (m.equals("may"))
-			mn = 5;
-		else if (m.equals("june") || m.equals("jun"))
-			mn = 6;
-		else if (m.equals("july") || m.equals("jul"))
-			mn = 7;
-		else if (m.equals("august") || m.equals("aug"))
-			mn = 8;
-		else if (m.equals("september") || m.equals("sep"))
-			mn = 9;
-		else if (m.equals("october") || m.equals("oct"))
-			mn = 10;
-		else if (m.equals("november") || m.equals("nov"))
-			mn = 11;
-		else if (m.equals("december") || m.equals("dec"))
-			mn = 12;
-		else {
-			System.out.println("Erroneous date Ryan.");
-			return;
-		}
-		if (!validDate(d, mn, y)) {
+		int m = Month.getMonthNumber(M.substring(0, 3).toUpperCase());
+		if (!validDate(d, m, y)) {
 			System.out.println("Erroneous date.");
 			return;
 		}
 		day = d;
-		month = mn;
+		month = m;
 		year = y;
 	}
 
