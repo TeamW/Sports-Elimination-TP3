@@ -89,17 +89,15 @@ public class AltParser {
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
 		Division d = divisions.get(getDivisionName(homeTeam));
-		if (d == null)
+		if (d == null || homeTeam == null || awayTeam == null)
 			return;
 		Match m = new Match(homeTeam, awayTeam, homeScore, awayScore,
 				matchDate, false);
 		homeTeam.addUpcomingMatch(m);
 		awayTeam.addUpcomingMatch(m);
+		d.addFixture(m);
 		if (played)
 			m.updatePointsAndPlayGame();
-		d.addFixture(m);
-		d.addTeam(homeTeam);
-		d.addTeam(awayTeam);
 	}
 
 	private String getDivisionName(Team t) {
