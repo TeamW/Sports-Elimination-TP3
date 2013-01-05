@@ -76,7 +76,7 @@ public class AltParser {
 		for (i = 1; !line[i].equals("-"); i++)
 			firstTeam += line[i] + " ";
 		firstTeam = firstTeam.trim();
-		for (i++; i < line.length - 2; i++)
+		for (i++; i < line.length - 1; i++)
 			secondTeam += line[i] + " ";
 		secondTeam = secondTeam.trim();
 		if (verbose) {
