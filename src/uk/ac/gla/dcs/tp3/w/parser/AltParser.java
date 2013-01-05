@@ -26,6 +26,7 @@ public class AltParser {
 			e.printStackTrace();
 			return false;
 		}
+		init();
 		while (fs.hasNextLine()) {
 			line = fs.nextLine().split(" ");
 			if (verbose) {
@@ -43,6 +44,9 @@ public class AltParser {
 		}
 		fs.close();
 		return true;
+	}
+
+	private void init() {
 	}
 
 	private void newDate(String[] line) {
@@ -95,7 +99,7 @@ public class AltParser {
 				matchDate, false);
 		homeTeam.addUpcomingMatch(m);
 		awayTeam.addUpcomingMatch(m);
-		if(played)
+		if (played)
 			m.updatePointsAndPlayGame();
 		d.addFixture(m);
 		d.addTeam(homeTeam);
@@ -103,13 +107,18 @@ public class AltParser {
 	}
 
 	private String getDivision(Team t) {
-		// Get division name that contains team t.
+		for (Division d : divisions.values())
+			if (d.getTeams().contains(t))
+				return d.getName();
 		return null;
 	}
 
-	private Team getTeam(String t) {
-		// Search appropriate division for team t. If team not there, create
-		// team.
+	private Team getTeam(String s) {
+		// Search divisions for Team with name t then return it.
+		for (Division d : divisions.values())
+			for (Team t : d.getTeams())
+				if (t.getName().equalsIgnoreCase(s))
+					return t;
 		return null;
 	}
 

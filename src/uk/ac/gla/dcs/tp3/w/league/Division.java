@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Division {
 
+	private String name;
 	private ArrayList<Team> teams;
 	private ArrayList<Match> fixtures;
 
@@ -36,6 +37,14 @@ public class Division {
 	public Division(ArrayList<Team> t, ArrayList<Match> m) {
 		teams = t;
 		fixtures = m;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String s) {
+		name = s;
 	}
 
 	/**
