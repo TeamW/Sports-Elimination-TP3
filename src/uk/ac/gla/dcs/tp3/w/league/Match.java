@@ -192,7 +192,7 @@ public class Match {
 	 * for the winning team and increment the total number of games played by
 	 * both teams then remove the reference to the upcoming match arrays.
 	 */
-	public void updatePointsAndPlayGame() {
+	public void playMatch() {
 		// Only execute this method once. Also ensure scores have been set.
 		if (played || homeScore == -1 || awayScore == -1)
 			return;

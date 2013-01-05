@@ -97,7 +97,7 @@ public class AltParser {
 		awayTeam.addUpcomingMatch(m);
 		d.addFixture(m);
 		if (played)
-			m.updatePointsAndPlayGame();
+			m.playMatch();
 	}
 
 	private String getDivisionName(Team t) {
