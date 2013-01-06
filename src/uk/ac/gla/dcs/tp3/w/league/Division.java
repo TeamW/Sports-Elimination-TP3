@@ -132,6 +132,15 @@ public class Division {
 				"Division teams", teams);
 	}
 
+	public int maxPoints() {
+		Team[] t = teamsToArray();
+		int max = 0;
+		for (Team team : t)
+			if (team.getPoints() > max)
+				max = team.getPoints();
+		return max;
+	}
+
 	/**
 	 * Returns an array of teams. This is used instead of toArray() since that
 	 * method returns an array of objects that cannot be easily cast by the

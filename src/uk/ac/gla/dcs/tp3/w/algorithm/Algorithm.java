@@ -102,6 +102,10 @@ public class Algorithm {
 			cap += a.getCapacity();
 		// Create initial residual graph for algorithm.
 		ResidualGraph residual = new ResidualGraph(g);
+		// Short circuit for end of league
+		if (t.getUpcomingMatches().size() == 0
+				&& t.getPoints() != d.maxPoints())
+			return certificateOfElimination(residual, t);
 		// Path will store the residual path (if it exists)
 		Path path;
 		// Algorithm continues while a residual path exists
