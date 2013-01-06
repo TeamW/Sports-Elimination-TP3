@@ -133,6 +133,14 @@ public class AltParser {
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
 		Division d = divisions.get(getDivisionName(homeTeam));
+		if (homeScore == -1 || awayScore == -1) {
+			System.out.println("match has no score");
+			System.out.print("[");
+			for (String s : line)
+				System.out.print(s + ", ");
+			System.out.println("]: Length = " + line.length);
+			return;
+		}
 		if (d == null) {
 			System.out.println("cannot find division");
 			System.out.print("[");
