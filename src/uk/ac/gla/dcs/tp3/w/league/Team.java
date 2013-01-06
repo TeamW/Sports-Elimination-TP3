@@ -103,70 +103,8 @@ public class Team implements Comparable<Team> {
 	 *            name
 	 * */
 	public Team(String name) {
-		this.name = name;
-		points = 0;
-		gamesPlayed = 0;
-		eliminated = false;
-		upcomingMatches = null;
-		eliminatedBy = null;
-
-		// Set American Division : East
-		if (name.equalsIgnoreCase("Baltimore Orioles")
-				|| name.equalsIgnoreCase("Boston Red Sox")
-				|| name.equalsIgnoreCase("New York Yankees")
-				|| name.equalsIgnoreCase("Tampa Bay Rays")
-				|| name.equalsIgnoreCase("Toronto Blue Jays")) {
-			whatRegion += "East";
-		}
-
-		// Set American Division : Central
-		if (name.equalsIgnoreCase("Chicago White Sox")
-				|| name.equalsIgnoreCase("Cleveland Indians")
-				|| name.equalsIgnoreCase("Detroit Tigers")
-				|| name.equalsIgnoreCase("Kansas City Royals")
-				|| name.equalsIgnoreCase("Minnesota Twins")) {
-			whatRegion += "Central";
-		}
-
-		// Set American Division : West
-		if (name.equalsIgnoreCase("Seattle Mariners")
-				|| name.equalsIgnoreCase("Texas Rangers")
-				|| name.equalsIgnoreCase("Houston Astros")
-				|| name.equalsIgnoreCase("Los Angeles Angels")
-				|| name.equalsIgnoreCase("Oakland Athletics")) {
-			whatRegion += "Central";
-		}
-
-		// Set National Division : East
-		if (name.equalsIgnoreCase("Atlanta Braves")
-				|| name.equalsIgnoreCase("Miami Marlins")
-				|| name.equalsIgnoreCase("New York Mets")
-				|| name.equalsIgnoreCase("Philadelphia Phillies")
-				|| name.equalsIgnoreCase("Washington Nationals")) {
-			whatRegion += "East";
-			isNational = true;
-		}
-
-		// Set National Division : Central
-		if (name.equalsIgnoreCase("Chicago Cubs")
-				|| name.equalsIgnoreCase("Cincinnati Reds")
-				|| name.equalsIgnoreCase("Milwaukee Brewers")
-				|| name.equalsIgnoreCase("Pittsburgh Pirates")
-				|| name.equalsIgnoreCase("St.Louis Cardinals")) {
-			whatRegion += "Central";
-			isNational = true;
-		}
-
-		// Set National Division : West
-		if (name.equalsIgnoreCase("Arizona Diamondbacks")
-				|| name.equalsIgnoreCase("Colorado Rockies")
-				|| name.equalsIgnoreCase("San Francisco Giants")
-				|| name.equalsIgnoreCase("Los Angeles Dodgers")
-				|| name.equalsIgnoreCase("San Diego Padres")) {
-			whatRegion += "West";
-			isNational = true;
-		}
-
+		this(name, -1, -1, false, new ArrayList<Match>(),
+				new ArrayList<Team>(), false, "");
 	}
 
 	/**
