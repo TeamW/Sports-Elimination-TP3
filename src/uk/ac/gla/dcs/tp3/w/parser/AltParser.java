@@ -44,6 +44,50 @@ public class AltParser {
 	}
 
 	private void init() {
+		String[] aETeams = { "Baltimore Orioles", "Boston Red Sox",
+				"New York Yankees", "Tampa Bay Rays", "Toronto Blue Jays" };
+		Division americanEast = new Division("American East");
+		divisions.put(americanEast.getName(), americanEast);
+		for (String s : aETeams)
+			americanEast.addTeam(new Team(s));
+
+		String[] aCTeams = { "Chicago White Sox", "Cleveland Indians",
+				"Detroit Tigers", "Kansas City Royals", "Minnesota Twins" };
+		Division americanCentral = new Division("American Central");
+		divisions.put(americanCentral.getName(), americanCentral);
+		for (String s : aCTeams)
+			americanCentral.addTeam(new Team(s));
+
+		String[] aWTeams = { "Seattle Mariners", "Texas Rangers",
+				"Houston Astros", "Los Angeles Angels", "Oakland Athletics" };
+		Division americanWest = new Division("American West");
+		divisions.put(americanWest.getName(), americanWest);
+		for (String s : aWTeams)
+			americanWest.addTeam(new Team(s));
+
+		String[] nETeams = { "Atlanta Braves", "Miami Marlins",
+				"New York Mets", "Philadelphia Phillies",
+				"Washington Nationals" };
+		Division nationalEast = new Division("National East");
+		divisions.put(nationalEast.getName(), nationalEast);
+		for (String s : nETeams)
+			nationalEast.addTeam(new Team(s));
+
+		String[] nCTeams = { "Chicago Cubs", "Cincinnati Reds",
+				"Milwaukee Brewers", "Pittsburgh Pirates", "St.Louis Cardinals" };
+		Division nationalCentral = new Division("National Central");
+		divisions.put(nationalCentral.getName(), nationalCentral);
+		for (String s : nCTeams)
+			nationalCentral.addTeam(new Team(s));
+
+		String[] nWTeams = { "Arizona Diamondbacks", "Colorado Rockies",
+				"San Francisco Giants", "Los Angeles Dodgers",
+				"San Diego Padres" };
+		Division nationalWest = new Division("National West");
+		divisions.put(nationalWest.getName(), nationalWest);
+		for (String s : nWTeams)
+			nationalWest.addTeam(new Team(s));
+
 	}
 
 	private void newDate(String[] line) {
@@ -89,8 +133,30 @@ public class AltParser {
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
 		Division d = divisions.get(getDivisionName(homeTeam));
-		if (d == null || homeTeam == null || awayTeam == null)
+		if (d == null) {
+			System.out.println("cannot find division");
+			System.out.print("[");
+			for (String s : line)
+				System.out.print(s + ", ");
+			System.out.println("]: Length = " + line.length);
 			return;
+		}
+		if (homeTeam == null) {
+			System.out.println("cannot find home team");
+			System.out.print("[");
+			for (String s : line)
+				System.out.print(s + ", ");
+			System.out.println("]: Length = " + line.length);
+			return;
+		}
+		if (awayTeam == null) {
+			System.out.println("cannot find away team");
+			System.out.print("[");
+			for (String s : line)
+				System.out.print(s + ", ");
+			System.out.println("]: Length = " + line.length);
+			return;
+		}
 		Match m = new Match(homeTeam, awayTeam, homeScore, awayScore,
 				matchDate, false);
 		homeTeam.addUpcomingMatch(m);
