@@ -129,50 +129,53 @@ public class Algorithm {
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
 		}
-		if(verbose){
-		    int teamToSinkRemain=0;
-		    int minTeamToSink = Integer.MAX_VALUE;
-		    int floatOut=0;
-		    for(AdjListNode a: g.getV()[0].getAdjList()){
-		    	floatOut+=(a.getCapacity());
-		    }
-		    for (Vertex v : g.getV()){
-		    	if(g.getV()[v.getIndex()] instanceof TeamVertex){
-		    		TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
-		    		for(AdjListNode a: TV.getAdjList()){
-		    			int next = (a.getCapacity()-a.getFlow());
-		    			teamToSinkRemain+=next;
-		    			if (next<minTeamToSink)
-		    				minTeamToSink=next;
-		    		}
-		    	}
-		    }
-		    System.out.println("Total From Float: " + floatOut);
-			System.out.println("Total Remaining Games: " +teamToSinkRemain);
+		if (verbose) {
+			int teamToSinkRemain = 0;
+			int minTeamToSink = Integer.MAX_VALUE;
+			int floatOut = 0;
+			for (AdjListNode a : g.getV()[0].getAdjList()) {
+				floatOut += (a.getCapacity());
+			}
+			for (Vertex v : g.getV()) {
+				if (g.getV()[v.getIndex()] instanceof TeamVertex) {
+					TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
+					for (AdjListNode a : TV.getAdjList()) {
+						int next = (a.getCapacity() - a.getFlow());
+						teamToSinkRemain += next;
+						if (next < minTeamToSink)
+							minTeamToSink = next;
+					}
+				}
+			}
+			System.out.println("Total From Float: " + floatOut);
+			System.out.println("Total Remaining Games: " + teamToSinkRemain);
 			System.out.println("Min from team to sink: " + minTeamToSink);
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.
-		if (cap != 0) {
-			residual.certificateOfEliminationHelper();
-			for (Vertex v : residual.getV()) {
-				if (g.getV()[v.getIndex()] instanceof TeamVertex) {
-					TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
-					if (v.getVisited())
-						t.getEliminatedBy().add(elim.getTeam());
-				}
-			}
-			if (verbose) {
-				// Test output from above
-				System.out.println("\n" + t.getName() + " eliminated by:");
-				for (Team elimBy : t.getEliminatedBy())
-					System.out.println(elimBy.getName());
-				System.out.println();
-			}
-			return true;
-		}
+		if (cap != 0)
+			return certificateOfElimination(residual, t);
 		return false;
+	}
+
+	private boolean certificateOfElimination(ResidualGraph residual, Team t) {
+		residual.certificateOfEliminationHelper();
+		for (Vertex v : residual.getV()) {
+			if (g.getV()[v.getIndex()] instanceof TeamVertex) {
+				TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
+				if (v.getVisited())
+					t.getEliminatedBy().add(elim.getTeam());
+			}
+		}
+		if (verbose) {
+			// Test output from above
+			System.out.println("\n" + t.getName() + " eliminated by:");
+			for (Team elimBy : t.getEliminatedBy())
+				System.out.println(elimBy.getName());
+			System.out.println();
+		}
+		return true;
 	}
 
 	private static Path residualPath(ResidualGraph g) {
