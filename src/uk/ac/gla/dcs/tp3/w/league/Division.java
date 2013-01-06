@@ -35,8 +35,15 @@ public class Division {
 	 *            The array of matches in this league.
 	 */
 	public Division(ArrayList<Team> t, ArrayList<Match> m) {
+		name = "";
 		teams = t;
 		fixtures = m;
+	}
+
+	public Division(String s) {
+		name = s;
+		teams = new ArrayList<Team>();
+		fixtures = new ArrayList<Match>();
 	}
 
 	public String getName() {
