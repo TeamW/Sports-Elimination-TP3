@@ -209,4 +209,8 @@ public class Match {
 		s.removeUpcomingMatch(this);
 	}
 
+	public boolean equals() {
+		return false;
+	}
+
 }
