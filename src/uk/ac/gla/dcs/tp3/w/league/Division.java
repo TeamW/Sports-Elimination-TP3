@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Division {
 
+	private String name;
 	private ArrayList<Team> teams;
 	private ArrayList<Match> fixtures;
 
@@ -34,8 +35,23 @@ public class Division {
 	 *            The array of matches in this league.
 	 */
 	public Division(ArrayList<Team> t, ArrayList<Match> m) {
+		name = "";
 		teams = t;
 		fixtures = m;
+	}
+
+	public Division(String s) {
+		name = s;
+		teams = new ArrayList<Team>();
+		fixtures = new ArrayList<Match>();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String s) {
+		name = s;
 	}
 
 	/**
@@ -85,9 +101,8 @@ public class Division {
 	 *            The match to add to the fixture list.
 	 */
 	public void addFixture(Match m) {
-		if (!fixtures.contains(m)) {
+		if (!fixtures.contains(m))
 			fixtures.add(m);
-		}
 	}
 
 	/**
@@ -97,7 +112,8 @@ public class Division {
 	 *            The team to be added to the team array.
 	 */
 	public void addTeam(Team t) {
-		teams.add(t);
+		if (!teams.contains(t))
+			teams.add(t);
 	}
 
 	/**
@@ -108,16 +124,21 @@ public class Division {
 	 * @return True if team is in the list, false otherwise.
 	 */
 	public boolean isMember(Team t) {
-		if (!teams.isEmpty()) {
-			if (teams.contains(t))
-				return true;
-		}
-		return false;
+		return (!teams.isEmpty()) ? teams.contains(t) : false;
 	}
 
 	public String toString() {
 		return String.format("%s\n%s\n%s\n%s\n", "Division fixtures", fixtures,
 				"Division teams", teams);
+	}
+
+	public int maxPoints() {
+		Team[] t = teamsToArray();
+		int max = 0;
+		for (Team team : t)
+			if (team.getPoints() > max)
+				max = team.getPoints();
+		return max;
 	}
 
 	/**

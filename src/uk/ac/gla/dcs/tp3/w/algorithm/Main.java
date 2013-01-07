@@ -100,8 +100,8 @@ public class Main {
 		// test.updateDivisionElim(d);
 		for (Team t : teams)
 			if (test.isEliminated(t))
-				System.out.println(t.getName() + ":\teliminated");
+				System.out.println(t.getName() + ":\teliminated\n--------\n");
 			else
-				System.out.println(t.getName() + ":\tisn't elminated");
+				System.out.println(t.getName() + ":\tisn't elminated\n--------\n");
 	}
 }

@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
-import uk.ac.gla.dcs.tp3.w.parser.Parser;
+import uk.ac.gla.dcs.tp3.w.parser.AltParser;
 import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 
 public class Main {
@@ -17,26 +17,19 @@ public class Main {
 			+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
 
 	public static void main(String[] args) {
-		Parser p = null;
+		AltParser p = new AltParser();
 		File source;
-		if (args.length == 0)
+		if (args.length == 0) {
+			System.out.println(DEFAULT_FILE);
 			source = new File(DEFAULT_FILE);
-		else
+		} else
 			source = new File(args[0]);
 		if (source.exists())
-			p = new Parser(source);
+			p.parse(source.getAbsolutePath());
 		else
 			System.err.println("File not found.");
-		if (p == null)
-			return;
 
-		final HashMap<String, Division> map = new HashMap<String, Division>();
-		map.put("American Central", p.getAmericanCentral());
-		map.put("American East", p.getAmericanEast());
-		map.put("American West", p.getAmericanWest());
-		map.put("National Central", p.getNationalCentral());
-		map.put("National East", p.getNationalEast());
-		map.put("National West", p.getNationalWest());
+		final HashMap<String, Division> map = p.getDivisions();
 		Algorithm algorithm = new Algorithm();
 		for (Division d : map.values()) {
 			algorithm = new Algorithm(d);

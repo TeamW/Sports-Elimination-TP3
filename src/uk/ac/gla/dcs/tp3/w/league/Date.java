@@ -29,6 +29,17 @@ public class Date {
 		year = y;
 	}
 
+	public Date(int d, String M, int y) {
+		int m = Month.getMonthNumber(M.substring(0, 3).toUpperCase());
+		if (!validDate(d, m, y)) {
+			System.out.println("Erroneous date.");
+			return;
+		}
+		day = d;
+		month = m;
+		year = y;
+	}
+
 	public int getDay() {
 		return day;
 	}
@@ -93,6 +104,11 @@ public class Date {
 		if (d > numberOfDays)
 			return false;
 		return true;
+	}
+
+	public boolean equals(Date d) {
+		return (day == d.getDay() && month == d.getMonth() && year == d
+				.getYear());
 	}
 
 	public String toString() {

@@ -27,7 +27,7 @@ public class Parser {
 		// days in season each with seperate state
 		boolean postponedCheck = false;
 		String thisLine = "", date = "";
-		Date d = new Date();
+		DateTime d = new DateTime();
 		Scanner fileScanner, lineScanner;
 		int score1 = 0, score2 = 0;
 		try {
