@@ -17,16 +17,13 @@ public class Team implements Comparable<Team> {
 	private boolean eliminated;
 	private ArrayList<Match> upcomingMatches;
 	private ArrayList<Team> eliminatedBy;
-	private boolean isNational;
-	private String whatRegion;
 
 	/**
 	 * No parameter constructor. Sets all instance variables to null, -1, or
 	 * false.
 	 */
 	public Team() {
-		this("", -1, -1, false, new ArrayList<Match>(), new ArrayList<Team>(),
-				false, "");
+		this("", 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>());
 	}
 
 	/**
@@ -47,53 +44,13 @@ public class Team implements Comparable<Team> {
 	 *            The array of teams responsible for eliminating this team.
 	 */
 	public Team(String s, int p, int g, boolean e, ArrayList<Match> um,
-			ArrayList<Team> t, boolean f, String r) {
+			ArrayList<Team> t) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
 		eliminated = e;
 		upcomingMatches = um;
 		eliminatedBy = t;
-		isNational = f;
-		whatRegion = r;
-
-	}
-
-	/**
-	 * Returns the boolean holding the value of a teams National League Status
-	 * 
-	 * @return Boolean
-	 */
-	public boolean isNational() {
-		return isNational;
-	}
-
-	/**
-	 * Sets the boolean value of a teams National League Status
-	 * 
-	 * @param boolean isNational
-	 */
-	public void setNational(boolean isNational) {
-		this.isNational = isNational;
-	}
-
-	/**
-	 * Returns the String value of a teams region.
-	 * 
-	 * @return String
-	 */
-	public String getWhatRegion() {
-		return whatRegion;
-	}
-
-	/**
-	 * Sets the String value of a teams region.
-	 * 
-	 * @param String
-	 *            whatRegion
-	 */
-	public void setWhatRegion(String whatRegion) {
-		this.whatRegion = whatRegion;
 	}
 
 	/**
@@ -103,8 +60,7 @@ public class Team implements Comparable<Team> {
 	 *            name
 	 * */
 	public Team(String name) {
-		this(name, -1, -1, false, new ArrayList<Match>(),
-				new ArrayList<Team>(), false, "");
+		this(name, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>());
 	}
 
 	/**
