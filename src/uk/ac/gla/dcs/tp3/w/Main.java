@@ -33,10 +33,8 @@ public class Main {
 		Algorithm algorithm = new Algorithm();
 		for (Division d : map.values()) {
 			algorithm = new Algorithm(d);
-			for (Team t : d.getTeams()) {
+			for (Team t : d.getTeams())
 				t.setEliminated(algorithm.isEliminated(t));
-				System.out.println(t.getName() + " has " + t.getUpcomingMatches().size() + " matches remaining.");
-			}
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {

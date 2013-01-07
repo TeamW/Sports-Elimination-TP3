@@ -87,18 +87,15 @@ public class AltParser {
 		divisions.put(nationalWest.getName(), nationalWest);
 		for (String s : nWTeams)
 			nationalWest.addTeam(new Team(s));
-
 	}
 
 	private void newDate(String[] line) {
 		int day = Integer.parseInt(line[0]);
 		int year = Integer.parseInt(line[2]);
 		current = new Date(day, line[1], year);
-		if (verbose) {
-			System.out.println(day + " " + line[1] + " " + year);
+		if (verbose)
 			System.out.println("--------------------\n" + "NEW DATE: "
 					+ current + "\n--------------------");
-		}
 	}
 
 	private void newMatch(String[] line) {
@@ -135,36 +132,16 @@ public class AltParser {
 		Division d = divisions.get(getDivisionName(homeTeam));
 		if (homeScore == -1 || awayScore == -1) {
 			System.out.println("match has no score");
-			System.out.print("[");
-			for (String s : line)
-				System.out.print(s + ", ");
-			System.out.println("]: Length = " + line.length);
 			return;
 		}
-		if (d == null) {
-			System.out.println("cannot find division");
-			System.out.print("[");
-			for (String s : line)
-				System.out.print(s + ", ");
-			System.out.println("]: Length = " + line.length);
+		if (d == null)
+			error("cannot find division", line);
+		if (homeTeam == null)
+			error("cannot find home team", line);
+		if (awayTeam == null)
+			error("cannot find away team", line);
+		if (d == null || homeTeam == null || awayTeam == null)
 			return;
-		}
-		if (homeTeam == null) {
-			System.out.println("cannot find home team");
-			System.out.print("[");
-			for (String s : line)
-				System.out.print(s + ", ");
-			System.out.println("]: Length = " + line.length);
-			return;
-		}
-		if (awayTeam == null) {
-			System.out.println("cannot find away team");
-			System.out.print("[");
-			for (String s : line)
-				System.out.print(s + ", ");
-			System.out.println("]: Length = " + line.length);
-			return;
-		}
 		Match m = new Match(homeTeam, awayTeam, homeScore, awayScore,
 				matchDate, false);
 		homeTeam.addUpcomingMatch(m);
@@ -172,6 +149,15 @@ public class AltParser {
 		d.addFixture(m);
 		if (played)
 			m.playMatch();
+	}
+
+	private void error(String string, String[] line) {
+		System.out.println("Error: " + string);
+		System.out.print("[");
+		for (String s : line)
+			System.out.print(s + ", ");
+		System.out.println("]: Length = " + line.length);
+		return;
 	}
 
 	private String getDivisionName(Team t) {
