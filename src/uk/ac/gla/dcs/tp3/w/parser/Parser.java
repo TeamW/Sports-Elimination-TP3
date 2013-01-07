@@ -6,13 +6,13 @@ import java.util.Scanner;
 
 import uk.ac.gla.dcs.tp3.w.league.*;
 
-public class AltParser {
+public class Parser {
 
 	private boolean verbose = false;
 	private Date current = new Date();
 	private HashMap<String, Division> divisions = new HashMap<String, Division>();
 
-	public AltParser() {
+	public Parser() {
 	}
 
 	public boolean parse(String fileName) {
@@ -177,11 +177,5 @@ public class AltParser {
 
 	public HashMap<String, Division> getDivisions() {
 		return divisions;
-	}
-
-	public static void main(String[] args) {
-		AltParser ap = new AltParser();
-		ap.setVerbose();
-		ap.parse(args[0]);
 	}
 }
