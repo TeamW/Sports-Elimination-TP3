@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
-import uk.ac.gla.dcs.tp3.w.parser.AltParser;
+import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
 			+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
 
 	public static void main(String[] args) {
-		AltParser p = new AltParser();
+		Parser p = new Parser();
 		File source;
 		if (args.length == 0) {
 			System.out.println(DEFAULT_FILE);
