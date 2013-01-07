@@ -17,13 +17,14 @@ public class Team implements Comparable<Team> {
 	private boolean eliminated;
 	private ArrayList<Match> upcomingMatches;
 	private ArrayList<Team> eliminatedBy;
+	private String divisionName;
 
 	/**
 	 * No parameter constructor. Sets all instance variables to null, -1, or
 	 * false.
 	 */
 	public Team() {
-		this("", 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>());
+		this("", 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(), "");
 	}
 
 	/**
@@ -44,13 +45,14 @@ public class Team implements Comparable<Team> {
 	 *            The array of teams responsible for eliminating this team.
 	 */
 	public Team(String s, int p, int g, boolean e, ArrayList<Match> um,
-			ArrayList<Team> t) {
+			ArrayList<Team> t, String d) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
 		eliminated = e;
 		upcomingMatches = um;
 		eliminatedBy = t;
+		divisionName = d;
 	}
 
 	/**
@@ -60,7 +62,20 @@ public class Team implements Comparable<Team> {
 	 *            name
 	 * */
 	public Team(String name) {
-		this(name, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>());
+		this(name, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(),
+				"");
+	}
+
+	public Team(String s, String d) {
+		this(s, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(), d);
+	}
+
+	public String getDivisionName() {
+		return divisionName;
+	}
+
+	public void setDivisionName(String s) {
+		divisionName = s;
 	}
 
 	/**

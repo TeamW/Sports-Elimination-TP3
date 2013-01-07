@@ -27,12 +27,8 @@ public class AltParser {
 		init();
 		while (fs.hasNextLine()) {
 			line = fs.nextLine().split(" ");
-			if (verbose) {
-				System.out.print("[");
-				for (String s : line)
-					System.out.print(s + ", ");
-				System.out.println("]: Length = " + line.length);
-			}
+			if (verbose)
+				printLine(line);
 			if (line.length > 1)
 				if (line.length == 3)
 					newDate(line);
@@ -49,21 +45,21 @@ public class AltParser {
 		Division americanEast = new Division("American East");
 		divisions.put(americanEast.getName(), americanEast);
 		for (String s : aETeams)
-			americanEast.addTeam(new Team(s));
+			americanEast.addTeam(new Team(s, americanEast.getName()));
 
 		String[] aCTeams = { "Chicago White Sox", "Cleveland Indians",
 				"Detroit Tigers", "Kansas City Royals", "Minnesota Twins" };
 		Division americanCentral = new Division("American Central");
 		divisions.put(americanCentral.getName(), americanCentral);
 		for (String s : aCTeams)
-			americanCentral.addTeam(new Team(s));
+			americanCentral.addTeam(new Team(s, americanCentral.getName()));
 
 		String[] aWTeams = { "Seattle Mariners", "Texas Rangers",
 				"Houston Astros", "Los Angeles Angels", "Oakland Athletics" };
 		Division americanWest = new Division("American West");
 		divisions.put(americanWest.getName(), americanWest);
 		for (String s : aWTeams)
-			americanWest.addTeam(new Team(s));
+			americanWest.addTeam(new Team(s, americanWest.getName()));
 
 		String[] nETeams = { "Atlanta Braves", "Miami Marlins",
 				"New York Mets", "Philadelphia Phillies",
@@ -71,14 +67,14 @@ public class AltParser {
 		Division nationalEast = new Division("National East");
 		divisions.put(nationalEast.getName(), nationalEast);
 		for (String s : nETeams)
-			nationalEast.addTeam(new Team(s));
+			nationalEast.addTeam(new Team(s, nationalEast.getName()));
 
 		String[] nCTeams = { "Chicago Cubs", "Cincinnati Reds",
 				"Milwaukee Brewers", "Pittsburgh Pirates", "St.Louis Cardinals" };
 		Division nationalCentral = new Division("National Central");
 		divisions.put(nationalCentral.getName(), nationalCentral);
 		for (String s : nCTeams)
-			nationalCentral.addTeam(new Team(s));
+			nationalCentral.addTeam(new Team(s, nationalCentral.getName()));
 
 		String[] nWTeams = { "Arizona Diamondbacks", "Colorado Rockies",
 				"San Francisco Giants", "Los Angeles Dodgers",
@@ -86,7 +82,7 @@ public class AltParser {
 		Division nationalWest = new Division("National West");
 		divisions.put(nationalWest.getName(), nationalWest);
 		for (String s : nWTeams)
-			nationalWest.addTeam(new Team(s));
+			nationalWest.addTeam(new Team(s, nationalWest.getName()));
 	}
 
 	private void newDate(String[] line) {
@@ -152,27 +148,23 @@ public class AltParser {
 
 	private void warning(String string, String[] line) {
 		System.out.println("Warning: " + string);
-		System.out.print("[");
-		for (String s : line)
-			System.out.print(s + ", ");
-		System.out.println("]: Length = " + line.length);
-		return;
+		printLine(line);
 	}
 
 	private void error(String string, String[] line) {
 		System.out.println("Error: " + string);
+		printLine(line);
+	}
+
+	private static void printLine(String[] line) {
 		System.out.print("[");
 		for (String s : line)
 			System.out.print(s + ", ");
 		System.out.println("]: Length = " + line.length);
-		return;
 	}
 
 	private String getDivisionName(Team t) {
-		for (Division d : divisions.values())
-			if (d.getTeams().contains(t))
-				return d.getName();
-		return null;
+		return t.getDivisionName();
 	}
 
 	private Team getTeam(String s) {
