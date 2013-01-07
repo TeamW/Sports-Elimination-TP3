@@ -125,15 +125,15 @@ public class AltParser {
 		}
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
-		Division d = divisions.get(getDivisionName(homeTeam));
 		if (homeScore == -1 || awayScore == -1)
 			warning("match has no score", line);
-		if (d == null)
-			error("cannot find division", line);
 		if (homeTeam == null)
 			error("cannot find home team", line);
 		if (awayTeam == null)
 			error("cannot find away team", line);
+		Division d = divisions.get(homeTeam.getDivisionName());
+		if (d == null)
+			error("cannot find division", line);
 		if (d == null || homeTeam == null || awayTeam == null
 				|| homeScore == -1 || awayScore == -1)
 			return;
@@ -161,10 +161,6 @@ public class AltParser {
 		for (String s : line)
 			System.out.print(s + ", ");
 		System.out.println("]: Length = " + line.length);
-	}
-
-	private String getDivisionName(Team t) {
-		return t.getDivisionName();
 	}
 
 	private Team getTeam(String s) {
