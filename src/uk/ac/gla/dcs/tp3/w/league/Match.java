@@ -217,8 +217,8 @@ public class Match {
 		// t is the winner of the match, s is the loser of the match.
 		Team t = getWinner();
 		Team s = ((t == homeTeam) ? awayTeam : homeTeam);
-		// t gets a point, s does not. Increment number of games played and
-		// remove associated match for both teams.
+		// t gets a point, s does not. Decrement number of games played and
+		// add associated match for both teams.
 		t.setPoints(t.getPoints() - 1);
 		t.setGamesPlayed(t.getGamesPlayed() - 1);
 		t.addUpcomingMatch(this);
