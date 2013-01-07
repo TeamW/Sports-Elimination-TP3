@@ -130,17 +130,16 @@ public class AltParser {
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
 		Division d = divisions.get(getDivisionName(homeTeam));
-		if (homeScore == -1 || awayScore == -1) {
-			System.out.println("match has no score");
-			return;
-		}
+		if (homeScore == -1 || awayScore == -1)
+			warning("match has no score", line);
 		if (d == null)
 			error("cannot find division", line);
 		if (homeTeam == null)
 			error("cannot find home team", line);
 		if (awayTeam == null)
 			error("cannot find away team", line);
-		if (d == null || homeTeam == null || awayTeam == null)
+		if (d == null || homeTeam == null || awayTeam == null
+				|| homeScore == -1 || awayScore == -1)
 			return;
 		Match m = new Match(homeTeam, awayTeam, homeScore, awayScore,
 				matchDate, false);
@@ -149,6 +148,15 @@ public class AltParser {
 		d.addFixture(m);
 		if (played)
 			m.playMatch();
+	}
+
+	private void warning(String string, String[] line) {
+		System.out.println("Warning: " + string);
+		System.out.print("[");
+		for (String s : line)
+			System.out.print(s + ", ");
+		System.out.println("]: Length = " + line.length);
+		return;
 	}
 
 	private void error(String string, String[] line) {
