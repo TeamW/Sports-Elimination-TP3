@@ -171,8 +171,8 @@ public class Division {
 			}
 		}
 		for (Team team : t)
-			System.out.println(team.getName() + " - " + team.getPoints()
-					+ " - " + team.getGamesPlayed() + " - "
+			System.out.println(team.getName() + "-" + team.getPoints()
+					+ "-" + team.getGamesPlayed() + "-"
 					+ team.isEliminated());
 		System.out.println();
 	}
