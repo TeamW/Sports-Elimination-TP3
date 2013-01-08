@@ -154,20 +154,20 @@ public class Parser {
 	}
 
 	private void warning(String string, String[] line) {
-		System.out.println("Warning: " + string);
+		System.err.println("Warning: " + string);
 		printLine(line);
 	}
 
 	private void error(String string, String[] line) {
-		System.out.println("Error: " + string);
+		System.err.println("Error: " + string);
 		printLine(line);
 	}
 
 	private static void printLine(String[] line) {
-		System.out.print("[");
+		System.err.print("[");
 		for (String s : line)
-			System.out.print(s + ", ");
-		System.out.println("]: Length = " + line.length);
+			System.err.print(s + ", ");
+		System.err.println("]: Length = " + line.length);
 	}
 
 	private Team getTeam(String s) {
