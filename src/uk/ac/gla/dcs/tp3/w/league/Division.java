@@ -157,4 +157,23 @@ public class Division {
 		return array;
 	}
 
+	public void printWeb() {
+		Team[] t = teamsToArray();
+		// Sorts teams into non-descending order by wins and games remaining
+		for (int i = 0; i < t.length; i++) {
+			for (int j = i; j < t.length; j++) {
+				if (t[i].getPoints() - (t[j].getPoints()) < 0) {
+					Team temp = t[i];
+					t[i] = t[j];
+					t[j] = temp;
+				}
+			}
+		}
+		for (Team team : t)
+			System.out.println(team.getName() + " - " + team.getPoints()
+					+ " - " + team.getGamesPlayed() + " - "
+					+ team.isEliminated());
+		System.out.println();
+	}
+
 }

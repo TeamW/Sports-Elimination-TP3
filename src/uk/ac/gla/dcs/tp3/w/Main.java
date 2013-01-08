@@ -39,7 +39,7 @@ public class Main {
 			});
 		} else {
 			for (Division d : map.values())
-				System.out.println(d);
+				d.printWeb();
 		}
 	}
 }
