@@ -209,4 +209,21 @@ public class Match {
 		s.removeUpcomingMatch(this);
 	}
 
+	public void unplayMatch() {
+		// Only execute this method once. Also ensure scores have been set.
+		if (played || homeScore == -1 || awayScore == -1)
+			return;
+		played = false;
+		// t is the winner of the match, s is the loser of the match.
+		Team t = getWinner();
+		Team s = ((t == homeTeam) ? awayTeam : homeTeam);
+		// t gets a point, s does not. Decrement number of games played and
+		// add associated match for both teams.
+		t.setPoints(t.getPoints() - 1);
+		t.setGamesPlayed(t.getGamesPlayed() - 1);
+		t.addUpcomingMatch(this);
+		s.setGamesPlayed(s.getGamesPlayed() - 1);
+		s.addUpcomingMatch(this);
+	}
+
 }

@@ -16,13 +16,20 @@ public class Parser {
 	}
 
 	public boolean parse(String fileName) {
+		InputStream defaultFile = null;
 		Scanner fs;
 		String[] line;
-		try {
-			fs = new Scanner(new File(fileName));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false;
+		if (fileName.equals("")) {
+			defaultFile = this.getClass().getResourceAsStream(
+					"/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+			fs = new Scanner(defaultFile);
+		} else {
+			try {
+				fs = new Scanner(new File(fileName));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 		init();
 		while (fs.hasNextLine()) {
@@ -147,20 +154,20 @@ public class Parser {
 	}
 
 	private void warning(String string, String[] line) {
-		System.out.println("Warning: " + string);
+		System.err.println("Warning: " + string);
 		printLine(line);
 	}
 
 	private void error(String string, String[] line) {
-		System.out.println("Error: " + string);
+		System.err.println("Error: " + string);
 		printLine(line);
 	}
 
 	private static void printLine(String[] line) {
-		System.out.print("[");
+		System.err.print("[");
 		for (String s : line)
-			System.out.print(s + ", ");
-		System.out.println("]: Length = " + line.length);
+			System.err.print(s + ", ");
+		System.err.println("]: Length = " + line.length);
 	}
 
 	private Team getTeam(String s) {
