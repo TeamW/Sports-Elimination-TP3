@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w;
 
-import java.io.File;
 import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
@@ -13,21 +12,12 @@ import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 
 public class Main {
 
-	private static final String DEFAULT_FILE = System.getProperty("user.dir")
-			+ "/src/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt";
-
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		File source;
-		if (args.length == 0) {
-			System.out.println(DEFAULT_FILE);
-			source = new File(DEFAULT_FILE);
-		} else
-			source = new File(args[0]);
-		if (source.exists())
-			p.parse(source.getAbsolutePath());
+		if (args.length != 0)
+			p.parse(args[0]);
 		else
-			System.err.println("File not found.");
+			p.parse("");
 
 		final HashMap<String, Division> map = p.getDivisions();
 		Algorithm algorithm = new Algorithm();

@@ -1,6 +1,7 @@
 package uk.ac.gla.dcs.tp3.w.parser;
 
 import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -16,13 +17,26 @@ public class Parser {
 	}
 
 	public boolean parse(String fileName) {
+		URL defaultFile = null;
 		Scanner fs;
 		String[] line;
-		try {
-			fs = new Scanner(new File(fileName));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false;
+		if (fileName.equals("")) {
+			defaultFile = this.getClass().getResource(
+					"/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
+			System.out.println("----" + defaultFile.getPath() + "----");
+			try {
+				fs = new Scanner(new File(defaultFile.getPath()));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return false;
+			}
+		} else {
+			try {
+				fs = new Scanner(new File(fileName));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 		init();
 		while (fs.hasNextLine()) {
