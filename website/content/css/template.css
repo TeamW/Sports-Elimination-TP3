@@ -1,0 +1,91 @@
+html {
+    overflow-y: scroll;
+}
+body:before {
+   content: "";
+   position: fixed;
+   top: -20px;
+   width: 100%;
+   height: 20px;
+   left: 0;
+   -webkit-box-shadow: 0 0 20px rgba(0,0,0,.8);
+   -moz-box-shadow: 0 0 20px rgba(0,0,0,.8);
+   box-shadow: 0 0 20px rgba(0,0,0,.8);
+}
+body {
+    background: rgb(178,206,217);
+}
+img {
+    border: 0;
+}
+h2, h3, h4, h5, p, a, a:hover, li, h3 > a {
+    color: rgb(102, 102, 102);
+    font-family: sans-serif;
+}
+a {
+    color: rgb(51, 51, 51);
+}
+h1 {
+    line-height: 3em;
+    color: rgb(102, 102, 102);
+    font-family: sans-serif;
+}
+.for-outline-algorithm-only {
+    display:none;
+}
+p, a, a:hover, ul {
+    line-height: 1.5;
+    text-decoration: none;
+}
+p, ul, a {
+    font-size: 0.75em;
+}
+li > ul, li > p, p > a, li > a, h3 > a {
+    font-size: 1em;
+}
+.container {
+    margin: 3.125em auto;
+    min-width: 18em;
+    max-width: 60em;
+    width: 95%;
+    -webkit-box-shadow: 0 0 20px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 20px rgba(0,0,0,.5);
+    box-shadow: 0 0 20px rgba(0,0,0,.5);
+}
+header {
+    height: 4em;
+}
+nav {
+    width: 12em;
+    float: left;
+}
+article {
+    overflow: hidden;
+    margin-right: 0.75em;
+}
+footer {
+    height: 2em;
+    text-align: center;
+}
+header, section, footer {
+    margin: auto 1.5em;
+}
+nav, article, section {
+    min-height: 20em;
+    overflow: auto;
+    background: rgb(249, 251, 251);
+    border-radius: 0.5em;
+}
+.container, header, footer {
+    background: rgb(235, 242, 244);
+    border-radius: 1em;
+}
+.imageRight {
+    float: right;
+}
+.navigation {
+    margin-left: 1.65em;
+}
+.error {
+    color: rgb(255, 0, 0);
+}
