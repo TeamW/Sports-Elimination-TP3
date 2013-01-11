@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.Division;
@@ -228,7 +229,7 @@ public class Algorithm {
 	 * @param Division
 	 *            d
 	 */
-	public void updateDivisionElim(Division d) {
+	public void updateDivisionElim() {
 		Team[] teams = d.teamsToArray();
 		// Sorts teams into non-descending order by wins and games remaining
 		for (int i = 0; i < teams.length; i++) {
@@ -243,8 +244,13 @@ public class Algorithm {
 		// Determine the highest team that has been eliminated.
 		int lastElim = binaryDetermine(teams, 0, teams.length, -1);
 		// Eliminate this team and all teams below it.
-		for (int i = 0; i <= lastElim; i++) {
+		ArrayList<Team> elimination = new ArrayList<Team>();
+		for (int j = lastElim + 1; j < teams.length - 1; j++)
+			elimination.add(teams[j]);
+		for (int i = lastElim; i >= 0; i--) {
 			teams[i].setEliminated(true);
+			elimination.add(teams[i + 1]);
+			teams[i].setEliminatedBy(new ArrayList<Team>(elimination));
 		}
 	}
 

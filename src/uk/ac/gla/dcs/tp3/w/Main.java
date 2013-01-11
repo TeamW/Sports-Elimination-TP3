@@ -6,7 +6,6 @@ import javax.swing.SwingUtilities;
 
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
-import uk.ac.gla.dcs.tp3.w.league.Team;
 import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 
@@ -23,14 +22,9 @@ public class Main {
 				parsed = p.parse(s);
 		if (!parsed)
 			p.parse("");
-
 		final HashMap<String, Division> map = p.getDivisions();
-		Algorithm algorithm = new Algorithm();
-		for (Division d : map.values()) {
-			algorithm = new Algorithm(d);
-			for (Team t : d.getTeams())
-				t.setEliminated(algorithm.isEliminated(t));
-		}
+		for (Division d : map.values())
+			(new Algorithm(d)).updateDivisionElim();
 		if (!web) {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
