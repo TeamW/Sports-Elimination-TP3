@@ -29,7 +29,7 @@
         <article>
             <h3>Home</h3>
             <?php
-				$connection = makeQuery($server, $user, $password, $database, $query);  	//attempt to connect to database
+				$connection = executeQuery($server, $user, $password, $database, $query);  	//attempt to connect to database
 				$tableName = "";
 				echo exec("java -jar test.jar --web", $output); //extract information from .jar
 				foreach($output as $line) {			//loop through each line from jar

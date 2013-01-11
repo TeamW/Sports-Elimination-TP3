@@ -1,5 +1,5 @@
 <?php
-    function makeQuery($server, $user, $password, $database, $query) {
+    function executeQuery($server, $user, $password, $database, $query) {
         // Attempt connection to MySQL database.
         $connection = mysql_connect($server, $user, $password);
         if(!isset($connection)) {
