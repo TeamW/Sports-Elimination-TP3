@@ -29,21 +29,20 @@
         <article>
             <h3>Home</h3>
             <?php
-				echo exec("java -jar test.jar --web", $output);
-				foreach ($output as &$value) {
-					if ($value == "")
-						continue;
-					$splitLine = explode("-", $value);
-					$elements = count($splitLine);
-					if ($elements != 1)
+				$connection = makeQuery($server, $user, $password, $database, $query);  	//attempt to connect to database
+				$tableName = "";
+				echo exec("java -jar test.jar --web", $output); //extract information from .jar
+				foreach($output as $line)			//loop through each line from jar
+				{
+					$lineSplit = explode("-", $line);	//split into seperate elements
+					$elements = count($lineSplit);		//count number of tokens
+					if($elements < 1)         		//if less than one, end
 						echo("<p>");
-					foreach ($splitLine as &$splitValue)
-						if ($elements == 1)
-							   echo ("<h3>" . $splitValue . "</h3>" . PHP_EOL);
-						else
-							   echo ($splitValue . " ");
-					if ($elements != 1)
-						echo("</p>" . PHP_EOL);
+					if($elements == 1)			//if its 1, currently at league name
+						$tableName = lineSplit[0];	//grab the league name and store it
+						continue;			//next line
+					mysql_query("INSERT INTO $tableName (Team, Points, Games Played, Eliminated)	//populate row in table
+					VALUES (lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3])");		//with these values
 				}
 			?>
         </article>
