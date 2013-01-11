@@ -17,12 +17,10 @@ public class Division {
 	private ArrayList<Match> fixtures;
 
 	/**
-	 * No parameter constructor. Sets both instance variables to null.
+	 * No parameter constructor.
 	 */
 	public Division() {
-		this(null, null);
-		teams = new ArrayList<Team>();
-		fixtures = new ArrayList<Match>();
+		this("");
 	}
 
 	/**
@@ -40,6 +38,12 @@ public class Division {
 		fixtures = m;
 	}
 
+	/**
+	 * Create a blank division with an associated name.
+	 * 
+	 * @param s
+	 *            Name of division string
+	 */
 	public Division(String s) {
 		name = s;
 		teams = new ArrayList<Team>();
@@ -127,11 +131,20 @@ public class Division {
 		return (!teams.isEmpty()) ? teams.contains(t) : false;
 	}
 
+	/**
+	 * Return a string of division fixtures and division teams with appropriate
+	 * headers.
+	 */
 	public String toString() {
 		return String.format("%s\n%s\n%s\n%s\n", "Division fixtures", fixtures,
 				"Division teams", teams);
 	}
 
+	/**
+	 * Return the maximum number of points a team in the division currently has.
+	 * 
+	 * @return integer representing points of the top team in the division.
+	 */
 	public int maxPoints() {
 		Team[] t = teamsToArray();
 		int max = 0;
@@ -157,11 +170,16 @@ public class Division {
 		return array;
 	}
 
+	/**
+	 * Print out the information of the division's league table in a format
+	 * suitable for parsing for a web page or similar. Each element of a line is
+	 * delimited by a single hyphen.
+	 */
 	public void printWeb() {
 		System.out.println(name);
 		Team[] t = teamsToArray();
 		// Sorts teams into non-descending order by wins
-		for (int i = 0; i < t.length; i++) {
+		for (int i = 0; i < t.length; i++)
 			for (int j = i; j < t.length; j++) {
 				if (t[i].getPoints() - (t[j].getPoints()) < 0) {
 					Team temp = t[i];
@@ -169,11 +187,9 @@ public class Division {
 					t[j] = temp;
 				}
 			}
-		}
 		for (Team team : t)
-			System.out.println(team.getName() + "-" + team.getPoints()
-					+ "-" + team.getGamesPlayed() + "-"
-					+ team.isEliminated());
+			System.out.println(team.getName() + "-" + team.getPoints() + "-"
+					+ team.getGamesPlayed() + "-" + team.isEliminated());
 		System.out.println();
 	}
 

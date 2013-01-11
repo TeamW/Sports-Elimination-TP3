@@ -7,13 +7,18 @@ import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 /**
- * @author gordon
+ * Test class for the algorithm.
  * 
+ * @author Team W
+ * @version 1.0
  */
 public class Main {
 
 	/**
+	 * Creates test data and runs the algorithm with it.
+	 * 
 	 * @param args
+	 *            No arguments used.
 	 */
 	public static void main(String[] args) {
 		Team atlanta = new Team();
@@ -72,7 +77,6 @@ public class Main {
 			philadelphiaMatches.add(philVmon);
 			montrealMatches.add(philVmon);
 			allMatches.add(philVmon);
-
 		}
 
 		Match nyVmon = new Match();
@@ -97,11 +101,6 @@ public class Main {
 		Algorithm test = new Algorithm(d);
 
 		test.setVerbose();
-		// test.updateDivisionElim(d);
-		for (Team t : teams)
-			if (test.isEliminated(t))
-				System.out.println(t.getName() + ":\teliminated\n--------\n");
-			else
-				System.out.println(t.getName() + ":\tisn't elminated\n--------\n");
+		test.updateDivisionElim();
 	}
 }

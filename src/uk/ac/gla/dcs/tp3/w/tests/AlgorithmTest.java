@@ -183,7 +183,8 @@ public class AlgorithmTest {
 			if (t.getName().equalsIgnoreCase("Philadelphia")) {
 				t.setEliminated(alg.isEliminated(t));
 				Object[] teams = t.getEliminatedBy().toArray();
-				Object[] result = { new Team("New York"), new Team("Atlanta") };
+				Object[] result = { new Team("New York", "American Central"),
+						new Team("Atlanta", "American Central") };
 				assertArrayEquals(teams, result);
 			}
 		}
@@ -347,8 +348,9 @@ public class AlgorithmTest {
 			if (t.getName().equalsIgnoreCase("Montreal")) {
 				t.setEliminated(alg.isEliminated(t));
 				Object[] teams = t.getEliminatedBy().toArray();
-				Object[] result = { new Team("New York"),
-						new Team("Philadelphia"), new Team("Atlanta") };
+				Object[] result = { new Team("New York", "American Central"),
+						new Team("Philadelphia", "American Central"),
+						new Team("Atlanta", "American Central") };
 				assertArrayEquals(teams, result);
 			}
 		}

@@ -23,14 +23,13 @@ public class Parser {
 			defaultFile = this.getClass().getResourceAsStream(
 					"/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
 			fs = new Scanner(defaultFile);
-		} else {
+		} else
 			try {
 				fs = new Scanner(new File(fileName));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				return false;
 			}
-		}
 		init();
 		while (fs.hasNextLine()) {
 			line = fs.nextLine().split(" ");
@@ -46,50 +45,39 @@ public class Parser {
 		return true;
 	}
 
+	private void initDivision(String[] teams, String divisionName) {
+		Division d = new Division(divisionName);
+		divisions.put(divisionName, d);
+		for (String s : teams)
+			d.addTeam(new Team(s, divisionName));
+	}
+
 	private void init() {
 		String[] aETeams = { "Baltimore Orioles", "Boston Red Sox",
 				"New York Yankees", "Tampa Bay Rays", "Toronto Blue Jays" };
-		Division americanEast = new Division("American East");
-		divisions.put(americanEast.getName(), americanEast);
-		for (String s : aETeams)
-			americanEast.addTeam(new Team(s, americanEast.getName()));
+		initDivision(aETeams, "American East");
 
 		String[] aCTeams = { "Chicago White Sox", "Cleveland Indians",
 				"Detroit Tigers", "Kansas City Royals", "Minnesota Twins" };
-		Division americanCentral = new Division("American Central");
-		divisions.put(americanCentral.getName(), americanCentral);
-		for (String s : aCTeams)
-			americanCentral.addTeam(new Team(s, americanCentral.getName()));
+		initDivision(aCTeams, "American Central");
 
 		String[] aWTeams = { "Seattle Mariners", "Texas Rangers",
 				"Houston Astros", "Los Angeles Angels", "Oakland Athletics" };
-		Division americanWest = new Division("American West");
-		divisions.put(americanWest.getName(), americanWest);
-		for (String s : aWTeams)
-			americanWest.addTeam(new Team(s, americanWest.getName()));
+		initDivision(aWTeams, "American West");
 
 		String[] nETeams = { "Atlanta Braves", "Miami Marlins",
 				"New York Mets", "Philadelphia Phillies",
 				"Washington Nationals" };
-		Division nationalEast = new Division("National East");
-		divisions.put(nationalEast.getName(), nationalEast);
-		for (String s : nETeams)
-			nationalEast.addTeam(new Team(s, nationalEast.getName()));
+		initDivision(nETeams, "National East");
 
 		String[] nCTeams = { "Chicago Cubs", "Cincinnati Reds",
 				"Milwaukee Brewers", "Pittsburgh Pirates", "St.Louis Cardinals" };
-		Division nationalCentral = new Division("National Central");
-		divisions.put(nationalCentral.getName(), nationalCentral);
-		for (String s : nCTeams)
-			nationalCentral.addTeam(new Team(s, nationalCentral.getName()));
+		initDivision(nCTeams, "National Central");
 
 		String[] nWTeams = { "Arizona Diamondbacks", "Colorado Rockies",
 				"San Francisco Giants", "Los Angeles Dodgers",
 				"San Diego Padres" };
-		Division nationalWest = new Division("National West");
-		divisions.put(nationalWest.getName(), nationalWest);
-		for (String s : nWTeams)
-			nationalWest.addTeam(new Team(s, nationalWest.getName()));
+		initDivision(nWTeams, "National West");
 	}
 
 	private void newDate(String[] line) {
@@ -138,12 +126,14 @@ public class Parser {
 			error("cannot find home team", line);
 		if (awayTeam == null)
 			error("cannot find away team", line);
-		Division d = divisions.get(homeTeam.getDivisionName());
-		if (d == null)
-			error("cannot find division", line);
-		if (d == null || homeTeam == null || awayTeam == null
-				|| homeScore == -1 || awayScore == -1)
+		if (homeTeam == null || awayTeam == null || homeScore == -1
+				|| awayScore == -1)
 			return;
+		Division d = divisions.get(homeTeam.getDivisionName());
+		if (d == null) {
+			error("cannot find division", line);
+			return;
+		}
 		Match m = new Match(homeTeam, awayTeam, homeScore, awayScore,
 				matchDate, false);
 		homeTeam.addUpcomingMatch(m);

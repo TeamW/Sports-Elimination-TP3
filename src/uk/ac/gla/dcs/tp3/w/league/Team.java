@@ -56,24 +56,32 @@ public class Team implements Comparable<Team> {
 	}
 
 	/**
-	 * Constructor to create team object with only a name.
+	 * Create a blank team with only a name and associated division name.
 	 * 
-	 * @param String
-	 *            name
-	 * */
-	public Team(String name) {
-		this(name, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(),
-				"");
-	}
-
+	 * @param s
+	 *            Team name string
+	 * @param d
+	 *            Division name string
+	 */
 	public Team(String s, String d) {
 		this(s, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(), d);
 	}
 
+	/**
+	 * Return the division name the team plays in.
+	 * 
+	 * @return Division name string
+	 */
 	public String getDivisionName() {
 		return divisionName;
 	}
 
+	/**
+	 * Set the division name the team plays in.
+	 * 
+	 * @param s
+	 *            Division name string
+	 */
 	public void setDivisionName(String s) {
 		divisionName = s;
 	}
@@ -258,7 +266,7 @@ public class Team implements Comparable<Team> {
 	 * Implementation of the compareTo() method of Comparable
 	 */
 	public int compareTo(Team otherTeam) {
-		int thisValue = this.getPoints() + this.getUpcomingMatches().size();
+		int thisValue = getPoints() + getUpcomingMatches().size();
 		int otherValue = otherTeam.getPoints()
 				+ otherTeam.getUpcomingMatches().size();
 		return thisValue - otherValue;

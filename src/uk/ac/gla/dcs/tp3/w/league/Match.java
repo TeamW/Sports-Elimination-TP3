@@ -150,12 +150,14 @@ public class Match {
 	 * @return boolean representing if the match has been played or not
 	 */
 	public boolean isPlayed(Date currentDate) {
-		if (currentDate.before(date)) {
-			return played = false;
-		}
-		return played = true;
+		return !currentDate.before(date);
 	}
 
+	/**
+	 * Return a boolean representing the played status of the match.
+	 * 
+	 * @return true if match played, false otherwise
+	 */
 	public boolean isPlayed() {
 		return played;
 	}
@@ -183,6 +185,9 @@ public class Match {
 			return null;
 	}
 
+	/**
+	 * Print out the home and away team names and the date of the match.
+	 */
 	public String toString() {
 		return String.format("%s vs. %s on %s", homeTeam, awayTeam, date);
 	}
@@ -209,9 +214,15 @@ public class Match {
 		s.removeUpcomingMatch(this);
 	}
 
+	/**
+	 * Unplay the match. If the team hasn't been played yet or has no valid
+	 * score, nothing is done. Otherwise the winning and losing teams are found
+	 * and points and games played are decremented. The matches are also added
+	 * to each team's upcoming match array for future playing.
+	 */
 	public void unplayMatch() {
 		// Only execute this method once. Also ensure scores have been set.
-		if (played || homeScore == -1 || awayScore == -1)
+		if (!played || homeScore == -1 || awayScore == -1)
 			return;
 		played = false;
 		// t is the winner of the match, s is the loser of the match.

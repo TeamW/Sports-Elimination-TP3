@@ -6,6 +6,16 @@ import java.util.Stack;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
+/**
+ * This class represents the Ford-Fulkerson algorithm and any associated
+ * extensions such as the certificate of elimination.
+ * 
+ * The class creates a graph of the given division and has methods to run
+ * through the Ford-Fulkerson algorithm to determine elimination status.
+ * 
+ * @author Team W
+ * @version 1.0
+ */
 public class Algorithm {
 
 	private Graph g;
@@ -165,7 +175,10 @@ public class Algorithm {
 	}
 
 	private boolean certificateOfElimination(ResidualGraph residual, Team t) {
+		// Work out which teams are responsible for eliminating team t from the
+		// residual graph.
 		residual.certificateOfEliminationHelper();
+		// Store the teams responsible in an ArrayList with Team t.
 		for (Vertex v : residual.getV()) {
 			if (g.getV()[v.getIndex()] instanceof TeamVertex) {
 				TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
@@ -231,20 +244,22 @@ public class Algorithm {
 	 */
 	public void updateDivisionElim() {
 		Team[] teams = d.teamsToArray();
-		// Sorts teams into non-descending order by wins and games remaining
-		for (int i = 0; i < teams.length; i++) {
-			for (int j = i; j < teams.length; j++) {
+		// Sorts teams into non-descending order by wins and games remaining.
+		// Bubble sort is sufficient for data size.
+		for (int i = 0; i < teams.length; i++)
+			for (int j = i; j < teams.length; j++)
 				if (teams[i].compareTo(teams[j]) > 0) {
 					Team temp = teams[i];
 					teams[i] = teams[j];
 					teams[j] = temp;
 				}
-			}
-		}
 		// Determine the highest team that has been eliminated.
 		int lastElim = binaryDetermine(teams, 0, teams.length, -1);
 		// Eliminate this team and all teams below it.
+		// Store array of teams responsible for eliminating the team.
 		ArrayList<Team> elimination = new ArrayList<Team>();
+		// Every team has been eliminated by all teams not-eliminated below it
+		// in table.
 		for (int j = lastElim + 1; j < teams.length - 1; j++)
 			elimination.add(teams[j]);
 		for (int i = lastElim; i >= 0; i--) {
@@ -260,13 +275,14 @@ public class Algorithm {
 			return highestElim;
 		// Binary search
 		int mid = (s + e) / 2;
+		// If reached end of array...
 		if (mid >= T.length)
 			return highestElim;
-		if (fordFulkerson(T[mid])) {
-			// only updates highestElim in the upper sections.
-			highestElim = mid;
-			return binaryDetermine(T, mid + 1, e, highestElim);
-		} else
+		// If team at middle of range has been eliminated...
+		else if (fordFulkerson(T[mid]))
+			return binaryDetermine(T, mid + 1, e, mid);
+		// If team at middle of range has not been eliminated...
+		else
 			return binaryDetermine(T, s, mid - 1, highestElim);
 	}
 }

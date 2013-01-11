@@ -6,7 +6,7 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
  * The class has three instance variables representing the flow and capacity of
  * the edge, and which vertex the edge points to.
  * 
- * @author gordonreid
+ * @author Team W
  * @version 1.0
  */
 public class AdjListNode {
@@ -39,7 +39,7 @@ public class AdjListNode {
 	}
 
 	/**
-	 * Return capacity of edge
+	 * Return capacity of edge.
 	 * 
 	 * @return capacity of edge
 	 */
@@ -47,26 +47,57 @@ public class AdjListNode {
 		return capacity;
 	}
 
+	/**
+	 * Set capacity of edge.
+	 * 
+	 * @param c
+	 *            capacity of edge
+	 */
 	public void setCapacity(int c) {
 		capacity = c;
 	}
 
+	/**
+	 * Convenience method which adds 1 to the value of the capacity.
+	 */
 	public void incCapacity() {
 		capacity++;
 	}
 
+	/**
+	 * Return flow of edge.
+	 * 
+	 * @return flow of edge
+	 */
 	public int getFlow() {
 		return flow;
 	}
 
+	/**
+	 * Set flow of edge.
+	 * 
+	 * @param f
+	 *            flow of edge
+	 */
 	public void setFlow(int f) {
 		flow = f;
 	}
 
+	/**
+	 * Get vertex at the end of the flow.
+	 * 
+	 * @return vertex at the end of the flow
+	 */
 	public Vertex getVertex() {
 		return v;
 	}
 
+	/**
+	 * Set the vertex at the end of the flow.
+	 * 
+	 * @param v
+	 *            vertex to be at the end of the flow
+	 */
 	public void setVertex(Vertex v) {
 		this.v = v;
 	}
