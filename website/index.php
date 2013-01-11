@@ -1,4 +1,4 @@
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/content/php/includes/functions.php");?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/teamw/content/php/includes/functions.php");?>
 <!doctype html>
 <html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
