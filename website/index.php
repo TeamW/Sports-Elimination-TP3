@@ -1,3 +1,4 @@
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/content/php/includes/functions.php");?>
 <!doctype html>
 <html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -29,8 +30,21 @@
             <h3>Home</h3>
             <?php
 				echo exec("java -jar test.jar --web", $output);
-				foreach ($output as &$value)
-    				echo ($value . "</br>" . PHP_EOL);
+				foreach ($output as &$value) {
+					if ($value == "")
+						continue;
+					$splitLine = explode("-", $value);
+					$elements = count($splitLine);
+					if ($elements != 1)
+						echo("<p>");
+					foreach ($splitLine as &$splitValue)
+						if ($elements == 1)
+							   echo ("<h3>" . $splitValue . "</h3>" . PHP_EOL);
+						else
+							   echo ($splitValue . " ");
+					if ($elements != 1)
+						echo("</p>" . PHP_EOL);
+				}
 			?>
         </article>
     </section>
