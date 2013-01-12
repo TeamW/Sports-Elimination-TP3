@@ -62,7 +62,7 @@ public class Parser {
 		initDivision(aCTeams, "American Central");
 
 		String[] aWTeams = { "Seattle Mariners", "Texas Rangers",
-				"Houston Astros", "Los Angeles Angels", "Oakland Athletics" };
+				"Los Angeles Angels", "Oakland Athletics" };
 		initDivision(aWTeams, "American West");
 
 		String[] nETeams = { "Atlanta Braves", "Miami Marlins",
@@ -71,7 +71,8 @@ public class Parser {
 		initDivision(nETeams, "National East");
 
 		String[] nCTeams = { "Chicago Cubs", "Cincinnati Reds",
-				"Milwaukee Brewers", "Pittsburgh Pirates", "St.Louis Cardinals" };
+				"Milwaukee Brewers", "Pittsburgh Pirates", "Houston Astros",
+				"St.Louis Cardinals" };
 		initDivision(nCTeams, "National Central");
 
 		String[] nWTeams = { "Arizona Diamondbacks", "Colorado Rockies",
