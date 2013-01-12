@@ -41,3 +41,5 @@ presentation/presentation.key
 *.prefs
 
 *.xml
+
+*.gz
