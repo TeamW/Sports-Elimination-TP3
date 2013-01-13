@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.Division;
@@ -111,12 +110,13 @@ public class Algorithm {
 		int cap = 0;
 		for (AdjListNode a : g.getSource().getAdjList())
 			cap += a.getCapacity();
-		// Create initial residual graph for algorithm.
-		ResidualGraph residual = new ResidualGraph(g);
 		// Short circuit for end of league
 		if (t.getUpcomingMatches().size() == 0
-				&& t.getPoints() != d.maxPoints())
-			return certificateOfElimination(residual, t);
+				&& t.getPoints() != d.maxPoints()) {
+			return true;
+		}
+		// Create initial residual graph for algorithm.
+		ResidualGraph residual = new ResidualGraph(g);
 		// Path will store the residual path (if it exists)
 		Path path;
 		// Algorithm continues while a residual path exists
@@ -257,16 +257,10 @@ public class Algorithm {
 		int lastElim = binaryDetermine(teams, 0, teams.length, -1);
 		// Eliminate this team and all teams below it.
 		// Store array of teams responsible for eliminating the team.
-		ArrayList<Team> elimination = new ArrayList<Team>();
 		// Every team has been eliminated by all teams not-eliminated below it
 		// in table.
-		for (int j = lastElim + 1; j < teams.length - 1; j++)
-			elimination.add(teams[j]);
-		for (int i = lastElim; i >= 0; i--) {
+		for (int i = lastElim; i >= 0; i--)
 			teams[i].setEliminated(true);
-			elimination.add(teams[i + 1]);
-			teams[i].setEliminatedBy(new ArrayList<Team>(elimination));
-		}
 	}
 
 	private int binaryDetermine(Team[] T, int s, int e, int highestElim) {
