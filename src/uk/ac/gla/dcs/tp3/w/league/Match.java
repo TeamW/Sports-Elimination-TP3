@@ -224,7 +224,6 @@ public class Match {
 		// Only execute this method once. Also ensure scores have been set.
 		if (!played || homeScore == -1 || awayScore == -1)
 			return;
-		played = false;
 		// t is the winner of the match, s is the loser of the match.
 		Team t = getWinner();
 		Team s = ((t == homeTeam) ? awayTeam : homeTeam);
@@ -235,6 +234,8 @@ public class Match {
 		t.addUpcomingMatch(this);
 		s.setGamesPlayed(s.getGamesPlayed() - 1);
 		s.addUpcomingMatch(this);
+		//finally, set false. Setting earlier causes null pointer exception
+		played = false;
 	}
 
 }
