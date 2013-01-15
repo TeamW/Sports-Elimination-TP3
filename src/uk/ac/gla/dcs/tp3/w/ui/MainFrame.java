@@ -64,22 +64,12 @@ public class MainFrame extends JFrame {
 	//loop through every game played in the current division,
 	//check if date is less than/equal to current date,
 	//if not unplay match
-	private void validateDate()
-	{
-		for(Match m : divisions.get(table.getCurrent()).getFixtures())
-		{
-			System.out.println(m.toString());
-			//System.out.println("Checking date of match (" + m.getDateTime() + ") against current date " + displayDate);
+	private void validateDate(){
+		for(Match m : divisions.get(table.getCurrent()).getFixtures()){
 			if(m.getDateTime().before(displayDate))
-			{
-				System.out.println("Playing match");
 				m.playMatch();
-			}
 			else
-			{
-				System.out.println("Unplaying match");
 				m.unplayMatch();
-			}
 		}
 		table.setCurrent(table.getCurrent());
 	}
