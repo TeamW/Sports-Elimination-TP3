@@ -72,7 +72,6 @@ public class MainFrame extends JFrame {
 				String[] sa = s.split(" ");
 				sa[0] = rb.getText();
 				table.setCurrent(sa[0] + " " + sa[1]);
-				System.out.println(sa[0] + " " + sa[1]);
 			}
 		};
 		ActionListener divisionListener = new ActionListener() {
@@ -86,9 +85,7 @@ public class MainFrame extends JFrame {
 				String[] sa = s.split(" ");
 				sa[1] = rb.getText();
 				table.setCurrent(sa[0] + " " + sa[1]);
-				System.out.println(sa[0] + " " + sa[1]);
 			}
-
 		};
 
 		JPanel leaguePanel = new JPanel();
