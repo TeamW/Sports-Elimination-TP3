@@ -51,6 +51,7 @@ public class MainFrame extends JFrame {
 		
 		//temp hard-code final date in text file, will auto-calc this in next iteration
 		displayDate = new DateTime(7, 10, 2012, 23, 59);
+		validateDate();
 
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
@@ -147,7 +148,7 @@ public class MainFrame extends JFrame {
 				//decrement the day (need to make this work with month changes)
 				//then update the model
 				System.out.println("Back");
-				displayDate.setDate(displayDate.getDay()-1);
+				displayDate.decrementDate();
 				System.out.println("Current date is now " + displayDate.toString());
 				validateDate();
 			}
@@ -160,7 +161,7 @@ public class MainFrame extends JFrame {
 				//increment the day (need to make this work with month changes)
 				//then update the model
 				System.out.println("Next");
-				displayDate.setDate(displayDate.getDay()+1);
+				displayDate.incrementDate();
 				System.out.println("Current date is now " + displayDate.toString());
 				validateDate();
 			}
