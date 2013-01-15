@@ -19,7 +19,8 @@ public class MainFrame extends JFrame {
 	private Table table;
 	private String[] leagues = { "National", "American" };
 	private String[] divisionNames = { "West", "Central", "East" };
-
+	private DateTime displayDate;
+	
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
 		initUI();
@@ -47,6 +48,9 @@ public class MainFrame extends JFrame {
 
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
+		
+		//temp hard-code final date in text file, will auto-calc this in next iteration
+		displayDate = new DateTime(7, 10, 2012, 23, 59);
 
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
@@ -55,6 +59,29 @@ public class MainFrame extends JFrame {
 		pack();
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
+	}
+	
+	//loop through every game played in the current division,
+	//check if date is less than/equal to current date,
+	//if not unplay match
+	private void validateDate()
+	{
+		for(Match m : divisions.get(table.getCurrent()).getFixtures())
+		{
+			System.out.println(m.toString());
+			//System.out.println("Checking date of match (" + m.getDateTime() + ") against current date " + displayDate);
+			if(m.getDateTime().before(displayDate))
+			{
+				System.out.println("Playing match");
+				m.playMatch();
+			}
+			else
+			{
+				System.out.println("Unplaying match");
+				m.unplayMatch();
+			}
+		}
+		table.setCurrent(table.getCurrent());
 	}
 
 	private void initRadioButtons(JPanel radioPanel) {
@@ -127,7 +154,12 @@ public class MainFrame extends JFrame {
 		backButton.setToolTipText("Move to previous week of results");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+				//decrement the day (need to make this work with month changes)
+				//then update the model
 				System.out.println("Back");
+				displayDate.setDate(displayDate.getDay()-1);
+				System.out.println("Current date is now " + displayDate.toString());
+				validateDate();
 			}
 		});
 		navPanel.add(backButton, BorderLayout.WEST);
@@ -135,7 +167,12 @@ public class MainFrame extends JFrame {
 		nextButton.setToolTipText("Move to next week of results");
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+				//increment the day (need to make this work with month changes)
+				//then update the model
 				System.out.println("Next");
+				displayDate.setDate(displayDate.getDay()+1);
+				System.out.println("Current date is now " + displayDate.toString());
+				validateDate();
 			}
 		});
 		navPanel.add(nextButton, BorderLayout.EAST);
