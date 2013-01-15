@@ -106,6 +106,30 @@ public class Date {
 		return true;
 	}
 
+	public void incrementDate() {
+		day++;
+		if (day > Month.daysInMonth(month, year)) {
+			day = 1;
+			month++;
+			if (month > 12) {
+				month = 1;
+				year++;
+			}
+		}
+	}
+
+	public void decrementDate() {
+		day--;
+		if (day == 0) {
+			month--;
+			if (month == 0) {
+				month = 12;
+				year--;
+			}
+			day = Month.daysInMonth(month, year);
+		}
+	}
+
 	public boolean equals(Date d) {
 		return (day == d.getDay() && month == d.getMonth() && year == d
 				.getYear());
