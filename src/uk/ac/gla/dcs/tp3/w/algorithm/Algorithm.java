@@ -117,6 +117,10 @@ public class Algorithm {
 		}
 		// Create initial residual graph for algorithm.
 		ResidualGraph residual = new ResidualGraph(g);
+		// Naive elimination short circuit
+		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
+			return certificateOfElimination(residual, t);
+		}
 		// Path will store the residual path (if it exists)
 		Path path;
 		// Algorithm continues while a residual path exists
