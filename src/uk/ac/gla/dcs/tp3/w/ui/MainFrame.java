@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.ui;
 
+import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.*;
 
 import java.awt.BorderLayout;
@@ -20,7 +21,7 @@ public class MainFrame extends JFrame {
 	private String[] leagues = { "National", "American" };
 	private String[] divisionNames = { "West", "Central", "East" };
 	private DateTime displayDate;
-	
+
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
 		initUI();
@@ -48,9 +49,10 @@ public class MainFrame extends JFrame {
 
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
-		
-		//temp hard-code final date in text file, will auto-calc this in next iteration
-		displayDate = new DateTime(7, 10, 2012, 23, 59);
+
+		// temp hard-code final date in text file, will auto-calc this in next
+		// iteration
+		displayDate = new DateTime(10, 10, 2012, 23, 59);
 		validateDate();
 
 		// Set the JFrame's attributes
@@ -61,16 +63,25 @@ public class MainFrame extends JFrame {
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
-	
-	//loop through every game played in the current division,
-	//check if date is less than/equal to current date,
-	//if not unplay match
-	private void validateDate(){
-		for(Match m : divisions.get(table.getCurrent()).getFixtures()){
-			if(m.getDateTime().before(displayDate))
-				m.playMatch();
-			else
-				m.unplayMatch();
+
+	// loop through every game played in the current division,
+	// check if date is less than/equal to current date,
+	// if not unplay match
+	private void validateDate() {
+		for (Division d : divisions.values()) {
+			for (Match m : d.getFixtures()) {
+				if (m.getDateTime().before(displayDate)) {
+					m.playMatch();
+				} else {
+					m.unplayMatch();
+				}
+			}
+			for (Team t : d.getTeams()) {
+				t.setEliminated(false);
+				ArrayList<Team> teams = t.getEliminatedBy();
+				t.getEliminatedBy().removeAll(teams);
+			}
+			(new Algorithm(d)).updateDivisionElim();
 		}
 		table.setCurrent(table.getCurrent());
 	}
@@ -141,28 +152,30 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initNavPanel(JPanel navPanel) {
-		JButton backButton = new JButton("Previous Week");
-		backButton.setToolTipText("Move to previous week of results");
+		JButton backButton = new JButton("Previous Day");
+		backButton.setToolTipText("Move to previous day of results");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//decrement the day (need to make this work with month changes)
-				//then update the model
+				// decrement the day (need to make this work with month changes)
+				// then update the model
 				System.out.println("Back");
 				displayDate.decrementDate();
-				System.out.println("Current date is now " + displayDate.toString());
+				System.out.println("Current date is now "
+						+ displayDate.toString());
 				validateDate();
 			}
 		});
 		navPanel.add(backButton, BorderLayout.WEST);
-		JButton nextButton = new JButton("Next Week");
-		nextButton.setToolTipText("Move to next week of results");
+		JButton nextButton = new JButton("Next Day");
+		nextButton.setToolTipText("Move to next day of results");
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//increment the day (need to make this work with month changes)
-				//then update the model
+				// increment the day (need to make this work with month changes)
+				// then update the model
 				System.out.println("Next");
 				displayDate.incrementDate();
-				System.out.println("Current date is now " + displayDate.toString());
+				System.out.println("Current date is now "
+						+ displayDate.toString());
 				validateDate();
 			}
 		});
