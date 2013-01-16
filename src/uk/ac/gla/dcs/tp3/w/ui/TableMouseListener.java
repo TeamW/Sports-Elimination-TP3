@@ -55,16 +55,21 @@ public class TableMouseListener implements MouseListener {
 			algorithm.isEliminated(t);
 			size = t.getEliminatedBy().size();
 		}
-		if (size != 0)
-			for (Team team : t.getEliminatedBy())
-				if (++i < size)
+		if (size != 0) {
+			for (Team team : t.getEliminatedBy()) {
+				if (++i < size) {
 					s += team.getName() + ", ";
-				else if (size != 1)
+				} else if (size != 1) {
 					s += "and " + team.getName() + ".";
-				else
+				} else {
 					s += team.getName() + ".";
-		else
-			s += "the fact that they have no matches left to play.";
+				}
+			}
+		} else if (t.getUpcomingMatches().size() != 0) {
+			s += "the fact that they have less games remaining than their delta from the top of the league.";
+		} else {
+			s += "the fact that they have no games remaining and they are not at the top.";
+		}
 		JOptionPane.showMessageDialog(mainFrame, s, cOE,
 				JOptionPane.INFORMATION_MESSAGE);
 	}
