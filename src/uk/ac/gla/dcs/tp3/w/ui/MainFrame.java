@@ -63,6 +63,20 @@ public class MainFrame extends JFrame {
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
+	
+	//get the last date in the fixtures
+	private void calcStartDate(){
+		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0).getDateTime();
+		for (Division d : divisions.values()) {
+			for (Match m : d.getFixtures()) {
+				if (m.getDateTime().before(displayDate)) {
+					m.playMatch();
+				} else {
+					m.unplayMatch();
+				}
+			}
+		}
+	}
 
 	// loop through every game played in the current division,
 	// check if date is less than/equal to current date,
