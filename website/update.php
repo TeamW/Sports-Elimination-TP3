@@ -13,21 +13,24 @@
         <article>
             <h3>Home</h3>
             <?php
-				$connection = executeQuery($server, $user, $password, $database, $query);  	//attempt to connect to database
+
 				$tableName = "";
-				echo exec("java -jar test.jar --web", $output); //extract information from .jar
-				foreach($output as $line) {			//loop through each line from jar
-					$lineSplit = explode("-", $line);	//split into seperate elements
+				echo exec("java -jar test.jar --web", $output); //extract information from .jar into output
+				foreach($output as $line) {
+					$lineSplit = explode("-", $line);	//split into seperate elements seperated by hyphens
 					$elements = count($lineSplit);		//count number of tokens
-					if($elements < 1)         		//if less than one, end
+					if($elements < 1)         		//invalid number of tokens
 						echo("<p>");
-					if($elements == 1) {		//if its 1, currently at league name
-						$tableName = $lineSplit[0];	//grab the league name and store it
-						continue;			//next line
+					if($elements == 1) {			//currently at league name
+						$tableName = $lineSplit[0];	//store it
+						continue;
 					}
-					mysql_query("INSERT INTO $tableName (Team, Points, Games Played, Eliminated)" .	//populate row in table
-					"VALUES (lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3])");		//with these values
-				}
+					$insertDB = "INSERT INTO {$tableName} (Team, Points, Games Played, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
+                    echo($insertDB);
+                    echo("<br />");
+					$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
+				    print_r($result);
+                }
 			?>
         </article>
     </section>
