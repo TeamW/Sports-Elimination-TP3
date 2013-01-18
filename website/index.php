@@ -13,26 +13,25 @@
         <article>
             <h3>Home</h3>
             <?php
-				echo exec("java -jar test.jar --web", $output);
-				foreach ($output as &$value) {
-					if ($value == "") {
-						continue;
-					}
-					$splitLine = explode("-", $value);
-					$elements = count($splitLine);
-					if ($elements != 1) {
-						echo("<p>");
-					}
-					foreach ($splitLine as &$splitValue) {
-						if ($elements == 1) {
-							echo ("<h3>" . $splitValue . "</h3>" . PHP_EOL);
+				$divisions=array("American Central", "American East", "American West", "National Central","National East","National West");
+				foreach ($divisions as &$division) {
+					$query = "SELECT * FROM `{$division}` ORDER BY Points DESC;";
+					$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $query);
+					echo("<h3>{$division}</h3>" . PHP_EOL);
+					echo("<table><tr><td>Team</td><td>Points</td><td>Games Played</td><td>Elimination Status</td></tr>" . PHP_EOL);
+        			while ($row = mysql_fetch_array($result)) {
+						echo("<tr>");
+						echo("<td>{$row['Team']}</td>");
+						echo("<td>{$row['Points']}</td>");
+						echo("<td>{$row['Games Played']}</td>");
+						if($row['Eliminated'] == 1) {
+							echo("<td>Eliminated</td>");
 						} else {
-							   echo ($splitValue . " ");
+							echo("<td>Not Eliminated</td>");
 						}
+						echo("</tr>" . PHP_EOL);
 					}
-					if ($elements != 1) {
-						echo("</p>" . PHP_EOL);
-					}
+					echo("</table>" . PHP_EOL);
 				}
 			?>
         </article>
