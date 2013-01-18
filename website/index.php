@@ -18,7 +18,7 @@
 					$query = "SELECT * FROM `{$division}` ORDER BY Points DESC;";
 					$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $query);
 					echo("<h3>{$division}</h3>" . PHP_EOL);
-					echo("<table><tr><td>Team</td><td>Points</td><td>Games Played</td><td>Elimination Status</td></tr>" . PHP_EOL);
+					echo("<table cellpadding=5em><tr><th>Team</th><th>Points</th><th>Games Played</th><th>Elimination Status</th></tr>" . PHP_EOL);
         			while ($row = mysql_fetch_array($result)) {
 						echo("<tr>");
 						echo("<td>{$row['Team']}</td>");

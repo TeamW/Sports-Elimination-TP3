@@ -18,7 +18,7 @@ body {
 img {
     border: 0;
 }
-h2, h3, h4, h5, p, a, a:hover, li, h3 > a, tr > td {
+h2, h3, h4, h5, p, a, a:hover, li, h3 > a, tr > td, tr > th {
     color: rgb(102, 102, 102);
     font-family: sans-serif;
 }
@@ -33,15 +33,18 @@ h1 {
 .for-outline-algorithm-only {
     display:none;
 }
-p, a, a:hover, ul, tr > td {
+p, a, a:hover, ul, tr > td, tr > th {
     line-height: 1.5;
     text-decoration: none;
 }
 p, ul, a, tr > td {
     font-size: 0.75em;
 }
-li > ul, li > p, p > a, li > a, h3 > a {
+li > ul, li > p, p > a, li > a, h3 > a, tr > th {
     font-size: 1em;
+}
+th {
+	text-align: left;
 }
 .container {
     margin: 3.125em auto;
