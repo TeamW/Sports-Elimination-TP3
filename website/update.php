@@ -26,10 +26,8 @@
 						continue;
 					}
 					$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
-                    echo($insertDB);
-                    echo("<br />");
-					$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
-				    print_r($result);
+					executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
+				    echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
                 }
 			?>
         </article>
