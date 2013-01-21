@@ -13,21 +13,20 @@
         <article>
             <h3>Home</h3>
             <?php
-
 				$tableName = "";
 				echo exec("java -jar test.jar --web", $output); //extract information from .jar into output
 				foreach($output as $line) {
 					$lineSplit = explode("-", $line);	//split into seperate elements seperated by hyphens
 					$elements = count($lineSplit);		//count number of tokens
-					if($elements < 1)         		//invalid number of tokens
-						echo("<p>");
-					if($elements == 1) {			//currently at league name
+					if ($elements == 1) {			//currently at league name
 						$tableName = $lineSplit[0];	//store it
-						continue;
+					} else if ($elements == 4) {
+						$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
+						executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
+				    	echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
+					} else {
+						echo("<p>Database output error.</p>");
 					}
-					$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
-					executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
-				    echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
                 }
 			?>
         </article>
