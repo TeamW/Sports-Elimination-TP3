@@ -19,4 +19,71 @@
         mysql_close($connection);
         return $result;
     }
+
+	function showDivisions() {
+		$divisions=array("American Central", "American East", "American West", "National Central","National East","National West");
+		echo("<div id='accordion'>");
+		foreach ($divisions as &$division) {
+			$query = "SELECT * FROM `{$division}` ORDER BY Points DESC;";
+			$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $query);
+			echo("<h3><a href='#'>{$division}</a></h3>" . PHP_EOL);
+			echo("<div><table cellpadding=5em><tr><th>Team</th><th>Points</th><th>Games Played</th><th>Elimination Status</th></tr>" . PHP_EOL);
+        	while ($row = mysql_fetch_array($result)) {
+				echo("<tr>");
+				echo("<td>{$row['Team']}</td>");
+				echo("<td>{$row['Points']}</td>");
+				echo("<td>{$row['Games Played']}</td>");
+				if($row['Eliminated'] == 1) {
+					echo("<td>Eliminated</td>");
+				} else {
+					echo("<td>Not Eliminated</td>");
+				}
+				echo("</tr>" . PHP_EOL);
+			}
+			echo("</table></div>" . PHP_EOL);
+		}
+		echo("</div>");
+	}
+
+	function updateDivisions() {
+		$tableName = "";
+		echo exec("java -jar test.jar --web", $output);
+		foreach($output as $line) {
+			$lineSplit = explode("-", $line);
+			$elements = count($lineSplit);
+			if ($elements == 1) {
+				$tableName = $lineSplit[0];
+			} else if ($elements == 4) {
+				$select = "SELECT * FROM `{$tableName}` WHERE Team = '{$lineSplit[0]}'";				
+				$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $select);
+				if(mysql_num_rows($result) == 0){
+					$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
+					executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
+		    		echo("<p>{$tableName} - {$lineSplit[0]} inserted.</p>");
+				} else {
+					$updateDB = "UPDATE `{$tableName}` SET Points = {$lineSplit[1]}, `Games Played` = {$lineSplit[2]}, Eliminated = {$lineSplit[3]} WHERE Team = '{$lineSplit[0]}'";
+					executeQuery("localhost", "teamw", "algorithms", "teamw", $updateDB);
+					echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
+				}
+			} else {
+				echo("<p>Database output error.</p>");
+			}
+		}
+	}
+
+	function showPage() {
+		if (isset($_GET['page'])) {
+			$page = $_GET['page'];
+		} else {
+			$page = "showDivisions";
+		}
+		if ($page === "updateDivisions") {
+			echo("<h3>Updated Divisions</h3>");
+            updateDivisions();
+		} else {
+			echo("<h3>Division Standings</h3>");
+			echo("<p>Click division name to see standings.</p>");
+            showDivisions();
+		}
+	}
 ?>
