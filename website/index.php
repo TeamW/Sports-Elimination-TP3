@@ -11,32 +11,7 @@
         <h2 class="for-outline-algorithm-only">Main page content</h2>
 		<?php require_once($_SERVER['DOCUMENT_ROOT'] . "/teamw/content/php/includes/links.php");?>
         <article>
-            <h3>Division Standings</h3>
-			<p>Click division name to see standings.</p>
-            <?php
-				$divisions=array("American Central", "American East", "American West", "National Central","National East","National West");
-				echo("<div id='accordion'>");
-				foreach ($divisions as &$division) {
-					$query = "SELECT * FROM `{$division}` ORDER BY Points DESC;";
-					$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $query);
-					echo("<h3><a href='#'>{$division}</a></h3>" . PHP_EOL);
-					echo("<div><table cellpadding=5em><tr><th>Team</th><th>Points</th><th>Games Played</th><th>Elimination Status</th></tr>" . PHP_EOL);
-        			while ($row = mysql_fetch_array($result)) {
-						echo("<tr>");
-						echo("<td>{$row['Team']}</td>");
-						echo("<td>{$row['Points']}</td>");
-						echo("<td>{$row['Games Played']}</td>");
-						if($row['Eliminated'] == 1) {
-							echo("<td>Eliminated</td>");
-						} else {
-							echo("<td>Not Eliminated</td>");
-						}
-						echo("</tr>" . PHP_EOL);
-					}
-					echo("</table></div>" . PHP_EOL);
-				}
-				echo("</div>");
-			?>
+			<?php showPage(); ?>
         </article>
     </section>
     <footer>
