@@ -57,16 +57,16 @@ public class MACMain {
 		}
 
 		try {
-			ProcessBuilder pbcomp = new ProcessBuilder("pdflatex " + directory
+			ProcessBuilder pbcomp = new ProcessBuilder("/usr/texbin/pdflatex", directory
 					+ "output.tex");
 			Process compile = pbcomp.start();
 			compile.waitFor();
 			ProcessBuilder pbrem = new ProcessBuilder(
-					"rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
+					"rm", "output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
 			Process remove = pbrem.start();
 			remove.waitFor();
 			ProcessBuilder pbmove = new ProcessBuilder(
-					"mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
+					"mv", "output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
 			Process move = pbmove.start();
 			move.waitFor();
 		} catch (IOException e) {
