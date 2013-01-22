@@ -1,6 +1,5 @@
 package uk.ac.gla.dcs.tp3.w.print;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -59,17 +58,19 @@ public class Main {
 
 		try {
 			Runtime r = Runtime.getRuntime();
-			Process compile = r.exec("pdflatex "+directory+"output.tex");
+			Process compile = r.exec("pdflatex " + directory + "output.tex");
 			compile.waitFor();
-			Process remove = r.exec("rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
+			Process remove = r
+					.exec("rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
 			remove.waitFor();
-			Process move = r.exec("mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
+			Process move = r
+					.exec("mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
 			move.waitFor();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 	}
 }

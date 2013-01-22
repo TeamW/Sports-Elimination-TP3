@@ -57,13 +57,16 @@ public class MACMain {
 		}
 
 		try {
-			ProcessBuilder pbcomp = new ProcessBuilder("pdflatex "+directory+"output.tex");
+			ProcessBuilder pbcomp = new ProcessBuilder("pdflatex " + directory
+					+ "output.tex");
 			Process compile = pbcomp.start();
 			compile.waitFor();
-			ProcessBuilder pbrem = new ProcessBuilder("rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
+			ProcessBuilder pbrem = new ProcessBuilder(
+					"rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
 			Process remove = pbrem.start();
 			remove.waitFor();
-			ProcessBuilder pbmove = new ProcessBuilder("mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
+			ProcessBuilder pbmove = new ProcessBuilder(
+					"mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
 			Process move = pbmove.start();
 			move.waitFor();
 		} catch (IOException e) {
@@ -71,6 +74,6 @@ public class MACMain {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 	}
 }
