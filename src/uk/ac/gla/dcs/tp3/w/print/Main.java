@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.print;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,8 +16,8 @@ public class Main {
 		System.out.println("Working Directory = "
 				+ System.getProperty("user.dir"));
 		String directory = System.getProperty("user.dir")
-				+ "/src/uk/ac/gla/dcs/tp3/w/print/output.tex";
-		LaTeXFile LF = new LaTeXFile(directory);
+				+ "/src/uk/ac/gla/dcs/tp3/w/print/";
+		LaTeXFile LF = new LaTeXFile(directory + "output.tex");
 
 		Team atlanta = new Team();
 		atlanta.setName("Atlanta");
@@ -55,18 +56,21 @@ public class Main {
 		} else {
 			System.out.println("FUCK");
 		}
-		
+
 		try {
-			String[] compile = {"pdflatex",directory};
-			//String[] move = {"mv", "output.*", "src/uk/gla/dcs/tp3/w/print/"};
-			Runtime.getRuntime().exec(compile).waitFor();
-			//Runtime.getRuntime().exec(move).waitFor();
+			Runtime r = Runtime.getRuntime();
+			Process compile = r.exec("pdflatex "+directory+"output.tex");
+			compile.waitFor();
+					//new ProcessBuilder("pdflatex", directory + "output.tex").start();
+			Process remove = r.exec("rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
+			remove.waitFor();
+			Process move = r.exec("mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
+			move.waitFor();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	}
-
 }
