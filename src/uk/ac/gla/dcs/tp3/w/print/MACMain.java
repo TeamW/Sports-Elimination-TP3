@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
-public class Main {
+public class MACMain {
 
 	/**
 	 * @param args
@@ -57,14 +57,17 @@ public class Main {
 		}
 
 		try {
-			Runtime r = Runtime.getRuntime();
-			Process compile = r.exec("pdflatex " + directory + "output.tex");
+			ProcessBuilder pbcomp = new ProcessBuilder("pdflatex " + directory
+					+ "output.tex");
+			Process compile = pbcomp.start();
 			compile.waitFor();
-			Process remove = r
-					.exec("rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
+			ProcessBuilder pbrem = new ProcessBuilder(
+					"rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
+			Process remove = pbrem.start();
 			remove.waitFor();
-			Process move = r
-					.exec("mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
+			ProcessBuilder pbmove = new ProcessBuilder(
+					"mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
+			Process move = pbmove.start();
 			move.waitFor();
 		} catch (IOException e) {
 			e.printStackTrace();
