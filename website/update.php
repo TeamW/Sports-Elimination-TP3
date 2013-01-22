@@ -20,17 +20,18 @@
 					$elements = count($lineSplit);		//count number of tokens
 					if ($elements == 1) {			//currently at league name
 						$tableName = $lineSplit[0];	//store it
-					} else if ($elements == 4) {					
-						$result = executeQuery("localhost", "teamw", "algorithms", "teamw", "SELECT * FROM `{$tableName}` WHERE Team = '{$lineSplit[0]}'");
+					} else if ($elements == 4) {
+						$select = "SELECT * FROM `{$tableName}` WHERE Team = '{$lineSplit[0]}'";				
+						$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $select);
 						if(mysql_num_rows($result) == 0){
 							$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
 							executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
-				    			echo("<p>{$tableName} - {$lineSplit[0]} inserted.</p>");
-						}else{
-							executeQuery("localhost", "teamw", "algorithms", "teamw", "UPDATE `{$tableName}` SET Points = {$lineSplit[1]}, `Games Played` = {$lineSplit[2]}, Eliminated = {$lineSplit[3]} WHERE Team = '{$lineSplit[0]}'");
-				    			echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
+				    		echo("<p>{$tableName} - {$lineSplit[0]} inserted.</p>");
+						} else {
+							$updateDB = "UPDATE `{$tableName}` SET Points = {$lineSplit[1]}, `Games Played` = {$lineSplit[2]}, Eliminated = {$lineSplit[3]} WHERE Team = '{$lineSplit[0]}'";
+							executeQuery("localhost", "teamw", "algorithms", "teamw", $updateDB);
+				    		echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
 						}
-
 					} else {
 						echo("<p>Database output error.</p>");
 					}
