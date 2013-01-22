@@ -7,6 +7,15 @@ import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
+/**
+ * This class represents the network graph used by the Ford-Fulkerson algorithm.
+ * The graph has a source, a set of pair vertices, a set of team vertices, and a
+ * sink. Edges flowing from the source, through the pairs, through the teams, in
+ * to the sink have an associated flow and capacity.
+ * 
+ * @author Team W
+ * @version 1.0
+ */
 public class Graph {
 
 	protected Vertex[] vertices;
@@ -14,6 +23,9 @@ public class Graph {
 	private Vertex source;
 	private Vertex sink;
 
+	/**
+	 * Basic no-parameter constructor
+	 */
 	public Graph() {
 		this(null, null);
 	}
@@ -76,7 +88,7 @@ public class Graph {
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
 		pos = 1;
-		for (int i = 0; i < teams.length; i++) {
+		for (int i = 0; i < teams.length; i++)
 			for (int j = i + 1; j < teams.length; j++) {
 				// Find out which team vertex A to have as the PairVertex
 				Vertex tempI = vertices[vertices.length - 2 - i];
@@ -95,10 +107,9 @@ public class Graph {
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}
-		}
 		// For each match not yet played and not involving t, increment the
 		// capacity of the vertex going from float->pair node of home and away
-		for (Match M : d.getFixtures()) {
+		for (Match M : d.getFixtures())
 			if (matchNotPlayed(M, t)) {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();
@@ -106,7 +117,6 @@ public class Graph {
 					if (appropriateMatch(home, away, (PairVertex) A.getVertex()))
 						A.incCapacity();
 			}
-		}
 		// Create the adjacency matrix representation of the graph.
 		// Initialise every location to 0.
 		matrix = new int[vertices.length][vertices.length];
@@ -114,12 +124,11 @@ public class Graph {
 			for (int j = 0; j < vertices.length; j++)
 				matrix[i][j] = 0;
 		// Now set every non-zero location to the value of the capacity.
-		for (Vertex v : vertices) {
+		for (Vertex v : vertices)
 			for (AdjListNode n : v.getAdjList()) {
 				int loc = n.getVertex().getIndex();
 				matrix[v.getIndex()][loc] = n.getCapacity();
 			}
-		}
 	}
 
 	/**
@@ -240,31 +249,11 @@ public class Graph {
 		this.sink = sink;
 	}
 
-	/**
-	 * Factorial function
-	 * 
-	 * Function to recursively determine the factorial of a number
-	 * 
-	 * @param s
-	 *            int
-	 * @return int value of s!
-	 */
 	private static int fact(int s) {
 		// For s < 2, the factorial is 1. Otherwise, multiply s by fact(s-1)
 		return (s < 2) ? 1 : s * fact(s - 1);
 	}
 
-	/**
-	 * N choose R function
-	 * 
-	 * Function to determine the value of N choose R
-	 * 
-	 * @param n
-	 *            int
-	 * @param r
-	 *            int
-	 * @return int value of N choose R;
-	 */
 	private static int comb(int n, int r) {
 		// r-combination of size n is n!/r!(n-r)!
 		return (fact(n) / (fact(r) * fact(n - r)));
@@ -279,7 +268,7 @@ public class Graph {
 			v.setVisited(false);
 		// A queue will be used to know which vertex to visit next
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
-		for (Vertex v : vertices) {
+		for (Vertex v : vertices)
 			// An unvisited vertex should be set as visited, have its
 			// predecessor initialised to itself, and add to the queue.
 			if (!v.getVisited()) {
@@ -303,7 +292,6 @@ public class Graph {
 					}
 				}
 			}
-		}
 	}
 
 }

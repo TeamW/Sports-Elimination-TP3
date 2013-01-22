@@ -1,11 +1,20 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
+/**
+ * This class represents the Ford-Fulkerson algorithm and any associated
+ * extensions such as the certificate of elimination.
+ * 
+ * The class creates a graph of the given division and has methods to run
+ * through the Ford-Fulkerson algorithm to determine elimination status.
+ * 
+ * @author Team W
+ * @version 1.0
+ */
 public class Algorithm {
 
 	private Graph g;
@@ -101,8 +110,17 @@ public class Algorithm {
 		int cap = 0;
 		for (AdjListNode a : g.getSource().getAdjList())
 			cap += a.getCapacity();
+		// Short circuit for end of league
+		if (t.getUpcomingMatches().size() == 0
+				&& t.getPoints() != d.maxPoints()) {
+			return true;
+		}
 		// Create initial residual graph for algorithm.
 		ResidualGraph residual = new ResidualGraph(g);
+		// Naive elimination short circuit
+		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
+			return certificateOfElimination(residual, t);
+		}
 		// Path will store the residual path (if it exists)
 		Path path;
 		// Algorithm continues while a residual path exists
@@ -130,40 +148,56 @@ public class Algorithm {
 			// Update residual graph based on new original graph's flow data.
 			residual = new ResidualGraph(g);
 		}
-		if(verbose){
-		    int teamToSinkRemain=0;
-		    for (Vertex v : g.getV()){
-		    	if(g.getV()[v.getIndex()] instanceof TeamVertex){
-		    		TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
-		    		for(AdjListNode a: TV.getAdjList()){
-		    			teamToSinkRemain+=(a.getCapacity()-a.getFlow());
-		    		}
-		    	}
-		    }
-			System.out.println("Total Remaining Games: " +teamToSinkRemain);   
+		if (verbose) {
+			int teamToSinkRemain = 0;
+			int minTeamToSink = Integer.MAX_VALUE;
+			int floatOut = 0;
+			for (AdjListNode a : g.getV()[0].getAdjList()) {
+				floatOut += (a.getCapacity());
+			}
+			for (Vertex v : g.getV()) {
+				if (g.getV()[v.getIndex()] instanceof TeamVertex) {
+					TeamVertex TV = (TeamVertex) g.getV()[v.getIndex()];
+					for (AdjListNode a : TV.getAdjList()) {
+						int next = (a.getCapacity() - a.getFlow());
+						teamToSinkRemain += next;
+						if (next < minTeamToSink)
+							minTeamToSink = next;
+					}
+				}
+			}
+			System.out.println("Total From Float: " + floatOut);
+			System.out.println("Total Remaining Games: " + teamToSinkRemain);
+			System.out.println("Min from team to sink: " + minTeamToSink);
 		}
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.
-		if (cap != 0) {
-			residual.certificateOfEliminationHelper();
-			for (Vertex v : residual.getV()) {
-				if (g.getV()[v.getIndex()] instanceof TeamVertex) {
-					TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
-					if (v.getVisited())
-						t.getEliminatedBy().add(elim.getTeam());
-				}
-			}
-			if (verbose) {
-				// Test output from above
-				System.out.println("\n" + t.getName() + " eliminated by:");
-				for (Team elimBy : t.getEliminatedBy())
-					System.out.println(elimBy.getName());
-				System.out.println();
-			}
-			return true;
-		}
+		if (cap != 0)
+			return certificateOfElimination(residual, t);
 		return false;
+	}
+
+	private boolean certificateOfElimination(ResidualGraph residual, Team t) {
+		// Work out which teams are responsible for eliminating team t from the
+		// residual graph.
+		residual.certificateOfEliminationHelper();
+		// Store the teams responsible in an ArrayList with Team t.
+		for (Vertex v : residual.getV()) {
+			if (g.getV()[v.getIndex()] instanceof TeamVertex) {
+				TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
+				if (v.getVisited())
+					t.getEliminatedBy().add(elim.getTeam());
+			}
+		}
+		if (verbose) {
+			// Test output from above
+			System.out.println("\n" + t.getName() + " eliminated by:");
+			for (Team elimBy : t.getEliminatedBy())
+				System.out.println(elimBy.getName());
+			System.out.println();
+		}
+		return true;
 	}
 
 	private static Path residualPath(ResidualGraph g) {
@@ -212,24 +246,25 @@ public class Algorithm {
 	 * @param Division
 	 *            d
 	 */
-	public void updateDivisionElim(Division d) {
+	public void updateDivisionElim() {
 		Team[] teams = d.teamsToArray();
-		// Sorts teams into non-descending order by wins and games remaining
-		for (int i = 0; i < teams.length; i++) {
-			for (int j = i; j < teams.length; j++) {
+		// Sorts teams into non-descending order by wins and games remaining.
+		// Bubble sort is sufficient for data size.
+		for (int i = 0; i < teams.length; i++)
+			for (int j = i; j < teams.length; j++)
 				if (teams[i].compareTo(teams[j]) > 0) {
 					Team temp = teams[i];
 					teams[i] = teams[j];
 					teams[j] = temp;
 				}
-			}
-		}
 		// Determine the highest team that has been eliminated.
 		int lastElim = binaryDetermine(teams, 0, teams.length, -1);
 		// Eliminate this team and all teams below it.
-		for (int i = 0; i <= lastElim; i++) {
+		// Store array of teams responsible for eliminating the team.
+		// Every team has been eliminated by all teams not-eliminated below it
+		// in table.
+		for (int i = lastElim; i >= 0; i--)
 			teams[i].setEliminated(true);
-		}
 	}
 
 	private int binaryDetermine(Team[] T, int s, int e, int highestElim) {
@@ -238,13 +273,14 @@ public class Algorithm {
 			return highestElim;
 		// Binary search
 		int mid = (s + e) / 2;
+		// If reached end of array...
 		if (mid >= T.length)
 			return highestElim;
-		if (fordFulkerson(T[mid])) {
-			// only updates highestElim in the upper sections.
-			highestElim = mid;
-			return binaryDetermine(T, mid + 1, e, highestElim);
-		} else
+		// If team at middle of range has been eliminated...
+		else if (fordFulkerson(T[mid]))
+			return binaryDetermine(T, mid + 1, e, mid);
+		// If team at middle of range has not been eliminated...
+		else
 			return binaryDetermine(T, s, mid - 1, highestElim);
 	}
 }

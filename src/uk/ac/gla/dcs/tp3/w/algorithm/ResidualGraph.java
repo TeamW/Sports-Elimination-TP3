@@ -2,8 +2,22 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 
 import java.util.LinkedList;
 
+/**
+ * This class represents the residual graph used by the Ford-Fulkerson
+ * algorithm. The residual graph is created from the original graph used by the
+ * aforementioned algorithm.
+ * 
+ * @author Team W
+ * @version 1.0
+ */
 public class ResidualGraph extends Graph {
 
+	/**
+	 * Constructor to create the residual graph from the given graph.
+	 * 
+	 * @param g
+	 *            Normal graph to use to create the residual graph from.
+	 */
 	public ResidualGraph(Graph g) {
 		// Duplicate vertex array
 		vertices = new Vertex[g.getV().length];
@@ -49,6 +63,12 @@ public class ResidualGraph extends Graph {
 		}
 	}
 
+	/**
+	 * Certificate of elimination helper method. This is a breadth-first search
+	 * that searches from the source vertex only. The visited boolean values as
+	 * a result of this method can be used for generating the certificate of
+	 * elimination.
+	 */
 	public void certificateOfEliminationHelper() {
 		for (Vertex v : vertices)
 			v.setVisited(false);

@@ -17,16 +17,14 @@ public class Team implements Comparable<Team> {
 	private boolean eliminated;
 	private ArrayList<Match> upcomingMatches;
 	private ArrayList<Team> eliminatedBy;
-	private boolean isNational;
-	private String whatRegion;
+	private String divisionName;
 
 	/**
 	 * No parameter constructor. Sets all instance variables to null, -1, or
 	 * false.
 	 */
 	public Team() {
-		this("", -1, -1, false, new ArrayList<Match>(), new ArrayList<Team>(),
-				false, "");
+		this("", 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(), "");
 	}
 
 	/**
@@ -47,126 +45,45 @@ public class Team implements Comparable<Team> {
 	 *            The array of teams responsible for eliminating this team.
 	 */
 	public Team(String s, int p, int g, boolean e, ArrayList<Match> um,
-			ArrayList<Team> t, boolean f, String r) {
+			ArrayList<Team> t, String d) {
 		name = s;
 		points = p;
 		gamesPlayed = g;
 		eliminated = e;
 		upcomingMatches = um;
 		eliminatedBy = t;
-		isNational = f;
-		whatRegion = r;
-
+		divisionName = d;
 	}
 
 	/**
-	 * Returns the boolean holding the value of a teams National League Status
+	 * Create a blank team with only a name and associated division name.
 	 * 
-	 * @return Boolean
+	 * @param s
+	 *            Team name string
+	 * @param d
+	 *            Division name string
 	 */
-	public boolean isNational() {
-		return isNational;
+	public Team(String s, String d) {
+		this(s, 0, 0, false, new ArrayList<Match>(), new ArrayList<Team>(), d);
 	}
 
 	/**
-	 * Sets the boolean value of a teams National League Status
+	 * Return the division name the team plays in.
 	 * 
-	 * @param boolean isNational
+	 * @return Division name string
 	 */
-	public void setNational(boolean isNational) {
-		this.isNational = isNational;
+	public String getDivisionName() {
+		return divisionName;
 	}
 
 	/**
-	 * Returns the String value of a teams region.
+	 * Set the division name the team plays in.
 	 * 
-	 * @return String
+	 * @param s
+	 *            Division name string
 	 */
-	public String getWhatRegion() {
-		return whatRegion;
-	}
-
-	/**
-	 * Sets the String value of a teams region.
-	 * 
-	 * @param String
-	 *            whatRegion
-	 */
-	public void setWhatRegion(String whatRegion) {
-		this.whatRegion = whatRegion;
-	}
-
-	/**
-	 * Constructor to create team object with only a name.
-	 * 
-	 * @param String
-	 *            name
-	 * */
-	public Team(String name) {
-		this.name = name;
-		points = 0;
-		gamesPlayed = 0;
-		eliminated = false;
-		upcomingMatches = null;
-		eliminatedBy = null;
-
-		// Set American Division : East
-		if (name.equalsIgnoreCase("Baltimore Orioles")
-				|| name.equalsIgnoreCase("Boston Red Sox")
-				|| name.equalsIgnoreCase("New York Yankees")
-				|| name.equalsIgnoreCase("Tampa Bay Rays")
-				|| name.equalsIgnoreCase("Toronto Blue Jays")) {
-			whatRegion += "East";
-		}
-
-		// Set American Division : Central
-		if (name.equalsIgnoreCase("Chicago White Sox")
-				|| name.equalsIgnoreCase("Cleveland Indians")
-				|| name.equalsIgnoreCase("Detroit Tigers")
-				|| name.equalsIgnoreCase("Kansas City Royals")
-				|| name.equalsIgnoreCase("Minnesota Twins")) {
-			whatRegion += "Central";
-		}
-
-		// Set American Division : West
-		if (name.equalsIgnoreCase("Seattle Mariners")
-				|| name.equalsIgnoreCase("Texas Rangers")
-				|| name.equalsIgnoreCase("Houston Astros")
-				|| name.equalsIgnoreCase("Los Angeles Angels")
-				|| name.equalsIgnoreCase("Oakland Athletics")) {
-			whatRegion += "Central";
-		}
-
-		// Set National Division : East
-		if (name.equalsIgnoreCase("Atlanta Braves")
-				|| name.equalsIgnoreCase("Miami Marlins")
-				|| name.equalsIgnoreCase("New York Mets")
-				|| name.equalsIgnoreCase("Philadelphia Phillies")
-				|| name.equalsIgnoreCase("Washington Nationals")) {
-			whatRegion += "East";
-			isNational = true;
-		}
-
-		// Set National Division : Central
-		if (name.equalsIgnoreCase("Chicago Cubs")
-				|| name.equalsIgnoreCase("Cincinnati Reds")
-				|| name.equalsIgnoreCase("Milwaukee Brewers")
-				|| name.equalsIgnoreCase("Pittsburgh Pirates")
-				|| name.equalsIgnoreCase("St.Louis Cardinals")) {
-			whatRegion += "Central";
-			isNational = true;
-		}
-
-		// Set National Division : West
-		if (name.equalsIgnoreCase("Arizona Diamondbacks")
-				|| name.equalsIgnoreCase("Colorado Rockies")
-				|| name.equalsIgnoreCase("San Francisco Giants")
-				|| name.equalsIgnoreCase("Los Angeles Dodgers")
-				|| name.equalsIgnoreCase("San Diego Padres")) {
-			whatRegion += "West";
-			isNational = true;
-		}
-
+	public void setDivisionName(String s) {
+		divisionName = s;
 	}
 
 	/**
@@ -349,7 +266,7 @@ public class Team implements Comparable<Team> {
 	 * Implementation of the compareTo() method of Comparable
 	 */
 	public int compareTo(Team otherTeam) {
-		int thisValue = this.getPoints() + this.getUpcomingMatches().size();
+		int thisValue = getPoints() + getUpcomingMatches().size();
 		int otherValue = otherTeam.getPoints()
 				+ otherTeam.getUpcomingMatches().size();
 		return thisValue - otherValue;

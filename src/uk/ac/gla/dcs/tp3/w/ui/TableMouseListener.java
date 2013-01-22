@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
+import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
@@ -48,13 +49,27 @@ public class TableMouseListener implements MouseListener {
 		String cOE = "Certificate of elimination for " + t.getName();
 		int size = t.getEliminatedBy().size();
 		int i = 0;
-		for (Team team : t.getEliminatedBy())
-			if (++i < size)
-				s += team.getName() + ", ";
-			else if (size != 1)
-				s += "and " + team.getName() + ".";
-			else
-				s += team.getName() + ".";
+		if (size == 0) {
+			String div = t.getDivisionName();
+			Algorithm algorithm = new Algorithm(divisions.get(div));
+			algorithm.isEliminated(t);
+			size = t.getEliminatedBy().size();
+		}
+		if (size != 0) {
+			for (Team team : t.getEliminatedBy()) {
+				if (++i < size) {
+					s += team.getName() + ", ";
+				} else if (size != 1) {
+					s += "and " + team.getName() + ".";
+				} else {
+					s += team.getName() + ".";
+				}
+			}
+		} else if (t.getUpcomingMatches().size() != 0) {
+			s += "the fact that they have less games remaining than their delta from the top of the league.";
+		} else {
+			s += "the fact that they have no games remaining and they are not at the top.";
+		}
 		JOptionPane.showMessageDialog(mainFrame, s, cOE,
 				JOptionPane.INFORMATION_MESSAGE);
 	}

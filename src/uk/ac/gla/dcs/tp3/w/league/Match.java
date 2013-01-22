@@ -14,7 +14,7 @@ public class Match {
 	private Team awayTeam;
 	private int homeScore;
 	private int awayScore;
-	private Date date;
+	private DateTime date;
 	private boolean played;
 
 	/**
@@ -34,14 +34,13 @@ public class Match {
 	 *            The away team
 	 * @param hs
 	 *            The home team's score
-	 * @param as
-	 *            The away team's score
+	 * @param as The away team's score
 	 * @param d
-	 *            The date the match is played
+	 *            The date and time the match is played
 	 * @param b
 	 *            A boolean to show if the match has been played or not.
 	 */
-	public Match(Team h, Team a, int hs, int as, Date d, boolean b) {
+	public Match(Team h, Team a, int hs, int as, DateTime d, boolean b) {
 		homeTeam = h;
 		awayTeam = a;
 		homeScore = hs;
@@ -131,7 +130,7 @@ public class Match {
 	 * 
 	 * @return Date for when the match will be played
 	 */
-	public Date getDate() {
+	public DateTime getDateTime() {
 		return date;
 	}
 
@@ -141,7 +140,7 @@ public class Match {
 	 * @param date
 	 *            Date for when the match will be played
 	 */
-	public void setDate(Date date) {
+	public void setDate(DateTime date) {
 		this.date = date;
 	}
 
@@ -151,12 +150,14 @@ public class Match {
 	 * @return boolean representing if the match has been played or not
 	 */
 	public boolean isPlayed(Date currentDate) {
-		if (currentDate.before(date)) {
-			return played = false;
-		}
-		return played = true;
+		return !currentDate.before(date);
 	}
 
+	/**
+	 * Return a boolean representing the played status of the match.
+	 * 
+	 * @return true if match played, false otherwise
+	 */
 	public boolean isPlayed() {
 		return played;
 	}
@@ -184,6 +185,9 @@ public class Match {
 			return null;
 	}
 
+	/**
+	 * Print out the home and away team names and the date of the match.
+	 */
 	public String toString() {
 		return String.format("%s vs. %s on %s", homeTeam, awayTeam, date);
 	}
@@ -193,7 +197,7 @@ public class Match {
 	 * for the winning team and increment the total number of games played by
 	 * both teams then remove the reference to the upcoming match arrays.
 	 */
-	public void updatePointsAndPlayGame() {
+	public void playMatch() {
 		// Only execute this method once. Also ensure scores have been set.
 		if (played || homeScore == -1 || awayScore == -1)
 			return;
@@ -208,6 +212,30 @@ public class Match {
 		t.removeUpcomingMatch(this);
 		s.setGamesPlayed(s.getGamesPlayed() + 1);
 		s.removeUpcomingMatch(this);
+	}
+
+	/**
+	 * Unplay the match. If the team hasn't been played yet or has no valid
+	 * score, nothing is done. Otherwise the winning and losing teams are found
+	 * and points and games played are decremented. The matches are also added
+	 * to each team's upcoming match array for future playing.
+	 */
+	public void unplayMatch() {
+		// Only execute this method once. Also ensure scores have been set.
+		if (!played || homeScore == -1 || awayScore == -1)
+			return;
+		// t is the winner of the match, s is the loser of the match.
+		Team t = getWinner();
+		Team s = ((t == homeTeam) ? awayTeam : homeTeam);
+		// t gets a point, s does not. Decrement number of games played and
+		// add associated match for both teams.
+		t.setPoints(t.getPoints() - 1);
+		t.setGamesPlayed(t.getGamesPlayed() - 1);
+		t.addUpcomingMatch(this);
+		s.setGamesPlayed(s.getGamesPlayed() - 1);
+		s.addUpcomingMatch(this);
+		//finally, set false. Setting earlier causes null pointer exception
+		played = false;
 	}
 
 }

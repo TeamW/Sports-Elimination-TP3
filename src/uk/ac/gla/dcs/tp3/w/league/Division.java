@@ -12,16 +12,15 @@ import java.util.ArrayList;
  */
 public class Division {
 
+	private String name;
 	private ArrayList<Team> teams;
 	private ArrayList<Match> fixtures;
 
 	/**
-	 * No parameter constructor. Sets both instance variables to null.
+	 * No parameter constructor.
 	 */
 	public Division() {
-		this(null, null);
-		teams = new ArrayList<Team>();
-		fixtures = new ArrayList<Match>();
+		this("");
 	}
 
 	/**
@@ -34,8 +33,29 @@ public class Division {
 	 *            The array of matches in this league.
 	 */
 	public Division(ArrayList<Team> t, ArrayList<Match> m) {
+		name = "";
 		teams = t;
 		fixtures = m;
+	}
+
+	/**
+	 * Create a blank division with an associated name.
+	 * 
+	 * @param s
+	 *            Name of division string
+	 */
+	public Division(String s) {
+		name = s;
+		teams = new ArrayList<Team>();
+		fixtures = new ArrayList<Match>();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String s) {
+		name = s;
 	}
 
 	/**
@@ -85,9 +105,8 @@ public class Division {
 	 *            The match to add to the fixture list.
 	 */
 	public void addFixture(Match m) {
-		if (!fixtures.contains(m)) {
+		if (!fixtures.contains(m))
 			fixtures.add(m);
-		}
 	}
 
 	/**
@@ -97,7 +116,8 @@ public class Division {
 	 *            The team to be added to the team array.
 	 */
 	public void addTeam(Team t) {
-		teams.add(t);
+		if (!teams.contains(t))
+			teams.add(t);
 	}
 
 	/**
@@ -108,16 +128,30 @@ public class Division {
 	 * @return True if team is in the list, false otherwise.
 	 */
 	public boolean isMember(Team t) {
-		if (!teams.isEmpty()) {
-			if (teams.contains(t))
-				return true;
-		}
-		return false;
+		return (!teams.isEmpty()) ? teams.contains(t) : false;
 	}
 
+	/**
+	 * Return a string of division fixtures and division teams with appropriate
+	 * headers.
+	 */
 	public String toString() {
 		return String.format("%s\n%s\n%s\n%s\n", "Division fixtures", fixtures,
 				"Division teams", teams);
+	}
+
+	/**
+	 * Return the maximum number of points a team in the division currently has.
+	 * 
+	 * @return integer representing points of the top team in the division.
+	 */
+	public int maxPoints() {
+		Team[] t = teamsToArray();
+		int max = 0;
+		for (Team team : t)
+			if (team.getPoints() > max)
+				max = team.getPoints();
+		return max;
 	}
 
 	/**
@@ -134,6 +168,29 @@ public class Division {
 		for (Team t : teams)
 			array[i++] = t;
 		return array;
+	}
+
+	/**
+	 * Print out the information of the division's league table in a format
+	 * suitable for parsing for a web page or similar. Each element of a line is
+	 * delimited by a single hyphen.
+	 */
+	public void printWeb() {
+		System.out.println(name);
+		Team[] t = teamsToArray();
+		// Sorts teams into non-descending order by wins
+		for (int i = 0; i < t.length; i++)
+			for (int j = i; j < t.length; j++) {
+				if (t[i].getPoints() - (t[j].getPoints()) < 0) {
+					Team temp = t[i];
+					t[i] = t[j];
+					t[j] = temp;
+				}
+			}
+		for (Team team : t)
+			System.out.println(team.getName() + "-" + team.getPoints() + "-"
+					+ team.getGamesPlayed() + "-" + team.isEliminated());
+		System.out.println();
 	}
 
 }
