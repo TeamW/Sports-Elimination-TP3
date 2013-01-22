@@ -1,6 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.print;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -61,7 +61,6 @@ public class Main {
 			Runtime r = Runtime.getRuntime();
 			Process compile = r.exec("pdflatex "+directory+"output.tex");
 			compile.waitFor();
-					//new ProcessBuilder("pdflatex", directory + "output.tex").start();
 			Process remove = r.exec("rm output.log output.aux src/uk/ac/gla/dcs/tp3/w/print/output.tex");
 			remove.waitFor();
 			Process move = r.exec("mv output.pdf src/uk/ac/gla/dcs/tp3/w/print/");
