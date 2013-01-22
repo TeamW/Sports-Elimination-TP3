@@ -32,17 +32,16 @@ public class MainFrame extends JFrame {
 		JPanel screenPanel = new JPanel(new BorderLayout());
 		JPanel tablePanel = new JPanel(new BorderLayout());
 		JPanel navPanel = new JPanel(new BorderLayout());
-		JPanel radioPanel = new JPanel();
-		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.X_AXIS));
+		JPanel topPanel = new JPanel(new BorderLayout());
 
 		// Add panels to the screen panel and then add that to the JFrame
-		screenPanel.add(radioPanel, BorderLayout.PAGE_START);
+		screenPanel.add(topPanel, BorderLayout.PAGE_START);
 		screenPanel.add(tablePanel, BorderLayout.CENTER);
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
 		getContentPane().add(screenPanel);
 
 		// Add the division and league radio buttons
-		initRadioButtons(radioPanel);
+		initTopPanel(topPanel);
 
 		// Add the JTable for showing league data
 		initTable(tablePanel);
@@ -63,10 +62,11 @@ public class MainFrame extends JFrame {
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
-	
-	//get the last date in the fixtures
-	private void calcStartDate(){
-		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0).getDateTime();
+
+	// get the last date in the fixtures
+	private void calcStartDate() {
+		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0)
+				.getDateTime();
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
 				if (m.getDateTime().before(displayDate)) {
@@ -98,6 +98,16 @@ public class MainFrame extends JFrame {
 			(new Algorithm(d)).updateDivisionElim();
 		}
 		table.setCurrent(table.getCurrent());
+	}
+
+	private void initTopPanel(JPanel topPanel) {
+		JLabel dateLabel = new JLabel("Current date: " + new Date().toString(),
+				JLabel.CENTER);
+		topPanel.add(dateLabel, BorderLayout.NORTH);
+		JPanel radioPanel = new JPanel();
+		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.X_AXIS));
+		initRadioButtons(radioPanel);
+		topPanel.add(radioPanel, BorderLayout.SOUTH);
 	}
 
 	private void initRadioButtons(JPanel radioPanel) {
