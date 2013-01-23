@@ -53,7 +53,7 @@ public class Main {
 		if (LF.write()) {
 			System.out.println("Success");
 		} else {
-			System.out.println("FUCK");
+			System.out.println("Error");
 		}
 
 		try {

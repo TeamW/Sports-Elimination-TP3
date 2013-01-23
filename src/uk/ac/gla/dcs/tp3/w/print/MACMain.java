@@ -53,7 +53,7 @@ public class MACMain {
 		if (LF.write()) {
 			System.out.println("Success");
 		} else {
-			System.out.println("FUCK");
+			System.out.println("Error");
 		}
 
 		try {
