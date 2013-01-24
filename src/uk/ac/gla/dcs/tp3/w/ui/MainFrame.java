@@ -53,7 +53,8 @@ public class MainFrame extends JFrame {
 		// iteration
 		displayDate = new DateTime(10, 10, 2012, 23, 59);
 		validateDate();
-
+		calcStartDate();
+		
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
 		setLocation(100, 100);
@@ -69,13 +70,11 @@ public class MainFrame extends JFrame {
 				.getDateTime();
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
-				if (m.getDateTime().before(displayDate)) {
-					m.playMatch();
-				} else {
-					m.unplayMatch();
-				}
+				if (m.getDateTime().before(date)) 
+					date = m.getDateTime();
 			}
 		}
+		System.out.println("Starting date is: " + date.toString());
 	}
 
 	// loop through every game played in the current division,
