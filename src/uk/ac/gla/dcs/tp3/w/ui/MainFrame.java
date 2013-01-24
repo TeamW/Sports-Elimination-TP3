@@ -57,7 +57,6 @@ public class MainFrame extends JFrame {
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
 		
-		
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
 		setLocation(100, 100);
@@ -91,7 +90,8 @@ public class MainFrame extends JFrame {
 					date = m.getDateTime();
 			}
 		}
-		displayDate = endDate = date;
+		displayDate = date;
+		endDate = new DateTime(date);
 		System.out.println("End date is: " + displayDate.toString());
 	}
 
@@ -197,13 +197,16 @@ public class MainFrame extends JFrame {
 		backButton.setToolTipText("Move to previous day of results");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				// decrement the day (need to make this work with month changes)
+				// decrement the day 
 				// then update the model
-				System.out.println("Back");
-				displayDate.decrementDate();
-				System.out.println("Current date is now "
-						+ displayDate.toString());
-				validateDate();
+				if(!displayDate.equals(startDate))
+				{
+					System.out.println("Back");
+					displayDate.decrementDate();
+					System.out.println("Current date is now "
+							+ displayDate.toString());
+					validateDate();
+				}
 			}
 		});
 		navPanel.add(backButton, BorderLayout.WEST);
@@ -211,13 +214,16 @@ public class MainFrame extends JFrame {
 		nextButton.setToolTipText("Move to next day of results");
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				// increment the day (need to make this work with month changes)
+				// increment the day 
 				// then update the model
-				System.out.println("Next");
-				displayDate.incrementDate();
-				System.out.println("Current date is now "
-						+ displayDate.toString());
-				validateDate();
+				if(!displayDate.equals(endDate))
+				{
+					System.out.println("Next");
+					displayDate.incrementDate();
+					System.out.println("Current date is now "
+							+ displayDate.toString());
+					validateDate();
+				}
 			}
 		});
 		navPanel.add(nextButton, BorderLayout.EAST);
