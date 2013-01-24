@@ -52,8 +52,9 @@ public class MainFrame extends JFrame {
 		// temp hard-code final date in text file, will auto-calc this in next
 		// iteration
 		calcStartDate();
-		validateDate();
 		calcEndDate();
+		validateDate();
+		
 		
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
@@ -74,8 +75,7 @@ public class MainFrame extends JFrame {
 					date = m.getDateTime();
 			}
 		}
-		displayDate = date;
-		System.out.println("Starting date is: " + displayDate.toString());
+		System.out.println("Starting date is: " + date.toString());
 	}
 	
 	// get the end date in the fixtures
