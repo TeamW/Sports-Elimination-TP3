@@ -70,8 +70,8 @@ public class DateTime extends Date {
 	}
 
 	public boolean before(DateTime DT) {
-		if (!super.before(DT) && !super.equals(DT))
-			return false;
+		if (!super.equals(DT))
+			return super.before(DT);
 		if (hour < DT.getHour())
 			return true;
 		else if (getHour() == DT.getHour() && getMinute() < DT.getMinute())
