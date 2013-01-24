@@ -21,6 +21,8 @@ public class MainFrame extends JFrame {
 	private String[] leagues = { "National", "American" };
 	private String[] divisionNames = { "West", "Central", "East" };
 	private DateTime displayDate;
+	private DateTime startDate;
+	private DateTime endDate;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -75,6 +77,7 @@ public class MainFrame extends JFrame {
 					date = m.getDateTime();
 			}
 		}
+		startDate = date;
 		System.out.println("Starting date is: " + date.toString());
 	}
 	
@@ -88,7 +91,7 @@ public class MainFrame extends JFrame {
 					date = m.getDateTime();
 			}
 		}
-		displayDate = date;
+		displayDate = endDate = date;
 		System.out.println("End date is: " + displayDate.toString());
 	}
 
