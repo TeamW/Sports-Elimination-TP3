@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
 		// display the end date
 		calcStartDate();
 		calcEndDate();
-		validateDate();
+		updateMatchesPlayed();
 
 		// Add the division and league radio buttons
 		initTopPanel(topPanel);
@@ -98,7 +98,7 @@ public class MainFrame extends JFrame {
 	// loop through every game played in the current division,
 	// check if date is less than/equal to current date,
 	// if not unplay match
-	private void validateDate() {
+	private void updateMatchesPlayed() {
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
 				if (m.getDateTime().before(displayDate)) {
@@ -205,7 +205,7 @@ public class MainFrame extends JFrame {
 					displayDate.decrementDate();
 					System.out.println("Current date is now "
 							+ displayDate.toString());
-					validateDate();
+					updateMatchesPlayed();
 				}
 			}
 		});
@@ -222,7 +222,7 @@ public class MainFrame extends JFrame {
 					displayDate.incrementDate();
 					System.out.println("Current date is now "
 							+ displayDate.toString());
-					validateDate();
+					updateMatchesPlayed();
 				}
 			}
 		});
