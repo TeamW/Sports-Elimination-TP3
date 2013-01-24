@@ -51,9 +51,8 @@ public class MainFrame extends JFrame {
 
 		// temp hard-code final date in text file, will auto-calc this in next
 		// iteration
-		displayDate = new DateTime(10, 10, 2012, 23, 59);
-		validateDate();
 		calcStartDate();
+		validateDate();
 		
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
@@ -74,7 +73,8 @@ public class MainFrame extends JFrame {
 					date = m.getDateTime();
 			}
 		}
-		System.out.println("Starting date is: " + date.toString());
+		displayDate = date;
+		System.out.println("Starting date is: " + displayDate.toString());
 	}
 
 	// loop through every game played in the current division,
