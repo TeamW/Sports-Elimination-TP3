@@ -53,6 +53,7 @@ public class MainFrame extends JFrame {
 		// iteration
 		calcStartDate();
 		validateDate();
+		calcEndDate();
 		
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
@@ -63,7 +64,7 @@ public class MainFrame extends JFrame {
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
 
-	// get the last date in the fixtures
+	// get the start date in the fixtures
 	private void calcStartDate() {
 		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0)
 				.getDateTime();
@@ -75,6 +76,20 @@ public class MainFrame extends JFrame {
 		}
 		displayDate = date;
 		System.out.println("Starting date is: " + displayDate.toString());
+	}
+	
+	// get the end date in the fixtures
+	private void calcEndDate() {
+		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0)
+				.getDateTime();
+		for (Division d : divisions.values()) {
+			for (Match m : d.getFixtures()) {
+				if (!m.getDateTime().before(date)) 
+					date = m.getDateTime();
+			}
+		}
+		displayDate = date;
+		System.out.println("End date is: " + displayDate.toString());
 	}
 
 	// loop through every game played in the current division,
