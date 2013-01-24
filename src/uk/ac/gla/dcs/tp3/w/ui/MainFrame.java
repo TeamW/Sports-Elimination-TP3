@@ -39,12 +39,14 @@ public class MainFrame extends JFrame {
 		screenPanel.add(tablePanel, BorderLayout.CENTER);
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
 		getContentPane().add(screenPanel);
+		
+		// Add the JTable for showing league data
+		initTable(tablePanel);
 
 		// Add the division and league radio buttons
 		initTopPanel(topPanel);
 
-		// Add the JTable for showing league data
-		initTable(tablePanel);
+		
 
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
