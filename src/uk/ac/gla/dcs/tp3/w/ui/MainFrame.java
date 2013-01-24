@@ -42,20 +42,18 @@ public class MainFrame extends JFrame {
 		
 		// Add the JTable for showing league data
 		initTable(tablePanel);
+		
+		// Calculate the start and end dates, set table to
+		// display the end date
+		calcStartDate();
+		calcEndDate();
+		validateDate();
 
 		// Add the division and league radio buttons
 		initTopPanel(topPanel);
 
-		
-
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
-
-		// temp hard-code final date in text file, will auto-calc this in next
-		// iteration
-		calcStartDate();
-		calcEndDate();
-		validateDate();
 		
 		
 		// Set the JFrame's attributes
@@ -117,7 +115,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initTopPanel(JPanel topPanel) {
-		JLabel dateLabel = new JLabel("Current date: " + new Date().toString(),
+		JLabel dateLabel = new JLabel("Current date: " + displayDate.toString(),
 				JLabel.CENTER);
 		topPanel.add(dateLabel, BorderLayout.NORTH);
 		JPanel radioPanel = new JPanel();
