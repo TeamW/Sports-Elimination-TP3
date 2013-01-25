@@ -27,30 +27,36 @@ public class Main {
 		boolean web = false;
 		// Check supplied files were successfully parsed.
 		boolean parsed = false;
-		for (String s : args)
-			if (s.equals("--web"))
+		for (String s : args) {
+			if (s.equals("--web")) {
 				web = true;
-			else
+			} else {
 				parsed = p.parse(s);
+			}
+		}
 		// If none of the supplied files were successfully parsed, default to
 		// known file.
-		if (!parsed)
+		if (!parsed) {
 			p.parse("");
+		}
 		// Now there will be some valid divisions to obtain. Now work out
 		// elimination status of each team.
 		final HashMap<String, Division> map = p.getDivisions();
-		for (Division d : map.values())
+		for (Division d : map.values()) {
 			(new Algorithm(d)).updateDivisionElim();
+		}
 		// Swing interface requested.
-		if (!web)
+		if (!web) {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					new MainFrame(map);
 				}
 			});
-		// Text only output requested.
-		else
-			for (Division d : map.values())
+		} else {
+			// Text only output requested.
+			for (Division d : map.values()) {
 				d.printWeb();
+			}
+		}
 	}
 }

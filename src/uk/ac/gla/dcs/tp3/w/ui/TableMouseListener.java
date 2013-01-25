@@ -29,10 +29,13 @@ public class TableMouseListener implements MouseListener {
 		if (validClick()) {
 			s = (String) table.getValueAt(r, 0);
 			d = divisions.get(table.getCurrent());
-			if (d != null)
-				for (Team team : d.getTeams())
-					if (validTeam(team))
+			if (d != null) {
+				for (Team team : d.getTeams()) {
+					if (validTeam(team)) {
 						showElimination(team);
+					}
+				}
+			}
 		}
 	}
 

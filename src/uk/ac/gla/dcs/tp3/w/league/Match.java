@@ -234,7 +234,7 @@ public class Match {
 		t.addUpcomingMatch(this);
 		s.setGamesPlayed(s.getGamesPlayed() - 1);
 		s.addUpcomingMatch(this);
-		//finally, set false. Setting earlier causes null pointer exception
+		// finally, set false. Setting earlier causes null pointer exception
 		played = false;
 	}
 

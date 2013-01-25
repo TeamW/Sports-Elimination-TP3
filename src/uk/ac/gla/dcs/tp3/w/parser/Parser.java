@@ -11,35 +11,38 @@ public class Parser {
 	private boolean verbose = false;
 	private Date current = new Date();
 	private HashMap<String, Division> divisions = new HashMap<String, Division>();
+	private final InputStream defaultFile = getClass().getResourceAsStream(
+			"/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
 
 	public Parser() {
 	}
 
 	public boolean parse(String fileName) {
-		InputStream defaultFile = null;
 		Scanner fs;
 		String[] line;
 		if (fileName.equals("")) {
-			defaultFile = this.getClass().getResourceAsStream(
-					"/uk/ac/gla/dcs/tp3/w/parser/baseballSource.txt");
 			fs = new Scanner(defaultFile);
-		} else
+		} else {
 			try {
 				fs = new Scanner(new File(fileName));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				return false;
 			}
+		}
 		init();
 		while (fs.hasNextLine()) {
 			line = fs.nextLine().split(" ");
-			if (verbose)
+			if (verbose) {
 				printLine(line);
-			if (line.length > 1)
-				if (line.length == 3)
+			}
+			if (line.length > 1) {
+				if (line.length == 3) {
 					newDate(line);
-				else
+				} else {
 					newMatch(line);
+				}
+			}
 		}
 		fs.close();
 		return true;
@@ -48,8 +51,9 @@ public class Parser {
 	private void initDivision(String[] teams, String divisionName) {
 		Division d = new Division(divisionName);
 		divisions.put(divisionName, d);
-		for (String s : teams)
+		for (String s : teams) {
 			d.addTeam(new Team(s, divisionName));
+		}
 	}
 
 	private void init() {
@@ -85,9 +89,9 @@ public class Parser {
 		int day = Integer.parseInt(line[0]);
 		int year = Integer.parseInt(line[2]);
 		current = new Date(day, line[1], year);
-		if (verbose)
-			System.out.println("--------------------\n" + "NEW DATE: "
-					+ current + "\n--------------------");
+		if (verbose) {
+			System.out.println("NEW DATE: " + current);
+		}
 	}
 
 	private void newMatch(String[] line) {
@@ -106,11 +110,13 @@ public class Parser {
 		String firstTeam = "";
 		String secondTeam = "";
 		int i = 1;
-		for (i = 1; !line[i].equals("-"); i++)
+		for (i = 1; !line[i].equals("-"); i++) {
 			firstTeam += line[i] + " ";
+		}
 		firstTeam = firstTeam.trim();
-		for (i++; i < line.length - 1; i++)
+		for (i++; i < line.length - 1; i++) {
 			secondTeam += line[i] + " ";
+		}
 		secondTeam = secondTeam.trim();
 		if (verbose) {
 			System.out.println("MATCH:");
@@ -121,15 +127,18 @@ public class Parser {
 		}
 		Team homeTeam = getTeam(firstTeam);
 		Team awayTeam = getTeam(secondTeam);
-		if (homeScore == -1 || awayScore == -1)
+		if (homeScore == -1 || awayScore == -1) {
 			warning("match has no score", line);
-		if (homeTeam == null)
-			error("cannot find home team", line);
-		if (awayTeam == null)
-			error("cannot find away team", line);
-		if (homeTeam == null || awayTeam == null || homeScore == -1
-				|| awayScore == -1)
 			return;
+		}
+		if (homeTeam == null) {
+			error("cannot find home team", line);
+			return;
+		}
+		if (awayTeam == null) {
+			error("cannot find away team", line);
+			return;
+		}
 		Division d = divisions.get(homeTeam.getDivisionName());
 		if (d == null) {
 			error("cannot find division", line);
@@ -140,8 +149,9 @@ public class Parser {
 		homeTeam.addUpcomingMatch(m);
 		awayTeam.addUpcomingMatch(m);
 		d.addFixture(m);
-		if (played)
+		if (played) {
 			m.playMatch();
+		}
 	}
 
 	private void warning(String string, String[] line) {
@@ -156,16 +166,20 @@ public class Parser {
 
 	private static void printLine(String[] line) {
 		System.err.print("[");
-		for (String s : line)
+		for (String s : line) {
 			System.err.print(s + ", ");
+		}
 		System.err.println("]: Length = " + line.length);
 	}
 
 	private Team getTeam(String s) {
-		for (Division d : divisions.values())
-			for (Team t : d.getTeams())
-				if (t.getName().equalsIgnoreCase(s))
+		for (Division d : divisions.values()) {
+			for (Team t : d.getTeams()) {
+				if (t.getName().equalsIgnoreCase(s)) {
 					return t;
+				}
+			}
+		}
 		return null;
 	}
 

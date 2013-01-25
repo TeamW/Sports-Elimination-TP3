@@ -41,10 +41,10 @@ public class MainFrame extends JFrame {
 		screenPanel.add(tablePanel, BorderLayout.CENTER);
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
 		getContentPane().add(screenPanel);
-		
+
 		// Add the JTable for showing league data
 		initTable(tablePanel);
-		
+
 		// Calculate the start and end dates, set table to
 		// display the end date
 		calcStartDate();
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
-		
+
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
 		setLocation(100, 100);
@@ -72,21 +72,21 @@ public class MainFrame extends JFrame {
 				.getDateTime();
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
-				if (m.getDateTime().before(date)) 
+				if (m.getDateTime().before(date))
 					date = m.getDateTime();
 			}
 		}
 		startDate = date;
 		System.out.println("Starting date is: " + date.toString());
 	}
-	
+
 	// get the end date in the fixtures
 	private void calcEndDate() {
 		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0)
 				.getDateTime();
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
-				if (!m.getDateTime().before(date)) 
+				if (!m.getDateTime().before(date))
 					date = m.getDateTime();
 			}
 		}
@@ -118,8 +118,8 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initTopPanel(JPanel topPanel) {
-		JLabel dateLabel = new JLabel("Current date: " + displayDate.toString(),
-				JLabel.CENTER);
+		JLabel dateLabel = new JLabel(
+				"Current date: " + displayDate.toString(), JLabel.CENTER);
 		topPanel.add(dateLabel, BorderLayout.NORTH);
 		JPanel radioPanel = new JPanel();
 		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.X_AXIS));
@@ -197,10 +197,9 @@ public class MainFrame extends JFrame {
 		backButton.setToolTipText("Move to previous day of results");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				// decrement the day 
+				// decrement the day
 				// then update the model
-				if(!displayDate.equals(startDate))
-				{
+				if (!displayDate.equals(startDate)) {
 					System.out.println("Back");
 					displayDate.decrementDate();
 					System.out.println("Current date is now "
@@ -214,10 +213,9 @@ public class MainFrame extends JFrame {
 		nextButton.setToolTipText("Move to next day of results");
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				// increment the day 
+				// increment the day
 				// then update the model
-				if(!displayDate.equals(endDate))
-				{
+				if (!displayDate.equals(endDate)) {
 					System.out.println("Next");
 					displayDate.incrementDate();
 					System.out.println("Current date is now "

@@ -66,7 +66,8 @@ public class Path {
 	/**
 	 * Set the capacity of the path.
 	 * 
-	 * @param integer representing capacity of the path
+	 * @param integer
+	 *            representing capacity of the path
 	 */
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;

@@ -55,8 +55,9 @@ public class TableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 		Division temp = data.get(current);
-		if (temp == null)
+		if (temp == null) {
 			return null;
+		}
 		Team[] t = temp.teamsToArray();
 		switch (col) {
 		case (0):
