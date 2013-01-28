@@ -113,12 +113,14 @@ public class Algorithm {
 		// Short circuit for end of league
 		if (t.getUpcomingMatches().size() == 0
 				&& t.getPoints() != d.maxPoints()) {
+			t.setTrivial(true);
 			return true;
 		}
 		// Create initial residual graph for algorithm.
 		ResidualGraph residual = new ResidualGraph(g);
 		// Naive elimination short circuit
 		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
+			t.setTrivial(true);
 			return certificateOfElimination(residual, t);
 		}
 		// Path will store the residual path (if it exists)

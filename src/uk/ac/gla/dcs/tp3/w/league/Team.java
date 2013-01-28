@@ -14,7 +14,8 @@ public class Team implements Comparable<Team> {
 	private String name;
 	private int points = 0;
 	private int gamesPlayed;
-	private boolean eliminated;
+	private boolean eliminated = false;
+	private boolean trivial = false;
 	private ArrayList<Match> upcomingMatches;
 	private ArrayList<Team> eliminatedBy;
 	private String divisionName;
@@ -271,6 +272,14 @@ public class Team implements Comparable<Team> {
 				+ otherTeam.getUpcomingMatches().size();
 		return thisValue - otherValue;
 
+	}
+
+	public void setTrivial(boolean b) {
+		trivial = b;
+	}
+	
+	public boolean getTrivial() {
+		return trivial;
 	}
 
 }
