@@ -51,8 +51,6 @@ public class MainFrame extends JFrame {
 		calcStartDate();
 		calcEndDate();
 		updateMatchesPlayed();
-		
-		numDaysToMove = 7;
 
 		// Add the division and league radio buttons
 		initTopPanel(topPanel);
@@ -230,6 +228,17 @@ public class MainFrame extends JFrame {
 			}
 		});
 		navPanel.add(nextButton, BorderLayout.EAST);
+		
+		//add comboBox
+		Integer[] daysToMove = {1,2,3,4,5,6,7};
+		final JComboBox<Integer> daysToMoveBox = new JComboBox<Integer>(daysToMove);
+		daysToMoveBox.setSelectedIndex(0);
+		daysToMoveBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				numDaysToMove = (Integer)daysToMoveBox.getSelectedItem();
+			}
+		});
+		navPanel.add(daysToMoveBox, BorderLayout.CENTER);
 	}
 
 	private void initTable(JPanel tablePanel) {
