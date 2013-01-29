@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
 	private DateTime displayDate;
 	private DateTime startDate;
 	private DateTime endDate;
+	private int numDaysToMove = 1;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -50,6 +51,8 @@ public class MainFrame extends JFrame {
 		calcStartDate();
 		calcEndDate();
 		updateMatchesPlayed();
+		
+		numDaysToMove = 7;
 
 		// Add the division and league radio buttons
 		initTopPanel(topPanel);
@@ -201,7 +204,8 @@ public class MainFrame extends JFrame {
 				// then update the model
 				if (!displayDate.equals(startDate)) {
 					System.out.println("Back");
-					displayDate.decrementDate();
+					for(int i = 0; i < numDaysToMove; i++)
+						displayDate.decrementDate();
 					System.out.println("Current date is now "
 							+ displayDate.toString());
 					updateMatchesPlayed();
@@ -217,7 +221,8 @@ public class MainFrame extends JFrame {
 				// then update the model
 				if (!displayDate.equals(endDate)) {
 					System.out.println("Next");
-					displayDate.incrementDate();
+					for(int i = 0; i < numDaysToMove; i++)
+						displayDate.incrementDate();
 					System.out.println("Current date is now "
 							+ displayDate.toString());
 					updateMatchesPlayed();
