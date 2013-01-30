@@ -155,8 +155,10 @@ public class Parser {
 	}
 
 	private void warning(String string, String[] line) {
-		System.err.println("Warning: " + string);
-		printLine(line);
+		if (verbose) {
+			System.err.println("Warning: " + string);
+			printLine(line);
+		}
 	}
 
 	private void error(String string, String[] line) {
