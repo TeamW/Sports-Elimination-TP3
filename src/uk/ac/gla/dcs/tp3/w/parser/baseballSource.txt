@@ -1,9 +1,3 @@
-10 Oct 2012
-00:00 Oakland Athletics - Seattle Mariners 1:0
-
-9 Oct 2012
-00:00 Seattle Mariners - Oakland Athletics 1:0
-
 04 Oct 2012
 01:15 St.Louis Cardinals - Cincinnati Reds 1:0
 01:10 Kansas City Royals - Detroit Tigers 0:1
@@ -2551,6 +2545,7 @@
 03:05 San Diego Padres - Washington Nationals 2:1
 01:10 Chicago White Sox - Boston Red Sox 3:10
 00:05 Baltimore Orioles - Toronto Blue Jays 5:2
+00:00 Seattle Mariners - Oakland Athletics 1:0
 
 26 Apr 2012
 18:10 New York Mets - Miami Marlins 3:2
@@ -2607,6 +2602,7 @@
 
 23 Apr 2012
 21:10 New York Mets - San Francisco Giants 1:6
+12:00 Oakland Athletics - Seattle Mariners 1:0
 
 22 Apr 2012
 21:10 Arizona Diamondbacks - Atlanta Braves 6:4
