@@ -279,10 +279,11 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// decrement the day
 				// then update the model
-				if (!displayDate.equals(startDate)) {
-					System.out.println("Back");
-					for (int i = 0; i < numDaysToMove; i++)
-						displayDate.decrementDate();
+					for (int i = 0; i < numDaysToMove; i++){
+						if (!displayDate.equals(startDate)) {
+							System.out.println("Back");
+							displayDate.decrementDate();
+						}
 					System.out.println("Current date is now "
 							+ displayDate.toString());
 					updateMatchesPlayed();
@@ -310,7 +311,7 @@ public class MainFrame extends JFrame {
 
 		// add comboBox
 		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7 };
-		final JComboBox<Integer> daysToMoveBox = new JComboBox<Integer>(
+		final JComboBox daysToMoveBox = new JComboBox(
 				daysToMove);
 		daysToMoveBox.setSelectedIndex(0);
 		daysToMoveBox.addActionListener(new ActionListener() {
