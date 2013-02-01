@@ -1,11 +1,13 @@
 package uk.ac.gla.dcs.tp3.w.ui;
 
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
+import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.league.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +26,8 @@ public class MainFrame extends JFrame {
 	private int numDaysToMove = 1;
 	private JLabel dateLabel;
 	private JPanel screenPanel;
+	private final JFileChooser fc = new JFileChooser();
+	private Parser p = new Parser();
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -45,7 +49,7 @@ public class MainFrame extends JFrame {
 
 		// Display menu bar
 		initMenuBar();
-		
+
 		// Add the JTable for showing league data
 		initTable(tablePanel);
 
@@ -69,20 +73,46 @@ public class MainFrame extends JFrame {
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
-	
+
 	// Set up menu bar
 	private void initMenuBar() {
 		JMenuBar menuBar;
 		JMenu menu;
 		JMenuItem menuItem;
-		
+
 		/*
 		 * File Menu
 		 */
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
-		
+
+		menuItem = new JMenuItem("Open");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int value = fc.showOpenDialog(screenPanel);
+				if (value == JFileChooser.APPROVE_OPTION) {
+					File file = fc.getSelectedFile();
+					boolean valid = false;
+					try {
+						valid = p.parse(file.getAbsolutePath());
+					} catch (Exception ee) {
+						JOptionPane.showMessageDialog(screenPanel, "Invalid file format");
+						return;
+					}
+					if(valid) {
+						JOptionPane.showMessageDialog(screenPanel, "Valid file format");
+						divisions = p.getDivisions();
+						table.changeDivisions(divisions);
+						updateMatchesPlayed();
+					} else {
+						JOptionPane.showMessageDialog(screenPanel, "Invalid file format");
+					}
+				}
+			}
+		});
+		menu.add(menuItem);
+
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +120,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem);
-		
+
 		menuItem = new JMenuItem("Exit");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,22 +128,21 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem);
-		
+
 		/*
 		 * About Menu
 		 */
 		menu = new JMenu("About");
 		menuBar.add(menu);
-		
+
 		menuItem = new JMenuItem("The Team");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(screenPanel,
-					    "We are Team W.");
+				JOptionPane.showMessageDialog(screenPanel, "We are Team W.");
 			}
 		});
 		menu.add(menuItem);
-		
+
 		this.setJMenuBar(menuBar);
 	}
 
@@ -169,8 +198,8 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initTopPanel(JPanel topPanel) {
-		dateLabel = new JLabel(
-				"Current date: " + displayDate.toString(), JLabel.CENTER);
+		dateLabel = new JLabel("Current date: " + displayDate.toString(),
+				JLabel.CENTER);
 		topPanel.add(dateLabel, BorderLayout.NORTH);
 		JPanel radioPanel = new JPanel();
 		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.X_AXIS));
@@ -252,7 +281,7 @@ public class MainFrame extends JFrame {
 				// then update the model
 				if (!displayDate.equals(startDate)) {
 					System.out.println("Back");
-					for(int i = 0; i < numDaysToMove; i++)
+					for (int i = 0; i < numDaysToMove; i++)
 						displayDate.decrementDate();
 					System.out.println("Current date is now "
 							+ displayDate.toString());
@@ -269,7 +298,7 @@ public class MainFrame extends JFrame {
 				// then update the model
 				if (!displayDate.equals(endDate)) {
 					System.out.println("Next");
-					for(int i = 0; i < numDaysToMove; i++)
+					for (int i = 0; i < numDaysToMove; i++)
 						displayDate.incrementDate();
 					System.out.println("Current date is now "
 							+ displayDate.toString());
@@ -278,14 +307,15 @@ public class MainFrame extends JFrame {
 			}
 		});
 		navPanel.add(nextButton, BorderLayout.EAST);
-		
-		//add comboBox
-		Integer[] daysToMove = {1,2,3,4,5,6,7};
-		final JComboBox<Integer> daysToMoveBox = new JComboBox<Integer>(daysToMove);
+
+		// add comboBox
+		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7 };
+		final JComboBox<Integer> daysToMoveBox = new JComboBox<Integer>(
+				daysToMove);
 		daysToMoveBox.setSelectedIndex(0);
 		daysToMoveBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				numDaysToMove = (Integer)daysToMoveBox.getSelectedItem();
+				numDaysToMove = (Integer) daysToMoveBox.getSelectedItem();
 			}
 		});
 		navPanel.add(daysToMoveBox, BorderLayout.CENTER);

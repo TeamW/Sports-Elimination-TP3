@@ -24,5 +24,9 @@ public class Table extends JTable {
 	public void setCurrent(String s) {
 		model.setCurrent(s);
 	}
+	
+	public void changeDivisions(HashMap<String, Division> d) {
+		model.changeData(d);
+	}
 
 }
