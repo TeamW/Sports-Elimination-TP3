@@ -261,15 +261,6 @@ public class MainFrame extends JFrame {
 			divisionPanel.add(rButton3);
 		}
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
-
-		JButton quitButton = new JButton("Quit");
-		quitButton.setToolTipText("Click here to exit");
-		quitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				System.exit(0);
-			}
-		});
-		radioPanel.add(quitButton, BorderLayout.EAST);
 	}
 
 	private void initNavPanel(JPanel navPanel) {
