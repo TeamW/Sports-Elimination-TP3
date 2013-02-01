@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
 	private DateTime displayDate, startDate, endDate;
 	private int numDaysToMove = 1;
 	private JLabel dateLabel;
+	private JPanel screenPanel;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -31,7 +32,7 @@ public class MainFrame extends JFrame {
 
 	public final void initUI() {
 		// Set up the panels with appropriate layout managers
-		JPanel screenPanel = new JPanel(new BorderLayout());
+		screenPanel = new JPanel(new BorderLayout());
 		JPanel tablePanel = new JPanel(new BorderLayout());
 		JPanel navPanel = new JPanel(new BorderLayout());
 		JPanel topPanel = new JPanel(new BorderLayout());
@@ -75,14 +76,40 @@ public class MainFrame extends JFrame {
 		JMenu menu;
 		JMenuItem menuItem;
 		
+		/*
+		 * File Menu
+		 */
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
+		
+		menuItem = new JMenuItem("Print");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Print " + table.getCurrent());
+			}
+		});
+		menu.add(menuItem);
 		
 		menuItem = new JMenuItem("Exit");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
+			}
+		});
+		menu.add(menuItem);
+		
+		/*
+		 * About Menu
+		 */
+		menu = new JMenu("About");
+		menuBar.add(menu);
+		
+		menuItem = new JMenuItem("The Team");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(screenPanel,
+					    "We are Team W.");
 			}
 		});
 		menu.add(menuItem);
