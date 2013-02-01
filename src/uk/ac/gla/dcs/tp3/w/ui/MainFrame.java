@@ -101,10 +101,10 @@ public class MainFrame extends JFrame {
 						return;
 					}
 					if(valid) {
-						JOptionPane.showMessageDialog(screenPanel, "Valid file format");
 						divisions = p.getDivisions();
 						table.changeDivisions(divisions);
 						updateMatchesPlayed();
+						JOptionPane.showMessageDialog(screenPanel, "Valid file format");
 					} else {
 						JOptionPane.showMessageDialog(screenPanel, "Invalid file format");
 					}
