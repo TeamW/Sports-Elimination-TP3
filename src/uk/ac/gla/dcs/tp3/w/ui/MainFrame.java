@@ -20,10 +20,9 @@ public class MainFrame extends JFrame {
 	private Table table;
 	private String[] leagues = { "National", "American" };
 	private String[] divisionNames = { "West", "Central", "East" };
-	private DateTime displayDate;
-	private DateTime startDate;
-	private DateTime endDate;
+	private DateTime displayDate, startDate, endDate;
 	private int numDaysToMove = 1;
+	private JLabel dateLabel;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -43,6 +42,9 @@ public class MainFrame extends JFrame {
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
 		getContentPane().add(screenPanel);
 
+		// Display menu bar
+		initMenuBar();
+		
 		// Add the JTable for showing league data
 		initTable(tablePanel);
 
@@ -65,6 +67,27 @@ public class MainFrame extends JFrame {
 		pack();
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
+	}
+	
+	// Set up menu bar
+	private void initMenuBar() {
+		JMenuBar menuBar;
+		JMenu menu;
+		JMenuItem menuItem;
+		
+		menuBar = new JMenuBar();
+		menu = new JMenu("File");
+		menuBar.add(menu);
+		
+		menuItem = new JMenuItem("Exit");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		menu.add(menuItem);
+		
+		this.setJMenuBar(menuBar);
 	}
 
 	// get the start date in the fixtures
@@ -119,7 +142,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initTopPanel(JPanel topPanel) {
-		JLabel dateLabel = new JLabel(
+		dateLabel = new JLabel(
 				"Current date: " + displayDate.toString(), JLabel.CENTER);
 		topPanel.add(dateLabel, BorderLayout.NORTH);
 		JPanel radioPanel = new JPanel();
