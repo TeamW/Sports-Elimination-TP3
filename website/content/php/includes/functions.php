@@ -45,6 +45,30 @@
 		echo("</div>");
 	}
 
+	function showDivisionsDate($date) {
+		echo exec("java -jar elim.jar --web {$date}", $output);
+		foreach($output as &$value) {
+			if($value === "") {
+				continue;
+			}
+			$splitLine = explode("-", $value);
+			$elements = count($splitLine);
+			if($elements != 1) {
+				echo("<p>");
+			}
+			foreach($splitLine as &$splitValue) {
+				if ($elements == 1) {
+					echo("<h3>" . $splitValue . "</h3>" . PHP_EOL);
+				} else {
+					echo($splitValue . " ");
+				}
+			}
+			if($elements != 1) {
+				echo("</p>");
+			}
+		}
+	}
+
 	function updateDivisions() {
 		$tableName = "";
 		echo exec("java -jar elim.jar --web", $output);
@@ -77,13 +101,20 @@
 		} else {
 			$page = "showDivisions";
 		}
+		if (isset($_GET['date'])) {
+			$date = $_GET['date'];
+		}
 		if ($page === "updateDivisions") {
 			echo("<h3>Updated Divisions</h3>");
             updateDivisions();
-		} else {
+		} else if (!isset($_GET['date'])) {
 			echo("<h3>Division Standings</h3>");
 			echo("<p>Click division name to see standings.</p>");
             showDivisions();
+		} else {
+			echo("<h3>Division Standings for date {$date}</h3>");
+			echo("<p>Click division name to see standings.</p>");
+			showDivisionsDate($date);
 		}
 	}
 ?>
