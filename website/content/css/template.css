@@ -40,7 +40,7 @@ p, a, a:hover, ul, tr > td, tr > th {
 p, ul, a, tr > td {
     font-size: 0.75em;
 }
-li > ul, li > p, p > a, li > a, h3 > a, tr > th {
+li > ul, li > p, p > a, li > a, h3 > a, tr > th, td > a {
     font-size: 1em;
 }
 th {

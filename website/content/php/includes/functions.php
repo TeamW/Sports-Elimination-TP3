@@ -100,6 +100,66 @@
 		}
 	}
 
+$days = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+	function leapYearCheck($date) {
+		global $days;
+		// Leap year check
+		if ($dateSplit[2] % 400 == 0) {
+			$days[1] = 29;
+		} else if ($dateSplit[2] % 100 != 0) {
+			$days[1] = 28;
+		} else if ($$dateSplit[2] % 4 == 0) {
+			$days[1] = 29;
+		} else {
+			$days[1] = 28;
+		}
+	}
+
+	function decrementDate($date) {
+		global $days;
+		$dateSplit = explode("-", $date);
+		// Leap year check
+		leapYearCheck($date);
+		// Change date
+		$dateSplit[0] = $dateSplit[0] - 1;
+		if ($dateSplit[0] < 1) {
+			$dateSplit[1] = $dateSplit[1] - 1;
+			if ($dateSplit[1] < 1) {
+				$dateSplit[1] = 12;
+				$dateSplit[2] = $dateSplit[2] - 1;
+			}
+			$dateSplit[0] = $days[$dateSplit[1] - 1];
+		}
+		return $dateSplit[0] . "-" . $dateSplit[1] . "-" . $dateSplit[2];
+	}
+
+	function incrementDate($date) {
+		global $days;
+		$dateSplit = explode("-", $date);
+		// Leap year check
+		leapYearCheck($date);
+		// Change date
+		$dateSplit[0] = $dateSplit[0] + 1;
+		if ($dateSplit[0] > $days[$dateSplit[1] - 1]) {
+			$dateSplit[1] = $dateSplit[1] + 1;
+			if ($dateSplit[1] > 12) {
+				$dateSplit[1] = 1;
+				$dateSplit[2] = $dateSplit[2] + 1;
+			}
+			$dateSplit[0] = 1;
+		}
+		return $dateSplit[0] . "-" . $dateSplit[1] . "-" . $dateSplit[2];
+	}
+
+	function chooseDate($date) {
+		$prevDate = decrementDate($date);
+		$nextDate = incrementDate($date);
+		echo("<table><tr>");
+		echo("<td><a href='index.php?page=showDivisions&date=" . $prevDate . "'>Previous Day</a></td>");
+		echo("<td><a href='index.php?page=showDivisions&date=" . $nextDate . "'>Next Day</td></tr></table>");
+	}
+
 	function showPage() {
 		if (isset($_GET['page'])) {
 			$page = $_GET['page'];
@@ -114,10 +174,12 @@
             updateDivisions();
 		} else if (!isset($_GET['date'])) {
 			echo("<h3>Division Standings</h3>");
+			chooseDate("04-10-2012");
 			echo("<p>Click division name to see standings.</p>");
             showDivisions();
 		} else {
-			echo("<h3>Division Standings for date {$date}</h3>");
+			echo("<h3>Division Standings at the start of {$date}</h3>");
+			chooseDate($date);
 			echo("<p>Click division name to see standings.</p>");
 			showDivisionsDate($date);
 		}
