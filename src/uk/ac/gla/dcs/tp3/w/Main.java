@@ -1,13 +1,17 @@
 package uk.ac.gla.dcs.tp3.w;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
 
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
+import uk.ac.gla.dcs.tp3.w.league.Match;
+import uk.ac.gla.dcs.tp3.w.league.Team;
 import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
+import uk.ac.gla.dcs.tp3.w.league.DateTime;
 
 /**
  * This is the main method for the entire project. The system can be either run
@@ -20,6 +24,22 @@ import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
  */
 public class Main {
 
+	private static void updateMatchesPlayed(DateTime displayDate, Division d) {
+		for (Match m : d.getFixtures()) {
+			if (m.getDateTime().before(displayDate)) {
+				m.playMatch();
+			} else {
+				m.unplayMatch();
+			}
+		}
+		for (Team t : d.getTeams()) {
+			t.setEliminated(false);
+			ArrayList<Team> teams = t.getEliminatedBy();
+			t.getEliminatedBy().removeAll(teams);
+		}
+		(new Algorithm(d)).updateDivisionElim();
+	}
+
 	public static void main(String[] args) {
 		// Set up variables for whole application.
 		Parser p = new Parser();
@@ -30,6 +50,7 @@ public class Main {
 		for (String s : args) {
 			if (s.equals("--web")) {
 				web = true;
+				break;
 			} else {
 				parsed = p.parse(s);
 			}
@@ -53,8 +74,19 @@ public class Main {
 				}
 			});
 		} else {
+			if (args.length != 2) {
+				System.out.println("Usage: java <*.jar> --web dd-mm-yyyy");
+				System.exit(0);
+			}
+			DateTime date = new DateTime();
+			String[] dmy = args[1].split("-");
+			date.setDate(Integer.parseInt(dmy[0]));
+			date.setMonth(Integer.parseInt(dmy[1]));
+			date.setYear(Integer.parseInt(dmy[2]));
+			System.out.println(date);
 			// Text only output requested.
 			for (Division d : map.values()) {
+				updateMatchesPlayed(date, d);
 				d.printWeb();
 			}
 		}
