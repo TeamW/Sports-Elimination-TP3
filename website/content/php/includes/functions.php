@@ -46,7 +46,7 @@
 	}
 
 	function showDivisionsDate($date) {
-		echo exec("java -jar elim.jar --web {$date}", $output);
+		echo exec("java -jar elim.jar /dev/shm/baseballSource.txt --web {$date}", $output);
 		$first = 1;
 		echo(PHP_EOL);
 		echo("<div id='accordion'>". PHP_EOL);
@@ -76,7 +76,7 @@
 
 	function updateDivisions() {
 		$tableName = "";
-		echo exec("java -jar elim.jar --web", $output);
+		echo exec("java -jar elim.jar /dev/shm/baseballSource.txt --web", $output);
 		foreach($output as $line) {
 			$lineSplit = explode("-", $line);
 			$elements = count($lineSplit);
