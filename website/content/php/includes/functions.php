@@ -174,7 +174,7 @@ $days = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
             updateDivisions();
 		} else if (!isset($_GET['date'])) {
 			echo("<h3>Division Standings</h3>");
-			chooseDate("04-10-2012");
+			chooseDate("05-10-2012"); // bad bad bad
 			echo("<p>Click division name to see standings.</p>");
             showDivisions();
 		} else {
