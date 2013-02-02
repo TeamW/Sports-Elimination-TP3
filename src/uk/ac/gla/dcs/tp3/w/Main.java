@@ -88,7 +88,6 @@ public class Main {
 			date.setDate(Integer.parseInt(dmy[0]));
 			date.setMonth(Integer.parseInt(dmy[1]));
 			date.setYear(Integer.parseInt(dmy[2]));
-			System.out.println(date);
 			// Text only output requested.
 			updateMatchesPlayed(date, map);
 			for (Division d : map.values()) {
