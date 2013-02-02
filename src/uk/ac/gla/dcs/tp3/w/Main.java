@@ -24,20 +24,23 @@ import uk.ac.gla.dcs.tp3.w.league.DateTime;
  */
 public class Main {
 
-	private static void updateMatchesPlayed(DateTime displayDate, Division d) {
-		for (Match m : d.getFixtures()) {
-			if (m.getDateTime().before(displayDate)) {
-				m.playMatch();
-			} else {
-				m.unplayMatch();
+	private static void updateMatchesPlayed(DateTime displayDate,
+			HashMap<String, Division> map) {
+		for (Division d : map.values()) {
+			for (Match m : d.getFixtures()) {
+				if (m.getDateTime().before(displayDate)) {
+					m.playMatch();
+				} else {
+					m.unplayMatch();
+				}
 			}
+			for (Team t : d.getTeams()) {
+				t.setEliminated(false);
+				ArrayList<Team> teams = t.getEliminatedBy();
+				t.getEliminatedBy().removeAll(teams);
+			}
+			(new Algorithm(d)).updateDivisionElim();
 		}
-		for (Team t : d.getTeams()) {
-			t.setEliminated(false);
-			ArrayList<Team> teams = t.getEliminatedBy();
-			t.getEliminatedBy().removeAll(teams);
-		}
-		(new Algorithm(d)).updateDivisionElim();
 	}
 
 	public static void main(String[] args) {
@@ -75,7 +78,9 @@ public class Main {
 			});
 		} else {
 			if (args.length != 2) {
-				System.out.println("Usage: java <*.jar> --web dd-mm-yyyy");
+				for (Division d : map.values()) {
+					d.printWeb();
+				}
 				System.exit(0);
 			}
 			DateTime date = new DateTime();
@@ -85,8 +90,8 @@ public class Main {
 			date.setYear(Integer.parseInt(dmy[2]));
 			System.out.println(date);
 			// Text only output requested.
+			updateMatchesPlayed(date, map);
 			for (Division d : map.values()) {
-				updateMatchesPlayed(date, d);
 				d.printWeb();
 			}
 		}

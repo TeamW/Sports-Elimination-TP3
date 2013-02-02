@@ -47,7 +47,7 @@
 
 	function updateDivisions() {
 		$tableName = "";
-		echo exec("java -jar test.jar --web", $output);
+		echo exec("java -jar elim.jar --web", $output);
 		foreach($output as $line) {
 			$lineSplit = explode("-", $line);
 			$elements = count($lineSplit);
