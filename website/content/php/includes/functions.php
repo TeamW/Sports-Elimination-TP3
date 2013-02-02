@@ -47,24 +47,19 @@
 
 	function showDivisionsDate($date) {
 		echo exec("java -jar elim.jar --web {$date}", $output);
+		$first = 1;
 		foreach($output as &$value) {
 			if($value === "") {
 				continue;
 			}
 			$splitLine = explode("-", $value);
 			$elements = count($splitLine);
-			if($elements != 1) {
-				echo("<p>");
-			}
 			foreach($splitLine as &$splitValue) {
 				if ($elements == 1) {
-					echo("<h3>" . $splitValue . "</h3>" . PHP_EOL);
-				} else {
-					echo($splitValue . " ");
+					echo("<h3><a href='#'>{$splitLine[0]}</a></h3>" . PHP_EOL);
+					echo("<div><table cellpadding=5em><tr><th>Team</th><th>Points</th><th>Games Played</th><th>Elimination Status</th></tr>" . PHP_EOL);
 				}
-			}
-			if($elements != 1) {
-				echo("</p>");
+				echo($splitValue . "<br /> " . PHP_EOL);
 			}
 		}
 	}
