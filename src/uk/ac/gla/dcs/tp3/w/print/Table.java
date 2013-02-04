@@ -14,7 +14,7 @@ public class Table extends DocumentSection {
 	}
 
 	private String endTabular() {
-		return "\\end{tabular}\n";
+		return "\\end{tabular}\\\\ \\\\";
 	}
 
 }

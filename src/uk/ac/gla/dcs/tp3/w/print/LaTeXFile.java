@@ -50,6 +50,17 @@ public class LaTeXFile {
 		divsb.append("\\hline\n");
 		addTable(colformat, divsb.toString());
 	}
+	
+	public void addTextSection(String s){
+		TextSection ts = new TextSection(s);
+		this.sections.add(ts);
+	}
+	
+	public void addTextSection(StringBuilder s){
+		TextSection ts = new TextSection("");
+		ts.append(s);
+		this.sections.add(ts);
+	}
 
 	public boolean write() {
 		if (fileName == null)

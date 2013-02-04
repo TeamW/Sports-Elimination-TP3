@@ -50,6 +50,8 @@ public class Main {
 
 		Division d = new Division(t, null);
 		LF.addDivisionInfo(d);
+		LF.addTextSection("This is a section of text");
+		LF.addDivisionInfo(d);
 		if (LF.write()) {
 			System.out.println("Success");
 		} else {
