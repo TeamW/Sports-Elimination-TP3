@@ -118,7 +118,7 @@ public class MainFrame extends JFrame {
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Division d = table.getCurrentDiv();
-				String filename = table.getCurrent();
+				String filename = table.getCurrent().replace(" ", "");
 				String directory = System.getProperty("user.dir")
 						+ "/src/uk/ac/gla/dcs/tp3/w/";
 				LaTeXFile LF = new LaTeXFile(directory,filename);

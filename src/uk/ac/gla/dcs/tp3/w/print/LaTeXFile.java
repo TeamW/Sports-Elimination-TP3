@@ -89,7 +89,6 @@ public class LaTeXFile {
 			e.printStackTrace();
 			return false;
 		}
-
 		try {
 			Runtime r = Runtime.getRuntime();
 			Process compile = r.exec("pdflatex " +directory +fileName+".tex");
