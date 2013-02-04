@@ -72,12 +72,11 @@ public class LaTeXFile {
 			divsb.append("\n");
 			for (j = 0; j < 3; j++) {
 				System.out.println(i + ":" + j);
-				divsb.append(table.getValueAt(i, j));// table.convertRowIndexToModel(i),
-														// table.convertColumnIndexToModel(j)));
+				divsb.append(table.getValueAt(i, j));														// table.convertColumnIndexToModel(j)));
 				divsb.append(" & ");
 			}
 			System.out.println(i + ":" + j);
-			divsb.append(table.getValueAt(i, j));// table.convertRowIndexToModel(i),table.convertColumnIndexToModel(j)));
+			divsb.append(table.getValueAt(i, j));
 			divsb.append("\\\\");
 		}
 		divsb.append("\\hline\n");
