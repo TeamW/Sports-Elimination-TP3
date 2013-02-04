@@ -96,8 +96,8 @@ public class DateTime extends Date {
 	}
 
 	public String toStringPrint() {
-		return String.format("%d:%d:%d:%s", this.getDay(), this.getMonth(),
-				this.getYear(), formatTime());
+		return String.format("%d_%d_%d__%d_%d", this.getDay(), this.getMonth(),
+				this.getYear(), this.getHour(), this.getMinute());
 	}
 
 }
