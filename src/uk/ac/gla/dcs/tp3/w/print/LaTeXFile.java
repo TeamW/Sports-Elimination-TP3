@@ -116,7 +116,7 @@ public class LaTeXFile {
 					+ ".tex");
 			compile.waitFor();
 			Process remove = r.exec("rm " + fileName + ".log " + fileName
-					+ ".aux " + fileName + ".tex");
+					+ ".aux " + directory+fileName + ".tex");
 			remove.waitFor();
 			Process move = r.exec("mv " + fileName
 					+ ".pdf src/uk/ac/gla/dcs/tp3/w/");
