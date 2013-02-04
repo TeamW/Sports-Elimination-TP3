@@ -117,7 +117,7 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filename = table.getCurrent().replace(" ", "");// + displayDate.toStringPrint();
+				String filename = table.getCurrent().replace(" ", "") + displayDate.toStringPrint();
 				String directory = System.getProperty("user.dir")
 						+ "/src/uk/ac/gla/dcs/tp3/w/";
 				System.out.println(directory);
