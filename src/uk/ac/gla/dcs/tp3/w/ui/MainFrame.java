@@ -117,12 +117,13 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Division d = table.getCurrentDiv();
-				String filename = table.getCurrent().replace(" ", "");
+				String filename = table.getCurrent().replace(" ", "");// + displayDate.toStringPrint();
 				String directory = System.getProperty("user.dir")
 						+ "/src/uk/ac/gla/dcs/tp3/w/";
+				System.out.println(directory);
+				System.out.println(filename);
 				LaTeXFile LF = new LaTeXFile(directory,filename);
-				LF.addDivisionInfo(d);
+				LF.addDivisionFromJTable(table);
 				if(LF.write()) System.out.println("Printed Successfully");
 				System.out.println("Print " + table.getCurrent());
 			}
@@ -310,7 +311,7 @@ public class MainFrame extends JFrame {
 
 		// add comboBox
 		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7 };
-		final JComboBox daysToMoveBox = new JComboBox(
+		final JComboBox<Integer> daysToMoveBox = new JComboBox<Integer>(
 				daysToMove);
 		daysToMoveBox.setSelectedIndex(0);
 		daysToMoveBox.addActionListener(new ActionListener() {

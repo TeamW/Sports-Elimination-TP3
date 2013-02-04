@@ -88,9 +88,15 @@ public class DateTime extends Date {
 			return true;
 		return false;
 	}
-
+	@Override
 	public String toString() {
 		return String.format("%d/%d/%d %s", this.getDay(), this.getMonth(),
 				this.getYear(), formatTime());
 	}
+	
+	public String toStringPrint(){
+		return String.format("%d:%d:%d:%s", this.getDay(), this.getMonth(),
+				this.getYear(), formatTime());
+	}
+	
 }

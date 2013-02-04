@@ -22,6 +22,10 @@ public class Table extends JTable {
 	}
 	
 	public Division getCurrentDiv(){
+		/*Division onScreen = new Division();
+		onScreen.
+		this.getModel().getValueAt(rowIndex, columnIndex)*/
+		
 		return model.getCurrentDivision();
 	}
 
@@ -32,5 +36,6 @@ public class Table extends JTable {
 	public void changeDivisions(HashMap<String, Division> d) {
 		model.changeData(d);
 	}
+
 
 }

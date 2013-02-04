@@ -26,6 +26,7 @@ public class LaTeXFile {
 		this.fileName = fileName;
 		this.directory = directory;
 		File f = new File(directory+fileName+".tex");
+		System.out.println(directory+fileName+".tex");
 		try{
 			if(f.createNewFile()) System.out.println("Created File");
 		} catch(IOException e){
@@ -58,6 +59,27 @@ public class LaTeXFile {
 		}
 		divsb.append("\\hline\n");
 		addTable(colformat, divsb.toString());
+	}
+	
+	public void addDivisionFromJTable(uk.ac.gla.dcs.tp3.w.ui.Table table){
+		int numTeams = table.getRowCount();
+		String colformat = "| l | l | l | l |";
+		StringBuilder divsb = new StringBuilder();
+		divsb.append("Team & Points & Games Played & Elimination Status \\\\ \\hline");
+		int j;
+		for (int i=0;i<numTeams;i++){
+			divsb.append("\n");
+			for(j=0;j<3;j++){
+				System.out.println(i+":"+j);
+				divsb.append(table.getValueAt(i,j));//table.convertRowIndexToModel(i), table.convertColumnIndexToModel(j)));
+				divsb.append(" & ");
+			}
+			System.out.println(i+":"+j);
+			divsb.append(table.getValueAt(i,j));//table.convertRowIndexToModel(i),table.convertColumnIndexToModel(j)));
+			divsb.append("\\\\");
+		}
+		divsb.append("\\hline\n");
+		addTable(colformat,divsb.toString());
 	}
 	
 	public void addTextSection(String s){
