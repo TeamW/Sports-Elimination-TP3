@@ -74,6 +74,21 @@ public class DateTime extends Date {
 			strmin = "" + this.min;
 		return strhr + ":" + strmin;
 	}
+	
+	public String formatTime(String delim) {
+		String strhr;
+		String strmin;
+		if (this.hour < 10)
+			strhr = "0" + this.hour;
+		else
+			strhr = "" + this.hour;
+		if (this.min < 10)
+			strmin = "0" + this.min;
+		else
+			strmin = "" + this.min;
+		return strhr + delim + strmin;
+	}
+	
 
 	private boolean validateTime(int h, int m) {
 		return (0 <= h && h < 24 && 0 <= m && m < 60);
@@ -96,8 +111,8 @@ public class DateTime extends Date {
 	}
 
 	public String toStringPrint() {
-		return String.format("%d_%d_%d__%d_%d", this.getDay(), this.getMonth(),
-				this.getYear(), this.getHour(), this.getMinute());
+		return String.format("%d_%d_%d__%s", this.getDay(), this.getMonth(),
+				this.getYear(), formatTime("_"));
 	}
 
 }
