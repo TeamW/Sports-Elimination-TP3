@@ -284,15 +284,17 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// decrement the day
 				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) {
-					if (!displayDate.equals(startDate)) {
-						System.out.println("Back");
-						displayDate.decrementDate();
+					for (int i = 0; i < numDaysToMove; i++){
+						if (!displayDate.equals(startDate)) {
+							System.out.println("Back");
+							displayDate.decrementDate();
+						}
+						else displayDate = new DateTime(startDate);
 					}
 					System.out.println("Current date is now "
 							+ displayDate.toString());
+					dateLabel.setText("Current date: " + displayDate.toString());
 					updateMatchesPlayed();
-				}
 			}
 		});
 		navPanel.add(backButton, BorderLayout.WEST);
@@ -302,14 +304,17 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// increment the day
 				// then update the model
-				if (!displayDate.equals(endDate)) {
-					System.out.println("Next");
-					for (int i = 0; i < numDaysToMove; i++)
+				for (int i = 0; i < numDaysToMove; i++){
+					if (!displayDate.equals(endDate)) {
+						System.out.println("Next");
 						displayDate.incrementDate();
-					System.out.println("Current date is now "
-							+ displayDate.toString());
-					updateMatchesPlayed();
+					}
+					else displayDate = new DateTime(endDate);
 				}
+				System.out.println("Current date is now "
+						+ displayDate.toString());
+				dateLabel.setText("Current date: " + displayDate.toString());
+				updateMatchesPlayed();
 			}
 		});
 		navPanel.add(nextButton, BorderLayout.EAST);
