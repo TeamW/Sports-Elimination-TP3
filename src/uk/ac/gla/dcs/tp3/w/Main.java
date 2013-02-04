@@ -2,6 +2,7 @@ package uk.ac.gla.dcs.tp3.w;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.SwingUtilities;
 
@@ -44,6 +45,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
+        System.out.println(System.getProperty("os.name"));
 		// Set up variables for whole application.
 		Parser p = new Parser();
 		// Text only output request check
