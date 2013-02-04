@@ -20,6 +20,10 @@ public class Table extends JTable {
 	public String getCurrent() {
 		return model.getCurrent();
 	}
+	
+	public Division getCurrentDiv(){
+		return model.getCurrentDivision();
+	}
 
 	public void setCurrent(String s) {
 		model.setCurrent(s);

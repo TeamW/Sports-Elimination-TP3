@@ -1,6 +1,7 @@
 package uk.ac.gla.dcs.tp3.w.print;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import uk.ac.gla.dcs.tp3.w.league.Team;
 public class LaTeXFile {
 	StringBuilder sb;
 	String fileName;
+	String directory;
 	LinkedList<DocumentSection> sections;
 
 	public LaTeXFile() {
@@ -19,9 +21,16 @@ public class LaTeXFile {
 		sections = null;
 	}
 
-	public LaTeXFile(String fileName) {
+	public LaTeXFile(String directory, String fileName) {
 		sb = new StringBuilder();
 		this.fileName = fileName;
+		this.directory = directory;
+		File f = new File(directory+fileName+".tex");
+		try{
+			if(f.createNewFile()) System.out.println("Created File");
+		} catch(IOException e){
+			e.printStackTrace();
+		}
 		sections = new LinkedList<DocumentSection>();
 	}
 
@@ -72,7 +81,7 @@ public class LaTeXFile {
 		documentEnd();
 
 		try {
-			FileWriter fstream = new FileWriter(fileName);
+			FileWriter fstream = new FileWriter(directory+fileName+".tex");
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write(sb.toString());
 			out.close();
@@ -81,6 +90,22 @@ public class LaTeXFile {
 			return false;
 		}
 
+		try {
+			Runtime r = Runtime.getRuntime();
+			Process compile = r.exec("pdflatex " +directory +fileName+".tex");
+			compile.waitFor();
+			Process remove = r
+					.exec("rm "+fileName+".log "+fileName+".aux "+fileName+".tex");
+			remove.waitFor();
+			Process move = r
+					.exec("mv "+fileName+".pdf src/uk/ac/gla/dcs/tp3/w/");
+			move.waitFor();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 }

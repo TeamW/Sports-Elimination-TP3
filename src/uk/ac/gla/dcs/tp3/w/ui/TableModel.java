@@ -76,5 +76,11 @@ public class TableModel extends AbstractTableModel {
 		}
 		return null;
 	}
+	
+	public Division getCurrentDivision(){
+		Division d = data.get(current);
+		if(d == null) return null;
+		return d;
+	}
 
 }

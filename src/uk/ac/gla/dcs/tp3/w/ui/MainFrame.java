@@ -2,6 +2,7 @@ package uk.ac.gla.dcs.tp3.w.ui;
 
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.parser.Parser;
+import uk.ac.gla.dcs.tp3.w.print.LaTeXFile;
 import uk.ac.gla.dcs.tp3.w.league.*;
 
 import java.awt.BorderLayout;
@@ -116,6 +117,13 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Division d = table.getCurrentDiv();
+				String filename = table.getCurrent();
+				String directory = System.getProperty("user.dir")
+						+ "/src/uk/ac/gla/dcs/tp3/w/";
+				LaTeXFile LF = new LaTeXFile(directory,filename);
+				LF.addDivisionInfo(d);
+				if(LF.write()) System.out.println("Printed Successfully");
 				System.out.println("Print " + table.getCurrent());
 			}
 		});

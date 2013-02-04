@@ -16,7 +16,7 @@ public class MACMain {
 				+ System.getProperty("user.dir"));
 		String directory = System.getProperty("user.dir")
 				+ "/src/uk/ac/gla/dcs/tp3/w/print/";
-		LaTeXFile LF = new LaTeXFile(directory + "output.tex");
+		LaTeXFile LF = new LaTeXFile(directory, "output");
 
 		Team atlanta = new Team();
 		atlanta.setName("Atlanta");
