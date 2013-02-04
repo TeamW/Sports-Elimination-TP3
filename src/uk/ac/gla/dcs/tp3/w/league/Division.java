@@ -15,6 +15,24 @@ public class Division {
 	private String name;
 	private ArrayList<Team> teams;
 	private ArrayList<Match> fixtures;
+	private Team firstNTTeamElim;
+	private Date firstNTTeamElimdate;
+
+	public Team getFirstNTTeamElim() {
+		return firstNTTeamElim;
+	}
+
+	public void setFirstNTTeamElim(Team firstNTTeamElim) {
+		this.firstNTTeamElim = firstNTTeamElim;
+	}
+
+	public Date getFirstNTTeamElimdate() {
+		return firstNTTeamElimdate;
+	}
+
+	public void setFirstNTTeamElimdate(Date firstNTTeamElimdate) {
+		this.firstNTTeamElimdate = firstNTTeamElimdate;
+	}
 
 	/**
 	 * No parameter constructor.
@@ -36,6 +54,7 @@ public class Division {
 		name = "";
 		teams = t;
 		fixtures = m;
+		
 	}
 
 	/**
