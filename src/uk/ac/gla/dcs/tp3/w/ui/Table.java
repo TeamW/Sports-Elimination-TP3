@@ -20,22 +20,22 @@ public class Table extends JTable {
 	public String getCurrent() {
 		return model.getCurrent();
 	}
-	
-	public Division getCurrentDiv(){
-		/*Division onScreen = new Division();
-		onScreen.
-		this.getModel().getValueAt(rowIndex, columnIndex)*/
-		
+
+	public Division getCurrentDiv() {
+		/*
+		 * Division onScreen = new Division(); onScreen.
+		 * this.getModel().getValueAt(rowIndex, columnIndex)
+		 */
+
 		return model.getCurrentDivision();
 	}
 
 	public void setCurrent(String s) {
 		model.setCurrent(s);
 	}
-	
+
 	public void changeDivisions(HashMap<String, Division> d) {
 		model.changeData(d);
 	}
-
 
 }

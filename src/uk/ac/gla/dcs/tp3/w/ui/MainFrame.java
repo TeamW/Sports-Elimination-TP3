@@ -98,16 +98,19 @@ public class MainFrame extends JFrame {
 					try {
 						valid = p.parse(file.getAbsolutePath());
 					} catch (Exception ee) {
-						JOptionPane.showMessageDialog(screenPanel, "Invalid file format");
+						JOptionPane.showMessageDialog(screenPanel,
+								"Invalid file format");
 						return;
 					}
-					if(valid) {
+					if (valid) {
 						divisions = p.getDivisions();
 						table.changeDivisions(divisions);
 						updateMatchesPlayed();
-						JOptionPane.showMessageDialog(screenPanel, "Valid file format");
+						JOptionPane.showMessageDialog(screenPanel,
+								"Valid file format");
 					} else {
-						JOptionPane.showMessageDialog(screenPanel, "Invalid file format");
+						JOptionPane.showMessageDialog(screenPanel,
+								"Invalid file format");
 					}
 				}
 			}
@@ -117,14 +120,16 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filename = table.getCurrent().replace(" ", "") + displayDate.toStringPrint();
+				String filename = table.getCurrent().replace(" ", "")
+						+ displayDate.toStringPrint();
 				String directory = System.getProperty("user.dir")
 						+ "/src/uk/ac/gla/dcs/tp3/w/";
 				System.out.println(directory);
 				System.out.println(filename);
-				LaTeXFile LF = new LaTeXFile(directory,filename);
+				LaTeXFile LF = new LaTeXFile(directory, filename);
 				LF.addDivisionFromJTable(table);
-				if(LF.write()) System.out.println("Printed Successfully");
+				if (LF.write())
+					System.out.println("Printed Successfully");
 				System.out.println("Print " + table.getCurrent());
 			}
 		});
@@ -279,11 +284,11 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// decrement the day
 				// then update the model
-					for (int i = 0; i < numDaysToMove; i++){
-						if (!displayDate.equals(startDate)) {
-							System.out.println("Back");
-							displayDate.decrementDate();
-						}
+				for (int i = 0; i < numDaysToMove; i++) {
+					if (!displayDate.equals(startDate)) {
+						System.out.println("Back");
+						displayDate.decrementDate();
+					}
 					System.out.println("Current date is now "
 							+ displayDate.toString());
 					updateMatchesPlayed();

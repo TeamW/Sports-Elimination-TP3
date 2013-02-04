@@ -25,11 +25,12 @@ public class LaTeXFile {
 		sb = new StringBuilder();
 		this.fileName = fileName;
 		this.directory = directory;
-		File f = new File(directory+fileName+".tex");
-		System.out.println(directory+fileName+".tex");
-		try{
-			if(f.createNewFile()) System.out.println("Created File");
-		} catch(IOException e){
+		File f = new File(directory + fileName + ".tex");
+		System.out.println(directory + fileName + ".tex");
+		try {
+			if (f.createNewFile())
+				System.out.println("Created File");
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		sections = new LinkedList<DocumentSection>();
@@ -60,34 +61,35 @@ public class LaTeXFile {
 		divsb.append("\\hline\n");
 		addTable(colformat, divsb.toString());
 	}
-	
-	public void addDivisionFromJTable(uk.ac.gla.dcs.tp3.w.ui.Table table){
+
+	public void addDivisionFromJTable(uk.ac.gla.dcs.tp3.w.ui.Table table) {
 		int numTeams = table.getRowCount();
 		String colformat = "| l | l | l | l |";
 		StringBuilder divsb = new StringBuilder();
 		divsb.append("Team & Points & Games Played & Elimination Status \\\\ \\hline");
 		int j;
-		for (int i=0;i<numTeams;i++){
+		for (int i = 0; i < numTeams; i++) {
 			divsb.append("\n");
-			for(j=0;j<3;j++){
-				System.out.println(i+":"+j);
-				divsb.append(table.getValueAt(i,j));//table.convertRowIndexToModel(i), table.convertColumnIndexToModel(j)));
+			for (j = 0; j < 3; j++) {
+				System.out.println(i + ":" + j);
+				divsb.append(table.getValueAt(i, j));// table.convertRowIndexToModel(i),
+														// table.convertColumnIndexToModel(j)));
 				divsb.append(" & ");
 			}
-			System.out.println(i+":"+j);
-			divsb.append(table.getValueAt(i,j));//table.convertRowIndexToModel(i),table.convertColumnIndexToModel(j)));
+			System.out.println(i + ":" + j);
+			divsb.append(table.getValueAt(i, j));// table.convertRowIndexToModel(i),table.convertColumnIndexToModel(j)));
 			divsb.append("\\\\");
 		}
 		divsb.append("\\hline\n");
-		addTable(colformat,divsb.toString());
+		addTable(colformat, divsb.toString());
 	}
-	
-	public void addTextSection(String s){
+
+	public void addTextSection(String s) {
 		TextSection ts = new TextSection(s);
 		this.sections.add(ts);
 	}
-	
-	public void addTextSection(StringBuilder s){
+
+	public void addTextSection(StringBuilder s) {
 		TextSection ts = new TextSection("");
 		ts.append(s);
 		this.sections.add(ts);
@@ -103,7 +105,7 @@ public class LaTeXFile {
 		documentEnd();
 
 		try {
-			FileWriter fstream = new FileWriter(directory+fileName+".tex");
+			FileWriter fstream = new FileWriter(directory + fileName + ".tex");
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write(sb.toString());
 			out.close();
@@ -113,13 +115,14 @@ public class LaTeXFile {
 		}
 		try {
 			Runtime r = Runtime.getRuntime();
-			Process compile = r.exec("pdflatex " +directory +fileName+".tex");
+			Process compile = r.exec("pdflatex " + directory + fileName
+					+ ".tex");
 			compile.waitFor();
-			Process remove = r
-					.exec("rm "+fileName+".log "+fileName+".aux "+fileName+".tex");
+			Process remove = r.exec("rm " + fileName + ".log " + fileName
+					+ ".aux " + fileName + ".tex");
 			remove.waitFor();
-			Process move = r
-					.exec("mv "+fileName+".pdf src/uk/ac/gla/dcs/tp3/w/");
+			Process move = r.exec("mv " + fileName
+					+ ".pdf src/uk/ac/gla/dcs/tp3/w/");
 			move.waitFor();
 		} catch (IOException e) {
 			e.printStackTrace();
