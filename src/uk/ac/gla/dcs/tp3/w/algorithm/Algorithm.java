@@ -1,8 +1,11 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
+import uk.ac.gla.dcs.tp3.w.league.DateTime;
 import uk.ac.gla.dcs.tp3.w.league.Division;
+import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 /**
@@ -285,4 +288,140 @@ public class Algorithm {
 		else
 			return binaryDetermine(T, s, mid - 1, highestElim);
 	}
+	
+	
+	
+	
+	
+
+/*
+	 * Finds the first Non trivially eliminated team for a division . Sets this
+	 * value in Divion
+	 */
+	public void FirstNonTrivTeamElim() {
+		// mid point
+		int mid = (d.getFixtures().size() / 2);
+		DateTime targetDate = new DateTime(d.getFixtures().get(mid)
+				.getDateTime());
+		boolean singleInstance = false;
+		while (d.getFirstNTTeamElim() ==null) {
+			// set date
+			UpdateMatches(d, targetDate);
+			int nonTrivCount = 0;
+
+			//check bottom team 
+			if (d.getTeams().get(0).isEliminated()) {
+				
+				// look at eliminated teams			
+				for (int y = 0; y < d.getTeams().size(); y++) {
+					
+					if (d.getFirstNTTeamElim() ==null){
+					
+					Team t = d.getTeams().get(y);
+					int TopTeamsPointsCheck = d.maxPoints();
+					int ElimTeamsPointscheck = t.getPoints();					
+					if (t.isEliminated()) {			
+						boolean TeamElimCheck = false ;
+						//get date of elimination 
+						while (t.isEliminated()){
+							
+							TeamElimCheck = t.isEliminated();
+							DateTime td = new DateTime(d.getFixtures().get(mid+1).getDateTime() );
+							mid = mid +1;
+							UpdateMatches (d, td);
+							t.isEliminated();
+						}
+						//bump to elim
+						DateTime elimdate = new DateTime( d.getFixtures().get(mid+1).getDateTime());
+						UpdateMatches (d, elimdate);
+						
+						// Trivial check
+						int pointDiff = (d.maxPoints() - t.getPoints());						
+						
+						int matchesLeft = t.getUpcomingMatches().size();
+						
+						
+						if (pointDiff <= t.getUpcomingMatches().size()
+								&& nonTrivCount <= 1) {
+							d.setFirstNTTeamElim(t);
+							d.setFirstNTTeamElimdate(elimdate);
+							nonTrivCount++;
+
+							// Move to previous date in season
+							if (nonTrivCount > 1) {
+								nonTrivCount = 0;
+								mid = mid + ((d.getFixtures().size() - mid) / 2);
+								
+								targetDate = d.getFixtures().get(mid)
+										.getDateTime();
+							}
+							
+						}//no team found 
+							
+						}
+					}// is eliminated
+				}// each team
+			}
+
+			// move forward in season
+			if (d.getFirstNTTeamElim() == null) {
+				// new later target date
+				mid = (mid / 2);
+				targetDate = d.getFixtures().get(mid).getDateTime();
+			}
+
+			if (nonTrivCount == 1)
+				singleInstance = true;
+
+		} // while single instance
+
+		
+	}
+	
+	// loop through every game played in the current division,
+		// check if date is less than/equal to current date,
+		// if not unplay match
+		private void UpdateMatches(Division d, DateTime dt) {
+			
+				for (Match m : d.getFixtures()) {
+					if (m.getDateTime().before(dt)) {
+						m.playMatch();
+					} else {
+						m.unplayMatch();
+					}
+				}
+				for (Team t : d.getTeams()) {
+					t.setEliminated(false);
+					ArrayList<Team> teams = t.getEliminatedBy();
+					t.getEliminatedBy().removeAll(teams);
+				}
+				(new Algorithm(d)).updateDivisionElim();			
+		
+		}
+	
+	
+	
+	
+	
+
+	
+	
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
