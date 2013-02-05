@@ -321,7 +321,7 @@ public class MainFrame extends JFrame {
 
 		// add comboBox
 		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7 };
-		final JComboBox<Integer> daysToMoveBox = new JComboBox<Integer>(
+		final JComboBox daysToMoveBox = new JComboBox(
 				daysToMove);
 		daysToMoveBox.setSelectedIndex(0);
 		daysToMoveBox.addActionListener(new ActionListener() {

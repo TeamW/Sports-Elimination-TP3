@@ -76,12 +76,12 @@ public class Main {
 		}
 		
 		//trivial elim test
-		/*
+		
 		for (Division d2 : map.values()) {
 			(new Algorithm(d2)).FirstNonTrivTeamElim();	
 			System.out.println(d2.getFirstNTTeamElim() + "   "+d2.getFirstNTTeamElimdate());
 			}	
-		*/
+		
 
 		
 		

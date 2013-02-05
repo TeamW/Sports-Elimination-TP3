@@ -304,7 +304,7 @@ public class Algorithm {
 		DateTime targetDate = new DateTime(d.getFixtures().get(mid)
 				.getDateTime());
 		boolean singleInstance = false;
-		while (d.getFirstNTTeamElim() ==null) {
+		while (d.getFirstNTTeamElim() ==null && mid != 0) {
 			// set date
 			UpdateMatches(d, targetDate);
 			int nonTrivCount = 0;
