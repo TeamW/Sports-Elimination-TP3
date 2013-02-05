@@ -113,14 +113,14 @@ public class Algorithm {
 		int cap = 0;
 		for (AdjListNode a : g.getSource().getAdjList())
 			cap += a.getCapacity();
+		// Create initial residual graph for algorithm.
+		ResidualGraph residual = new ResidualGraph(g);
 		// Short circuit for end of league
 		if (t.getUpcomingMatches().size() == 0
 				&& t.getPoints() != d.maxPoints()) {
 			t.setTrivial(true);
-			return true;
+			return certificateOfElimination(residual, t);
 		}
-		// Create initial residual graph for algorithm.
-		ResidualGraph residual = new ResidualGraph(g);
 		// Naive elimination short circuit
 		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
 			t.setTrivial(true);
