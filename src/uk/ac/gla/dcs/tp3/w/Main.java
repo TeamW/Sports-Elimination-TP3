@@ -2,7 +2,6 @@ package uk.ac.gla.dcs.tp3.w;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.SwingUtilities;
 
@@ -57,7 +56,11 @@ public class Main {
 				web = true;
 				break;
 			} else {
-				parsed = p.parse(s);
+				try {
+					parsed = p.parse(s);
+				} catch (Exception e) {
+					parsed = false;
+				}
 			}
 		}
 		// If none of the supplied files were successfully parsed, default to
