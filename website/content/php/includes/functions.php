@@ -66,7 +66,13 @@
 			} else {
 				echo("<tr>");
 				foreach($splitLine as &$splitValue) {
-					echo("<td>" . $splitValue . "</td>");
+					if($splitValue === 'true') {
+						echo("<td>Eliminated</td>");
+					} else if ($splitValue === 'false') {
+						echo("<td>Not Eliminated</td>");
+					} else {
+						echo("<td>" . $splitValue . "</td>");
+					}
 				}
 				echo("</tr>" . PHP_EOL);
 			}
