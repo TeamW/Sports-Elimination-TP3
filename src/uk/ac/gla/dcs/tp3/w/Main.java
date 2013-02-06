@@ -44,7 +44,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(System.getProperty("os.name"));
 		// Set up variables for whole application.
 		Parser p = new Parser();
 		// Text only output request check
@@ -68,6 +67,9 @@ public class Main {
 		if (!parsed) {
 			p.parse("");
 		}
+		if (!web) {
+			System.out.println(System.getProperty("os.name"));
+		}
 		// Now there will be some valid divisions to obtain. Now work out
 		// elimination status of each team.
 		final HashMap<String, Division> map = p.getDivisions();
@@ -76,13 +78,13 @@ public class Main {
 		}
 
 		// trivial elim test
-
-		for (Division d2 : map.values()) {
-			(new Algorithm(d2)).FirstNonTrivTeamElim();
-			System.out.println(d2.getFirstNTTeamElim() + "   "
-					+ d2.getFirstNTTeamElimdate());
+		if (!web) {
+			for (Division d2 : map.values()) {
+				(new Algorithm(d2)).FirstNonTrivTeamElim();
+				System.out.println(d2.getFirstNTTeamElim() + "   "
+						+ d2.getFirstNTTeamElimdate());
+			}
 		}
-
 		// Swing interface requested.
 		if (!web) {
 			SwingUtilities.invokeLater(new Runnable() {
