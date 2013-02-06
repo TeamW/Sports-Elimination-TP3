@@ -44,7 +44,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-        System.out.println(System.getProperty("os.name"));
+		System.out.println(System.getProperty("os.name"));
 		// Set up variables for whole application.
 		Parser p = new Parser();
 		// Text only output request check
@@ -74,17 +74,15 @@ public class Main {
 		for (Division d : map.values()) {
 			(new Algorithm(d)).updateDivisionElim();
 		}
-		
-		//trivial elim test
-		
-		for (Division d2 : map.values()) {
-			(new Algorithm(d2)).FirstNonTrivTeamElim();	
-			System.out.println(d2.getFirstNTTeamElim() + "   "+d2.getFirstNTTeamElimdate());
-			}	
-		
 
-		
-		
+		// trivial elim test
+
+		for (Division d2 : map.values()) {
+			(new Algorithm(d2)).FirstNonTrivTeamElim();
+			System.out.println(d2.getFirstNTTeamElim() + "   "
+					+ d2.getFirstNTTeamElimdate());
+		}
+
 		// Swing interface requested.
 		if (!web) {
 			SwingUtilities.invokeLater(new Runnable() {
@@ -106,8 +104,11 @@ public class Main {
 			date.setYear(Integer.parseInt(dmy[2]));
 			// Text only output requested.
 			updateMatchesPlayed(date, map);
-			for (Division d : map.values()) {
-				d.printWeb();
+			String[] divisions = { "American Central", "American East",
+					"American West", "National Central", "National East",
+					"National West" };
+			for (String s : divisions) {
+				map.get(s).printWeb();
 			}
 		}
 	}
