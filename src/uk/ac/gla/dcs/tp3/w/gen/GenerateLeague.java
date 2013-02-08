@@ -1,6 +1,8 @@
 package uk.ac.gla.dcs.tp3.w.gen;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,14 +17,11 @@ public class GenerateLeague {
 	private int gamesPerTeam = 180;
 	private boolean verbose = false;
 	
-	public GenerateLeague(/*String fileName*/) {
-		/*this.fileName = fileName;
-		if(!this.createFile()){
-			System.err.println("File could not be created, aborting");
-			return;
-		}*/
+	public GenerateLeague(String fileName) {
+		this.fileName = System.getProperty("user.dir") + "/" + fileName;
 	}
-	public void generate(){
+	
+	public boolean generate(){
 		Parser p = new Parser();
 		p.generateStandardDivisionInfo();
 		int teamSize, gamesBetweenTeams, i, j, k;
@@ -43,10 +42,6 @@ public class GenerateLeague {
 						scoreA = r.nextInt(10);
 						scoreB = r.nextInt(10);
 						if (scoreA==scoreB) scoreB=(scoreB+1)%10;
-						if (scoreA%4 == 0){ 
-							date.incrementDate();
-							System.out.println(date.genDate());
-						}
 						if(!fixtures.isEmpty())index = r.nextInt(fixtures.size());
 						fixture = date.formatTime() + " " + teams.get(i) + " - " + teams.get(j) + " - " + scoreA +":"+scoreB;
 						if(verbose)	System.out.println(fixture);
@@ -55,19 +50,43 @@ public class GenerateLeague {
 				}
 			}
 		}
+		i=0;
+		int totEntries = fixtures.size();
+		while(i<totEntries){
+			date.incrementDate();
+			fixtures.add(i,"");
+			fixtures.add(i+1,date.genDate());
+			totEntries=totEntries+2;
+			i = i+10+r.nextInt(10);
+		}
+		return writeToFile(fixtures);
 	}
-
-	private boolean createFile() {
-		if(fileName==null) return false;
-		File F = new File(System.getProperty("user.dir") + "/" + fileName
-				+ ".txt");
-		try {
-			return F.createNewFile();
-		} catch (IOException IOE) {
+	
+	private boolean writeToFile(ArrayList<String> lines){
+		FileWriter fw;
+		try{
+			fw = new FileWriter(fileName);
+		} catch (IOException IOE){
 			IOE.printStackTrace();
 			return false;
 		}
-		
+		BufferedWriter bf = new BufferedWriter(fw);
+		try{
+			for(String line : lines){
+				bf.write(line);
+				bf.newLine();
+			}
+		}catch (IOException IOE){
+			IOE.printStackTrace();
+			return false;
+		}
+		try{
+			bf.close();
+		}catch (IOException IOE){
+			IOE.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
 	public void verbose(){
@@ -75,8 +94,7 @@ public class GenerateLeague {
 	}
 	
 	public static void main(String[] args){
-		GenerateLeague gn = new GenerateLeague();
-		gn.verbose();
+		GenerateLeague gn = new GenerateLeague("TEST.txt");
 		gn.generate();
 	}
 
