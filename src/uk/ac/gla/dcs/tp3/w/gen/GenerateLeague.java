@@ -18,7 +18,7 @@ public class GenerateLeague {
 	private boolean verbose = false;
 	
 	public GenerateLeague(String fileName) {
-		this.fileName = System.getProperty("user.dir") + "/" + fileName;
+		this.fileName = fileName;
 	}
 	
 	public boolean generate(){
@@ -91,10 +91,4 @@ public class GenerateLeague {
 	public void verbose(){
 		verbose=true;
 	}
-	
-	public static void main(String[] args){
-		GenerateLeague gn = new GenerateLeague("TEST.txt");
-		gn.generate();
-	}
-
 }

@@ -3,6 +3,7 @@ package uk.ac.gla.dcs.tp3.w.ui;
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.print.LaTeXFile;
+import uk.ac.gla.dcs.tp3.w.gen.GenerateLeague;
 import uk.ac.gla.dcs.tp3.w.league.*;
 
 import java.awt.BorderLayout;
@@ -96,6 +97,7 @@ public class MainFrame extends JFrame {
 					File file = fc.getSelectedFile();
 					boolean valid = false;
 					try {
+						System.out.println(file.getName());
 						valid = p.parse(file.getAbsolutePath());
 					} catch (Exception ee) {
 						JOptionPane.showMessageDialog(screenPanel,
@@ -116,7 +118,23 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem);
-
+		
+		menuItem = new JMenuItem("Generate League...");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				int value = fc.showSaveDialog(screenPanel);
+				if (value == JFileChooser.APPROVE_OPTION){
+					String filename = fc.getSelectedFile().getAbsolutePath();
+					if(!filename.contains(".txt")) filename=filename+".txt";
+					GenerateLeague gl = new GenerateLeague(filename);
+					if(gl.generate()){
+						JOptionPane.showMessageDialog(screenPanel, "File Generated!");
+					} else {JOptionPane.showMessageDialog(screenPanel, "File could not be created.");}
+				}
+			}
+		});
+		menu.add(menuItem);
+		
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
