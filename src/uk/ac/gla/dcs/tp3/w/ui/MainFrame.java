@@ -79,7 +79,7 @@ public class MainFrame extends JFrame {
 	// Set up menu bar
 	private void initMenuBar() {
 		JMenuBar menuBar;
-		JMenu menu;
+		JMenu menu, submenu;
 		JMenuItem menuItem;
 
 		/*
@@ -135,20 +135,23 @@ public class MainFrame extends JFrame {
 		});
 		menu.add(menuItem);
 		
+		submenu = new JMenu("Print...");
+		
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filename = table.getCurrent().replace(" ", "")
-						+ displayDate.toStringPrint();
-				String directory = System.getProperty("user.dir")
-						+ "/src/uk/ac/gla/dcs/tp3/w/";
-				System.out.println(directory);
-				System.out.println(filename);
-				LaTeXFile LF = new LaTeXFile(directory, filename);
-				LF.addDivisionFromJTable(table);
-				if (LF.write())
-					System.out.println("Printed Successfully");
-				System.out.println("Print " + table.getCurrent());
+				int value = fc.showSaveDialog(screenPanel);
+				if (value == JFileChooser.APPROVE_OPTION){
+					String filename = fc.getSelectedFile().getName();
+					String directory = fc.getSelectedFile().getParentFile().getAbsolutePath();
+					System.out.println(directory);
+					System.out.println(filename);
+					LaTeXFile LF = new LaTeXFile(filename, directory);
+					LF.addDivisionFromJTable(table);
+					if (LF.write())
+						JOptionPane.showMessageDialog(screenPanel, "File Printed");
+					System.out.println("Print " + table.getCurrent());
+				}
 			}
 		});
 		menu.add(menuItem);

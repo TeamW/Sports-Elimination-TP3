@@ -13,6 +13,7 @@ public class LaTeXFile {
 	StringBuilder sb;
 	String fileName;
 	String directory;
+	String endDir;
 	LinkedList<DocumentSection> sections;
 
 	public LaTeXFile() {
@@ -21,10 +22,12 @@ public class LaTeXFile {
 		sections = null;
 	}
 
-	public LaTeXFile(String directory, String fileName) {
+	public LaTeXFile(String fileName, String endDir) {
 		sb = new StringBuilder();
 		this.fileName = fileName;
-		this.directory = directory;
+		this.directory = System.getProperty("user.dir")
+				+ "/src/uk/ac/gla/dcs/tp3/w/";
+		this.endDir = endDir;
 		File f = new File(directory + fileName + ".tex");
 		System.out.println(directory + fileName + ".tex");
 		try {
@@ -119,7 +122,7 @@ public class LaTeXFile {
 					+ ".aux " + directory+fileName + ".tex");
 			remove.waitFor();
 			Process move = r.exec("mv " + fileName
-					+ ".pdf src/uk/ac/gla/dcs/tp3/w/");
+					+ ".pdf " +endDir.replace(" ", "\\ "));
 			move.waitFor();
 		} catch (IOException e) {
 			e.printStackTrace();
