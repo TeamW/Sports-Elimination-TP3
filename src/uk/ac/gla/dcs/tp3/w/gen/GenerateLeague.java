@@ -43,7 +43,7 @@ public class GenerateLeague {
 						scoreB = r.nextInt(10);
 						if (scoreA==scoreB) scoreB=(scoreB+1)%10;
 						if(!fixtures.isEmpty())index = r.nextInt(fixtures.size());
-						fixture = date.formatTime() + " " + teams.get(i) + " - " + teams.get(j) + " - " + scoreA +":"+scoreB;
+						fixture = date.formatTime() + " " + teams.get(i) + " - " + teams.get(j) + " " + scoreA +":"+scoreB+"\n";
 						if(verbose)	System.out.println(fixture);
 						fixtures.add(index, fixture);
 					}
@@ -54,8 +54,8 @@ public class GenerateLeague {
 		int totEntries = fixtures.size();
 		while(i<totEntries){
 			date.incrementDate();
-			fixtures.add(i,"");
-			fixtures.add(i+1,date.genDate());
+			fixtures.add(i,"\n");
+			fixtures.add(i+1,date.genDate()+"\n");
 			totEntries=totEntries+2;
 			i = i+10+r.nextInt(10);
 		}
@@ -74,7 +74,6 @@ public class GenerateLeague {
 		try{
 			for(String line : lines){
 				bf.write(line);
-				bf.newLine();
 			}
 		}catch (IOException IOE){
 			IOE.printStackTrace();
