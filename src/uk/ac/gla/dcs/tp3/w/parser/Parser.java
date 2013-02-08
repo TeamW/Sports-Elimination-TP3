@@ -16,6 +16,10 @@ public class Parser {
 
 	public Parser() {
 	}
+	
+	public void generateStandardDivisionInfo(){
+		this.init();
+	}
 
 	public boolean parse(String fileName) {
 		Scanner fs;
