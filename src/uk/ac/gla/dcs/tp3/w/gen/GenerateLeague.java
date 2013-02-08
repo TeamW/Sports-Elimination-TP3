@@ -30,6 +30,7 @@ public class GenerateLeague {
 		Random r = new Random();
 		DateTime date = new DateTime();
 		ArrayList<String> fixtures = new ArrayList<String>();
+		String fixture;
 		for(Division d: p.getDivisions().values()){
 			System.out.println("New Division: " + d.getName());
 			ArrayList<Team> teams = d.getTeams();
@@ -42,9 +43,14 @@ public class GenerateLeague {
 						scoreA = r.nextInt(10);
 						scoreB = r.nextInt(10);
 						if (scoreA==scoreB) scoreB=(scoreB+1)%10;
-						if(!fixtures.isEmpty())
-						index = r.nextInt(fixtures.size());
-						if(verbose)	System.out.println(teams.get(i) + " - " + teams.get(j) + " - " + scoreA +":"+scoreB + " - " + index);
+						if (scoreA%4 == 0){ 
+							date.incrementDate();
+							System.out.println(date.genDate());
+						}
+						if(!fixtures.isEmpty())index = r.nextInt(fixtures.size());
+						fixture = date.formatTime() + " " + teams.get(i) + " - " + teams.get(j) + " - " + scoreA +":"+scoreB;
+						if(verbose)	System.out.println(fixture);
+						fixtures.add(index, fixture);
 					}
 				}
 			}
