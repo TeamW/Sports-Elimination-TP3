@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import uk.ac.gla.dcs.tp3.w.league.DateTime;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
@@ -17,26 +18,10 @@ public class LaTeXFile {
 	LinkedList<DocumentSection> sections;
 
 	public LaTeXFile() {
-		sb = null;
-		fileName = null;
-		sections = null;
-	}
-
-	public LaTeXFile(String fileName, String endDir) {
 		sb = new StringBuilder();
-		this.fileName = fileName;
-		this.directory = System.getProperty("user.dir")
-				+ "/src/uk/ac/gla/dcs/tp3/w/";
-		this.endDir = endDir;
-		File f = new File(directory + fileName + ".tex");
-		System.out.println(directory + fileName + ".tex");
-		try {
-			if (f.createNewFile())
-				System.out.println("Created File");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fileName = null;
 		sections = new LinkedList<DocumentSection>();
+		directory = null;
 	}
 
 	private void documentStart() {
@@ -47,8 +32,8 @@ public class LaTeXFile {
 		sb.append("\\end{document}\n");
 	}
 
-	private void addTable(String colformat, String contents) {
-		this.sections.add(new Table(colformat, contents));
+	private void addTable(String title, String colformat, String contents) {
+		this.sections.add(new Table(title, colformat, contents));
 	}
 
 	public void addDivisionInfo(Division d) {
@@ -62,10 +47,11 @@ public class LaTeXFile {
 					+ team.isEliminated() + "\\\\");
 		}
 		divsb.append("\\hline\n");
-		addTable(colformat, divsb.toString());
+		addTable(d.getName(), colformat, divsb.toString());
 	}
 
-	public void addDivisionFromJTable(uk.ac.gla.dcs.tp3.w.ui.Table table) {
+	public void addDivisionFromJTable(uk.ac.gla.dcs.tp3.w.ui.Table table,
+			DateTime date) {
 		int numTeams = table.getRowCount();
 		String colformat = "| l | l | l | l |";
 		StringBuilder divsb = new StringBuilder();
@@ -74,14 +60,15 @@ public class LaTeXFile {
 		for (int i = 0; i < numTeams; i++) {
 			divsb.append("\n");
 			for (j = 0; j < 3; j++) {
-				divsb.append(table.getValueAt(i, j));														// table.convertColumnIndexToModel(j)));
+				divsb.append(table.getValueAt(i, j));
 				divsb.append(" & ");
 			}
 			divsb.append(table.getValueAt(i, j));
 			divsb.append("\\\\");
 		}
 		divsb.append("\\hline\n");
-		addTable(colformat, divsb.toString());
+		addTable(table.getCurrent() + " " + date.genDate(), colformat,
+				divsb.toString());
 	}
 
 	public void addTextSection(String s) {
@@ -95,7 +82,24 @@ public class LaTeXFile {
 		this.sections.add(ts);
 	}
 
-	public boolean write() {
+	public int getNumContents() {
+		return sections.size();
+	}
+
+	public boolean write(String fileName, String endDir) {
+		this.fileName = fileName;
+		this.directory = System.getProperty("user.dir")
+				+ "/src/uk/ac/gla/dcs/tp3/w/";
+		this.endDir = endDir;
+		File f = new File(directory + fileName + ".tex");
+		System.out.println(directory + fileName + ".tex");
+		try {
+			if (f.createNewFile())
+				System.out.println("Created File");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		if (fileName == null)
 			return false;
 		documentStart();
@@ -119,10 +123,10 @@ public class LaTeXFile {
 					+ ".tex");
 			compile.waitFor();
 			Process remove = r.exec("rm " + fileName + ".log " + fileName
-					+ ".aux " + directory+fileName + ".tex");
+					+ ".aux " + directory + fileName + ".tex");
 			remove.waitFor();
-			Process move = r.exec("mv " + fileName
-					+ ".pdf " +endDir.replace(" ", "\\ "));
+			Process move = r.exec("mv " + fileName + ".pdf "
+					+ endDir.replace(" ", "\\ "));
 			move.waitFor();
 		} catch (IOException e) {
 			e.printStackTrace();

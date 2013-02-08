@@ -30,10 +30,12 @@ public class MainFrame extends JFrame {
 	private JPanel screenPanel;
 	private final JFileChooser fc = new JFileChooser();
 	private Parser p = new Parser();
+	private LaTeXFile LF;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
 		initUI();
+		LF = new LaTeXFile();
 	}
 
 	public final void initUI() {
@@ -118,43 +120,68 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem);
-		
+
 		menuItem = new JMenuItem("Generate League...");
 		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				int value = fc.showSaveDialog(screenPanel);
-				if (value == JFileChooser.APPROVE_OPTION){
+				if (value == JFileChooser.APPROVE_OPTION) {
 					String filename = fc.getSelectedFile().getAbsolutePath();
-					if(!filename.contains(".txt")) filename=filename+".txt";
+					if (!filename.contains(".txt"))
+						filename = filename + ".txt";
 					GenerateLeague gl = new GenerateLeague(filename);
-					if(gl.generate()){
-						JOptionPane.showMessageDialog(screenPanel, "File Generated!");
-					} else {JOptionPane.showMessageDialog(screenPanel, "File could not be created.");}
+					if (gl.generate()) {
+						JOptionPane.showMessageDialog(screenPanel,
+								"File Generated!");
+					} else {
+						JOptionPane.showMessageDialog(screenPanel,
+								"File could not be created.");
+					}
 				}
 			}
 		});
 		menu.add(menuItem);
-		
+
 		submenu = new JMenu("Print...");
+
+		menuItem = new JMenuItem("Add to print");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LF.addDivisionFromJTable(table,displayDate);
+				JOptionPane.showMessageDialog(
+						screenPanel,
+						"Added: " + table.getCurrent() + " "
+								+ displayDate.genDate());
+			}
+		});
 		
+		submenu.add(menuItem);
+
+		submenu.addSeparator();
 		menuItem = new JMenuItem("Print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (LF.getNumContents() == 0) {
+					JOptionPane.showMessageDialog(screenPanel,
+							"Nothing to be printed!");
+					return;
+				}
 				int value = fc.showSaveDialog(screenPanel);
-				if (value == JFileChooser.APPROVE_OPTION){
+				if (value == JFileChooser.APPROVE_OPTION) {
 					String filename = fc.getSelectedFile().getName();
-					String directory = fc.getSelectedFile().getParentFile().getAbsolutePath();
+					String directory = fc.getSelectedFile().getParentFile()
+							.getAbsolutePath();
 					System.out.println(directory);
 					System.out.println(filename);
-					LaTeXFile LF = new LaTeXFile(filename, directory);
-					LF.addDivisionFromJTable(table);
-					if (LF.write())
-						JOptionPane.showMessageDialog(screenPanel, "File Printed");
+					if (LF.write(filename, directory))
+						JOptionPane.showMessageDialog(screenPanel,
+								"File Printed");
 					System.out.println("Print " + table.getCurrent());
 				}
 			}
 		});
-		menu.add(menuItem);
+		submenu.add(menuItem);
+		menu.add(submenu);
 
 		menuItem = new JMenuItem("Exit");
 		menuItem.addActionListener(new ActionListener() {
@@ -305,17 +332,17 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// decrement the day
 				// then update the model
-					for (int i = 0; i < numDaysToMove; i++){
-						if (!displayDate.equals(startDate)) {
-							System.out.println("Back");
-							displayDate.decrementDate();
-						}
-						else displayDate = new DateTime(startDate);
-					}
-					System.out.println("Current date is now "
-							+ displayDate.toString());
-					dateLabel.setText("Current date: " + displayDate.toString());
-					updateMatchesPlayed();
+				for (int i = 0; i < numDaysToMove; i++) {
+					if (!displayDate.equals(startDate)) {
+						System.out.println("Back");
+						displayDate.decrementDate();
+					} else
+						displayDate = new DateTime(startDate);
+				}
+				System.out.println("Current date is now "
+						+ displayDate.toString());
+				dateLabel.setText("Current date: " + displayDate.toString());
+				updateMatchesPlayed();
 			}
 		});
 		navPanel.add(backButton, BorderLayout.WEST);
@@ -325,12 +352,12 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// increment the day
 				// then update the model
-				for (int i = 0; i < numDaysToMove; i++){
+				for (int i = 0; i < numDaysToMove; i++) {
 					if (!displayDate.equals(endDate)) {
 						System.out.println("Next");
 						displayDate.incrementDate();
-					}
-					else displayDate = new DateTime(endDate);
+					} else
+						displayDate = new DateTime(endDate);
 				}
 				System.out.println("Current date is now "
 						+ displayDate.toString());
@@ -342,8 +369,7 @@ public class MainFrame extends JFrame {
 
 		// add comboBox
 		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7 };
-		final JComboBox daysToMoveBox = new JComboBox(
-				daysToMove);
+		final JComboBox daysToMoveBox = new JComboBox(daysToMove);
 		daysToMoveBox.setSelectedIndex(0);
 		daysToMoveBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
