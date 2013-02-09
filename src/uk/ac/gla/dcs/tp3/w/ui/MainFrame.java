@@ -403,7 +403,6 @@ public class MainFrame extends JFrame {
 		dateSelectionPanel.add(yearBox);
 		
 		navPanel.add(dateSelectionPanel);
-		//navPanel.add(panel);
 		
 	}
 
