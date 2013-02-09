@@ -1,5 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.print;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -119,6 +120,17 @@ public class LaTeXFile {
 		}
 		try {
 			Runtime r = Runtime.getRuntime();
+			String os = System.getProperty("os.name");
+			Process whereis;
+			BufferedInputStream BIS;
+			if(os.toLowerCase().contains("linux")){
+				whereis = r.exec("whereis pdflatex");
+				BIS = new BufferedInputStream(whereis.getInputStream());
+			} else {
+				whereis = null;
+			}
+			System.out.println(os);
+			whereis.waitFor();
 			Process compile = r.exec("pdflatex " + directory + fileName
 					+ ".tex");
 			compile.waitFor();
@@ -128,6 +140,7 @@ public class LaTeXFile {
 			Process move = r.exec("mv " + fileName + ".pdf "
 					+ endDir.replace(" ", "\\ "));
 			move.waitFor();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {

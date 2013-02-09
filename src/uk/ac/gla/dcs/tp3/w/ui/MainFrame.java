@@ -91,7 +91,7 @@ public class MainFrame extends JFrame {
 		menu = new JMenu("File");
 		menuBar.add(menu);
 
-		menuItem = new JMenuItem("Open");
+		menuItem = new JMenuItem("Open...");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int value = fc.showOpenDialog(screenPanel);
@@ -142,7 +142,7 @@ public class MainFrame extends JFrame {
 		});
 		menu.add(menuItem);
 
-		submenu = new JMenu("Print...");
+		submenu = new JMenu("Print");
 
 		menuItem = new JMenuItem("Add to print");
 		menuItem.addActionListener(new ActionListener() {
@@ -158,7 +158,7 @@ public class MainFrame extends JFrame {
 		submenu.add(menuItem);
 
 		submenu.addSeparator();
-		menuItem = new JMenuItem("Print");
+		menuItem = new JMenuItem("Print...");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (LF.getNumContents() == 0) {
