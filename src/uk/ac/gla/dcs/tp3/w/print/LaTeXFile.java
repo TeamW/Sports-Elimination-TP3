@@ -138,7 +138,7 @@ public class LaTeXFile {
 					+ ".aux " + directory + fileName + ".tex");
 			remove.waitFor();
 			Process move = r.exec("mv " + fileName + ".pdf "
-					+ endDir.replace(" ", "\\ "));
+					+ endDir.replace(" ", ""));
 			move.waitFor();
 			
 		} catch (IOException e) {
