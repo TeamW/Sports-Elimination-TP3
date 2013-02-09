@@ -367,8 +367,27 @@ public class MainFrame extends JFrame {
 		});
 		navPanel.add(nextButton, BorderLayout.EAST);
 
-		// add comboBox
-		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7 };
+		// add comboBoxes
+		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7, 8, 9,
+								10, 11, 12, 13, 14, 15, 16,
+								17, 18, 19, 20, 21, 22, 23,
+								24, 25, 26, 27, 28, 29, 30};
+		String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+		          		"July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+		Integer[] years = {2011, 2012};
+		
+		final JComboBox yearBox = new JComboBox(years);
+		yearBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				//numDaysToMove = (String) yearBox.getSelectedItem();
+			}
+		});
+		final JComboBox monthBox = new JComboBox(months);
+		monthBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				//numDaysToMove = (String) monthBox.getSelectedItem();
+			}
+		});
 		final JComboBox daysToMoveBox = new JComboBox(daysToMove);
 		daysToMoveBox.setSelectedIndex(0);
 		daysToMoveBox.addActionListener(new ActionListener() {
@@ -376,7 +395,16 @@ public class MainFrame extends JFrame {
 				numDaysToMove = (Integer) daysToMoveBox.getSelectedItem();
 			}
 		});
-		navPanel.add(daysToMoveBox, BorderLayout.CENTER);
+		
+		
+		JPanel dateSelectionPanel = new JPanel();
+		dateSelectionPanel.add(daysToMoveBox);
+		dateSelectionPanel.add(monthBox);
+		dateSelectionPanel.add(yearBox);
+		
+		navPanel.add(dateSelectionPanel);
+		//navPanel.add(panel);
+		
 	}
 
 	private void initTable(JPanel tablePanel) {
