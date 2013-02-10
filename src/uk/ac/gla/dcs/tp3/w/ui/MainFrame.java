@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
 	private final JFileChooser fc = new JFileChooser();
 	private Parser p = new Parser();
 	private LaTeXFile LF;
+	private TableMouseListener listener;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -109,6 +110,7 @@ public class MainFrame extends JFrame {
 					if (valid) {
 						divisions = p.getDivisions();
 						table.changeDivisions(divisions);
+						listener.updateDivision(divisions);
 						// Calculate the start and end dates, set table to
 						// display the end date
 						calcStartDate();
@@ -413,7 +415,8 @@ public class MainFrame extends JFrame {
 		table = new Table(divisions);
 		table.setFillsViewportHeight(true);
 		table.setAutoCreateRowSorter(true);
-		table.addMouseListener(new TableMouseListener(table, divisions, this));
+		listener = new TableMouseListener(table, divisions, this);
+		table.addMouseListener(listener);
 		DefaultRowSorter<?, ?> sorter = ((DefaultRowSorter<?, ?>) table
 				.getRowSorter());
 		ArrayList<SortKey> list = new ArrayList<SortKey>();

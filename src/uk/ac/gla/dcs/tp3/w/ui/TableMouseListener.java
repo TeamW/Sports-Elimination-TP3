@@ -43,6 +43,10 @@ public class TableMouseListener implements MouseListener {
 		return table.getSelectedColumn() == 3;
 	}
 
+	public void updateDivision(HashMap<String, Division> divisions) {
+		this.divisions = divisions;
+	}
+	
 	private boolean validTeam(Team t) {
 		return t.getName().equalsIgnoreCase(s) && t.isEliminated();
 	}
