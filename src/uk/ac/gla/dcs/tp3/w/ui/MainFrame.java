@@ -109,7 +109,13 @@ public class MainFrame extends JFrame {
 					if (valid) {
 						divisions = p.getDivisions();
 						table.changeDivisions(divisions);
+						// Calculate the start and end dates, set table to
+						// display the end date
+						calcStartDate();
+						calcEndDate();
 						updateMatchesPlayed();
+						dateLabel.setText("Current date: "
+								+ displayDate.toString());
 						JOptionPane.showMessageDialog(screenPanel,
 								"Valid file format");
 					} else {
@@ -147,14 +153,14 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("Add to print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LF.addDivisionFromJTable(table,displayDate);
+				LF.addDivisionFromJTable(table, displayDate);
 				JOptionPane.showMessageDialog(
 						screenPanel,
 						"Added: " + table.getCurrent() + " "
 								+ displayDate.genDate());
 			}
 		});
-		
+
 		submenu.add(menuItem);
 
 		submenu.addSeparator();
@@ -368,24 +374,22 @@ public class MainFrame extends JFrame {
 		navPanel.add(nextButton, BorderLayout.EAST);
 
 		// add comboBoxes
-		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7, 8, 9,
-								10, 11, 12, 13, 14, 15, 16,
-								17, 18, 19, 20, 21, 22, 23,
-								24, 25, 26, 27, 28, 29, 30};
-		String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-		          		"July", "Aug", "Sep", "Oct", "Nov", "Dec"};
-		Integer[] years = {2011, 2012};
-		
+		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+				15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+		String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July",
+				"Aug", "Sep", "Oct", "Nov", "Dec" };
+		Integer[] years = { 2011, 2012 };
+
 		final JComboBox yearBox = new JComboBox(years);
 		yearBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//numDaysToMove = (String) yearBox.getSelectedItem();
+				// numDaysToMove = (String) yearBox.getSelectedItem();
 			}
 		});
 		final JComboBox monthBox = new JComboBox(months);
 		monthBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//numDaysToMove = (String) monthBox.getSelectedItem();
+				// numDaysToMove = (String) monthBox.getSelectedItem();
 			}
 		});
 		final JComboBox daysToMoveBox = new JComboBox(daysToMove);
@@ -395,15 +399,14 @@ public class MainFrame extends JFrame {
 				numDaysToMove = (Integer) daysToMoveBox.getSelectedItem();
 			}
 		});
-		
-		
+
 		JPanel dateSelectionPanel = new JPanel();
 		dateSelectionPanel.add(daysToMoveBox);
 		dateSelectionPanel.add(monthBox);
 		dateSelectionPanel.add(yearBox);
-		
+
 		navPanel.add(dateSelectionPanel);
-		
+
 	}
 
 	private void initTable(JPanel tablePanel) {
