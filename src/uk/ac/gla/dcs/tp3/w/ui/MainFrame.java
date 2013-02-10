@@ -392,8 +392,8 @@ public class MainFrame extends JFrame {
 			}
 		});
 		final JComboBox monthBox = new JComboBox(months);
-		final JComboBox dayBox = new JComboBox(days);//need to be able to reference this
-														   //in monthBox's handler
+		//need to be able to reference this in monthBox's handler
+		final JComboBox dayBox = new JComboBox(days);
 		monthBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				//set the month and set the day box's values to match the selected month
