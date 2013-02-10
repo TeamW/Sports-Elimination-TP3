@@ -138,22 +138,8 @@ public class Date {
 	public String toString() {
 		return String.format("%d/%d/%d", day, month, year);
 	}
-	
-	public String genDate(){
-		switch (this.getMonth()){
-		case 1 : return ""+this.getDay()+ " Jan " + this.getYear();
-		case 2 : return ""+this.getDay()+ " Feb " + this.getYear();
-		case 3 : return ""+this.getDay()+ " Mar " + this.getYear();
-		case 4 : return ""+this.getDay()+ " Apr " + this.getYear();
-		case 5 : return ""+this.getDay()+ " May " + this.getYear();
-		case 6 : return ""+this.getDay()+ " Jun " + this.getYear();
-		case 7 : return ""+this.getDay()+ " Jul " + this.getYear();
-		case 8 : return ""+this.getDay()+ " Aug " + this.getYear();
-		case 9 : return ""+this.getDay()+ " Sep " + this.getYear();
-		case 10 : return ""+this.getDay()+ " Oct " + this.getYear();
-		case 11 : return ""+this.getDay()+ " Nov " + this.getYear();
-		case 12 : return ""+this.getDay()+ " Dec " + this.getYear();
-		default: return "";
-		}
+
+	public String genDate() {
+		return getDay() + " " + Month.getMonthNameShort(getMonth()) + " " + getYear();
 	}
 }
