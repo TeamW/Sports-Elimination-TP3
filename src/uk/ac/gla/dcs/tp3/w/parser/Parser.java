@@ -61,6 +61,7 @@ public class Parser {
 	}
 
 	private void init() {
+		divisions = new HashMap<String, Division>();
 		String[] aETeams = { "Baltimore Orioles", "Boston Red Sox",
 				"New York Yankees", "Tampa Bay Rays", "Toronto Blue Jays" };
 		initDivision(aETeams, "American East");
