@@ -16,6 +16,7 @@ import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
 
+
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +33,12 @@ public class MainFrame extends JFrame {
 	private Parser p = new Parser();
 	private LaTeXFile LF;
 	private TableMouseListener listener;
+	//values for the comboBoxes, need them here to allow editing in inner classes
+	private Integer[] days = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+			15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+	private String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+			"Aug", "Sep", "Oct", "Nov", "Dec" };
+	private Integer[] years = { 2011, 2012 };
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -377,34 +384,40 @@ public class MainFrame extends JFrame {
 		navPanel.add(nextButton, BorderLayout.EAST);
 
 		// add comboBoxes
-		Integer[] daysToMove = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-				15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
-		String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July",
-				"Aug", "Sep", "Oct", "Nov", "Dec" };
-		Integer[] years = { 2011, 2012 };
-
 		final JComboBox yearBox = new JComboBox(years);
 		yearBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				// numDaysToMove = (String) yearBox.getSelectedItem();
+				displayDate.setYear((Integer)yearBox.getSelectedItem());
+				updateMatchesPlayed();
 			}
 		});
 		final JComboBox monthBox = new JComboBox(months);
+		final JComboBox dayBox = new JComboBox(days);//need to be able to reference this
+														   //in monthBox's handler
 		monthBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				// numDaysToMove = (String) monthBox.getSelectedItem();
+				//set the month and set the day box's values to match the selected month
+				String m = (String)monthBox.getSelectedItem();
+				displayDate.setMonth(Month.getMonthNumber(m.toUpperCase()));
+				int daysInMonth = Month.daysInMonth(displayDate.getMonth(), displayDate.getYear());
+				days = new Integer[daysInMonth];
+				for(int i = 0; i < daysInMonth; i++)
+					days[i] = i + 1;
+				System.out.println(displayDate);
+				updateMatchesPlayed();
 			}
 		});
-		final JComboBox daysToMoveBox = new JComboBox(daysToMove);
-		daysToMoveBox.setSelectedIndex(0);
-		daysToMoveBox.addActionListener(new ActionListener() {
+		
+		dayBox.setSelectedIndex(0);
+		dayBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				numDaysToMove = (Integer) daysToMoveBox.getSelectedItem();
+				displayDate.setDate((Integer)dayBox.getSelectedItem());
+				updateMatchesPlayed();
 			}
 		});
 
 		JPanel dateSelectionPanel = new JPanel();
-		dateSelectionPanel.add(daysToMoveBox);
+		dateSelectionPanel.add(dayBox);
 		dateSelectionPanel.add(monthBox);
 		dateSelectionPanel.add(yearBox);
 
