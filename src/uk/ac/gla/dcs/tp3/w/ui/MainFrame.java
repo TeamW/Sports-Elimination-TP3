@@ -333,6 +333,7 @@ public class MainFrame extends JFrame {
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initNavPanel(JPanel navPanel) {
 		JButton backButton = new JButton("Previous Day");
 		backButton.setToolTipText("Move to previous day of results");
