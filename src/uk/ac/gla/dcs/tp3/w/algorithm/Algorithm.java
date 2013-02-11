@@ -3,6 +3,7 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import uk.ac.gla.dcs.tp3.w.league.Date;
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Match;
@@ -287,6 +288,22 @@ public class Algorithm {
 		// If team at middle of range has not been eliminated...
 		else
 			return binaryDetermine(T, s, mid - 1, highestElim);
+	}
+
+	public void linearFirstNonTrivElim(DateTime start, DateTime end) {
+		DateTime current = start, incremented;
+		for (Team t : d.teamsToArray()) {
+			UpdateMatches(d, current);
+			fordFulkerson(t);
+			if (t.isEliminated() && t.getTrivial()) {
+				d.setFirstNTTeamElim(t);
+				d.setFirstNTTeamElimdate(current);
+				break;
+			}
+			incremented = new DateTime(current);
+			incremented.incrementDate();
+			current = incremented;
+		}
 	}
 
 	/*
