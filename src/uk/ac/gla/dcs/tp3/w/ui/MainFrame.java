@@ -84,6 +84,7 @@ public class MainFrame extends JFrame {
 		pack();
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	// Set up menu bar
