@@ -127,7 +127,9 @@ public class LaTeXFile {
 				whereis = null;
 			}
 			System.out.println(os);
-			whereis.waitFor();
+			if (whereis != null) {
+				whereis.waitFor();
+			}
 			Process compile = r.exec("pdflatex " + directory + fileName
 					+ ".tex");
 			compile.waitFor();
