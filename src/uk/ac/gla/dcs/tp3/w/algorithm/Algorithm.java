@@ -3,7 +3,6 @@ package uk.ac.gla.dcs.tp3.w.algorithm;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import uk.ac.gla.dcs.tp3.w.league.Date;
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
 import uk.ac.gla.dcs.tp3.w.league.Division;
 import uk.ac.gla.dcs.tp3.w.league.Match;
@@ -308,35 +307,26 @@ public class Algorithm {
 
 	/*
 	 * Finds the first Non trivially eliminated team for a division . Sets this
-	 * value in Divion
+	 * value in Division
 	 */
 	public void FirstNonTrivTeamElim() {
 		// mid point
 		int mid = (d.getFixtures().size() / 2);
 		DateTime targetDate = new DateTime(d.getFixtures().get(mid)
 				.getDateTime());
-		boolean singleInstance = false;
 		while (d.getFirstNTTeamElim() == null && mid != 0) {
 			// set date
 			UpdateMatches(d, targetDate);
 			int nonTrivCount = 0;
 			// check bottom team
 			if (d.getTeams().get(0).isEliminated()) {
-				
-				
 				if (d.getFirstNTTeamElim() == null) {
-				
-				// look at eliminated teams
-				for (int y = 0; y < d.getTeams().size(); y++) {					
-					
+					// look at eliminated teams
+					for (int y = 0; y < d.getTeams().size(); y++) {
 						Team t = d.getTeams().get(y);
-						int TopTeamsPointsCheck = d.maxPoints();
-						int ElimTeamsPointscheck = t.getPoints();
 						if (t.isEliminated()) {
-							boolean TeamElimCheck = false;
 							// get date of elimination
 							while (t.isEliminated()) {
-								TeamElimCheck = t.isEliminated();
 								DateTime td = new DateTime(d.getFixtures()
 										.get(mid + 1).getDateTime());
 								mid = mid + 1;
@@ -349,7 +339,6 @@ public class Algorithm {
 							UpdateMatches(d, elimdate);
 							// Trivial check
 							int pointDiff = (d.maxPoints() - t.getPoints());
-							int matchesLeft = t.getUpcomingMatches().size();
 							if (pointDiff <= t.getUpcomingMatches().size()
 									&& nonTrivCount <= 1) {
 								d.setFirstNTTeamElim(t);
@@ -374,8 +363,6 @@ public class Algorithm {
 				mid = (mid / 2);
 				targetDate = d.getFixtures().get(mid).getDateTime();
 			}
-			if (nonTrivCount == 1)
-				singleInstance = true;
 		} // while single instance
 	}
 
