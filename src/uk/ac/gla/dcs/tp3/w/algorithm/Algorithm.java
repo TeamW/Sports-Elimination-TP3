@@ -322,9 +322,13 @@ public class Algorithm {
 			int nonTrivCount = 0;
 			// check bottom team
 			if (d.getTeams().get(0).isEliminated()) {
+				
+				
+				if (d.getFirstNTTeamElim() == null) {
+				
 				// look at eliminated teams
-				for (int y = 0; y < d.getTeams().size(); y++) {
-					if (d.getFirstNTTeamElim() == null) {
+				for (int y = 0; y < d.getTeams().size(); y++) {					
+					
 						Team t = d.getTeams().get(y);
 						int TopTeamsPointsCheck = d.maxPoints();
 						int ElimTeamsPointscheck = t.getPoints();
