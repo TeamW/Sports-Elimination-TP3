@@ -58,13 +58,15 @@ public class MainFrame extends JFrame {
 		screenPanel.add(tablePanel, BorderLayout.CENTER);
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
 		getContentPane().add(screenPanel);
-
+		
+				
 		// Display menu bar
 		initMenuBar();
 
 		// Add the JTable for showing league data
 		initTable(tablePanel);
-
+		
+		
 		// Calculate the start and end dates, set table to
 		// display the end date
 		calcStartDate();
@@ -223,7 +225,7 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("The Team");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(screenPanel, "We are Team W.");
+				JOptionPane.showMessageDialog(screenPanel, "We are Team W. \n \nGordon Reid: 1002536R\n Ryan Wells: 1002253W \nDavid Selkirk: 1003646S\nJames Gallagher: 0800899G\nKristopher Stewart: 1007175S");
 			}
 		});
 		menu.add(menuItem);
