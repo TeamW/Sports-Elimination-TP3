@@ -70,14 +70,7 @@ public class MainFrame extends JFrame {
 		// Calculate the start and end dates, set table to
 		// display the end date
 		calcStartDate();
-		calcEndDate();
-		
-		for (Division d: divisions.values()) {
-			Algorithm alg = new Algorithm(d);
-			alg.linearFirstNonTrivElim(startDate, endDate);
-			System.out.println(d.getFirstNTTeamElim() + " on " + d.getFirstNTTeamElimdate());
-		}
-		
+		calcEndDate();	
 		updateMatchesPlayed();
 
 		// Add the division and league radio buttons
