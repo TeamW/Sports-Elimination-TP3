@@ -121,8 +121,8 @@ public class LaTeXFile {
 			Runtime r = Runtime.getRuntime();
 			String os = System.getProperty("os.name");
 			Process whereis;
-			if (os.toLowerCase().contains("linux")) {
-				whereis = r.exec("whereis pdflatex");
+			if (os.toLowerCase().contains("mac")) {
+				whereis = r.exec("which pdflatex");
 			} else {
 				whereis = null;
 			}
@@ -145,6 +145,7 @@ public class LaTeXFile {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		sections = new LinkedList<DocumentSection>();
 		return true;
 	}
 }
