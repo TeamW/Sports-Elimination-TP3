@@ -2,8 +2,8 @@ package uk.ac.gla.dcs.tp3.w.print;
 
 public class TextSection extends DocumentSection{
 
-	public TextSection(String text) {
-		super();
+	public TextSection(String title, String text) {
+		super(title);
 		sb.append(text);
 	}
 	

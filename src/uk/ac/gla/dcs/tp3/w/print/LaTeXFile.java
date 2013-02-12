@@ -71,13 +71,13 @@ public class LaTeXFile {
 				divsb.toString());
 	}
 
-	public void addTextSection(String s) {
-		TextSection ts = new TextSection(s);
+	public void addTextSection(String title, String s) {
+		TextSection ts = new TextSection(title,s);
 		this.sections.add(ts);
 	}
 
-	public void addTextSection(StringBuilder s) {
-		TextSection ts = new TextSection("");
+	public void addTextSection(String title, StringBuilder s) {
+		TextSection ts = new TextSection(title, "");
 		ts.append(s);
 		this.sections.add(ts);
 	}
@@ -86,6 +86,15 @@ public class LaTeXFile {
 		return sections.size();
 	}
 
+	public String getTitles(){
+		if (sections.size()==0) return null;
+		StringBuilder s = new StringBuilder();
+		for(DocumentSection d : sections){
+			s.append(d.getTitle()+"\n");
+		}
+		return s.toString();
+	}
+	
 	public boolean write(String fileName, String endDir) {
 		this.fileName = fileName;
 		this.directory = System.getProperty("user.dir")

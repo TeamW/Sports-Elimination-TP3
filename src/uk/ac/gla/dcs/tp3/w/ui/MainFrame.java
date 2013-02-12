@@ -160,7 +160,7 @@ public class MainFrame extends JFrame {
 		menu.add(menuItem);
 
 		submenu = new JMenu("Print");
-
+		
 		menuItem = new JMenuItem("Add to print");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,6 +172,21 @@ public class MainFrame extends JFrame {
 			}
 		});
 
+		submenu.add(menuItem);
+		
+		menuItem = new JMenuItem("View current print");
+		menuItem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				String titles = LF.getTitles();
+				if (titles==null){
+					JOptionPane.showMessageDialog(screenPanel, "Nothing in print queue");
+				}
+				else{
+					JOptionPane.showMessageDialog(screenPanel, titles);
+				}
+			}
+		});
+		
 		submenu.add(menuItem);
 
 		submenu.addSeparator();
