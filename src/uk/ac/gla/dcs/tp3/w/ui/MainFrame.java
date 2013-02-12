@@ -407,12 +407,15 @@ public class MainFrame extends JFrame {
 		monthBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				//set the month and set the day box's values to match the selected month
+				int oldDaySelected = dayBox.getSelectedIndex();
 				String m = (String)monthBox.getSelectedItem();
 				displayDate.setMonth(Month.getMonthNumber(m.toUpperCase()));
 				int daysInMonth = Month.daysInMonth(displayDate.getMonth(), displayDate.getYear());
 				days = new Integer[daysInMonth];
 				for(int i = 0; i < daysInMonth; i++)
-					days[i] = i + 1;
+					days[i] = i+1;
+				dayBox.setModel(new DefaultComboBoxModel(days));
+				dayBox.setSelectedIndex(oldDaySelected);
 				System.out.println(displayDate);
 				updateMatchesPlayed();
 			}
