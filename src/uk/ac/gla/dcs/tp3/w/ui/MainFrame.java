@@ -16,7 +16,6 @@ import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
 
-
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -33,11 +32,12 @@ public class MainFrame extends JFrame {
 	private Parser p = new Parser();
 	private LaTeXFile LF;
 	private TableMouseListener listener;
-	//values for the comboBoxes, need them here to allow editing in inner classes
+	// values for the comboBoxes, need them here to allow editing in inner
+	// classes
 	private Integer[] days = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
 			15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
-	private String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-			"Aug", "Sep", "Oct", "Nov", "Dec" };
+	private String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private Integer[] years = { 2011, 2012 };
 
 	public MainFrame(HashMap<String, Division> d) {
@@ -58,19 +58,17 @@ public class MainFrame extends JFrame {
 		screenPanel.add(tablePanel, BorderLayout.CENTER);
 		screenPanel.add(navPanel, BorderLayout.PAGE_END);
 		getContentPane().add(screenPanel);
-		
-				
+
 		// Display menu bar
 		initMenuBar();
 
 		// Add the JTable for showing league data
 		initTable(tablePanel);
-		
-		
+
 		// Calculate the start and end dates, set table to
 		// display the end date
 		calcStartDate();
-		calcEndDate();	
+		calcEndDate();
 		updateMatchesPlayed();
 
 		// Add the division and league radio buttons
@@ -86,6 +84,7 @@ public class MainFrame extends JFrame {
 		pack();
 		setSize((int) (getWidth() * SPACING), getHeight());
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
+		tablePanel.setSize(getWidth(), 100);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -218,7 +217,10 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("The Team");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(screenPanel, "We are Team W. \n \nGordon Reid: 1002536R\n Ryan Wells: 1002253W \nDavid Selkirk: 1003646S\nJames Gallagher: 0800899G\nKristopher Stewart: 1007175S");
+				JOptionPane
+						.showMessageDialog(
+								screenPanel,
+								"We are Team W. \n \nGordon Reid: 1002536R\n Ryan Wells: 1002253W \nDavid Selkirk: 1003646S\nJames Gallagher: 0800899G\nKristopher Stewart: 1007175S");
 			}
 		});
 		menu.add(menuItem);
@@ -390,34 +392,36 @@ public class MainFrame extends JFrame {
 		final JComboBox yearBox = new JComboBox(years);
 		yearBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				displayDate.setYear((Integer)yearBox.getSelectedItem());
+				displayDate.setYear((Integer) yearBox.getSelectedItem());
 				updateMatchesPlayed();
 			}
 		});
 		final JComboBox monthBox = new JComboBox(months);
-		//need to be able to reference this in monthBox's handler
+		// need to be able to reference this in monthBox's handler
 		final JComboBox dayBox = new JComboBox(days);
 		monthBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//set the month and set the day box's values to match the selected month
+				// set the month and set the day box's values to match the
+				// selected month
 				int oldDaySelected = dayBox.getSelectedIndex();
-				String m = (String)monthBox.getSelectedItem();
+				String m = (String) monthBox.getSelectedItem();
 				displayDate.setMonth(Month.getMonthNumber(m.toUpperCase()));
-				int daysInMonth = Month.daysInMonth(displayDate.getMonth(), displayDate.getYear());
+				int daysInMonth = Month.daysInMonth(displayDate.getMonth(),
+						displayDate.getYear());
 				days = new Integer[daysInMonth];
-				for(int i = 0; i < daysInMonth; i++)
-					days[i] = i+1;
+				for (int i = 0; i < daysInMonth; i++)
+					days[i] = i + 1;
 				dayBox.setModel(new DefaultComboBoxModel(days));
 				dayBox.setSelectedIndex(oldDaySelected);
 				System.out.println(displayDate);
 				updateMatchesPlayed();
 			}
 		});
-		
+
 		dayBox.setSelectedIndex(0);
 		dayBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				displayDate.setDate((Integer)dayBox.getSelectedItem());
+				displayDate.setDate((Integer) dayBox.getSelectedItem());
 				updateMatchesPlayed();
 			}
 		});
