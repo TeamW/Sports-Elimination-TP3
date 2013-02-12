@@ -382,7 +382,7 @@ public class MainFrame extends JFrame {
 	private void initNavPanel(JPanel navPanel) {
 		
 		JLabel FirstNonTriv = new JLabel (" The First Team in this Division to be eliminated in a non trivial " +
-					"manner was TEAM"+  " on the DATE") ;
+					"manner was "+ table.getCurrentDiv().getFirstNTTeamElim()) ;
 		navPanel.add(FirstNonTriv, BorderLayout.NORTH);
 		
 		
