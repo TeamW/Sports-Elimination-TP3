@@ -32,10 +32,9 @@ public class MainFrame extends JFrame {
 	private Parser p = new Parser();
 	private LaTeXFile LF;
 	private TableMouseListener listener;
-	
+
 	private JLabel FirstNonTriv;
-	
-	
+
 	// values for the comboBoxes, need them here to allow editing in inner
 	// classes
 	private Integer[] days = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
@@ -336,6 +335,16 @@ public class MainFrame extends JFrame {
 				String[] sa = s.split(" ");
 				sa[0] = rb.getText();
 				table.setCurrent(sa[0] + " " + sa[1]);
+				if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
+					FirstNonTriv
+							.setText("The First Team in this Division to be eliminated in a non trivial "
+									+ "manner was "
+									+ table.getCurrentDiv()
+											.getFirstNTTeamElim());
+				} else {
+					FirstNonTriv
+							.setText("This division has no non-trivial elimination.");
+				}
 			}
 		};
 		ActionListener divisionListener = new ActionListener() {
@@ -346,10 +355,20 @@ public class MainFrame extends JFrame {
 				else
 					return;
 				String s = table.getCurrent();
-			
+
 				String[] sa = s.split(" ");
 				sa[1] = rb.getText();
 				table.setCurrent(sa[0] + " " + sa[1]);
+				if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
+					FirstNonTriv
+							.setText("The First Team in this Division to be eliminated in a non trivial "
+									+ "manner was "
+									+ table.getCurrentDiv()
+											.getFirstNTTeamElim());
+				} else {
+					FirstNonTriv
+							.setText("This division has no non-trivial elimination.");
+				}
 			}
 		};
 
@@ -380,12 +399,19 @@ public class MainFrame extends JFrame {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initNavPanel(JPanel navPanel) {
-		
-		JLabel FirstNonTriv = new JLabel (" The First Team in this Division to be eliminated in a non trivial " +
-					"manner was "+ table.getCurrentDiv().getFirstNTTeamElim()) ;
+		if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
+			FirstNonTriv = new JLabel(
+					"The First Team in this Division to be eliminated in a non trivial "
+							+ "manner was "
+							+ table.getCurrentDiv().getFirstNTTeamElim(),
+					JLabel.CENTER);
+		} else {
+			FirstNonTriv = new JLabel(
+					"This division has no non-trivial elimination.",
+					JLabel.CENTER);
+		}
 		navPanel.add(FirstNonTriv, BorderLayout.NORTH);
-		
-		
+
 		JButton backButton = new JButton("Previous Day");
 		backButton.setToolTipText("Move to previous day of results");
 		backButton.addActionListener(new ActionListener() {
