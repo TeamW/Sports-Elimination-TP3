@@ -72,7 +72,7 @@ public class LaTeXFile {
 	}
 
 	public void addTextSection(String title, String s) {
-		TextSection ts = new TextSection(title,s);
+		TextSection ts = new TextSection(title, s);
 		this.sections.add(ts);
 	}
 
@@ -86,15 +86,20 @@ public class LaTeXFile {
 		return sections.size();
 	}
 
-	public String getTitles(){
-		if (sections.size()==0) return null;
+	public String getTitles() {
+		if (sections.size() == 0)
+			return null;
 		StringBuilder s = new StringBuilder();
-		for(DocumentSection d : sections){
-			s.append(d.getTitle()+"\n");
+		for (DocumentSection d : sections) {
+			s.append(d.getTitle() + "\n");
 		}
 		return s.toString();
 	}
-	
+
+	public void clearDocument() {
+		sections = new LinkedList<DocumentSection>();
+	}
+
 	public boolean write(String fileName, String endDir) {
 		this.fileName = fileName;
 		this.directory = System.getProperty("user.dir")
@@ -154,7 +159,7 @@ public class LaTeXFile {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		sections = new LinkedList<DocumentSection>();
+		clearDocument();
 		return true;
 	}
 }
