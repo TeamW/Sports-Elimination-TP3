@@ -13,14 +13,14 @@ import uk.ac.gla.dcs.tp3.w.parser.Parser;
 
 public class GenerateLeague {
 	private String fileName = null;
-	private int gamesPerTeam = 180;
+	private int gamesPerTeam = 162;
 	private boolean verbose = false;
-	
+
 	public GenerateLeague(String fileName) {
 		this.fileName = fileName;
 	}
-	
-	public boolean generate(){
+
+	public boolean generate() {
 		Parser p = new Parser();
 		p.generateStandardDivisionInfo();
 		int teamSize, gamesBetweenTeams, i, j, k;
@@ -29,65 +29,70 @@ public class GenerateLeague {
 		DateTime date = new DateTime();
 		ArrayList<String> fixtures = new ArrayList<String>();
 		String fixture;
-		for(Division d: p.getDivisions().values()){
+		for (Division d : p.getDivisions().values()) {
 			System.out.println("New Division: " + d.getName());
 			ArrayList<Team> teams = d.getTeams();
 			teamSize = teams.size();
-			gamesBetweenTeams = gamesPerTeam/teamSize;
+			gamesBetweenTeams = gamesPerTeam / (teamSize - 1);
 			System.out.println("Games Between Teams: " + gamesBetweenTeams);
-			for(i=0;i<teamSize;i++){
-				for(j=i+1;j<teamSize;j++){
-					for(k=0;k<gamesBetweenTeams;k++){
+			for (i = 0; i < teamSize; i++) {
+				for (j = i + 1; j < teamSize; j++) {
+					for (k = 0; k < gamesBetweenTeams; k++) {
 						scoreA = r.nextInt(10);
 						scoreB = r.nextInt(10);
-						if (scoreA==scoreB) scoreB=(scoreB+1)%10;
-						if(!fixtures.isEmpty())index = r.nextInt(fixtures.size());
-						fixture = date.formatTime() + " " + teams.get(i) + " - " + teams.get(j) + " " + scoreA +":"+scoreB+"\n";
-						if(verbose)	System.out.println(fixture);
+						if (scoreA == scoreB)
+							scoreB = (scoreB + 1) % 10;
+						if (!fixtures.isEmpty())
+							index = r.nextInt(fixtures.size());
+						fixture = date.formatTime() + " " + teams.get(i)
+								+ " - " + teams.get(j) + " " + scoreA + ":"
+								+ scoreB + "\n";
+						if (verbose)
+							System.out.println(fixture);
 						fixtures.add(index, fixture);
 					}
 				}
 			}
 		}
-		i=0;
+		i = 0;
 		int totEntries = fixtures.size();
-		while(i<totEntries){
+		while (i < totEntries) {
 			date.incrementDate();
-			fixtures.add(i,"\n");
-			fixtures.add(i+1,date.genDate()+"\n");
-			totEntries=totEntries+2;
-			i = i+10+r.nextInt(10);
+			fixtures.add(i, "\n");
+			fixtures.add(i + 1, date.genDate() + "\n");
+			totEntries = totEntries + 2;
+			i = i + 10 + r.nextInt(10);
 		}
 		return writeToFile(fixtures);
 	}
-	
-	private boolean writeToFile(ArrayList<String> lines){
+
+	private boolean writeToFile(ArrayList<String> lines) {
 		FileWriter fw;
-		try{
+		try {
 			fw = new FileWriter(fileName);
-		} catch (IOException IOE){
+		} catch (IOException IOE) {
 			IOE.printStackTrace();
 			return false;
 		}
 		BufferedWriter bf = new BufferedWriter(fw);
-		try{
-			for(String line : lines){
+		try {
+			for (String line : lines) {
 				bf.write(line);
 			}
-		}catch (IOException IOE){
+		} catch (IOException IOE) {
 			IOE.printStackTrace();
 			return false;
 		}
-		try{
+		try {
 			bf.close();
-		}catch (IOException IOE){
+		} catch (IOException IOE) {
 			IOE.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-	
-	public void verbose(){
-		verbose=true;
+
+	public void verbose() {
+		verbose = true;
 	}
 }
