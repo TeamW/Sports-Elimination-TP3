@@ -1,9 +1,6 @@
 package uk.ac.gla.dcs.tp3.w.print;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
@@ -131,21 +128,16 @@ public class LaTeXFile {
 			e.printStackTrace();
 			return false;
 		}
+		Runtime r = Runtime.getRuntime();
+		String os = System.getProperty("os.name");
 		try {
-			Runtime r = Runtime.getRuntime();
-			String os = System.getProperty("os.name");
-			Process whereis;
+			Process compile;
 			if (os.toLowerCase().contains("mac")) {
-				whereis = r.exec("which pdflatex");
+				compile = r.exec("/usr/texbin/pdflatex " + directory + fileName
+						+ ".tex");
 			} else {
-				whereis = null;
+				compile = r.exec("pdflatex " + directory + fileName + ".tex");
 			}
-			System.out.println(os);
-			if (whereis != null) {
-				whereis.waitFor();
-			}
-			Process compile = r.exec("pdflatex " + directory + fileName
-					+ ".tex");
 			compile.waitFor();
 			Process remove = r.exec("rm " + fileName + ".log " + fileName
 					+ ".aux " + directory + fileName + ".tex");
