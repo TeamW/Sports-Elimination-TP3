@@ -455,6 +455,7 @@ public class MainFrame extends JFrame {
 
 		// add comboBoxes
 		final JComboBox yearBox = new JComboBox(years);
+		//yearBox.setSelectedIndex(displayDate.get)
 		yearBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				displayDate.setYear((Integer) yearBox.getSelectedItem());
@@ -462,6 +463,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		final JComboBox monthBox = new JComboBox(months);
+		monthBox.setSelectedIndex(displayDate.getMonth()-1);
 		// need to be able to reference this in monthBox's handler
 		final JComboBox dayBox = new JComboBox(days);
 		monthBox.addActionListener(new ActionListener() {
@@ -483,7 +485,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 
-		dayBox.setSelectedIndex(0);
+		dayBox.setSelectedIndex(displayDate.getDay()-1);
 		dayBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				displayDate.setDate((Integer) dayBox.getSelectedItem());
