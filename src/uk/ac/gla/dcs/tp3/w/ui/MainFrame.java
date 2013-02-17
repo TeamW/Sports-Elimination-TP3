@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 			15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
 	private String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
 			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-	private Integer[] years = { 2011, 2012 };
+	private Integer[] years;
 
 	public MainFrame(HashMap<String, Division> d) {
 		divisions = d;
@@ -453,6 +453,10 @@ public class MainFrame extends JFrame {
 		navPanel.add(nextButton, BorderLayout.EAST);
 
 		// add comboBoxes
+		years = new Integer[(endDate.getYear() - startDate.getYear()) + 1];
+		System.out.println(endDate.getYear() + " " + startDate.getYear());
+		for(int i = 0; i <= endDate.getYear() - startDate.getYear(); i++)
+			years[i] = startDate.getYear() + i;
 		final JComboBox yearBox = new JComboBox(years);
 		//yearBox.setSelectedIndex(displayDate.get)
 		yearBox.addActionListener(new ActionListener() {
