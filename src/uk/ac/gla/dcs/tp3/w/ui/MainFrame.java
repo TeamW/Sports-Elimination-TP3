@@ -464,6 +464,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
+		//now add the single day navigation buttons
 		JButton backButton = new JButton("Previous Day");
 		backButton.setToolTipText("Move to previous day of results");
 		backButton.addActionListener(new ActionListener() {
