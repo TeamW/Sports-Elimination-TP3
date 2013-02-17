@@ -397,6 +397,13 @@ public class MainFrame extends JFrame {
 		}
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 	}
+	
+	private void updateComboBoxes(JComboBox days, JComboBox months, JComboBox years)
+	{
+		days.setSelectedIndex(displayDate.getDay() - 1);
+		months.setSelectedIndex(displayDate.getMonth() - 1);
+		years.setSelectedIndex(startDate.getYear() - displayDate.getYear());
+	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initNavPanel(JPanel navPanel) {
@@ -412,45 +419,6 @@ public class MainFrame extends JFrame {
 					JLabel.CENTER);
 		}
 		navPanel.add(FirstNonTriv, BorderLayout.NORTH);
-
-		JButton backButton = new JButton("Previous Day");
-		backButton.setToolTipText("Move to previous day of results");
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				// decrement the day
-				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) {
-					if (!displayDate.equals(startDate)) {
-						System.out.println("Back");
-						displayDate.decrementDate();
-					} else
-						displayDate = new DateTime(startDate);
-				}
-				System.out.println("Current date is now "
-						+ displayDate.toString());
-				updateMatchesPlayed();
-			}
-		});
-		navPanel.add(backButton, BorderLayout.WEST);
-		JButton nextButton = new JButton("Next Day");
-		nextButton.setToolTipText("Move to next day of results");
-		nextButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				// increment the day
-				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) {
-					if (!displayDate.equals(endDate)) {
-						System.out.println("Next");
-						displayDate.incrementDate();
-					} else
-						displayDate = new DateTime(endDate);
-				}
-				System.out.println("Current date is now "
-						+ displayDate.toString());
-				updateMatchesPlayed();
-			}
-		});
-		navPanel.add(nextButton, BorderLayout.EAST);
 
 		// add comboBoxes
 		years = new Integer[(endDate.getYear() - startDate.getYear()) + 1];
@@ -495,6 +463,47 @@ public class MainFrame extends JFrame {
 				updateMatchesPlayed();
 			}
 		});
+		
+		JButton backButton = new JButton("Previous Day");
+		backButton.setToolTipText("Move to previous day of results");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				// decrement the day
+				// then update the model
+				for (int i = 0; i < numDaysToMove; i++) {
+					if (!displayDate.equals(startDate)) {
+						System.out.println("Back");
+						displayDate.decrementDate();
+					} else
+						displayDate = new DateTime(startDate);
+				}
+				System.out.println("Current date is now "
+						+ displayDate.toString());
+				updateComboBoxes(dayBox, monthBox, yearBox);
+				updateMatchesPlayed();
+			}
+		});
+		navPanel.add(backButton, BorderLayout.WEST);
+		JButton nextButton = new JButton("Next Day");
+		nextButton.setToolTipText("Move to next day of results");
+		nextButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				// increment the day
+				// then update the model
+				for (int i = 0; i < numDaysToMove; i++) {
+					if (!displayDate.equals(endDate)) {
+						System.out.println("Next");
+						displayDate.incrementDate();
+					} else
+						displayDate = new DateTime(endDate);
+				}
+				System.out.println("Current date is now "
+						+ displayDate.toString());
+				updateComboBoxes(dayBox, monthBox, yearBox);
+				updateMatchesPlayed();
+			}
+		});
+		navPanel.add(nextButton, BorderLayout.EAST);
 
 		JPanel dateSelectionPanel = new JPanel();
 		dateSelectionPanel.add(dayBox);
