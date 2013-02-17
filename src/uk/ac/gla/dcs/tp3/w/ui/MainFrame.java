@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 	private String[] divisionNames = { "West", "Central", "East" };
 	private DateTime displayDate, startDate, endDate;
 	private int numDaysToMove = 1;
-	private JLabel dateLabel;
+	private JLabel dateLabel = new JLabel();
 	private JPanel screenPanel;
 	private final JFileChooser fc = new JFileChooser();
 	private Parser p = new Parser();
@@ -307,6 +307,7 @@ public class MainFrame extends JFrame {
 			}
 			(new Algorithm(d)).updateDivisionElim();
 		}
+		dateLabel.setText("Current date: " + displayDate.toString());
 		table.setCurrent(table.getCurrent());
 	}
 
@@ -427,7 +428,6 @@ public class MainFrame extends JFrame {
 				}
 				System.out.println("Current date is now "
 						+ displayDate.toString());
-				dateLabel.setText("Current date: " + displayDate.toString());
 				updateMatchesPlayed();
 			}
 		});
@@ -447,7 +447,6 @@ public class MainFrame extends JFrame {
 				}
 				System.out.println("Current date is now "
 						+ displayDate.toString());
-				dateLabel.setText("Current date: " + displayDate.toString());
 				updateMatchesPlayed();
 			}
 		});
