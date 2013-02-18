@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
 	private Parser p = new Parser();
 	private LaTeXFile LF;
 	private TableMouseListener listener;
+	private JComboBox dayBox, monthBox, yearBox;
 
 	private JLabel FirstNonTriv;
 
@@ -67,18 +68,19 @@ public class MainFrame extends JFrame {
 
 		// Add the JTable for showing league data
 		initTable(tablePanel);
-
-		// Calculate the start and end dates, set table to
-		// display the end date
+		
+		// Calculate the start and end dates
 		calcStartDate();
 		calcEndDate();
+		
+		// Add the panel that shows the previous/next week buttons
+		initNavPanel(navPanel);
+
+		// Update the table and date boxes
 		updateMatchesPlayed();
 
 		// Add the division and league radio buttons
 		initTopPanel(topPanel);
-
-		// Add the panel that shows the previous/next week buttons
-		initNavPanel(navPanel);
 
 		// Set the JFrame's attributes
 		setTitle("Team W - Algorithms for Sports Eliminations");
@@ -292,6 +294,17 @@ public class MainFrame extends JFrame {
 	// check if date is less than/equal to current date,
 	// if not unplay match
 	private void updateMatchesPlayed() {
+		
+		// Check the date is in the date range, if not
+		// correct this
+		if (displayDate.before(startDate)) {
+			displayDate = new DateTime(startDate);
+		}
+		else if(!displayDate.before(endDate)) {
+			displayDate = new DateTime(endDate);
+		}
+		
+		
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
 				if (m.getDateTime().before(displayDate)) {
@@ -307,6 +320,9 @@ public class MainFrame extends JFrame {
 			}
 			(new Algorithm(d)).updateDivisionElim();
 		}
+		
+		// Update the date selection boxes, date label and model
+		updateComboBoxes();
 		dateLabel.setText("Current date: " + displayDate.toString());
 		table.setCurrent(table.getCurrent());
 	}
@@ -398,11 +414,11 @@ public class MainFrame extends JFrame {
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 	}
 	
-	private void updateComboBoxes(JComboBox days, JComboBox months, JComboBox years)
+	private void updateComboBoxes()
 	{
-		days.setSelectedIndex(displayDate.getDay() - 1);
-		months.setSelectedIndex(displayDate.getMonth() - 1);
-		years.setSelectedIndex(startDate.getYear() - displayDate.getYear());
+		dayBox.setSelectedIndex(displayDate.getDay() - 1);
+		monthBox.setSelectedIndex(displayDate.getMonth() - 1);
+		yearBox.setSelectedIndex(startDate.getYear() - displayDate.getYear());
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -425,7 +441,7 @@ public class MainFrame extends JFrame {
 		System.out.println(endDate.getYear() + " " + startDate.getYear());
 		for(int i = 0; i <= endDate.getYear() - startDate.getYear(); i++)
 			years[i] = startDate.getYear() + i;
-		final JComboBox yearBox = new JComboBox(years);
+		yearBox = new JComboBox(years);
 		//yearBox.setSelectedIndex(displayDate.get)
 		yearBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -433,10 +449,10 @@ public class MainFrame extends JFrame {
 				updateMatchesPlayed();
 			}
 		});
-		final JComboBox monthBox = new JComboBox(months);
+		monthBox = new JComboBox(months);
 		monthBox.setSelectedIndex(displayDate.getMonth()-1);
 		// need to be able to reference this in monthBox's handler
-		final JComboBox dayBox = new JComboBox(days);
+		dayBox = new JComboBox(days);
 		monthBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				// set the month and set the day box's values to match the
@@ -451,7 +467,6 @@ public class MainFrame extends JFrame {
 					days[i] = i + 1;
 				dayBox.setModel(new DefaultComboBoxModel(days));
 				dayBox.setSelectedIndex(oldDaySelected);
-				System.out.println(displayDate);
 				updateMatchesPlayed();
 			}
 		});
@@ -471,16 +486,8 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// decrement the day
 				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) {
-					if (!displayDate.equals(startDate)) {
-						System.out.println("Back");
+				for (int i = 0; i < numDaysToMove; i++) 
 						displayDate.decrementDate();
-					} else
-						displayDate = new DateTime(startDate);
-				}
-				System.out.println("Current date is now "
-						+ displayDate.toString());
-				updateComboBoxes(dayBox, monthBox, yearBox);
 				updateMatchesPlayed();
 			}
 		});
@@ -491,16 +498,8 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// increment the day
 				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) {
-					if (!displayDate.equals(endDate)) {
-						System.out.println("Next");
+				for (int i = 0; i < numDaysToMove; i++) 
 						displayDate.incrementDate();
-					} else
-						displayDate = new DateTime(endDate);
-				}
-				System.out.println("Current date is now "
-						+ displayDate.toString());
-				updateComboBoxes(dayBox, monthBox, yearBox);
 				updateMatchesPlayed();
 			}
 		});
