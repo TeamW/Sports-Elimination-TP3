@@ -68,11 +68,11 @@ public class MainFrame extends JFrame {
 
 		// Add the JTable for showing league data
 		initTable(tablePanel);
-		
+
 		// Calculate the start and end dates
 		calcStartDate();
 		calcEndDate();
-		
+
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
 
@@ -250,10 +250,11 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("The Team");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane
-						.showMessageDialog(
-								screenPanel,
-								"We are Team W. \n \nGordon Reid: 1002536R\n Ryan Wells: 1002253W \nDavid Selkirk: 1003646S\nJames Gallagher: 0800899G\nKristopher Stewart: 1007175S");
+				JOptionPane.showMessageDialog(screenPanel, "We are Team W.\n\n"
+						+ "Gordon Reid: 1002536R\n" + "Ryan Wells: 1002253W\n"
+						+ "David Selkirk: 1003646S\n"
+						+ "James Gallagher: 0800899G\n"
+						+ "Kristopher Stewart: 1007175S");
 			}
 		});
 		menu.add(menuItem);
@@ -263,15 +264,15 @@ public class MainFrame extends JFrame {
 
 	// get the start date in the fixtures
 	private void calcStartDate() {
-		DateTime date = divisions.get(table.getCurrent()).getFixtures().get(0)
-				.getDateTime();
+		Division temp = divisions.get(table.getCurrent());
+		DateTime date = temp.getFixtures().get(0).getDateTime();
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
 				if (m.getDateTime().before(date))
 					date = m.getDateTime();
 			}
 		}
-		startDate = date;
+		startDate = new DateTime(date);
 		System.out.println("Starting date is: " + date.toString());
 	}
 
@@ -294,17 +295,14 @@ public class MainFrame extends JFrame {
 	// check if date is less than/equal to current date,
 	// if not unplay match
 	private void updateMatchesPlayed() {
-		
 		// Check the date is in the date range, if not
 		// correct this
 		if (displayDate.before(startDate)) {
 			displayDate = new DateTime(startDate);
-		}
-		else if(!displayDate.before(endDate)) {
+		} else if (!displayDate.before(endDate)) {
 			displayDate = new DateTime(endDate);
 		}
-		
-		
+
 		for (Division d : divisions.values()) {
 			for (Match m : d.getFixtures()) {
 				if (m.getDateTime().before(displayDate)) {
@@ -320,7 +318,7 @@ public class MainFrame extends JFrame {
 			}
 			(new Algorithm(d)).updateDivisionElim();
 		}
-		
+
 		// Update the date selection boxes, date label and model
 		updateComboBoxes();
 		dateLabel.setText("Current date: " + displayDate.toString());
@@ -353,11 +351,9 @@ public class MainFrame extends JFrame {
 				sa[0] = rb.getText();
 				table.setCurrent(sa[0] + " " + sa[1]);
 				if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
-					FirstNonTriv
-							.setText("The First Team in this Division to be eliminated in a non trivial "
-									+ "manner was "
-									+ table.getCurrentDiv()
-											.getFirstNTTeamElim());
+					FirstNonTriv.setText("The First Team in this Division to"
+							+ " be eliminated in a non trivial manner was "
+							+ table.getCurrentDiv().getFirstNTTeamElim());
 				} else {
 					FirstNonTriv
 							.setText("This division has no non-trivial elimination.");
@@ -377,11 +373,9 @@ public class MainFrame extends JFrame {
 				sa[1] = rb.getText();
 				table.setCurrent(sa[0] + " " + sa[1]);
 				if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
-					FirstNonTriv
-							.setText("The First Team in this Division to be eliminated in a non trivial "
-									+ "manner was "
-									+ table.getCurrentDiv()
-											.getFirstNTTeamElim());
+					FirstNonTriv.setText("The First Team in this Division to"
+							+ " be eliminated in a non trivial manner was "
+							+ table.getCurrentDiv().getFirstNTTeamElim());
 				} else {
 					FirstNonTriv
 							.setText("This division has no non-trivial elimination.");
@@ -413,22 +407,19 @@ public class MainFrame extends JFrame {
 		}
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 	}
-	
-	private void updateComboBoxes()
-	{
+
+	private void updateComboBoxes() {
 		dayBox.setSelectedIndex(displayDate.getDay() - 1);
 		monthBox.setSelectedIndex(displayDate.getMonth() - 1);
-		yearBox.setSelectedIndex(startDate.getYear() - displayDate.getYear());
+		yearBox.setSelectedIndex(displayDate.getYear() - startDate.getYear());
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initNavPanel(JPanel navPanel) {
 		if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
-			FirstNonTriv = new JLabel(
-					"The First Team in this Division to be eliminated in a non trivial "
-							+ "manner was "
-							+ table.getCurrentDiv().getFirstNTTeamElim(),
-					JLabel.CENTER);
+			FirstNonTriv = new JLabel("The First Team in this Division to"
+					+ " be eliminated in a non trivial manner was "
+					+ table.getCurrentDiv().getFirstNTTeamElim(), JLabel.CENTER);
 		} else {
 			FirstNonTriv = new JLabel(
 					"This division has no non-trivial elimination.",
@@ -439,10 +430,10 @@ public class MainFrame extends JFrame {
 		// add comboBoxes
 		years = new Integer[(endDate.getYear() - startDate.getYear()) + 1];
 		System.out.println(endDate.getYear() + " " + startDate.getYear());
-		for(int i = 0; i <= endDate.getYear() - startDate.getYear(); i++)
+		for (int i = 0; i <= endDate.getYear() - startDate.getYear(); i++)
 			years[i] = startDate.getYear() + i;
 		yearBox = new JComboBox(years);
-		//yearBox.setSelectedIndex(displayDate.get)
+		// yearBox.setSelectedIndex(displayDate.get)
 		yearBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				displayDate.setYear((Integer) yearBox.getSelectedItem());
@@ -450,7 +441,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		monthBox = new JComboBox(months);
-		monthBox.setSelectedIndex(displayDate.getMonth()-1);
+		monthBox.setSelectedIndex(displayDate.getMonth() - 1);
 		// need to be able to reference this in monthBox's handler
 		dayBox = new JComboBox(days);
 		monthBox.addActionListener(new ActionListener() {
@@ -466,28 +457,31 @@ public class MainFrame extends JFrame {
 				for (int i = 0; i < daysInMonth; i++)
 					days[i] = i + 1;
 				dayBox.setModel(new DefaultComboBoxModel(days));
+				if (oldDaySelected >= daysInMonth) {
+					oldDaySelected = daysInMonth - 1;
+				}
 				dayBox.setSelectedIndex(oldDaySelected);
 				updateMatchesPlayed();
 			}
 		});
 
-		dayBox.setSelectedIndex(displayDate.getDay()-1);
+		dayBox.setSelectedIndex(displayDate.getDay() - 1);
 		dayBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				displayDate.setDate((Integer) dayBox.getSelectedItem());
 				updateMatchesPlayed();
 			}
 		});
-		
-		//now add the single day navigation buttons
+
+		// now add the single day navigation buttons
 		JButton backButton = new JButton("Previous Day");
 		backButton.setToolTipText("Move to previous day of results");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				// decrement the day
 				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) 
-						displayDate.decrementDate();
+				for (int i = 0; i < numDaysToMove; i++)
+					displayDate.decrementDate();
 				updateMatchesPlayed();
 			}
 		});
@@ -498,8 +492,8 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				// increment the day
 				// then update the model
-				for (int i = 0; i < numDaysToMove; i++) 
-						displayDate.incrementDate();
+				for (int i = 0; i < numDaysToMove; i++)
+					displayDate.incrementDate();
 				updateMatchesPlayed();
 			}
 		});
