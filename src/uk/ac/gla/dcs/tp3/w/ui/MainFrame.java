@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
 	private Parser p = new Parser();
 	private LaTeXFile LF;
 	private TableMouseListener listener;
+	@SuppressWarnings("rawtypes")
 	private JComboBox dayBox, monthBox, yearBox;
 
 	private JLabel FirstNonTriv;
