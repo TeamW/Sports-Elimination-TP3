@@ -410,6 +410,16 @@ public class MainFrame extends JFrame {
 	}
 
 	private void updateComboBoxes() {
+		// first reset the day boxes model to stop errors when moving
+		// between months with different numbers
+		int daysInMonth = Month.daysInMonth(displayDate.getMonth(),
+				displayDate.getYear());
+		days = new Integer[daysInMonth];
+		for (int i = 0; i < daysInMonth; i++)
+			days[i] = i + 1;
+		dayBox.setModel(new DefaultComboBoxModel(days));
+		
+		// now update each of the boxes
 		dayBox.setSelectedIndex(displayDate.getDay() - 1);
 		monthBox.setSelectedIndex(displayDate.getMonth() - 1);
 		yearBox.setSelectedIndex(displayDate.getYear() - startDate.getYear());
