@@ -124,13 +124,19 @@ public class MainFrame extends JFrame {
 					}
 					if (valid) {
 						divisions = p.getDivisions();
+						calcStartDate();
+						calcEndDate();
+						updateMatchesPlayed();
+						for(Division D: divisions.values()){
+							(new Algorithm(D)).FirstNonTrivTeamElim();
+							System.out.println(D.getFirstNTTeamElim() + " " +D.getFirstNTTeamElimdate());
+						}
 						table.changeDivisions(divisions);
 						listener.updateDivision(divisions);
 						// Calculate the start and end dates, set table to
 						// display the end date
-						calcStartDate();
-						calcEndDate();
-						updateMatchesPlayed();
+						
+
 						dateLabel.setText("Current date: "
 								+ displayDate.toString());
 						JOptionPane.showMessageDialog(screenPanel,
@@ -140,6 +146,7 @@ public class MainFrame extends JFrame {
 								"Invalid file format");
 					}
 				}
+				
 			}
 		});
 		menu.add(menuItem);

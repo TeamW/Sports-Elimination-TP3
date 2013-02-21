@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
@@ -13,7 +14,7 @@ import uk.ac.gla.dcs.tp3.w.parser.Parser;
 
 public class GenerateLeague {
 	private String fileName = null;
-	private int gamesPerTeam = 162;
+	private int gamesPerTeam = 180;
 	private boolean verbose = false;
 
 	public GenerateLeague(String fileName) {
@@ -26,9 +27,18 @@ public class GenerateLeague {
 		int teamSize, gamesBetweenTeams, i, j, k;
 		int scoreA, scoreB, index = 0;
 		Random r = new Random();
-		DateTime date = new DateTime();
+		DateTime date = new DateTime(31,12,2012,00,00);
 		ArrayList<String> fixtures = new ArrayList<String>();
 		String fixture;
+		HashMap<Team,Integer> fix = new HashMap<Team,Integer>();
+		int score;
+		for (Division d: p.getDivisions().values()){
+			score = 0;
+			for(Team t: d.getTeams()){
+				fix.put(t, score);
+				score=score+1-(score%2);
+			}
+		}
 		for (Division d : p.getDivisions().values()) {
 			System.out.println("New Division: " + d.getName());
 			ArrayList<Team> teams = d.getTeams();
@@ -38,8 +48,8 @@ public class GenerateLeague {
 			for (i = 0; i < teamSize; i++) {
 				for (j = i + 1; j < teamSize; j++) {
 					for (k = 0; k < gamesBetweenTeams; k++) {
-						scoreA = r.nextInt(10);
-						scoreB = r.nextInt(10);
+						scoreA = r.nextInt(10) + fix.get(teams.get(i));
+						scoreB = r.nextInt(10) + fix.get(teams.get(j)) ;
 						if (scoreA == scoreB)
 							scoreB = (scoreB + 1) % 10;
 						if (!fixtures.isEmpty())
@@ -57,7 +67,7 @@ public class GenerateLeague {
 		i = 0;
 		int totEntries = fixtures.size();
 		while (i < totEntries) {
-			date.incrementDate();
+			date.decrementDate();
 			fixtures.add(i, "\n");
 			fixtures.add(i + 1, date.genDate() + "\n");
 			totEntries = totEntries + 2;
