@@ -208,6 +208,28 @@ public class MainFrame extends JFrame {
 		submenu.add(menuItem);
 
 		submenu.addSeparator();
+		
+		menuItem = new JMenuItem("Add current and print...");
+		menuItem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				LF.addDivisionFromJTable(table,displayDate);
+				int value = fc.showSaveDialog(screenPanel);
+				if(value == JFileChooser.APPROVE_OPTION){
+						String filename = fc.getSelectedFile().getName();
+						String directory = fc.getSelectedFile().getParentFile()
+								.getAbsolutePath();
+						System.out.println(directory);
+						System.out.println(filename);
+						if (LF.write(filename, directory))
+							JOptionPane.showMessageDialog(screenPanel,
+									"File Printed");
+						System.out.println("Print " + table.getCurrent());
+				}
+			}
+		});
+		
+		submenu.add(menuItem);
+		
 		menuItem = new JMenuItem("Print...");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
