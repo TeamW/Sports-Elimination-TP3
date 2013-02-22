@@ -10,87 +10,40 @@
 }\date{\today}
 \maketitle
 \begin{abstract}
-
-The abstract goes here
-
+\input{includes/abstract.tex}
 \end{abstract}
 \educationalconsent
 \tableofcontents
-%==============================================================================
+
 \chapter{Introduction}
-\label{intro}
+\input{includes/introduction.tex}
 
-\section{Motivation}
-
-\section{Background}
-
-\section{Aims}
-
-\section{Outline}
-
-%==============================================================================
 \chapter{Preliminaries}
+\input{includes/preliminaries.tex}
 
-\section{Terminology}
-
-\section{Network Flow}
-
-%==============================================================================
 \chapter{Implementation and Design}
-\label{design}
 
-%==============================================================================
 \section{Desktop User Interface}
+\input{includes/desktopUserInterface.tex}
 
-\subsection{Implementation}
-
-\subsection{Design}
-
-%------------------------------------------------------------------------------
 \section{Ford-Fulkerson Algorithm}
+\input{includes/algorithm.tex}
 
-\subsection{Implementation}
-
-\subsection{Design}
-
-%------------------------------------------------------------------------------
 \section{Parser}
+\input{includes/webApplication.tex}
 
-\subsection{Implementation}
-
-\subsection{Design}
-
-%------------------------------------------------------------------------------
 \section{Web Application}
+\input{includes/webApplication.tex}
 
-\subsection{Implementation}
-
-\subsection{Design}
-%==============================================================================
 \chapter{Evaluation}
+\input{includes/evaluation.tex}
 
-%==============================================================================
 \chapter{Conclusion}
+\input{includes/conclusion.tex}
 
-\section{Summary}
-
-\section{Future Work}
-
-\section{Lessons Learned}
-%==============================================================================
 \chapter{Contributions}
+\input{includes/contributions.tex}
 
-\section{Gordon Reid}
-
-\section{Ryan Wells}
-
-\section{Kristopher Stewart}
-
-\section{David Selkirk}
-
-\section{James Gallagher}
-
-%==============================================================================
 \bibliographystyle{plain}
 \bibliography{example}
 \end{document}
