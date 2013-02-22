@@ -27,7 +27,7 @@ public class GenerateLeague {
 		int teamSize, gamesBetweenTeams, i, j, k;
 		int scoreA, scoreB, index = 0;
 		Random r = new Random();
-		DateTime date = new DateTime(31,12,2012,00,00);
+		DateTime date = new DateTime(31,12,2012,23,59);
 		ArrayList<String> fixtures = new ArrayList<String>();
 		String fixture;
 		HashMap<Team,Integer> fix = new HashMap<Team,Integer>();
