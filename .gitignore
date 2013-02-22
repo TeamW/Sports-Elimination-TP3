@@ -14,8 +14,6 @@ presentation/presentation.aux
 
 presentation/presentation.out
 
-*.pdf
-
 presentation/presentation.nav
 
 presentation/presentation.snm
@@ -43,3 +41,5 @@ presentation/presentation.key
 *.xml
 
 *.gz
+
+*.pdf
