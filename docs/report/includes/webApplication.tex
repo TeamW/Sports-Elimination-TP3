@@ -1,3 +1,26 @@
 \subsection{Design}
 
+\subsubsection{Introduction}
+
+This section discusses the design of the web-based version of the application.
+The design of the application was constructed with only the most important
+functional and non-functional requirements in mind. The web-based version was
+classed as the least important part of the project, with preliminary effort
+directed solely towards the desktop application.
+
+\subsubsection{System architecture}
+
+The web application is a standard multi-tier architecture with the presentation,
+logic, and data separated from each other.
+
+The presentation tier is the client/browser who has Hyper Text Markup Language
+(HTML) and Cascading Style Sheets (CSS) for the static presentation of content.
+In addition there is Javascript supported by JQuery JQueryUI for the dynamic
+user interface elements.
+
+The logic tier runs on a web server called Lighttpd (pronounced lighty) that is
+supported by PHP: Hypertext Preprocessor (PHP). The logic tier has two data
+sources, a MySQL database containing the latest data and a Java jar for looking
+back at older data.
+
 \subsection{Implementation}
