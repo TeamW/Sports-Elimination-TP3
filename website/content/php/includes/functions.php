@@ -32,6 +32,7 @@
     }
 
 	function showDivisions() {
+		global $server, $user, $password, $database;
 		$divisions=array("American Central", "American East", "American West", "National Central","National East","National West");
 		echo("<div id='accordion'>");
 		foreach ($divisions as &$division) {
@@ -92,6 +93,7 @@
 	}
 
 	function updateDivisions() {
+		global $server, $user, $password, $database;
 		$tableName = "";
 		echo exec("java -jar elim.jar --web", $output);
 		foreach($output as $line) {
@@ -101,7 +103,7 @@
 				$tableName = $lineSplit[0];
 			} else if ($elements == 4) {
 				$select = "SELECT * FROM `{$tableName}` WHERE Team = '{$lineSplit[0]}'";				
-				$result = executeQuery($server, $user, $password, $database, $select)
+				$result = executeQuery($server, $user, $password, $database, $select);
 				if(mysql_num_rows($result) == 0){
 					$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
 					executeQuery($server, $user, $password, $database, $insertDB);
