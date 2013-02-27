@@ -32,7 +32,37 @@ the required software. This can be accessed via
 and satisfying the potential desires of the reader, an installation procedure
 is supplied.
 
-INSTALLATION PROCEDURE HERE
+The web server has numerous standard applications running to service the web
+application. Each one is required for full functionality:
+
+\begin{enumerate}
+\item A web server (such as Lighttpd or Apache)
+\item PHP (known to work on PHP 5.x)
+\item Java Runtime Environment (version 6 or 7)
+\item MySQL (version 5.x)
+\end{enumerate}
+
+\subsubsection{Installation of packages}
+
+COMMAND FOR DB CREATION HERE
+
+SQL FOR CREATION OF TABLE HERE
+
+The installation procedure assumes you have super user access on a Debian-based
+distribution. The official procedure for installation of a `LAMP' (Linux
+Apache, MySQL, PHP) server is available from the Debian Wiki at
+\url{http://wiki.debian.org/LaMp}
+
+\subsubsection{Set up of database}
+
+In the folder `website/content/php/includes/functions.php' there are a number
+of variables at the top of the page indicating the values for the server, user,
+password, and database. These can be modified to suit your requirements however
+the default are highly recommended.
+
+A word of warning, the variable scope is very insecure and however was designed
+as such for simplicity of installation and testing. Please do not run the server
+code on a public or production server.
 
 \subsection{Running}
 
