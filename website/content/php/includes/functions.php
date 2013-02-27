@@ -1,4 +1,15 @@
 <?php
+	/*
+	 * Modify these values to match your installation.
+	 * This is very insecure however I did this to
+     * simplify testing of the code. This should not be used
+     * on a public or production environment.
+     */
+	$server = "localhost";
+	$user = "teamw";
+	$password = "algorithms";
+	$database = "teamw";
+
     function executeQuery($server, $user, $password, $database, $query) {
         // Attempt connection to MySQL database.
         $connection = mysql_connect($server, $user, $password);
@@ -25,7 +36,7 @@
 		echo("<div id='accordion'>");
 		foreach ($divisions as &$division) {
 			$query = "SELECT * FROM `{$division}` ORDER BY Points DESC;";
-			$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $query);
+			$result = executeQuery($server, $user, $password, $database, $query);
 			echo("<h3><a href='#'>{$division}</a></h3>" . PHP_EOL);
 			echo("<div><table cellpadding=5em><tr><th>Team</th><th>Points</th><th>Games Played</th><th>Elimination Status</th></tr>" . PHP_EOL);
         	while ($row = mysql_fetch_array($result)) {
@@ -90,14 +101,14 @@
 				$tableName = $lineSplit[0];
 			} else if ($elements == 4) {
 				$select = "SELECT * FROM `{$tableName}` WHERE Team = '{$lineSplit[0]}'";				
-				$result = executeQuery("localhost", "teamw", "algorithms", "teamw", $select);
+				$result = executeQuery($server, $user, $password, $database, $select)
 				if(mysql_num_rows($result) == 0){
 					$insertDB = "INSERT INTO `{$tableName}` (Team, Points, `Games Played`, Eliminated) VALUES ('{$lineSplit[0]}', {$lineSplit[1]}, {$lineSplit[2]}, {$lineSplit[3]});";
-					executeQuery("localhost", "teamw", "algorithms", "teamw", $insertDB);
+					executeQuery($server, $user, $password, $database, $insertDB);
 		    		echo("<p>{$tableName} - {$lineSplit[0]} inserted.</p>");
 				} else {
 					$updateDB = "UPDATE `{$tableName}` SET Points = {$lineSplit[1]}, `Games Played` = {$lineSplit[2]}, Eliminated = {$lineSplit[3]} WHERE Team = '{$lineSplit[0]}'";
-					executeQuery("localhost", "teamw", "algorithms", "teamw", $updateDB);
+					executeQuery($server, $user, $password, $database, $updateDB);
 					echo("<p>{$tableName} - {$lineSplit[0]} updated.</p>");
 				}
 			} else {
