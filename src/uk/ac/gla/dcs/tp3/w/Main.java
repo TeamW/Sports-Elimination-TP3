@@ -70,20 +70,19 @@ public class Main {
 		if (!web) {
 			System.out.println(System.getProperty("os.name"));
 		}
-		// Now there will be some valid divisions to obtain. Now work out
-		// elimination status of each team.
 		final HashMap<String, Division> map = p.getDivisions();
-		for (Division d : map.values()) {
-			(new Algorithm(d)).updateDivisionElim();
-		}
-
 		// trivial elim test
 		if (!web) {
 			for (Division d2 : map.values()) {
-				(new Algorithm(d2)).FirstNonTrivTeamElim();
+			 	(new Algorithm(d2)).FirstNonTrivTeamElim();
 				System.out.println(d2.getFirstNTTeamElim() + "   "
 						+ d2.getFirstNTTeamElimdate());
 			}
+		}
+		// Now there will be some valid divisions to obtain. Now work out
+		// elimination status of each team.
+		for (Division d : map.values()) {
+			(new Algorithm(d)).updateDivisionElim();
 		}
 		// Swing interface requested.
 		if (!web) {

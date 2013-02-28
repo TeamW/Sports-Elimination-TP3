@@ -119,11 +119,13 @@ public class Algorithm {
 		if (t.getUpcomingMatches().size() == 0
 				&& t.getPoints() != d.maxPoints()) {
 			t.setTrivial(true);
+			t.setEliminated(true);
 			return certificateOfElimination(residual, t);
 		}
 		// Naive elimination short circuit
 		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
 			t.setTrivial(true);
+			t.setEliminated(true);
 			return certificateOfElimination(residual, t);
 		}
 		// Path will store the residual path (if it exists)
@@ -178,6 +180,8 @@ public class Algorithm {
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.
+		t.setEliminated(cap != 0);
+		t.setTrivial(false);
 		if (cap != 0)
 			return certificateOfElimination(residual, t);
 		return false;
