@@ -73,6 +73,7 @@ public class MainFrame extends JFrame {
 		// Calculate the start and end dates
 		calcStartDate();
 		calcEndDate();
+
 		for (Division d: divisions.values()) {
 			Algorithm test = new Algorithm(d);
 			d.setFirstNTTeamElim(null);
@@ -146,6 +147,21 @@ public class MainFrame extends JFrame {
 
 						dateLabel.setText("Current date: "
 								+ displayDate.toString());
+						for (Division d: divisions.values()) {
+							Algorithm test = new Algorithm(d);
+							d.setFirstNTTeamElim(null);
+							d.setFirstNTTeamElimdate(null);
+							test.linearFirstNonTrivElim(startDate, endDate);
+							System.out.println(d.getFirstNTTeamElim() + " " + d.getFirstNTTeamElimdate());
+						}
+						if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
+							FirstNonTriv.setText("The First Team in this Division to"
+											+ " be eliminated in a non trivial manner was "
+											+ table.getCurrentDiv()
+													.getFirstNTTeamElim());
+						} else {
+							FirstNonTriv.setText("This division has no non-trivial elimination.");
+						}
 						JOptionPane.showMessageDialog(screenPanel,
 								"Valid file format");
 					} else {
