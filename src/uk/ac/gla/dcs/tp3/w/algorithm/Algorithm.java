@@ -294,18 +294,16 @@ public class Algorithm {
 	}
 
 	public void linearFirstNonTrivElim(DateTime start, DateTime end) {
-		DateTime current = start, incremented;
+		DateTime current = new DateTime(start);
 		for (Team t : d.teamsToArray()) {
 			UpdateMatches(d, current);
 			fordFulkerson(t);
-			if (t.isEliminated() && t.getTrivial()) {
+			if (t.isEliminated() && !t.getTrivial()) {
 				d.setFirstNTTeamElim(t);
 				d.setFirstNTTeamElimdate(current);
 				break;
 			}
-			incremented = new DateTime(current);
-			incremented.incrementDate();
-			current = incremented;
+			current.incrementDate();
 		}
 	}
 
@@ -383,11 +381,9 @@ public class Algorithm {
 		}
 		for (Team t : d.getTeams()) {
 			t.setEliminated(false);
-			ArrayList<Team> teams = t.getEliminatedBy();
-			t.getEliminatedBy().removeAll(teams);
+			t.getEliminatedBy().clear();
+			fordFulkerson(t);
 		}
-		(new Algorithm(d)).updateDivisionElim();
-
 	}
 
 }

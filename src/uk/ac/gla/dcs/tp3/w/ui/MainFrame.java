@@ -73,6 +73,13 @@ public class MainFrame extends JFrame {
 		// Calculate the start and end dates
 		calcStartDate();
 		calcEndDate();
+		for (Division d: divisions.values()) {
+			Algorithm test = new Algorithm(d);
+			d.setFirstNTTeamElim(null);
+			d.setFirstNTTeamElimdate(null);
+			test.linearFirstNonTrivElim(startDate, endDate);
+			System.out.println(d.getFirstNTTeamElim() + " " + d.getFirstNTTeamElimdate());
+		}
 
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
