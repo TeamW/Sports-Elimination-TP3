@@ -120,13 +120,13 @@ public class Algorithm {
 				&& t.getPoints() != d.maxPoints()) {
 			t.setTrivial(true);
 			t.setEliminated(true);
-			return certificateOfElimination(residual, t);
+			return true;
 		}
 		// Naive elimination short circuit
 		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
 			t.setTrivial(true);
 			t.setEliminated(true);
-			return certificateOfElimination(residual, t);
+			return true;
 		}
 		// Path will store the residual path (if it exists)
 		Path path;
@@ -294,16 +294,18 @@ public class Algorithm {
 	}
 
 	public void linearFirstNonTrivElim(DateTime start, DateTime end) {
-		DateTime current = new DateTime(start);
 		for (Team t : d.teamsToArray()) {
-			UpdateMatches(d, current);
-			fordFulkerson(t);
-			if (t.isEliminated() && !t.getTrivial()) {
-				d.setFirstNTTeamElim(t);
-				d.setFirstNTTeamElimdate(current);
-				break;
+			DateTime current = new DateTime(start);
+			while (!end.before(current)) {
+				UpdateMatches(d, current);
+				fordFulkerson(t);
+				if (t.isEliminated() && !t.getTrivial()) {
+					d.setFirstNTTeamElim(t);
+					d.setFirstNTTeamElimdate(current);
+					break;
+				}
+				current.incrementDate();
 			}
-			current.incrementDate();
 		}
 	}
 
@@ -381,6 +383,7 @@ public class Algorithm {
 		}
 		for (Team t : d.getTeams()) {
 			t.setEliminated(false);
+			t.setTrivial(false);
 			t.getEliminatedBy().clear();
 			fordFulkerson(t);
 		}
