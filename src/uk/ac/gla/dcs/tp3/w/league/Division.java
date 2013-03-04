@@ -2,6 +2,8 @@ package uk.ac.gla.dcs.tp3.w.league;
 
 import java.util.ArrayList;
 
+import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
+
 /**
  * This class has two members: an array of teams; and an array of fixtures. The
  * primary purpose of this class is to maintain, and keep track of, progress
@@ -210,6 +212,25 @@ public class Division {
 			System.out.println(team.getName() + "-" + team.getPoints() + "-"
 					+ team.getGamesPlayed() + "-" + team.isEliminated());
 		System.out.println();
+	}
+	
+	// loop through every game played in the current division,
+	// check if date is less than/equal to current date,
+	// if not unplay match
+	public void updateMatches(DateTime dt) {
+		for (Match m : getFixtures()) {
+			if (m.getDateTime().before(dt)) {
+				m.playMatch();
+			} else {
+				m.unplayMatch();
+			}
+		}
+		for (Team t : getTeams()) {
+			t.setEliminated(false);
+			t.setTrivial(false);
+			t.getEliminatedBy().clear();
+			(new Algorithm(this)).isEliminated(t);
+		}
 	}
 
 }

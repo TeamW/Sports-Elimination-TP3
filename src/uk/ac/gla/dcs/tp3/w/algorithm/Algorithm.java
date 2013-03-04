@@ -1,11 +1,9 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
 import uk.ac.gla.dcs.tp3.w.league.Division;
-import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 /**
@@ -297,7 +295,7 @@ public class Algorithm {
 		for (Team t : d.teamsToArray()) {
 			DateTime current = new DateTime(start);
 			while (!end.before(current)) {
-				UpdateMatches(d, current);
+				d.updateMatches(current);
 				fordFulkerson(t);
 				if (t.isEliminated() && !t.getTrivial()) {
 					d.setFirstNTTeamElim(t);
@@ -320,7 +318,7 @@ public class Algorithm {
 				.getDateTime());
 		while (d.getFirstNTTeamElim() == null && mid != 0) {
 			// set date
-			UpdateMatches(d, targetDate);
+			d.updateMatches(targetDate);
 			int nonTrivCount = 0;
 			// check bottom team
 			if (d.getTeams().get(0).isEliminated()) {
@@ -334,13 +332,13 @@ public class Algorithm {
 								DateTime td = new DateTime(d.getFixtures()
 										.get(mid + 1).getDateTime());
 								mid = mid + 1;
-								UpdateMatches(d, td);
+								d.updateMatches(td);
 								t.isEliminated();
 							}
 							// bump to elim
 							DateTime elimdate = new DateTime(d.getFixtures()
 									.get(mid + 1).getDateTime());
-							UpdateMatches(d, elimdate);
+							d.updateMatches(elimdate);
 							// Trivial check
 							int pointDiff = (d.maxPoints() - t.getPoints());
 							if (pointDiff <= t.getUpcomingMatches().size()
@@ -368,25 +366,6 @@ public class Algorithm {
 				targetDate = d.getFixtures().get(mid).getDateTime();
 			}
 		} // while single instance
-	}
-
-	// loop through every game played in the current division,
-	// check if date is less than/equal to current date,
-	// if not unplay match
-	private void UpdateMatches(Division d, DateTime dt) {
-		for (Match m : d.getFixtures()) {
-			if (m.getDateTime().before(dt)) {
-				m.playMatch();
-			} else {
-				m.unplayMatch();
-			}
-		}
-		for (Team t : d.getTeams()) {
-			t.setEliminated(false);
-			t.setTrivial(false);
-			t.getEliminatedBy().clear();
-			fordFulkerson(t);
-		}
 	}
 
 }

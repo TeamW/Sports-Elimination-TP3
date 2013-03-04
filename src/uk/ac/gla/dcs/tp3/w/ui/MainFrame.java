@@ -461,6 +461,7 @@ public class MainFrame extends JFrame {
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void updateComboBoxes() {
 		// first reset the day boxes model to stop errors when moving
 		// between months with different numbers
