@@ -52,14 +52,22 @@ This section discusses the implementation of the web-based version of the
 application. The implementation discussion will be split up into the three
 main sections as shown in figure \ref{fig:nTierArchitecture}.
 
-\subsubsection{Presentation}
+\subsubsection{Presentation - Client/Browser}
 
-HTML/CSS/jQuery
+The website uses three of the most common web technologies in use: HTML, CSS,
+and JavaScript (supported by jQuery and jQuery UI).
 
-\subsubsection{Logic}
+\subsubsection{Logic - Web Server/PHP Processor}
 
-PHP
+The website is dynamically created by using PHP. PHP interfaces with data one
+of the data layer sections and, from the results obtained from the data layer,
+produces the division tables and pushes the generated HTML along with the
+attached CSS and JavaScript.
 
-\subsubsection{Data}
+\subsubsection{Data - MySQL Database/Java JAR}
 
-SQL + JAR
+The web application has two primary sources of data: a MySQL database and a
+Java JAR file. The MySQL database contains the recent information available
+on the sports divisions whereas the Java JAR contains a text file of the entire
+result set allowing the user to request to see the state of a division at any
+point in the league.
