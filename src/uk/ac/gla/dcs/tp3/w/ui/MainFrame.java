@@ -74,6 +74,14 @@ public class MainFrame extends JFrame {
 		calcStartDate();
 		calcEndDate();
 
+		for (Division d: divisions.values()) {
+			Algorithm test = new Algorithm(d);
+			d.setFirstNTTeamElim(null);
+			d.setFirstNTTeamElimdate(null);
+			test.linearFirstNonTrivElim(startDate, endDate);
+			System.out.println(d.getFirstNTTeamElim() + " " + d.getFirstNTTeamElimdate());
+		}
+
 		// Add the panel that shows the previous/next week buttons
 		initNavPanel(navPanel);
 
@@ -139,6 +147,21 @@ public class MainFrame extends JFrame {
 
 						dateLabel.setText("Current date: "
 								+ displayDate.toString());
+						for (Division d: divisions.values()) {
+							Algorithm test = new Algorithm(d);
+							d.setFirstNTTeamElim(null);
+							d.setFirstNTTeamElimdate(null);
+							test.linearFirstNonTrivElim(startDate, endDate);
+							System.out.println(d.getFirstNTTeamElim() + " " + d.getFirstNTTeamElimdate());
+						}
+						if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
+							FirstNonTriv.setText("The First Team in this Division to"
+											+ " be eliminated in a non trivial manner was "
+											+ table.getCurrentDiv()
+													.getFirstNTTeamElim());
+						} else {
+							FirstNonTriv.setText("This division has no non-trivial elimination.");
+						}
 						JOptionPane.showMessageDialog(screenPanel,
 								"Valid file format");
 					} else {
@@ -438,6 +461,7 @@ public class MainFrame extends JFrame {
 		radioPanel.add(divisionPanel, BorderLayout.CENTER);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void updateComboBoxes() {
 		// first reset the day boxes model to stop errors when moving
 		// between months with different numbers

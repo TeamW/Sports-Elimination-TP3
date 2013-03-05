@@ -1,35 +1,22 @@
 \documentclass{l3proj}
-
-\newcommand\measurepage{\dimexpr\pagegoal-\pagetotal-\baselineskip\relax}
-
 \begin{document}
-
 \title{Algorithms for Sports Elimination}
-
 \author{
     Gordon Reid: 1002536R\\
     Ryan Wells: 1002253W\\
-    Kris Stewart: 1007175S\\
+    Kristopher Stewart: 1007175S\\
     David Selkirk: 1003646S\\
     James Gallagher: 0800899G\\
-}
-
-\date{\today}
-
+}\date{\today}
 \maketitle
-
 \begin{abstract}
 \input{includes/abstract.tex}
 \end{abstract}
-
 \renewcommand{\abstractname}{Acknowledgements}
-
 \begin{abstract}
 \input{includes/acknowledgements.tex}
 \end{abstract}
-
 \educationalconsent
-
 \tableofcontents
 
 \chapter{Introduction}
@@ -38,11 +25,10 @@
 \chapter{Preliminaries}
 \input{includes/preliminaries.tex}
 
-\chapter{Design and Implementation}
+\chapter{Implementation and Design}
 \input{includes/implementationAndDesign.tex}
 
 \chapter{Evaluation}
-\input{includes/correctnesstesting.tex}
 \input{includes/evaluation.tex}
 
 \chapter{Conclusion}
@@ -54,7 +40,6 @@
 \appendix
 \input{includes/appendix.tex}
 
-\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{plain}
 \bibliography{finalReport}
 \end{document}

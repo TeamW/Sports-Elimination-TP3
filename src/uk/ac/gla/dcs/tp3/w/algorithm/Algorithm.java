@@ -1,11 +1,9 @@
 package uk.ac.gla.dcs.tp3.w.algorithm;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
 import uk.ac.gla.dcs.tp3.w.league.Division;
-import uk.ac.gla.dcs.tp3.w.league.Match;
 import uk.ac.gla.dcs.tp3.w.league.Team;
 
 /**
@@ -119,12 +117,14 @@ public class Algorithm {
 		if (t.getUpcomingMatches().size() == 0
 				&& t.getPoints() != d.maxPoints()) {
 			t.setTrivial(true);
-			return certificateOfElimination(residual, t);
+			t.setEliminated(true);
+			return true;
 		}
 		// Naive elimination short circuit
 		if (t.getUpcomingMatches().size() + t.getPoints() < d.maxPoints()) {
 			t.setTrivial(true);
-			return certificateOfElimination(residual, t);
+			t.setEliminated(true);
+			return true;
 		}
 		// Path will store the residual path (if it exists)
 		Path path;
@@ -178,6 +178,8 @@ public class Algorithm {
 		// If final flow of graph is saturating, team has not been eliminated,
 		// return false.
 		// Otherwise, team has been eliminated, return true.
+		t.setEliminated(cap != 0);
+		t.setTrivial(false);
 		if (cap != 0)
 			return certificateOfElimination(residual, t);
 		return false;
@@ -290,18 +292,18 @@ public class Algorithm {
 	}
 
 	public void linearFirstNonTrivElim(DateTime start, DateTime end) {
-		DateTime current = start, incremented;
 		for (Team t : d.teamsToArray()) {
-			UpdateMatches(d, current);
-			fordFulkerson(t);
-			if (t.isEliminated() && t.getTrivial()) {
-				d.setFirstNTTeamElim(t);
-				d.setFirstNTTeamElimdate(current);
-				break;
+			DateTime current = new DateTime(start);
+			while (!end.before(current)) {
+				d.updateMatches(current);
+				fordFulkerson(t);
+				if (t.isEliminated() && !t.getTrivial()) {
+					d.setFirstNTTeamElim(t);
+					d.setFirstNTTeamElimdate(current);
+					break;
+				}
+				current.incrementDate();
 			}
-			incremented = new DateTime(current);
-			incremented.incrementDate();
-			current = incremented;
 		}
 	}
 
@@ -316,7 +318,7 @@ public class Algorithm {
 				.getDateTime());
 		while (d.getFirstNTTeamElim() == null && mid != 0) {
 			// set date
-			UpdateMatches(d, targetDate);
+			d.updateMatches(targetDate);
 			int nonTrivCount = 0;
 			// check bottom team
 			if (d.getTeams().get(0).isEliminated()) {
@@ -330,13 +332,13 @@ public class Algorithm {
 								DateTime td = new DateTime(d.getFixtures()
 										.get(mid + 1).getDateTime());
 								mid = mid + 1;
-								UpdateMatches(d, td);
+								d.updateMatches(td);
 								t.isEliminated();
 							}
 							// bump to elim
 							DateTime elimdate = new DateTime(d.getFixtures()
 									.get(mid + 1).getDateTime());
-							UpdateMatches(d, elimdate);
+							d.updateMatches(elimdate);
 							// Trivial check
 							int pointDiff = (d.maxPoints() - t.getPoints());
 							if (pointDiff <= t.getUpcomingMatches().size()
@@ -364,26 +366,6 @@ public class Algorithm {
 				targetDate = d.getFixtures().get(mid).getDateTime();
 			}
 		} // while single instance
-	}
-
-	// loop through every game played in the current division,
-	// check if date is less than/equal to current date,
-	// if not unplay match
-	private void UpdateMatches(Division d, DateTime dt) {
-		for (Match m : d.getFixtures()) {
-			if (m.getDateTime().before(dt)) {
-				m.playMatch();
-			} else {
-				m.unplayMatch();
-			}
-		}
-		for (Team t : d.getTeams()) {
-			t.setEliminated(false);
-			ArrayList<Team> teams = t.getEliminatedBy();
-			t.getEliminatedBy().removeAll(teams);
-		}
-		(new Algorithm(d)).updateDivisionElim();
-
 	}
 
 }

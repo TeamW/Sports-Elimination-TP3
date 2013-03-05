@@ -1,3 +1,54 @@
 \section{Terminology}
 
-\section{Network Flow}
+The web application design and implementation section discusses many
+web technologies along with their acronyms. The acronyms will be
+described with a brief overview of the technology.
+
+\begin{itemize}
+\item HTML: Hyper Text Markup Language. HTML is the basis of every web page
+structure. It is a structured document with tags denoted by angle brackets (such
+as $<$html$>$). These tags form a nested, tree-like structure that is read by the
+browser to create the page layout of the website.
+\item CSS: Cascading Style Sheets. CSS provides the style information for the
+HTML document. CSS enables the separation of the HTML document content from the
+document's presentation and defines a consistent approach for specifying the style
+of an HTML document.
+\item JS: JavaScript. JS is an interpreted computer programming language used by
+browsers to provide dynamic, interactive web page content without requiring
+communication with the web server. JS is bundled alongside an HTML document.
+\item jQuery and jQuery UI: These are libraries (bundles) of JavaScript code to
+simplify the development of JavaScript.
+\item PHP: PHP Hypertext Preprocessor. PHP is a server-side computer programming
+language used to generate dynamic web pages prior to sending the web page on to the
+browser in the form of HTML. PHP may interact with databases and other external
+data sources during the creation of the web page.
+\item SQL: Structured Query Language. A high-level language for expressing what
+a user wants from a database.
+\item MySQL. The relational database management system that manages some data set
+represented by tables. MySQL also accepts SQL queries and will return data that
+matches what the SQL query requests.
+\end{itemize}
+
+This report discusses graph theory and network flow relating to the
+Ford-Fulkerson algorithm in significant depth. This is discussed in a separate
+section, section \ref{sec:graphTheoryAndNetworkFlow}.
+
+\section{Graph Theory and Network Flow}
+\label{sec:graphTheoryAndNetworkFlow}
+
+Graphs are made up of two components: vertices and edges. Vertices can be
+thought of as cities, with edges being roads between cities. A road between
+two cities can have a maximum number of cars on it at one time. This is
+known as the edges capacity. The road has a number of cars on it at present
+time, known as the edges flow. The flow of traffic can never exceed the
+capacity of the road.
+
+The road from city A to city B is separate from city B to city A and the
+existence of one road does not imply the existence of the other.
+
+Network Flow is the study of working out how to have as much traffic move
+from a start city (the source) to an end city (the sink) by passing through 
+intermediate cities. By using this concept, it is possible to determine
+the elimination of teams in a sports league. This application of graph
+theory and network flow will be discussed in detail in section
+\ref{sec:fordFulkersonAlgorithm} on the Ford-Fulkerson algorithm.

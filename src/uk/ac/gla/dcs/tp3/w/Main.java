@@ -1,14 +1,11 @@
 package uk.ac.gla.dcs.tp3.w;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
 
 import uk.ac.gla.dcs.tp3.w.algorithm.Algorithm;
 import uk.ac.gla.dcs.tp3.w.league.Division;
-import uk.ac.gla.dcs.tp3.w.league.Match;
-import uk.ac.gla.dcs.tp3.w.league.Team;
 import uk.ac.gla.dcs.tp3.w.parser.Parser;
 import uk.ac.gla.dcs.tp3.w.ui.MainFrame;
 import uk.ac.gla.dcs.tp3.w.league.DateTime;
@@ -23,25 +20,6 @@ import uk.ac.gla.dcs.tp3.w.league.DateTime;
  * @version 1.0
  */
 public class Main {
-
-	private static void updateMatchesPlayed(DateTime displayDate,
-			HashMap<String, Division> map) {
-		for (Division d : map.values()) {
-			for (Match m : d.getFixtures()) {
-				if (m.getDateTime().before(displayDate)) {
-					m.playMatch();
-				} else {
-					m.unplayMatch();
-				}
-			}
-			for (Team t : d.getTeams()) {
-				t.setEliminated(false);
-				ArrayList<Team> teams = t.getEliminatedBy();
-				t.getEliminatedBy().removeAll(teams);
-			}
-			(new Algorithm(d)).updateDivisionElim();
-		}
-	}
 
 	public static void main(String[] args) {
 		// Set up variables for whole application.
@@ -70,13 +48,7 @@ public class Main {
 		if (!web) {
 			System.out.println(System.getProperty("os.name"));
 		}
-		// Now there will be some valid divisions to obtain. Now work out
-		// elimination status of each team.
 		final HashMap<String, Division> map = p.getDivisions();
-		for (Division d : map.values()) {
-			(new Algorithm(d)).updateDivisionElim();
-		}
-
 		// trivial elim test
 		if (!web) {
 			for (Division d2 : map.values()) {
@@ -84,6 +56,11 @@ public class Main {
 				System.out.println(d2.getFirstNTTeamElim() + "   "
 						+ d2.getFirstNTTeamElimdate());
 			}
+		}
+		// Now there will be some valid divisions to obtain. Now work out
+		// elimination status of each team.
+		for (Division d : map.values()) {
+			(new Algorithm(d)).updateDivisionElim();
 		}
 		// Swing interface requested.
 		if (!web) {
@@ -105,7 +82,9 @@ public class Main {
 			date.setMonth(Integer.parseInt(dmy[1]));
 			date.setYear(Integer.parseInt(dmy[2]));
 			// Text only output requested.
-			updateMatchesPlayed(date, map);
+			for (Division d : map.values()) {
+				d.updateMatches(date);
+			}
 			String[] divisions = { "American Central", "American East",
 					"American West", "National Central", "National East",
 					"National West" };

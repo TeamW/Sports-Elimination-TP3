@@ -20,8 +20,11 @@ user interface elements.
 
 The logic tier runs on a web server called Lighttpd (pronounced lighty) that is
 supported by PHP: Hypertext Preprocessor (PHP). The logic tier has two data
-sources, a MySQL database containing the latest data and a Java jar for looking
-back at older data.
+sources that make up the data tier, a MySQL database containing the latest data
+and a Java jar for looking back at older data.
+
+The N-Tier Architecture diagram is available from appendix
+\ref{fig:nTierArchitecture}.
 
 \subsubsection{User interface}
 
@@ -29,9 +32,8 @@ The user interface of the web application was intended on being as close to the
 desktop interface as viable within the constraints of a web browser and within
 the realms of what is typical layout of a web page.
 
-%%%%%%%%%%%%%
-DIAGRAM HERE%
-%%%%%%%%%%%%%
+A wireframe for the web application is shown in figure
+\ref{fig:webApplicationWireframe}.
 
 The web application has a single page containing the six available divisions.
 Each division is a table and only one is available for viewing. The reasoning
@@ -43,3 +45,29 @@ the entire date range for the season allowing them to view the scoreboard and
 elimination status at any point in time.
 
 \subsection{Implementation}
+
+\subsubsection{Introduction}
+
+This section discusses the implementation of the web-based version of the
+application. The implementation discussion will be split up into the three
+main sections as shown in figure \ref{fig:nTierArchitecture}.
+
+\subsubsection{Presentation - Client/Browser}
+
+The website uses three of the most common web technologies in use: HTML, CSS,
+and JavaScript (supported by jQuery and jQuery UI).
+
+\subsubsection{Logic - Web Server/PHP Processor}
+
+The website is dynamically created by using PHP. PHP interfaces with data one
+of the data layer sections and, from the results obtained from the data layer,
+produces the division tables and pushes the generated HTML along with the
+attached CSS and JavaScript.
+
+\subsubsection{Data - MySQL Database/Java JAR}
+
+The web application has two primary sources of data: a MySQL database and a
+Java JAR file. The MySQL database contains the recent information available
+on the sports divisions whereas the Java JAR contains a text file of the entire
+result set allowing the user to request to see the state of a division at any
+point in the league.
