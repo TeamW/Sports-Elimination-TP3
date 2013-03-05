@@ -15,7 +15,7 @@ logic, and data separated from each other.
 
 The presentation tier is the client/browser who has Hyper Text Mark-up Language
 (HTML) and Cascading Style Sheets (CSS) for the static presentation of content.
-In addition there is JavaScript supported by JQuery JQueryUI for the dynamic
+In addition there is JavaScript supported by JQuery and JQueryUI for the dynamic
 user interface elements.
 
 The logic tier runs on a web server called Lighttpd (pronounced lighty) that is
@@ -30,15 +30,15 @@ The N-Tier Architecture diagram is available from appendix
 
 The user interface of the web application was intended on being as close to the
 desktop interface as viable within the constraints of a web browser and within
-the realms of what is typical layout of a web page.
+the realms of what is a typical layout of a web page.
 
-A wireframe for the web application is shown in figure
+A wireframe for the web application is shown in appendix
 \ref{fig:webApplicationWireframe}.
 
 The web application has a single page containing the six available divisions.
-Each division is a table and only one is available for viewing. The reasoning
-behind this is to keep as much information `about the fold' (above the lower
-page boundary on a browser's window).
+Each division is a table and only one is available for viewing at a time. The 
+reasoning behind this is to keep as much information `above the fold' (above the
+lower page boundary on a browser's window).
 
 There are links at the top of each page that will allow the user to traverse
 the entire date range for the season allowing them to view the scoreboard and
@@ -50,7 +50,7 @@ elimination status at any point in time.
 
 This section discusses the implementation of the web-based version of the
 application. The implementation discussion will be split up into the three
-main sections as shown in figure \ref{fig:nTierArchitecture}.
+main sections as shown in appendix~\ref{fig:nTierArchitecture}.
 
 \subsubsection{Presentation - Client/Browser}
 
