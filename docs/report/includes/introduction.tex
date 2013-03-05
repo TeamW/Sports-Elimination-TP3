@@ -2,6 +2,49 @@
 
 \section{Background}
 
+The project builds on two papers: one by K. D. Wayne, `A new property and a 
+faster algorithm for baseball elimination', SIAM Journal on Discrete 
+Mathematics \url{http://epubs.siam.org/doi/abs/10.1137/S0895480198348847}
+\cite{Wayne} and one by I. Adler, A. L. Erera, D.S. Hochbaum and E. V. Olinick,
+`Baseball, optimization and the world web', manuscript, 1998
+\url{http://riot.ieor.berkeley.edu/~dorit/pub/baseball.ps} \cite{Adler}.
+
+The project came about from the American love for baseball, and the love for
+a multitude of statistics relating to baseball. A common news story for sports
+fans is the announcement that a team can no longer win the current season
+however the calculations used to work this out are typically na\"{\i}ve and
+do not take into account the remaining schedule of games.
+
+The papers stated above, build on the na\"{\i}ve calculations and make use of a
+simple, yet effective, algorithm to reliably answer the question:
+`Is it mathematically impossible for a given team to win the baseball league?'
+The algorithm is known as the Ford-Fulkerson algorithm, named after L. R. Ford,
+Jr. and D. R. Fulkerson. The Ford-Fulkerson algorithm removes the need for an
+exhaustive search over all of the possibilities of results the remaining
+matches can have.
+
 \section{Aims}
+
+The primary aim of the project is to implement the aforementioned
+Ford-Fulkerson algorithm that, given a league table, remaining schedule of
+matches, and a team, will determine whether or not the given team has a
+chance of finishing at the top of the league table. The results will then
+be displayed on a user interface with data being obtained from either a text
+file or parsing dynamic up-to-date information from a sports website. The user
+interface will be fairly simplistic with a large central table displaying the 
+league and elimination information with buttons and/or radio buttons for 
+navigating between leagues. The user interface may also allow the user to 
+navigate between weeks to see how the league progressed and when teams were 
+first eliminated. A web-based version of the user interface is of interest and 
+will be explored.
+
+There may be various ways the given team can be eliminated from the league
+and a secondary objective is to provide a `certificate' of elimination. This
+will provide the team, or teams, that are responsible for ensuring the given
+team cannot finish top of the league table. A simple example can be taken
+from the na\"{\i}ve calculations traditionally used by sports pundits. The
+teams responsible for the elimination is just the list of teams that have a
+points differential with the given team that is greater than the number of 
+games the given team has to play.
 
 \section{Outline}
