@@ -64,10 +64,69 @@ of the data layer sections and, from the results obtained from the data layer,
 produces the division tables and pushes the generated HTML along with the
 attached CSS and JavaScript.
 
-\subsubsection{Data - MySQL Database/Java JAR}
+\subsubsection{Data}
 
 The web application has two primary sources of data: a MySQL database and a
 Java JAR file. The MySQL database contains the recent information available
 on the sports divisions whereas the Java JAR contains a text file of the entire
 result set allowing the user to request to see the state of a division at any
 point in the league.
+
+\subsubsection{Data - MySQL Database}
+
+The database is structured with six tables, one for each division. Each table
+structure is identical with columns for the team name, the number of points
+a team has, the number of games they have played, and whether or not they have
+been eliminated from the division. This allows for a direct mapping from
+database storage to the user's view. The structure also greatly simplified 
+database queries as information from an entire division was a single simple, and 
+thus efficient, SQL query. An example query to see the league table, ordered by 
+number of points for the American West division is shown below:
+
+\begin{verbatim}
+SELECT *
+FROM `American West`
+ORDER BY Points DESC;
+\end{verbatim}
+
+This database is updated with the latest division statistics supplied by the 
+Java JAR as the JAR contains the algorithm to compute the elimination status.
+The update can be completed in two ways. If the division is new and thus no
+information is present in the table an INSERT INTO statement is performed for
+each time. If the team is present within the database (as found via a SELECT
+statement), an UPDATE is completed instead. Examples of the three queries
+for the American West division team `Los Angeles Angels' are shown below:
+
+\begin{verbatim}
+SELECT *
+FROM `American West`
+WHERE Team = `Los Angeles Angels';
+\end{verbatim}
+
+\begin{verbatim}
+INSERT INTO `American West`
+       (Team, Points, `Games Played`, Eliminated)
+VALUES (`Los Angeles Angels`, 89, 162, 1);
+\end{verbatim}
+
+\begin{verbatim}
+UPDATE `American West`
+SET Points = 89,
+    `Games Played` = 162,
+    Eliminated = 1
+WHERE Team = `Los Angeles Angels`;
+\end{verbatim}
+
+\subsubsection{Data - Java JAR}
+
+The JAR file has embedded within it a text file containing the entire list of
+results from every match in the baseball season being discussed. This is parsed
+on-demand up to the date specified by the user. This allows users to ask to see 
+the results and associated elimination status at any point in time. This is not 
+the most efficient method of implementation however the web application as a 
+whole was an extension to the primary aims of the project and as a result wasn't 
+started until the second semester after the desktop application had been 
+significantly implemented. With the time constraints and significant complexity 
+of a more efficient implementation it was decided that this was the best 
+solution with the current resources. A more efficient implementation was 
+assigned to the future work section of the project.
