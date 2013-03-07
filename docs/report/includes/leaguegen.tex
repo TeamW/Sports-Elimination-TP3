@@ -1,3 +1,36 @@
 \subsection{Design}
+The necessity of having the ability to generate new leagues arose
+after the algorithm was created. Prior to this point our oracle for
+testing the algorithm was the information found inside the Wayne paper
+\cite{Wayne} and the standard data the application will load with
+(2011-2012 league information), this was agreed to be not enough
+rigour to fully test the algorithm and so the league generation was
+created. After further discussion it was agreed that this
+functionality was to be added to the final desktop application as it
+would: increase the user experience of the application, enhance the
+testable functionality of the application and provide the potential
+for a user who is interested in sports elimination calculations to
+manipulate the generated file to further examine or create elimination
+criteria.
+
+The major design decision of the generate functionality was to
+generate a league in such a way that every team in the league,
+regardless of division, will always play the same number of games and
+therefore have an equal chance of finishing top of a given
+division. This would be implied in a league where every division has
+an equal number of teams but the scenario we have based our
+application around has divisions with between four and six teams per
+division. A team should not have a bias depending on the league it
+plays in, and with our best efforts this should not occur. Other
+modules of the application depend on the league being in a very
+specific format otherwise a completely new league with an equal number
+of teams per league could be generated without having to care for
+these preconditions. 
+
+The file created by the generate functionality must be in the same
+format as the original league given to the application on startup due
+to the parser and utilising existing functionality inside the
+application this was easily achieved.
+
 
 \subsection{Implementation}
