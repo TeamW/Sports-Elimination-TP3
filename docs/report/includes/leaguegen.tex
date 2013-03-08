@@ -13,6 +13,8 @@ for a user who is interested in sports elimination calculations to
 manipulate the generated file to further examine or create elimination
 criteria.
 
+One 
+
 The major design decision of the generate functionality was to
 generate a league in such a way that every team in the league,
 regardless of division, will always play the same number of games and
@@ -27,10 +29,40 @@ specific format otherwise a completely new league with an equal number
 of teams per league could be generated without having to care for
 these preconditions. 
 
+One necessity of the generate functionality was to generate a league
+with a time scale that was roughly the same season length as a real
+season. This would create a more relateable analysis for any user that
+has already perused the standard data provided when the application
+first starts.
+
 The file created by the generate functionality must be in the same
 format as the original league given to the application on startup due
 to the parser and utilising existing functionality inside the
 application this was easily achieved.
 
-
 \subsection{Implementation}
+The total number of games picked for each team to play was computed to
+be 180 games per team. This was not an arbitrary choice as each team
+in the entire season must play the same number of games and the season
+should be of a relatable length to an actual season.
+
+For each team to play the same number of games, the Least Common
+Divisor (LCD) of the variant sizes of leagues must be found. The
+variant sizes are 4, 5 and 6 and the LCD therefore is 60. This then
+implies that any integer multiple greater than or equal to 1 of the
+LCD will ensure that every team will play the same number of games
+regardless of league. The actual number of games played by each team
+in the league is 162 and the closest multiple of the LCD to 162 is 180
+- the closest multiple is chosen with the intention of this resulting
+in a season length similar to an actual season length. (It is left to
+the readers contemplation as to why 162 games are picked for an real
+division as 162 is neither equally divisible by four or five).
+
+Both the first and the second iteration of the generation
+functionality follow the same game creation and scheduling pattern. 
+
+%% INSERT PSEUDOCODE HERE
+
+
+\subsubsection{First Iteration}
+
