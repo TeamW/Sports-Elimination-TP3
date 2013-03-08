@@ -1,6 +1,6 @@
 all: finalReport.pdf clean
 
-finalReport.pdf: finalReport.tex finalReport.bib
+finalReport.pdf: finalReport.tex finalReport.bib $(wildcard includes/*.tex)
 	pdflatex finalReport
 	bibtex finalReport
 	pdflatex finalReport
