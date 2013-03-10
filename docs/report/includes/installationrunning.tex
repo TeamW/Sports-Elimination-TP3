@@ -60,9 +60,33 @@ Apache, MySQL, PHP) server is available from the Debian Wiki at
 
 \subsubsection{Set up of database}
 
-COMMAND FOR DB CREATION HERE
+To create a database, login to the MySQL command line with `mysql -u root' and
+execute the following commands.
 
-SQL FOR CREATION OF TABLE HERE
+\begin{verbatim}
+create database teamw;
+grant usage on *.* to teamw@localhost identified by `algorithms';
+grant all privileges on teamw.* to teamw@localhost
+\end{verbatim}
+
+The user `teamw' can now log in to the database via the command:
+
+\begin{verbatim}
+mysql -u teamw -p'algorithms' teamw
+\end{verbatim}
+
+Afterwards, to create the required tables, the below SQL query needs to be
+executed for the six divisions (in place of the $<$division name$>$).
+
+\begin{verbatim}
+CREATE TABLE `<division name>` (
+	`Team` varchar(25) NOT NULL,
+	`Points` int(4) NOT NULL DEFAULT '0',
+	`Games Played` int(4) NOT NULL DEFAULT '0',
+	`Eliminated' tinyint(4) NOT NULL DEFAULT '0',
+	PRIMARY KEY ('Team')
+)
+\end{verbatim}
 
 In the folder `website/content/php/includes/functions.php' there are a number
 of variables at the top of the page indicating the values for the server, user,
@@ -79,3 +103,6 @@ As stated in the installation section, the web application is available for
 viewing at \url{http://www.gordonrenfrewshire.com/teamw}. If a personal
 installation has been executed then running the application will be dependent
 on your own set up.
+
+If a personal setup has been created, you will need to run the `Update
+Divisions' page found at the navigation bar to populate the tables.
