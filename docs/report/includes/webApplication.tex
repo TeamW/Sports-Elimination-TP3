@@ -5,13 +5,13 @@
 This section discusses the design of the web-based version of the application.
 The design of the application was constructed with only the most important
 functional and non-functional requirements in mind. The web-based version was
-classed as the least important part of the project, with preliminary effort
+classed as an optional extension of the project, with preliminary effort
 directed solely towards the desktop application.
 
 \subsubsection{System architecture}
 
-The web application is a standard multi-tier architecture with the presentation,
-logic, and data separated from each other.
+The web application is a standard multi-tier architecture with the 
+presentation, logic, and data separated from each other.
 
 The presentation tier is the client/browser who has Hyper Text Mark-up Language
 (HTML) and Cascading Style Sheets (CSS) for the static presentation of content.
@@ -122,7 +122,19 @@ WHERE Team = `Los Angeles Angels`;
 The JAR file has embedded within it a text file containing the entire list of
 results from every match in the baseball season being discussed. This is parsed
 on-demand up to the date specified by the user. This allows users to ask to see 
-the results and associated elimination status at any point in time. This is not 
+the results and associated elimination status at any point in time. This is
+called by the PHP script using the URL variable `date'. An example URL and
+the associated command line call are below.
+
+\begin{verbatim}
+gordonrenfrewshire.com/teamw/index.php?page=showDivisions&date=4-10-2012
+\end{verbatim}
+
+\begin{verbatim}
+java -jar elim.jar --web 4-10-2012
+\end{verbatim}
+
+This is not 
 the most efficient method of implementation however the web application as a 
 whole was an extension to the primary aims of the project and as a result wasn't 
 started until the second semester after the desktop application had been 
@@ -130,3 +142,5 @@ significantly implemented. With the time constraints and significant complexity
 of a more efficient implementation it was decided that this was the best 
 solution with the current resources. A more efficient implementation was 
 assigned to the future work section of the project.
+
+
