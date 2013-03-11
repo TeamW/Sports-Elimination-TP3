@@ -12,7 +12,7 @@ public class DateTime extends Date {
 	public DateTime(int d, int m, int y, int h, int min) {
 		super(d, m, y);
 		if (!validateTime(h, min)) {
-			System.out.println("Erroneous time.");
+			System.err.println("Erroneous time.");
 			return;
 		}
 		hour = h;
@@ -22,7 +22,7 @@ public class DateTime extends Date {
 	public DateTime(int d, String m, int y, int h, int min) {
 		super(d, m, y);
 		if (!validateTime(h, min)) {
-			System.out.println("Erroneous time.");
+			System.err.println("Erroneous time.");
 			return;
 		}
 		hour = h;
@@ -32,7 +32,7 @@ public class DateTime extends Date {
 	public DateTime(Date D, int h, int m) {
 		super(D.getDay(), D.getMonth(), D.getYear());
 		if (!validateTime(h, min)) {
-			System.out.println("Erroneous time.");
+			System.err.println("Erroneous time.");
 			return;
 		}
 		hour = h;
@@ -42,7 +42,7 @@ public class DateTime extends Date {
 	public DateTime(DateTime D) {
 		super(D.getDay(), D.getMonth(), D.getYear());
 		if (!validateTime(D.getHour(), D.getMinute())) {
-			System.out.println("Erroneous time.");
+			System.err.println("Erroneous time.");
 			return;
 		}
 		hour = D.getHour();
@@ -64,43 +64,48 @@ public class DateTime extends Date {
 	public String formatTime() {
 		String strhr;
 		String strmin;
-		if (this.hour < 10)
+		if (this.hour < 10) {
 			strhr = "0" + this.hour;
-		else
+		} else {
 			strhr = "" + this.hour;
-		if (this.min < 10)
+		}
+		if (this.min < 10) {
 			strmin = "0" + this.min;
-		else
+		} else {
 			strmin = "" + this.min;
+		}
 		return strhr + ":" + strmin;
 	}
-	
+
 	public String formatTime(String delim) {
 		String strhr;
 		String strmin;
-		if (this.hour < 10)
+		if (this.hour < 10) {
 			strhr = "0" + this.hour;
-		else
+		} else {
 			strhr = "" + this.hour;
-		if (this.min < 10)
+		}
+		if (this.min < 10) {
 			strmin = "0" + this.min;
-		else
+		} else {
 			strmin = "" + this.min;
+		}
 		return strhr + delim + strmin;
 	}
-	
 
 	private boolean validateTime(int h, int m) {
 		return (0 <= h && h < 24 && 0 <= m && m < 60);
 	}
 
 	public boolean before(DateTime DT) {
-		if (!super.equals(DT))
+		if (!super.equals(DT)) {
 			return super.before(DT);
-		if (hour < DT.getHour())
+		}
+		if (hour < DT.getHour()) {
 			return true;
-		else if (getHour() == DT.getHour() && getMinute() < DT.getMinute())
+		} else if (getHour() == DT.getHour() && getMinute() < DT.getMinute()) {
 			return true;
+		}
 		return false;
 	}
 

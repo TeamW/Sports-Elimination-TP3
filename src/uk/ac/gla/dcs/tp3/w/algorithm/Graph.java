@@ -42,8 +42,9 @@ public class Graph {
 	 *            the team for which the network flow is being evaluated upon.
 	 */
 	public Graph(Division d, Team t) {
-		if (d == null || t == null)
+		if (d == null || t == null) {
 			return;
+		}
 		// Work out constant W: team t's points and the number of games
 		// remaining.
 		int W = t.getPoints() + t.getUpcomingMatches().size();
@@ -70,9 +71,11 @@ public class Graph {
 		Team[] teams = new Team[teamsReal.length - 1];
 		// Remove team T from the working list of Teams
 		int pos = 0;
-		for (Team to : teamsReal)
-			if (!to.equals(t))
+		for (Team to : teamsReal) {
+			if (!to.equals(t)) {
 				teams[pos++] = to;
+			}
+		}
 		// Create vertex for each team pair and make it adjacent to the
 		// sink.
 		// Team[i] is in vertices[vertices.length -2 -i]
@@ -88,7 +91,7 @@ public class Graph {
 		// Create vertex for each team pair and make it adjacent from the
 		// source.
 		pos = 1;
-		for (int i = 0; i < teams.length; i++)
+		for (int i = 0; i < teams.length; i++) {
 			for (int j = i + 1; j < teams.length; j++) {
 				// Find out which team vertex A to have as the PairVertex
 				Vertex tempI = vertices[vertices.length - 2 - i];
@@ -107,9 +110,10 @@ public class Graph {
 				vertices[0].getAdjList().add(new AdjListNode(0, vertices[pos]));
 				pos++;
 			}
+		}
 		// For each match not yet played and not involving t, increment the
 		// capacity of the vertex going from float->pair node of home and away
-		for (Match M : d.getFixtures())
+		for (Match M : d.getFixtures()) {
 			if (matchNotPlayed(M, t)) {
 				Team home = M.getHomeTeam();
 				Team away = M.getAwayTeam();
@@ -117,18 +121,22 @@ public class Graph {
 					if (appropriateMatch(home, away, (PairVertex) A.getVertex()))
 						A.incCapacity();
 			}
+		}
 		// Create the adjacency matrix representation of the graph.
 		// Initialise every location to 0.
 		matrix = new int[vertices.length][vertices.length];
-		for (int i = 0; i < vertices.length; i++)
-			for (int j = 0; j < vertices.length; j++)
+		for (int i = 0; i < vertices.length; i++) {
+			for (int j = 0; j < vertices.length; j++) {
 				matrix[i][j] = 0;
+			}
+		}
 		// Now set every non-zero location to the value of the capacity.
-		for (Vertex v : vertices)
+		for (Vertex v : vertices) {
 			for (AdjListNode n : v.getAdjList()) {
 				int loc = n.getVertex().getIndex();
 				matrix[v.getIndex()][loc] = n.getCapacity();
 			}
+		}
 	}
 
 	/**
@@ -264,11 +272,12 @@ public class Graph {
 	 */
 	public void bfs() {
 		// Ensure all vertices are initially classed as unvisited.
-		for (Vertex v : vertices)
+		for (Vertex v : vertices) {
 			v.setVisited(false);
+		}
 		// A queue will be used to know which vertex to visit next
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
-		for (Vertex v : vertices)
+		for (Vertex v : vertices) {
 			// An unvisited vertex should be set as visited, have its
 			// predecessor initialised to itself, and add to the queue.
 			if (!v.getVisited()) {
@@ -292,6 +301,7 @@ public class Graph {
 					}
 				}
 			}
+		}
 	}
 
 }

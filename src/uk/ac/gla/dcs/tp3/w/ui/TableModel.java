@@ -17,7 +17,7 @@ public class TableModel extends AbstractTableModel {
 	public TableModel(HashMap<String, Division> d) {
 		data = d;
 	}
-	
+
 	public void changeData(HashMap<String, Division> d) {
 		data = d;
 		fireTableDataChanged();
@@ -57,7 +57,7 @@ public class TableModel extends AbstractTableModel {
 			return String.class;
 		}
 	}
-	
+
 	@Override
 	public Object getValueAt(int row, int col) {
 		Division temp = data.get(current);
@@ -77,8 +77,8 @@ public class TableModel extends AbstractTableModel {
 		}
 		return null;
 	}
-	
-	public Division getCurrentDivision(){
+
+	public Division getCurrentDivision() {
 		return data.get(current);
 	}
 

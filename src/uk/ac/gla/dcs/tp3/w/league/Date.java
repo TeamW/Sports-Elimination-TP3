@@ -21,7 +21,7 @@ public class Date {
 
 	public Date(int d, int m, int y) {
 		if (!validDate(d, m, y)) {
-			System.out.println("Erroneous date.");
+			System.err.println("Erroneous date.");
 			return;
 		}
 		day = d;
@@ -32,7 +32,7 @@ public class Date {
 	public Date(int d, String M, int y) {
 		int m = Month.getMonthNumber(M.substring(0, 3).toUpperCase());
 		if (!validDate(d, m, y)) {
-			System.out.println("Erroneous date.");
+			System.err.println("Erroneous date.");
 			return;
 		}
 		day = d;
@@ -73,14 +73,17 @@ public class Date {
 	 * @return Returns true if this date is before given date, false otherwise.
 	 */
 	public boolean before(Date date) {
-		if (year < date.getYear())
+		if (year < date.getYear()) {
 			return true;
-		else if (year == date.getYear())
-			if (month < date.getMonth())
+		} else if (year == date.getYear()) {
+			if (month < date.getMonth()) {
 				return true;
-			else if (month == date.getMonth())
-				if (day < date.getDay())
+			} else if (month == date.getMonth()) {
+				if (day < date.getDay()) {
 					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -98,11 +101,13 @@ public class Date {
 	 * @return True if date is valid, false otherwise.
 	 */
 	private static boolean validDate(int d, int m, int y) {
-		if (m < 1 || m > 12 || y < 1 || d < 1)
+		if (m < 1 || m > 12 || y < 1 || d < 1) {
 			return false;
+		}
 		int numberOfDays = Month.daysInMonth(m, y);
-		if (d > numberOfDays)
+		if (d > numberOfDays) {
 			return false;
+		}
 		return true;
 	}
 
@@ -140,6 +145,7 @@ public class Date {
 	}
 
 	public String genDate() {
-		return getDay() + " " + Month.getMonthNameShort(getMonth()) + " " + getYear();
+		return getDay() + " " + Month.getMonthNameShort(getMonth()) + " "
+				+ getYear();
 	}
 }

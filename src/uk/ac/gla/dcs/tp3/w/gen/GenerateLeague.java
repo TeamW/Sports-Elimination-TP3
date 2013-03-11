@@ -27,38 +27,45 @@ public class GenerateLeague {
 		int teamSize, gamesBetweenTeams, i, j, k;
 		int scoreA, scoreB, index = 0;
 		Random r = new Random();
-		DateTime date = new DateTime(31,12,2012,23,59);
+		DateTime date = new DateTime(31, 12, 2012, 23, 59);
 		ArrayList<String> fixtures = new ArrayList<String>();
 		String fixture;
-		HashMap<Team,Integer> fix = new HashMap<Team,Integer>();
+		HashMap<Team, Integer> fix = new HashMap<Team, Integer>();
 		int score;
-		for (Division d: p.getDivisions().values()){
+		for (Division d : p.getDivisions().values()) {
 			score = 0;
-			for(Team t: d.getTeams()){
+			for (Team t : d.getTeams()) {
 				fix.put(t, score);
-				score=score+1-(score%2);
+				score = score + 1 - (score % 2);
 			}
 		}
 		for (Division d : p.getDivisions().values()) {
-			System.out.println("New Division: " + d.getName());
+			if (verbose) {
+				System.out.println("New Division: " + d.getName());
+			}
 			ArrayList<Team> teams = d.getTeams();
 			teamSize = teams.size();
 			gamesBetweenTeams = gamesPerTeam / (teamSize - 1);
-			System.out.println("Games Between Teams: " + gamesBetweenTeams);
+			if (verbose) {
+				System.out.println("Games Between Teams: " + gamesBetweenTeams);
+			}
 			for (i = 0; i < teamSize; i++) {
 				for (j = i + 1; j < teamSize; j++) {
 					for (k = 0; k < gamesBetweenTeams; k++) {
 						scoreA = r.nextInt(10) + fix.get(teams.get(i));
-						scoreB = r.nextInt(10) + fix.get(teams.get(j)) ;
-						if (scoreA == scoreB)
+						scoreB = r.nextInt(10) + fix.get(teams.get(j));
+						if (scoreA == scoreB) {
 							scoreB = (scoreB + 1) % 10;
-						if (!fixtures.isEmpty())
+						}
+						if (!fixtures.isEmpty()) {
 							index = r.nextInt(fixtures.size());
+						}
 						fixture = date.formatTime() + " " + teams.get(i)
 								+ " - " + teams.get(j) + " " + scoreA + ":"
 								+ scoreB + "\n";
-						if (verbose)
+						if (verbose) {
 							System.out.println(fixture);
+						}
 						fixtures.add(index, fixture);
 					}
 				}

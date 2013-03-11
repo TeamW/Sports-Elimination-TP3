@@ -219,8 +219,9 @@ public class Team implements Comparable<Team> {
 	 *            The match the team is still to play
 	 */
 	public void addUpcomingMatch(Match m) {
-		if (upcomingMatches == null)
+		if (upcomingMatches == null) {
 			upcomingMatches = new ArrayList<Match>();
+		}
 		upcomingMatches.add(m);
 	}
 
@@ -233,8 +234,9 @@ public class Team implements Comparable<Team> {
 	 *         exist in the array)
 	 */
 	public Match removeUpcomingMatch(Match m) {
-		if (upcomingMatches == null || !upcomingMatches.remove(m))
+		if (upcomingMatches == null || !upcomingMatches.remove(m)) {
 			return null;
+		}
 		return m;
 	}
 
@@ -277,7 +279,7 @@ public class Team implements Comparable<Team> {
 	public void setTrivial(boolean b) {
 		trivial = b;
 	}
-	
+
 	public boolean getTrivial() {
 		return trivial;
 	}

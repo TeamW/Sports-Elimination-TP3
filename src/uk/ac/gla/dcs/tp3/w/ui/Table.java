@@ -22,11 +22,6 @@ public class Table extends JTable {
 	}
 
 	public Division getCurrentDiv() {
-		/*
-		 * Division onScreen = new Division(); onScreen.
-		 * this.getModel().getValueAt(rowIndex, columnIndex)
-		 */
-
 		return model.getCurrentDivision();
 	}
 

@@ -46,6 +46,12 @@ public class Main {
 			p.parse("");
 		}
 		final HashMap<String, Division> map = p.getDivisions();
+		// trivial elim test
+		if (!web) {
+			for (Division d2 : map.values()) {
+				(new Algorithm(d2)).FirstNonTrivTeamElim();
+			}
+		}
 		// Now there will be some valid divisions to obtain. Now work out
 		// elimination status of each team.
 		for (Division d : map.values()) {

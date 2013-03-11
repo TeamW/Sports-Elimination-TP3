@@ -56,7 +56,7 @@ public class Division {
 		name = "";
 		teams = t;
 		fixtures = m;
-		
+
 	}
 
 	/**
@@ -126,8 +126,9 @@ public class Division {
 	 *            The match to add to the fixture list.
 	 */
 	public void addFixture(Match m) {
-		if (!fixtures.contains(m))
+		if (!fixtures.contains(m)) {
 			fixtures.add(m);
+		}
 	}
 
 	/**
@@ -137,8 +138,9 @@ public class Division {
 	 *            The team to be added to the team array.
 	 */
 	public void addTeam(Team t) {
-		if (!teams.contains(t))
+		if (!teams.contains(t)) {
 			teams.add(t);
+		}
 	}
 
 	/**
@@ -169,9 +171,11 @@ public class Division {
 	public int maxPoints() {
 		Team[] t = teamsToArray();
 		int max = 0;
-		for (Team team : t)
-			if (team.getPoints() > max)
+		for (Team team : t) {
+			if (team.getPoints() > max) {
 				max = team.getPoints();
+			}
+		}
 		return max;
 	}
 
@@ -186,8 +190,9 @@ public class Division {
 	public Team[] teamsToArray() {
 		Team[] array = new Team[teams.size()];
 		int i = 0;
-		for (Team t : teams)
+		for (Team t : teams) {
 			array[i++] = t;
+		}
 		return array;
 	}
 
@@ -200,7 +205,7 @@ public class Division {
 		System.out.println(name);
 		Team[] t = teamsToArray();
 		// Sorts teams into non-descending order by wins
-		for (int i = 0; i < t.length; i++)
+		for (int i = 0; i < t.length; i++) {
 			for (int j = i; j < t.length; j++) {
 				if (t[i].getPoints() - (t[j].getPoints()) < 0) {
 					Team temp = t[i];
@@ -208,12 +213,14 @@ public class Division {
 					t[j] = temp;
 				}
 			}
-		for (Team team : t)
+		}
+		for (Team team : t) {
 			System.out.println(team.getName() + "-" + team.getPoints() + "-"
 					+ team.getGamesPlayed() + "-" + team.isEliminated());
+		}
 		System.out.println();
 	}
-	
+
 	// loop through every game played in the current division,
 	// check if date is less than/equal to current date,
 	// if not unplay match

@@ -16,8 +16,8 @@ public class Parser {
 
 	public Parser() {
 	}
-	
-	public void generateStandardDivisionInfo(){
+
+	public void generateStandardDivisionInfo() {
 		this.init();
 	}
 

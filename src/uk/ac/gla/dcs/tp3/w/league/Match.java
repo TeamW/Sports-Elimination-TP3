@@ -34,7 +34,8 @@ public class Match {
 	 *            The away team
 	 * @param hs
 	 *            The home team's score
-	 * @param as The away team's score
+	 * @param as
+	 *            The away team's score
 	 * @param d
 	 *            The date and time the match is played
 	 * @param b
@@ -179,10 +180,11 @@ public class Match {
 	 * @return A reference to the team with the higher score.
 	 */
 	public Team getWinner() {
-		if (played)
+		if (played) {
 			return (homeScore > awayScore) ? homeTeam : awayTeam;
-		else
+		} else {
 			return null;
+		}
 	}
 
 	/**
@@ -199,8 +201,9 @@ public class Match {
 	 */
 	public void playMatch() {
 		// Only execute this method once. Also ensure scores have been set.
-		if (played || homeScore == -1 || awayScore == -1)
+		if (played || homeScore == -1 || awayScore == -1) {
 			return;
+		}
 		played = true;
 		// t is the winner of the match, s is the loser of the match.
 		Team t = getWinner();
@@ -222,8 +225,9 @@ public class Match {
 	 */
 	public void unplayMatch() {
 		// Only execute this method once. Also ensure scores have been set.
-		if (!played || homeScore == -1 || awayScore == -1)
+		if (!played || homeScore == -1 || awayScore == -1) {
 			return;
+		}
 		// t is the winner of the match, s is the loser of the match.
 		Team t = getWinner();
 		Team s = ((t == homeTeam) ? awayTeam : homeTeam);

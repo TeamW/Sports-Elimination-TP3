@@ -21,13 +21,15 @@ public class ResidualGraph extends Graph {
 	public ResidualGraph(Graph g) {
 		// Duplicate vertex array
 		vertices = new Vertex[g.getV().length];
-		for (int i = 0; i < vertices.length; i++)
+		for (int i = 0; i < vertices.length; i++) {
 			vertices[i] = new Vertex(g.getV()[i]);
+		}
 		setSource(vertices[0]);
 		setSink(vertices[vertices.length - 1]);
 		// Create a fresh adjacency list representation
-		for (Vertex v : vertices)
+		for (Vertex v : vertices) {
 			v.setAdjList(new LinkedList<AdjListNode>());
+		}
 		// Create backwards and forwards edges
 		for (int i = 0; i < vertices.length; i++) {
 			Vertex original = g.getV()[i];
@@ -51,9 +53,11 @@ public class ResidualGraph extends Graph {
 		// Create the adjacency matrix representation of the graph.
 		// Initialise every location to 0.
 		matrix = new int[vertices.length][vertices.length];
-		for (int i = 0; i < vertices.length; i++)
-			for (int j = 0; j < vertices.length; j++)
+		for (int i = 0; i < vertices.length; i++) {
+			for (int j = 0; j < vertices.length; j++) {
 				matrix[i][j] = 0;
+			}
+		}
 		// Now set every non-zero location to the value of the capacity.
 		for (Vertex v : vertices) {
 			for (AdjListNode n : v.getAdjList()) {
@@ -70,8 +74,9 @@ public class ResidualGraph extends Graph {
 	 * elimination.
 	 */
 	public void certificateOfEliminationHelper() {
-		for (Vertex v : vertices)
+		for (Vertex v : vertices) {
 			v.setVisited(false);
+		}
 		LinkedList<Vertex> queue = new LinkedList<Vertex>();
 		queue.add(vertices[0]);
 		while (!queue.isEmpty()) {

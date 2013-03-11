@@ -84,8 +84,9 @@ public class LaTeXFile {
 	}
 
 	public String getTitles() {
-		if (sections.size() == 0)
+		if (sections.size() == 0) {
 			return null;
+		}
 		StringBuilder s = new StringBuilder();
 		for (DocumentSection d : sections) {
 			s.append(d.getTitle() + "\n");
@@ -105,14 +106,16 @@ public class LaTeXFile {
 		File f = new File(directory + fileName + ".tex");
 		System.out.println(directory + fileName + ".tex");
 		try {
-			if (f.createNewFile())
+			if (f.createNewFile()) {
 				System.out.println("Created File");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		if (fileName == null)
+		if (fileName == null) {
 			return false;
+		}
 		documentStart();
 		for (DocumentSection ds : sections) {
 			sb.append(ds.write());

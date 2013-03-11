@@ -11,8 +11,9 @@ public enum Month {
 
 	private static final Map<Integer, Month> lookup = new HashMap<Integer, Month>();
 	static {
-		for (Month m : Month.values())
+		for (Month m : Month.values()) {
 			lookup.put(m.getMonthNumber(), m);
+		}
 	}
 
 	private String name;
@@ -39,16 +40,23 @@ public enum Month {
 
 	public static int daysInMonth(int m, int year) {
 		int days = lookup.get(m).getNumberOfDays();
-		if (m == 2 && isLeap(year))
+		if (m == 2 && isLeap(year)) {
 			days++;
+		}
 		return days;
 	}
 
 	public static String getMonthName(int m) {
+		if (m < 1 || m > 12) {
+			return "";
+		}
 		return lookup.get(m).getName();
 	}
 
 	public static String getMonthNameShort(int m) {
+		if (m < 1 || m > 12) {
+			return "";
+		}
 		return lookup.get(m).getName().substring(0, 3);
 	}
 

@@ -139,15 +139,19 @@ public class Algorithm {
 			for (int j = 1; j < pathnodes.length; j++) {
 				int i = j - 1;
 				if (pathnodes[i] < pathnodes[j]) {
-					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList())
+					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList()) {
 						// Forward edge, add flow.
-						if (a.getVertex().getIndex() == pathnodes[j])
+						if (a.getVertex().getIndex() == pathnodes[j]) {
 							a.setFlow(a.getFlow() + path.getCapacity());
+						}
+					}
 				} else {
-					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList())
+					for (AdjListNode a : g.getV()[pathnodes[i]].getAdjList()) {
 						// Backward edge, remove flow.
-						if (a.getVertex().getIndex() == pathnodes[j])
+						if (a.getVertex().getIndex() == pathnodes[j]) {
 							a.setFlow(a.getFlow() - path.getCapacity());
+						}
+					}
 				}
 			}
 			// Update residual graph based on new original graph's flow data.
@@ -166,8 +170,9 @@ public class Algorithm {
 					for (AdjListNode a : TV.getAdjList()) {
 						int next = (a.getCapacity() - a.getFlow());
 						teamToSinkRemain += next;
-						if (next < minTeamToSink)
+						if (next < minTeamToSink) {
 							minTeamToSink = next;
+						}
 					}
 				}
 			}
@@ -180,8 +185,9 @@ public class Algorithm {
 		// Otherwise, team has been eliminated, return true.
 		t.setEliminated(cap != 0);
 		t.setTrivial(false);
-		if (cap != 0)
+		if (cap != 0) {
 			return certificateOfElimination(residual, t);
+		}
 		return false;
 	}
 
@@ -193,15 +199,17 @@ public class Algorithm {
 		for (Vertex v : residual.getV()) {
 			if (g.getV()[v.getIndex()] instanceof TeamVertex) {
 				TeamVertex elim = (TeamVertex) g.getV()[v.getIndex()];
-				if (v.getVisited())
+				if (v.getVisited()) {
 					t.getEliminatedBy().add(elim.getTeam());
+				}
 			}
 		}
 		if (verbose) {
 			// Test output from above
 			System.out.println("\n" + t.getName() + " eliminated by:");
-			for (Team elimBy : t.getEliminatedBy())
+			for (Team elimBy : t.getEliminatedBy()) {
 				System.out.println(elimBy.getName());
+			}
 			System.out.println();
 		}
 		return true;
@@ -222,16 +230,19 @@ public class Algorithm {
 		// Until we either get stuck, or get to the source, keep going.
 		while (true) {
 			// If we're stuck outside the source, we're finished.
-			if (v[next].getPred() == next && next != 0)
+			if (v[next].getPred() == next && next != 0) {
 				return null;
+			}
 			// Add next node to the path.
 			backPath.add(next);
 			// Ensure current path capacity is at it's lowest possible value
-			if (current != next && matrix[next][current] < capacity)
+			if (current != next && matrix[next][current] < capacity) {
 				capacity = matrix[next][current];
+			}
 			// If we're at the source, one path has been found.
-			if (next == 0)
+			if (next == 0) {
 				break;
+			}
 			// Bump up one step up the path
 			current = next;
 			next = v[next].getPred();
@@ -256,52 +267,61 @@ public class Algorithm {
 		Team[] teams = d.teamsToArray();
 		// Sorts teams into non-descending order by wins and games remaining.
 		// Bubble sort is sufficient for data size.
-		for (int i = 0; i < teams.length; i++)
-			for (int j = i; j < teams.length; j++)
+		for (int i = 0; i < teams.length; i++) {
+			for (int j = i; j < teams.length; j++) {
 				if (teams[i].compareTo(teams[j]) > 0) {
 					Team temp = teams[i];
 					teams[i] = teams[j];
 					teams[j] = temp;
 				}
+			}
+		}
 		// Determine the highest team that has been eliminated.
 		int lastElim = binaryDetermine(teams, 0, teams.length, -1);
 		// Eliminate this team and all teams below it.
 		// Store array of teams responsible for eliminating the team.
 		// Every team has been eliminated by all teams not-eliminated below it
 		// in table.
-		for (int i = lastElim; i >= 0; i--)
+		for (int i = lastElim; i >= 0; i--) {
 			teams[i].setEliminated(true);
+		}
 	}
 
 	private int binaryDetermine(Team[] T, int s, int e, int highestElim) {
 		// Stop conditions
-		if (e < s || s > e || s < 0 || e > T.length)
+		if (e < s || s > e || s < 0 || e > T.length) {
 			return highestElim;
+		}
 		// Binary search
 		int mid = (s + e) / 2;
 		// If reached end of array...
-		if (mid >= T.length)
+		if (mid >= T.length) {
 			return highestElim;
-		// If team at middle of range has been eliminated...
-		else if (fordFulkerson(T[mid]))
+		} else if (fordFulkerson(T[mid])) {
+			// If team at middle of range has been eliminated...
 			return binaryDetermine(T, mid + 1, e, mid);
-		// If team at middle of range has not been eliminated...
-		else
+		} else {
+			// If team at middle of range has not been eliminated...
 			return binaryDetermine(T, s, mid - 1, highestElim);
+		}
 	}
 
 	public void linearFirstNonTrivElim(DateTime start, DateTime end) {
+		boolean found = false;
 		for (Team t : d.teamsToArray()) {
 			DateTime current = new DateTime(start);
-			while (!end.before(current)) {
+			while (!end.before(current) && !found) {
 				d.updateMatches(current);
 				fordFulkerson(t);
 				if (t.isEliminated() && !t.getTrivial()) {
 					d.setFirstNTTeamElim(t);
-					d.setFirstNTTeamElimdate(current);
-					break;
+					d.setFirstNTTeamElimdate(new DateTime(current));
+					found = true;
 				}
 				current.incrementDate();
+			}
+			if (found) {
+				break;
 			}
 		}
 	}

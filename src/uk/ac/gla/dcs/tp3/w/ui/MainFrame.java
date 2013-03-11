@@ -74,10 +74,14 @@ public class MainFrame extends JFrame {
 		calcStartDate();
 		calcEndDate();
 
-		for (Division d: divisions.values()) {
-			Algorithm test = new Algorithm(d);
+		for (Division d : divisions.values()) {
 			d.setFirstNTTeamElim(null);
 			d.setFirstNTTeamElimdate(null);
+			for (Team t : d.getTeams()) {
+				t.setTrivial(false);
+				t.setEliminated(false);
+			}
+			Algorithm test = new Algorithm(d);
 			test.linearFirstNonTrivElim(startDate, endDate);
 		}
 
@@ -133,30 +137,31 @@ public class MainFrame extends JFrame {
 						calcStartDate();
 						calcEndDate();
 						updateMatchesPlayed();
-						for(Division D: divisions.values()){
+						for (Division D : divisions.values()) {
 							(new Algorithm(D)).FirstNonTrivTeamElim();
 						}
 						table.changeDivisions(divisions);
 						listener.updateDivision(divisions);
 						// Calculate the start and end dates, set table to
 						// display the end date
-						
 
 						dateLabel.setText("Current date: "
 								+ displayDate.toString());
-						for (Division d: divisions.values()) {
+						for (Division d : divisions.values()) {
 							Algorithm test = new Algorithm(d);
 							d.setFirstNTTeamElim(null);
 							d.setFirstNTTeamElimdate(null);
 							test.linearFirstNonTrivElim(startDate, endDate);
 						}
 						if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
-							FirstNonTriv.setText("The First Team in this Division to"
+							FirstNonTriv
+									.setText("The First Team in this Division to"
 											+ " be eliminated in a non trivial manner was "
 											+ table.getCurrentDiv()
 													.getFirstNTTeamElim());
 						} else {
-							FirstNonTriv.setText("This division has no non-trivial elimination.");
+							FirstNonTriv
+									.setText("This division has no non-trivial elimination.");
 						}
 						JOptionPane.showMessageDialog(screenPanel,
 								"Valid file format");
@@ -165,7 +170,7 @@ public class MainFrame extends JFrame {
 								"Invalid file format");
 					}
 				}
-				
+
 			}
 		});
 		menu.add(menuItem);
@@ -234,25 +239,25 @@ public class MainFrame extends JFrame {
 		submenu.add(menuItem);
 
 		submenu.addSeparator();
-		
+
 		menuItem = new JMenuItem("Add current and print...");
-		menuItem.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				LF.addDivisionFromJTable(table,displayDate);
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LF.addDivisionFromJTable(table, displayDate);
 				int value = fc.showSaveDialog(screenPanel);
-				if(value == JFileChooser.APPROVE_OPTION){
-						String filename = fc.getSelectedFile().getName();
-						String directory = fc.getSelectedFile().getParentFile()
-								.getAbsolutePath();
-						if (LF.write(filename, directory))
-							JOptionPane.showMessageDialog(screenPanel,
-									"File Printed");
+				if (value == JFileChooser.APPROVE_OPTION) {
+					String filename = fc.getSelectedFile().getName();
+					String directory = fc.getSelectedFile().getParentFile()
+							.getAbsolutePath();
+					if (LF.write(filename, directory))
+						JOptionPane.showMessageDialog(screenPanel,
+								"File Printed");
 				}
 			}
 		});
-		
+
 		submenu.add(menuItem);
-		
+
 		menuItem = new JMenuItem("Print...");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -459,7 +464,7 @@ public class MainFrame extends JFrame {
 		for (int i = 0; i < daysInMonth; i++)
 			days[i] = i + 1;
 		dayBox.setModel(new DefaultComboBoxModel(days));
-		
+
 		// now update each of the boxes
 		dayBox.setSelectedIndex(displayDate.getDay() - 1);
 		monthBox.setSelectedIndex(displayDate.getMonth() - 1);

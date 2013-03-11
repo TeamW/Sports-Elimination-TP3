@@ -7,14 +7,14 @@ public abstract class DocumentSection {
 
 	public DocumentSection(String title) {
 		sb = new StringBuilder();
-		this.title=title;
+		this.title = title;
 	}
 
 	public StringBuilder getStringBuilder() {
 		return sb;
 	}
-	
-	public String getTitle(){
+
+	public String getTitle() {
 		return title;
 	}
 
