@@ -49,7 +49,6 @@ public enum Month {
 	}
 
 	public static String getMonthNameShort(int m) {
-		System.out.println(lookup.get(m).getName().substring(0, 3));
 		return lookup.get(m).getName().substring(0, 3);
 	}
 

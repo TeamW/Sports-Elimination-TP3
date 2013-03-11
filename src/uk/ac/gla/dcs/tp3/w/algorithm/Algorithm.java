@@ -211,8 +211,7 @@ public class Algorithm {
 		// Perform BFS from source on graph
 		g.bfs();
 		// Since we'll work out a path from sink to source, it will be added to
-		// a
-		// stack then popped until empty to store path in correct direction.
+		// a stack then popped until empty to store path in correct direction.
 		Stack<Integer> backPath = new Stack<Integer>();
 		// Use matrix representation of edge capacities to speed up this method.
 		int[][] matrix = g.getMatrix();

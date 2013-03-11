@@ -79,7 +79,6 @@ public class MainFrame extends JFrame {
 			d.setFirstNTTeamElim(null);
 			d.setFirstNTTeamElimdate(null);
 			test.linearFirstNonTrivElim(startDate, endDate);
-			System.out.println(d.getFirstNTTeamElim() + " " + d.getFirstNTTeamElimdate());
 		}
 
 		// Add the panel that shows the previous/next week buttons
@@ -123,7 +122,6 @@ public class MainFrame extends JFrame {
 					File file = fc.getSelectedFile();
 					boolean valid = false;
 					try {
-						System.out.println(file.getName());
 						valid = p.parse(file.getAbsolutePath());
 					} catch (Exception ee) {
 						JOptionPane.showMessageDialog(screenPanel,
@@ -137,7 +135,6 @@ public class MainFrame extends JFrame {
 						updateMatchesPlayed();
 						for(Division D: divisions.values()){
 							(new Algorithm(D)).FirstNonTrivTeamElim();
-							System.out.println(D.getFirstNTTeamElim() + " " +D.getFirstNTTeamElimdate());
 						}
 						table.changeDivisions(divisions);
 						listener.updateDivision(divisions);
@@ -152,7 +149,6 @@ public class MainFrame extends JFrame {
 							d.setFirstNTTeamElim(null);
 							d.setFirstNTTeamElimdate(null);
 							test.linearFirstNonTrivElim(startDate, endDate);
-							System.out.println(d.getFirstNTTeamElim() + " " + d.getFirstNTTeamElimdate());
 						}
 						if (table.getCurrentDiv().getFirstNTTeamElim() != null) {
 							FirstNonTriv.setText("The First Team in this Division to"
@@ -248,12 +244,9 @@ public class MainFrame extends JFrame {
 						String filename = fc.getSelectedFile().getName();
 						String directory = fc.getSelectedFile().getParentFile()
 								.getAbsolutePath();
-						System.out.println(directory);
-						System.out.println(filename);
 						if (LF.write(filename, directory))
 							JOptionPane.showMessageDialog(screenPanel,
 									"File Printed");
-						System.out.println("Print " + table.getCurrent());
 				}
 			}
 		});
@@ -273,12 +266,9 @@ public class MainFrame extends JFrame {
 					String filename = fc.getSelectedFile().getName();
 					String directory = fc.getSelectedFile().getParentFile()
 							.getAbsolutePath();
-					System.out.println(directory);
-					System.out.println(filename);
 					if (LF.write(filename, directory))
 						JOptionPane.showMessageDialog(screenPanel,
 								"File Printed");
-					System.out.println("Print " + table.getCurrent());
 				}
 			}
 		});
@@ -326,7 +316,6 @@ public class MainFrame extends JFrame {
 			}
 		}
 		startDate = new DateTime(date);
-		System.out.println("Starting date is: " + date.toString());
 	}
 
 	// get the end date in the fixtures
@@ -341,7 +330,6 @@ public class MainFrame extends JFrame {
 		}
 		displayDate = date;
 		endDate = new DateTime(date);
-		System.out.println("End date is: " + displayDate.toString());
 	}
 
 	// loop through every game played in the current division,
@@ -493,7 +481,6 @@ public class MainFrame extends JFrame {
 
 		// add comboBoxes
 		years = new Integer[(endDate.getYear() - startDate.getYear()) + 1];
-		System.out.println(endDate.getYear() + " " + startDate.getYear());
 		for (int i = 0; i <= endDate.getYear() - startDate.getYear(); i++)
 			years[i] = startDate.getYear() + i;
 		yearBox = new JComboBox(years);
