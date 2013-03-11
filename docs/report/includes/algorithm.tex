@@ -27,41 +27,72 @@ Kern paper~\cite{Kern}
 
 Adler paper~\cite{Adler}
 
-The design of the algorithm is centered around a directed graph of
-team nodes and match nodes as is described inside the Wayne
-paper~\cite{Wayne} and tests the elimination status of $team_k$. The
-graph is created with vertices being both the team and match nodes - a
-team node symbolises one team in the division and a match node
-symbolises the matches between $team_i$ and $team_j$. Each match node
-has an outward edge to both $team_i$ and $team_j$ of an infinite
-capacity and an inward edge from the source of capacity equal to the
-number of games remaining between $team_i$ and $team_j$. Each team
-node has an inward edge from their respective match nodes and an
-outward edge to the sink of capacity equal to the maximum number of
-points that $team_k$ can achieve if they win all their remaining games
-minus the number of wins the team belonging to the respective team
-node has. 
+\subsubsection{Network Flow Graph}
 
-It was also required that the algorithm should host the functionality
-to create a residual graph of the graph it is currently working on and
-then find a residual path on this residual graph.
+The design of the algorithm is centred around a network flow graph of
+team nodes and match nodes as described in the Wayne
+paper~\cite{Wayne}. The graph is used to test the elimination status of a
+$team_k$ by pushing flow from the source to the sink as will be described 
+later. The graph has four specific kinds of vertices. There is a source
+which only has outgoing edges, a sink which has only incoming edges, and
+team and match vertices. There is a team vertex for every team in the
+division that isn't $team_k$ and there is a match vertex for every pair
+of teams in the list of team vertices.
+
+The source vertex has an outgoing edge to each match vertex.
+The capacity of these outgoing edges is the number of games remaining between
+the two teams associated with the match, these teams will be denoted
+$team_i$ and $team_j$.
+
+Each match vertex has an outgoing edge to both $team_i$ and $team_j$ of an 
+infinite capacity and an incoming edge from the source of capacity equal to the 
+number of games remaining between $team_i$ and $team_j$.
+
+Each team vertex has an incoming edge from their respective match vertices with
+infinite capacity and an outgoing edge to the sink of capacity equal to the 
+maximum number of points that $team_k$ can achieve if they win all their 
+remaining games minus the number of wins the team belonging to the respective 
+team vertex has. 
+
+\subsubsection{Residual Graph}
+
+The algorithm also creates many residual graphs throughout a single iteration,
+these are used to see how much more flow can be pushed through the initial
+network flow graph.
+
+The residual graph has a similar structure to the network flow graph however
+the distinctions between types of vertices aren't considered. The residual
+graph creates forwards and backwards edges between each pair of vertices `a'
+and `b' based on their edge's flow and capacity. A forwards edge is added from
+`a' to `b' based on their edge's capacity minus the edge's flow. A backwards 
+edge is added from `b' to `a' based on their edge's flow.
+
+\subsubsection{Lulwut?}
 
 The methodology used to evaluate $team_k$'s elimination status is as
 represented in the Wayne paper~\cite{Wayne} and implemented as the
-pseudocode representation below. 
+pseudo-code representation below. 
+
+\subsubsection{Algorithm behaviour}
 
 It was decided to store the elimination status of a team inside the
-respective Team object so the algorithm will only be run if the team's
-elimination status is ``not eliminated''(boolean false). This is a
-decision for pure optimisation and is not part of the Ford-Fulkerson
-algorithm.
+respective Team object so the algorithm will only be run if the team isn't
+currently known to be eliminated. This is a decision for pure optimisation and 
+is not part of the Ford-Fulkerson algorithm.
 
-Two ``short circuts'' have been added to the algorithm for efficiency:
-if $team_k$ has no remaining games and is not at the top of the league
-then $team_k$ is trivially eliminated; if the difference between
-$team_k$'s current points and the league leaders current points is
-more than the matches $team_k$ has to play then the $team_k$ is
-trivially eliminated.
+Two `short circuits' have been added prior to the algorithm for efficiency:
+\begin{enumerate}
+\item If $team_k$ has no remaining games and is not at the top of the league
+then $team_k$ is trivially eliminated. This is the obvious elimination since
+there is nothing else to play for.
+\item If the difference between $team_k$'s current points and the league 
+leader's current points is more than the number of remaining matches $team_k$ 
+has to play then the $team_k$ is trivially eliminated. This means that no even 
+if $team_k$ was to win every single match they would be unable to even be at 
+the top of the league if all other teams somehow lost every single one of their 
+matches. This is the na\"{\i}ve calculation that sports pundits regularly use 
+to announce that a team has been eliminated from a sports league.
+\end{enumerate}
 
 It was decided that the algorithm should have a verbose flag to output
 its computation every iteration - this was to help debugging and also
