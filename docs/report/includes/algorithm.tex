@@ -7,27 +7,49 @@ extension to the project to work out the certificate of elimination
 (described below).
 
 \subsection{Terminology}
-Residual Graph
 
-Residual Path
+\begin{description}
 
-Breadth First Search
+\item[Residual Graph]
 
-Backwards/Forwards Edges
+\item[Residual Path]
 
-Ford-Fulkerson Algorithm
+\item[Breadth First Search]
 
-Flow/Capacity
+\item[Backwards/Forwards Edges]
 
-Maximum Flow
+\item[Ford-Fulkerson Algorithm]
 
-Node/Vertex
+\item[Flow and Capacity] Each edge from one vertex to another has two values
+called flow and capacity. These are normally integer values (as they are for 
+this algorithm) although can be floating point values for some applications.
+These can be mapped directly to the real-life application of water and pipes.
+The pipe is like an edge that can move a certain amount of water, its capacity.
+The current amount of water running through the pipe is known as the flow.
 
-Max Flow-Min Cut
+\item[Maximum Flow] The maximum flow of a network graph is the maximum flow
+out from the source vertex into the sink vertex.
 
-Certificate Elimination
+\item[Saturating Flow] If the maximum flow leaving the source matches the total
+capacity of edges leaving the source means that the flow is classed as
+saturating.
 
-Triviality of Elimination
+\item[Triviality of Elimination] A team can be classed as trivially or
+non-trivially eliminated. A trivial elimination is when a team is known to be
+eliminated either when the league has finished and they aren't at the top or
+by using the same na\"{\i}ve calculation as sports pundits traditionally
+use.
+
+\item[Max Flow-Min Cut]
+
+\item[Certificate Elimination] A certificate of elimination is the list of
+teams responsible for eliminating the respective team. A certificate is
+generated from the residual graph by using the max flow-min cut theorem
+described above. The team vertices on the source side of the cut are the
+teams responsible for the elimination. A certificate can only be found when
+the team has been found to be non-trivially eliminated.
+
+\end{description}
 
 \subsection{Design}
 
