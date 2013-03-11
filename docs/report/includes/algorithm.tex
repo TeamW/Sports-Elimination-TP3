@@ -1,3 +1,24 @@
+\subsection{Terminology}
+Residual Graph
+
+Residual Path
+
+Breadth First Search
+
+Backwards/Forwards Edges
+
+Ford-Fulkerson Algorithm
+
+Flow/Capacity
+
+Maximum Flow
+
+Node/Vertex
+
+Max Flow-Min Cut
+
+Certificate Elimination
+
 \subsection{Design}
 
 Wayne paper~\cite{Wayne}
@@ -6,10 +27,69 @@ Kern paper~\cite{Kern}
 
 Adler paper~\cite{Adler}
 
-- Data structures 
-- Design of the network (Nodes, vertices)
-- Information saved in league
+The design of the algorithm is centered around a directed graph of
+team nodes and match nodes as is described inside the Wayne
+paper~\cite{Wayne} and tests the elimination status of $team_k$. The
+graph is created with vertices being both the team and match nodes - a
+team node symbolises one team in the division and a match node
+symbolises the matches between $team_i$ and $team_j$. Each match node
+has an outward edge to both $team_i$ and $team_j$ of an infinite
+capacity and an inward edge from the source of capacity equal to the
+number of games remaining between $team_i$ and $team_j$. Each team
+node has an inward edge from their respective match nodes and an
+outward edge to the sink of capacity equal to the maximum number of
+points that $team_k$ can achieve if they win all their remaining games
+minus the number of wins the team belonging to the respective team
+node has. 
+
+It was also required that the algorithm should host the functionality
+to create a residual graph of the graph it is currently working on and
+then find a residual path on this residual graph.
+
+The methodology used to evaluate $team_k$'s elimination status is as
+represented in the Wayne paper~\cite{Wayne} and implemented as the
+pseudocode representation below. 
+
+It was decided to store the elimination status of a team inside the
+respective Team object so the algorithm will only be run if the team's
+elimination status is ``not eliminated''(boolean false). This is a
+decision for pure optimisation and is not part of the Ford-Fulkerson
+algorithm.
+
+Two ``short circuts'' have been added to the algorithm for efficiency:
+if $team_k$ has no remaining games and is not at the top of the league
+then $team_k$ is trivially eliminated; if the difference between
+$team_k$'s current points and the league leaders current points is
+more than the matches $team_k$ has to play then the $team_k$ is
+trivially eliminated.
+
+It was decided that the algorithm should have a verbose flag to output
+its computation every iteration - this was to help debugging and also
+allow the reader to analyse the algorithm at various stages of its
+cycle. 
 
 \subsection{Implementation}
 
 - Pseudocode
+
+
+
+\begin{algorithm}[H]
+                               
+  \SetAlgoLined
+  
+  \KwData{this text}
+  
+  \KwResult{how to write algorithm with \LaTeX2e }
+  
+  Create network graph.
+  
+  \ForEach{Vertex in graph}{
+    \ForEach{AdjListNode in Vertex}{
+      Set flow of AdjListNode to zero
+    }
+  }
+  Capacity of source 
+  
+  \caption{THIS IS A CAPTIONN}
+\end{algorithm}
