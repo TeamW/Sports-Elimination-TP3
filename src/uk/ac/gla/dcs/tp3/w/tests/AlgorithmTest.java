@@ -335,7 +335,7 @@ public class AlgorithmTest {
 				for (AdjListNode n : g.getV()[0].getAdjList()) {
 					flow += n.getFlow();
 				}
-				assertEquals(3, flow);
+				assertEquals(0, flow);
 				break;
 			}
 		}
@@ -348,9 +348,7 @@ public class AlgorithmTest {
 			if (t.getName().equalsIgnoreCase("Montreal")) {
 				t.setEliminated(alg.isEliminated(t));
 				Object[] teams = t.getEliminatedBy().toArray();
-				Object[] result = { new Team("New York", "American Central"),
-						new Team("Philadelphia", "American Central"),
-						new Team("Atlanta", "American Central") };
+				Object[] result = {};
 				assertArrayEquals(teams, result);
 			}
 		}
