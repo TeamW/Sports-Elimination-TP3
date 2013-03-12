@@ -57,6 +57,27 @@ main sections as shown in appendix~\ref{fig:nTierArchitecture}.
 The website uses three of the most common web technologies in use: HTML, CSS,
 and JavaScript (supported by jQuery and jQuery UI).
 
+The layout of the HTML and related CSS presentation have been designed to be
+as simple and easy to look at as possible. A soft colour palette is used to
+prevent flashy content from distracting any use from the content. There is
+a small navigation section on the left hand side that contains a couple of
+links, one for showing the latest division statistics, and one to update
+the divisions. The latter would not be required in a production system with
+automatic updates.
+
+The layout is supported with JavaScript with supporting libraries jQuery and
+jQuery UI. This allowed an effect known as `accordion' to be implemented. This
+enables hidden content sections that only show a header, in this case the
+division names. When the division name is clicked that division's table is
+shown. Just like in the desktop user interface, only one division can be viewed
+at one time. This provides a similar interface and prevents content from
+making the page very long requiring the user to scroll to find their
+favourite division.
+
+There are two links, `Previous Day' and `Next Day', that allow the user to
+see how teams were doing during previous dates in the league with a quick
+link at the side (as mentioned previously) back to the most recent results.
+
 \subsubsection{Logic - Web Server/PHP Processor}
 
 The website is dynamically created by using PHP. PHP interfaces with data one
