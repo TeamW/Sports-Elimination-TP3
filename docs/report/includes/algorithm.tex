@@ -99,11 +99,6 @@ and `b' based on their edge's flow and capacity. A forwards edge is added from
 `a' to `b' based on their edge's capacity minus the edge's flow. A backwards 
 edge is added from `b' to `a' based on their edge's flow.
 
-\subsubsection{Lulwut?}
-
-The methodology used to evaluate $team_k$'s elimination status is as
-represented in the Wayne paper~\cite{Wayne} and implemented as the
-pseudo-code representation below. 
 
 \subsubsection{Algorithm behaviour}
 
@@ -138,21 +133,22 @@ cycle.
 
 
 \begin{algorithm}[H]
-                               
   \SetAlgoLined
-  
-  \KwData{this text}
-  
-  \KwResult{how to write algorithm with \LaTeX2e }
-  
-  Create network graph.
-  
-  \ForEach{Vertex in graph}{
-    \ForEach{AdjListNode in Vertex}{
-      Set flow of AdjListNode to zero
+  \SetKwData{Graph}{graph} \SetKwData{V}{v} \SetKwData{Adj}{AdjListNode}
+  \SetKwData{Edge}{edge} \SetKwData{Flow}{flow} \SetKwData{Source}{source}
+  \SetKwData{Sink}{sink} \SetKwData{T}{$team_k$}
+  \SetKwInOut{Input}{input} \SetKwInOut{Output}{output}
+  \Input{A team \T whose elimination status is to be evaluated}
+  \KwResult{A boolean value defining the elimination status of team \T}
+  \Begin{
+    
+    
+    \ForEach{Vertex in graph}{
+      \ForEach{AdjListNode in Vertex}{
+        Set flow of AdjListNode to zero
+      }
     }
+    Capacity of source 
   }
-  Capacity of source 
-  
   \caption{THIS IS A CAPTIONN}
 \end{algorithm}
