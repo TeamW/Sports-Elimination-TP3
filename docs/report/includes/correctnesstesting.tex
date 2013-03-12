@@ -1,1 +1,18 @@
 \section{Correctness Testing}
+
+Due to the complexity of the Ford-Fulkerson algorithm and the lack of
+publicly available test oracle, the majority of the correctness testing had to
+be done manually. To further complicate matters, each division has around four
+hundred matches making correctness testing a laborious task.
+
+Some automated testing using the automated Java test suit, JUnit, was possible.
+For the parser the only available test was ensuring that the parser read in
+every single match supplied and that, in the case of our default test file,
+all matches were registered as being played. The parser passed this test.
+
+There was a small example test data from the Wayne paper~\cite{Wayne}. That
+contained a division part way through the season that contained four teams.
+Two of the teams weren't eliminated with another trivially eliminated, and the
+other non-trivially eliminated. With the results of the elimination calculation
+known to us, a small number of tests could be created to test the algorithm.
+The algorithm passed each of these tests.
