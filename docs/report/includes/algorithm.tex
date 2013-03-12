@@ -17,7 +17,8 @@ vertices until all vertices have been visited. BFS can sometimes be described
 as travelling along a graph by `fanning out' along the vertices.
 
 \item[Ford-Fulkerson Algorithm] The Ford-Fulkerson algorithm calculates the
-maximum flow from the source to the sink in a network flow graph.
+maximum flow from the source to the sink in a network flow graph using residual 
+graphs and augmenting paths.
 
 \item[Flow and Capacity] Each edge from one vertex to another has two values
 called flow and capacity. These are normally integer values (as they are for 
@@ -30,7 +31,7 @@ The current amount of water running through the pipe is known as the flow.
 out from the source vertex into the sink vertex.
 
 \item[Backwards/Forwards Edges] These backwards and forwards edges are
-created from a network flow graph and are added to a residual graph. A
+created from a network flow graph and are used to create a residual graph. A
 forwards edge is an edge from $vertex_i$ to $vertex_j$ that matches the
 amount of flow that can be pushed from $vertex_i$ to $vertex_j$ to
 saturate the flow to capacity. A backwards edge is an edge from $vertex_j$
@@ -38,7 +39,7 @@ to $vertex_i$ that matches the amount of flow going from $vertex_i$ to
 $vertex_j$.
 
 \item[Saturating Flow] If the maximum flow leaving the source matches the total
-capacity of edges leaving the source means that the flow is classed as
+capacity of edges leaving the source then the flow in the graph is classed as
 saturating.
 
 \item[Residual Graph] This graph is created from the network flow graph. It
@@ -48,9 +49,10 @@ graph.
 \item[Residual Path] A residual path is a path in the residual graph from
 the source to the sink. The minimum capacity of all edges in the residual
 path equates to the amount of extra flow that can be passed through the
-network graph. The value of minimum capacity is added to the flow of
-the forwards edges corresponding to an edge in the network graph, and taken
-away from the corresponding backwards edges.
+network graph by manipulating the flow down the edges in the network graph in 
+one of two ways: increasing the value of flow on the edge in the network graph 
+by the minimum capacity if it is a forward edge and reducing the value of flow
+on the edge in the network graph if it is a backwards edge.
 
 \item[Triviality of Elimination] A team can be classed as trivially or
 non-trivially eliminated. A trivial elimination is when a team is known to be
@@ -79,32 +81,28 @@ the team has been found to be non-trivially eliminated.
 The design of the algorithm is centred around a network flow graph of
 team nodes and match nodes as described in the Wayne
 paper~\cite{Wayne}. The graph is used to test the elimination status of a
-$team_k$ by pushing flow from the source to the sink as will be described 
-later. The graph has four specific kinds of vertices. There is a source
-which only has outgoing edges, a sink which has only incoming edges, and
-team and match vertices. There is a team vertex for every team in the
-division that isn't $team_k$ and there is a match vertex for every pair
+$team_k$ by pushing flow from the source to the sink. The graph has four 
+specific kinds of vertices: a source which only has outgoing edges, 
+a sink which has only incoming edges, a team vertex for every team in the
+division that isn't $team_k$ and a match vertex for every pair
 of teams in the list of team vertices.
 
 The source vertex has an outgoing edge to each match vertex.
 The capacity of these outgoing edges is the number of games remaining between
-the two teams associated with the match, these teams will be denoted
-$team_i$ and $team_j$.
+the two teams associated with the match, denoted $team_i$ and $team_j$.
 
 Each match vertex has an outgoing edge to both $team_i$ and $team_j$ of an 
-infinite capacity and an incoming edge from the source of capacity equal to the 
-number of games remaining between $team_i$ and $team_j$.
+infinite capacity and an incoming edge from the source.
 
-Each team vertex has an incoming edge from their respective match vertices with
-infinite capacity and an outgoing edge to the sink of capacity equal to the 
-maximum number of points that $team_k$ can achieve if they win all their 
-remaining games minus the number of wins the team belonging to the respective 
-team vertex has. 
+Each team vertex has an incoming edge from their respective match vertices and 
+an outgoing edge to the sink of capacity equal to the maximum number of points 
+that $team_k$ can achieve if they win all their remaining games minus the 
+number of wins the team belonging to the respective team vertex has. 
 
 \subsubsection{Residual Graph}
 
 The algorithm also creates many residual graphs throughout a single iteration,
-these are used to see how much more flow can be pushed through the initial
+these are used to see how much more flow, if any, can be pushed through the initial
 network flow graph.
 
 The residual graph has a similar structure to the network flow graph however
@@ -126,14 +124,18 @@ Two `short circuits' have been added prior to the algorithm for efficiency:
 \begin{enumerate}
 \item If $team_k$ has no remaining games and is not at the top of the league
 then $team_k$ is trivially eliminated. This is the obvious elimination since
-there is nothing else to play for.
+at this stage there remain no games for $team_k$ to play and hence no possible
+way for $team_k$ to increase their score.
 \item If the difference between $team_k$'s current points and the league 
 leader's current points is more than the number of remaining matches $team_k$ 
-has to play then the $team_k$ is trivially eliminated. This means that no even 
-if $team_k$ was to win every single match they would be unable to even be at 
-the top of the league if all other teams somehow lost every single one of their 
-matches. This is the na\"{\i}ve calculation that sports pundits regularly use 
-to announce that a team has been eliminated from a sports league.
+has to play then the $team_k$ is trivially eliminated. In this scenario the best 
+outcome of games for $team_k$ is to win all the remaining matches it has and for 
+the current league leader to lose all their remaining games, however this will
+still not allow $team_k$ to finish above the current league leader as they
+physically do not have enough games remaining to overtake the current leader and 
+hence $team_k$ is eliminated. This is the na\"{\i}ve calculation that sports 
+pundits regularly use to announce that a team has been eliminated from a sports 
+league.
 \end{enumerate}
 
 It was decided that the algorithm should have a verbose flag to output
