@@ -10,15 +10,14 @@ extension to the project to work out the certificate of elimination
 
 \begin{description}
 
-\item[Residual Graph]
+\item[Breadth First Search] (known as BFS). This is an algorithm which will
+traverse a graph starting from a given vertex, visiting each of its
+adjacent vertices, then repeating this process for each of the adjacent
+vertices until all vertices have been visited. BFS can sometimes be described
+as travelling along a graph by `fanning out' along the vertices.
 
-\item[Residual Path]
-
-\item[Breadth First Search]
-
-\item[Backwards/Forwards Edges]
-
-\item[Ford-Fulkerson Algorithm]
+\item[Ford-Fulkerson Algorithm] The Ford-Fulkerson algorithm calculates the
+maximum flow from the source to the sink in a network flow graph.
 
 \item[Flow and Capacity] Each edge from one vertex to another has two values
 called flow and capacity. These are normally integer values (as they are for 
@@ -30,9 +29,28 @@ The current amount of water running through the pipe is known as the flow.
 \item[Maximum Flow] The maximum flow of a network graph is the maximum flow
 out from the source vertex into the sink vertex.
 
+\item[Backwards/Forwards Edges] These backwards and forwards edges are
+created from a network flow graph and are added to a residual graph. A
+forwards edge is an edge from $vertex_i$ to $vertex_j$ that matches the
+amount of flow that can be pushed from $vertex_i$ to $vertex_j$ to
+saturate the flow to capacity. A backwards edge is an edge from $vertex_j$
+to $vertex_i$ that matches the amount of flow going from $vertex_i$ to
+$vertex_j$.
+
 \item[Saturating Flow] If the maximum flow leaving the source matches the total
 capacity of edges leaving the source means that the flow is classed as
 saturating.
+
+\item[Residual Graph] This graph is created from the network flow graph. It
+contains backwards and forwards edges calculated from the network flow
+graph.
+
+\item[Residual Path] A residual path is a path in the residual graph from
+the source to the sink. The minimum capacity of all edges in the residual
+path equates to the amount of extra flow that can be passed through the
+network graph. The value of minimum capacity is added to the flow of
+the forwards edges corresponding to an edge in the network graph, and taken
+away from the corresponding backwards edges.
 
 \item[Triviality of Elimination] A team can be classed as trivially or
 non-trivially eliminated. A trivial elimination is when a team is known to be
@@ -40,7 +58,10 @@ eliminated either when the league has finished and they aren't at the top or
 by using the same na\"{\i}ve calculation as sports pundits traditionally
 use.
 
-\item[Max Flow-Min Cut]
+\item[Max Flow-Min Cut] The Max Flow-Min Cut theorem states that in a network
+flow graph, the maximum amount of flow from the source to the sink is equal
+to the minimum capacity that, when removed from the network graph, will
+cause a bottleneck such that nothing can flow from the source to the sink.
 
 \item[Certificate Elimination] A certificate of elimination is the list of
 teams responsible for eliminating the respective team. A certificate is
@@ -52,12 +73,6 @@ the team has been found to be non-trivially eliminated.
 \end{description}
 
 \subsection{Design}
-
-Wayne paper~\cite{Wayne}
-
-Kern paper~\cite{Kern}
-
-Adler paper~\cite{Adler}
 
 \subsubsection{Network Flow Graph}
 
