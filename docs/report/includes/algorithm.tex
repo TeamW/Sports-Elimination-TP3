@@ -159,7 +159,7 @@ cycle.
   \KwResult{A boolean value representing the elimination status of team \FFTeamK}
   \BlankLine
   \If{\FFTeamK is trivially eliminated $or$ \FFTeamK is currently eliminated}{return \emph{eliminated} \;}
-  Establish \FFGraph \ref{FFALG}\;
+  Establish \FFGraph \ref{FFGRA}\;
   \ForEach{\FFEdge in \FFGraph}{Set flow of \FFAdj to $0$ \;}
   \FFmaxFlow of \FFGraph $\leftarrow$ \FFcapacity of each \FFEdge from \FFSource \; 
   \Begin(Ford-Fulkerson){
@@ -186,11 +186,12 @@ cycle.
       return \emph{eliminated} \;
     }
     \caption{Ford-Fulkerson Algorithm}\label{FFALG}
-\end{algorithm} \DecMargin{2em}
 
+\end{algorithm} \DecMargin{2em}
+}
 \begin{algorithm}
   
-  \caption{Graph creation}
+  \caption{Graph creation}\label{FFGRA}
 \end{algorithm}
 
 \subsection{Implementation}
