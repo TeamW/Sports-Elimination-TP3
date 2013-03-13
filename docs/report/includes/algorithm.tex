@@ -159,12 +159,12 @@ cycle.
   \KwResult{A boolean value representing the elimination status of team \FFTeamK}
   \BlankLine
   \If{\FFTeamK is trivially eliminated $or$ \FFTeamK is currently eliminated}{return \emph{eliminated} \;}
-  Establish \FFGraph \ref{FFGRA}\;
+  Establish \FFGraph (Graph Creation~\ref{FFGRA})\;
   \ForEach{\FFEdge in \FFGraph}{Set flow of \FFAdj to $0$ \;}
   \FFmaxFlow of \FFGraph $\leftarrow$ \FFcapacity of each \FFEdge from \FFSource \; 
   \Begin(Ford-Fulkerson){
       \While{$\exists$ a \FFPath through \FFGraph}{
-        \FFmaxFlow $\leftarrow$ \FFmaxFlow - \FFcapacity of \FFPath \;
+        \FFmaxFlow $\leftarrow$ \FFmaxFlow -- \FFcapacity of \FFPath \;
         \For{\FFEdge in \FFPath}{
           \uIf{\FFEdge is a Forward Edge}{
             \FFFlow of corresponding \FFEdge in \FFGraph $\leftarrow$ increase by \FFcapacity of path \;
@@ -176,7 +176,7 @@ cycle.
       }
     }
     \emph{Maximum Flow has been achieved} \;
-    \If(Saturating Maximum Flow){\FFmaxFlow is 0}{
+    \If(Saturating Maximum Flow Achieved){\FFmaxFlow is 0}{
       \FFTeamK elimination status $\leftarrow$ not eliminated \;
       return \emph{not eliminated} \;
     }
@@ -188,10 +188,45 @@ cycle.
     \caption{Ford-Fulkerson Algorithm}\label{FFALG}
 
 \end{algorithm} \DecMargin{2em}
-}
-\begin{algorithm}
-  
-  \caption{Graph creation}\label{FFGRA}
-\end{algorithm}
+\pagebreak
+\IncMargin{2em}
+\begin{algorithm}[H]
+  \SetKwData{D}{div} \SetKwData{T}{$team_k$} \SetKwData{Graph}{graph} \SetKwData{W}{W} 
+  \SetKwData{vertices}{vertices} \SetKwData{matrix}{matrix} \SetKwData{edge}{edge}
+  \SetKwData{TeamVertex}{TeamVertex} \SetKwData{MatchVertex}{MatchVertex}
+  \SetKwData{Source}{Source} \SetKwData{Sink}{Sink} \SetKwData{TeamI}{$team_i$}
+  \SetKwData{TeamJ}{$team_j$} \SetKwData{Team}{$team$}
+  \SetKwInOut{Input}{Input}
+  \Input{A division \D and team \T. The graph will be created for all entities that do not include \T as per Wayne~\cite{Wayne}}
+  \KwResult{A directed, weighted \Graph as defined in Wayne~\cite{Wayne}}
+  W $\leftarrow$ current points total of \T + games \T has yet to play\;
+  vertices $\leftarrow$ Array of match, team, source and sink nodes\;
+  matrix $\leftarrow$ Matrix of edge weights. matrix[i,j]=edge weight from i $\rightarrow$ j\;
+
+  \BlankLine
+  Remove \T from the teams in \D\;
+  \BlankLine
+  \Begin(Adjacency List representation){
+      \ForEach{\Team in \D}{
+        Create a \TeamVertex for \Team\;
+        Create an \edge from this \TeamVertex to \Sink\;
+        Capacity of edge \TeamVertex to \Sink $\longleftarrow$ W -- current points of \Team\;
+      }
+      \ForEach{\TeamI, \TeamJ in \D}{
+        Create a \MatchVertex for \TeamI \TeamJ\;
+        Create an \edge from \MatchVertex to \TeamVertex of \TeamI and \TeamJ\;
+        Capacity of each \MatchVertex to \TeamVertex $\longleftarrow$ $\infty$\;
+        \BlankLine
+        Create an \edge from \Source to \MatchVertex\;
+        Capacity of \Source to \MatchVertex $\longleftarrow$ games remaining between each team in \MatchVertex\;
+      }
+    }
+    \Begin(Matrix representation){
+        \ForEach{\edge in \Graph}{
+          matrix[EdgeStart,EdgeEnd] $\leftarrow$ weight of \edge\; 
+        }
+      }
+    \caption{Graph creation}\label{FFGRA}
+\end{algorithm} \DecMargin{2em}
 
 \subsection{Implementation}
