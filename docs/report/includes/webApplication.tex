@@ -35,6 +35,11 @@ the realms of what is a typical layout of a web page.
 A wireframe for the web application is shown in appendix
 \ref{fig:webApplicationWireframe}.
 
+A screenshot of the final design is shown below:
+
+\includegraphics[width=\linewidth,keepaspectratio]
+{images/webAppScreenshot.png}
+
 The web application has a single page containing the six available divisions.
 Each division is a table and only one is available for viewing at a time. The 
 reasoning behind this is to keep as much information `above the fold' (above the
@@ -84,6 +89,13 @@ The website is dynamically created by using PHP. PHP interfaces with
 the data layer sections and, from the results obtained from the data layer,
 produces the division tables and pushes the generated HTML along with the
 attached CSS and JavaScript.
+
+Based on two URL variables, one representing the page requested, and another
+the date, the PHP script makes appropriate calls to the MySQL or Java JAR data
+stores. The PHP script also increments and decrements the date requested (if
+applicable) and presents these are previous and next links to the user to allow
+them to see their favourite division's league status during previous days
+during season.
 
 \subsubsection{Data}
 
