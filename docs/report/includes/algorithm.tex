@@ -147,49 +147,49 @@ cycle.
 
 - Pseudo-code
 
-
-
-\begin{algorithm}[H]
-  \SetAlgoLined
-  \SetKwData{Graph}{graph} \SetKwData{V}{v} \SetKwData{Adj}{AdjListNode}
-  \SetKwData{Edge}{edge} \SetKwData{Flow}{flow} \SetKwData{Source}{source}
-  \SetKwData{Sink}{sink} \SetKwData{TeamK}{$team_k$} \SetKwData{Flow}{flow}
-  \SetKwData{Path}{Residual Path}
-  \SetKwData{maxFlow}{maximumFlow} \SetKwData{capacity}{capacity}
-  \SetKwData{Cert}{certificateOfElimination}
-  \SetKwInOut{Input}{input} \SetKwInOut{Output}{output}
-  \Input{A team \TeamK whose elimination status is to be evaluated}
-  \KwResult{A boolean value representing the elimination status of team \TeamK}
-  \Begin{
-    Establish \Graph
-    \ForEach{\Edge in \Graph}{
-      Set flow of \Adj to zero
-    }
-    \maxFlow of \Graph\leftarrow\capacity of each \Edge from \Source 
-    \If{\TeamK is trivially eliminated}{\emph{return eliminated}}
-    \While{\exists a \Path through \Graph}{
-      \capacity\leftarrow-\capacity - \capacity of \Path
-      \For{\Edge in \Path}{
-        \If{\Edge is a Forward \Edge}{
-          \Flow of corresponding \Edge in \Graph\leftarrow increase by
-          \capacity of path
-        }
-        \Else{\Edge is a Backwards \Edge}{
-          \Flow of corresponding \Edge in \Graph\leftarrow decrease by
-          \capacity of \Path
-        }
-      }
-    }
-    \emph{Maximum \Flow has been achieved}
-    \If{\capacity is 0(saturating Maximum \Flow}{
-      \TeamK.setEliminated\leftarrow not eliminated
-      \emph{return not eliminated}
-    }
-    \Else{
-      \Cert\leftarrow team nodes reachable from \Source 
-      \TeamK.setEliminated\leftarrow eliminated
-      \emph{return eliminated}
-    }
-   }
-  \caption{Ford-Fulkerson Algorithm}
-\end{algorithm}
+%
+%
+%\begin{algorithm}[H]
+%  \SetAlgoLined
+%  \SetKwData{Graph}{graph} \SetKwData{V}{v} \SetKwData{Adj}{AdjListNode}
+%  \SetKwData{Edge}{edge} \SetKwData{Flow}{flow} \SetKwData{Source}{source}
+%  \SetKwData{Sink}{sink} \SetKwData{TeamK}{$team_k$} \SetKwData{Flow}{flow}
+%  \SetKwData{Path}{Residual Path}
+%  \SetKwData{maxFlow}{maximumFlow} \SetKwData{capacity}{capacity}
+%  \SetKwData{Cert}{certificateOfElimination}
+%  \SetKwInOut{Input}{input} \SetKwInOut{Output}{output}
+%  \Input{A team \TeamK whose elimination status is to be evaluated}
+%  \KwResult{A boolean value representing the elimination status of team \TeamK}
+%  \Begin{
+%    Establish \Graph
+%    \ForEach{\Edge in \Graph}{
+%      Set flow of \Adj to zero
+%    }
+%    \maxFlow of \Graph\leftarrow\capacity of each \Edge from \Source 
+%    \If{\TeamK is trivially eliminated}{\emph{return eliminated}}
+%    \While{\exists a \Path through \Graph}{
+%      \capacity\leftarrow-\capacity - \capacity of \Path
+%      \For{\Edge in \Path}{
+%        \If{\Edge is a Forward \Edge}{
+%          \Flow of corresponding \Edge in \Graph\leftarrow increase by
+%          \capacity of path
+%        }
+%        \Else{\Edge is a Backwards \Edge}{
+%          \Flow of corresponding \Edge in \Graph\leftarrow decrease by
+%          \capacity of \Path
+%        }
+%      }
+%    }
+%    \emph{Maximum \Flow has been achieved}
+%    \If{\capacity is 0(saturating Maximum \Flow}{
+%      \TeamK.setEliminated\leftarrow not eliminated
+%      \emph{return not eliminated}
+%    }
+%    \Else{
+%      \Cert\leftarrow team nodes reachable from \Source 
+%      \TeamK.setEliminated\leftarrow eliminated
+%      \emph{return eliminated}
+%    }
+%   }
+%  \caption{Ford-Fulkerson Algorithm}
+%\end{algorithm}
