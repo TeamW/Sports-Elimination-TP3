@@ -153,41 +153,41 @@ cycle.
   \SetAlgoLined
   \SetKwData{Graph}{graph} \SetKwData{V}{v} \SetKwData{Adj}{AdjListNode}
   \SetKwData{Edge}{edge} \SetKwData{Flow}{flow} \SetKwData{Source}{source}
-  \SetKwData{Sink}{sink} \SetKwData{T}{$team_k$} \SetKwData{Flow}{flow}
+  \SetKwData{Sink}{sink} \SetKwData{TeamK}{$team_k$} \SetKwData{Flow}{flow}
   \SetKwData{Path}{Residual Path}
   \SetKwData{maxFlow}{maximumFlow} \SetKwData{capacity}{capacity}
   \SetKwData{Cert}{certificateOfElimination}
   \SetKwInOut{Input}{input} \SetKwInOut{Output}{output}
-  \Input{A team \T whose elimination status is to be evaluated}
-  \KwResult{A boolean value representing the elimination status of team \T}
+  \Input{A team \TeamK whose elimination status is to be evaluated}
+  \KwResult{A boolean value representing the elimination status of team \TeamK}
   \Begin{
     Establish \Graph
     \ForEach{\Edge in \Graph}{
-      Set flow of AdjListNode to zero
+      Set flow of \Adj to zero
     }
     \maxFlow of \Graph\leftarrow\capacity of each \Edge from \Source 
-    \If{\T is trivially eliminated}{\emph{return eliminated}}
+    \If{\TeamK is trivially eliminated}{\emph{return eliminated}}
     \While{\exists a \Path through \Graph}{
       \capacity\leftarrow-\capacity - \capacity of \Path
       \For{\Edge in \Path}{
-        \If{\Edge is a Forward Edge}{
+        \If{\Edge is a Forward \Edge}{
           \Flow of corresponding \Edge in \Graph\leftarrow increase by
           \capacity of path
         }
-        \Else{\Edge is a Backwards Edge}{
+        \Else{\Edge is a Backwards \Edge}{
           \Flow of corresponding \Edge in \Graph\leftarrow decrease by
-          \capacity of path
+          \capacity of \Path
         }
       }
     }
-    \emph{Maximum Flow has been achieved}
-    \If{\capacity == 0(saturating Maximum Flow}{
-      \T.setEliminated\leftarrow not eliminated
+    \emph{Maximum \Flow has been achieved}
+    \If{\capacity is 0(saturating Maximum \Flow}{
+      \TeamK.setEliminated\leftarrow not eliminated
       \emph{return not eliminated}
     }
     \Else{
       \Cert\leftarrow team nodes reachable from \Source 
-      \T.setEliminated\leftarrow eliminated
+      \TeamK.setEliminated\leftarrow eliminated
       \emph{return eliminated}
     }
    }
