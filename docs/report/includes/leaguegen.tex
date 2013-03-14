@@ -13,8 +13,6 @@ for a user who is interested in sports elimination calculations to
 manipulate the generated file to further examine or create elimination
 criteria.
 
-One 
-
 The major design decision of the generate functionality was to
 generate a league in such a way that every team in the league,
 regardless of division, will always play the same number of games and
@@ -23,7 +21,8 @@ division. This would be implied in a league where every division has
 an equal number of teams but the scenario we have based our
 application around has divisions with between four and six teams per
 division. A team should not have a bias depending on the league it
-plays in, and with our best efforts this should not occur. Other
+plays in, and with our best efforts this should not occur in the
+output of the generate functionality. Other
 modules of the application depend on the league being in a very
 specific format otherwise a completely new league with an equal number
 of teams per league could be generated without having to care for
@@ -62,6 +61,20 @@ Both the first and the second iteration of the generation
 functionality follow the same game creation and scheduling pattern. 
 
 %% INSERT PSEUDOCODE HERE
+
+A StringBuilder was used to hold the generated lines that will become
+the new file - this was a decision for performance reasons due to the
+line count being large enough that standard string concatenation would
+be inefficient.
+
+It was quickly noticed in the first iteration of the generate
+functionality that the occurrences of non-trivially eliminated teams
+were scarce in the entire league and it was often the case that no
+eliminated teams were found. (Reference table to back up these
+results? If this isn't actually the case then whoops) The strive to
+create a fair league had inadvertently created one in which we could
+not present the interesting results discovered by our application and
+so certain measures were undertaken to ``fix'' the results generated.
 
 
 \subsubsection{First Iteration}
