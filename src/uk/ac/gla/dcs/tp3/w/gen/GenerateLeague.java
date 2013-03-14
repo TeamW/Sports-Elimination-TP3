@@ -36,7 +36,7 @@ public class GenerateLeague {
 			score = 0;
 			for (Team t : d.getTeams()) {
 				fix.put(t, score);
-				score = score + 1 - (score % 2);
+				score = score + 1;
 			}
 		}
 		for (Division d : p.getDivisions().values()) {
