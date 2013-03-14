@@ -23,6 +23,14 @@ supported by PHP: Hypertext Preprocessor (PHP). The logic tier has two data
 sources that make up the data tier, a MySQL database containing the latest data
 and a Java jar for looking back at older data.
 
+The specific server-side technologies were chosen for two reasons. One member
+of the team had working knowledge of setting up and maintaining the systems and
+also there was a discussion on having the web application hosted by the
+University. The University's servers have PHP and MySQL installed meaning a
+port of the web application, if one had been required, would have been trivial.
+With the web application running fine on a third-party Virtual Private Server
+this was deemed unnecessary.
+
 The N-Tier Architecture diagram is available from appendix
 \ref{fig:nTierArchitecture}.
 
