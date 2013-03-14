@@ -18,14 +18,18 @@ manipulate the generated file to further examine or create
 elimination criteria.
 \end{itemize}
 
-The major design decision of the generate functionality was to
+The major design decision of the league generation functionality was to
 generate a league in such a way that every team in the league,
-regardless of division, will always play the same number of games and
-therefore have an equal chance of finishing top of a given
-division. This would be implied in a league where every division has
-an equal number of teams but the scenario we have based our
-application around has divisions with between four and six teams per
-division. A team should not have a bias depending on the league it
+regardless of division, will always play the same number of games. This
+gives all teams an equal chance of finishing top their respective
+divisions. Equality would be implied in a league where every division has
+an equal number of teams but the real-world scenario is the six divisions
+have a varying number of teams with one division having four teams, another
+having six, and the rest having five.
+
+
+% What bias? What preconditions?
+A team should not have a bias depending on the league it
 plays in, and with our best efforts this should not occur in the
 output of the generate functionality. Other
 modules of the application depend on the league being in a very
@@ -41,8 +45,7 @@ first starts.
 
 The file created by the generate functionality must be in the same
 format as the original league given to the application on start-up due
-to the parser and utilising existing functionality inside the
-application this was easily achieved.
+to the parser requiring a specific format and to utilise existing functionality inside the application.
 
 \subsection{Implementation}
 The total number of games picked for each team to play was computed to
