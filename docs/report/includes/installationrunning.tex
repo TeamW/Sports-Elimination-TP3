@@ -65,14 +65,14 @@ execute the following commands.
 
 \begin{verbatim}
 create database teamw;
-grant usage on *.* to teamw@localhost identified by `algorithms';
+create user 'teamw'@'localhost' IDENTIFIED BY 'algorithms'
 grant all privileges on teamw.* to teamw@localhost
 \end{verbatim}
 
 The user `teamw' can now log in to the database via the command:
 
 \begin{verbatim}
-mysql -u teamw -p'algorithms' teamw
+mysql -u teamw -palgorithms teamw
 \end{verbatim}
 
 Afterwards, to create the required tables, the below SQL query needs to be
@@ -81,9 +81,9 @@ executed for the six divisions (in place of the $<$division name$>$).
 \begin{verbatim}
 CREATE TABLE `<division name>` (
 	`Team` varchar(25) NOT NULL,
-	`Points` int(4) NOT NULL DEFAULT '0',
-	`Games Played` int(4) NOT NULL DEFAULT '0',
-	`Eliminated' tinyint(4) NOT NULL DEFAULT '0',
+	`Points` int(4) NOT NULL DEFAULT 0,
+	`Games Played` int(4) NOT NULL DEFAULT 0,
+	`Eliminated' tinyint(4) NOT NULL DEFAULT 0,
 	PRIMARY KEY ('Team')
 )
 \end{verbatim}
