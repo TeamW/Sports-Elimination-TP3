@@ -52,9 +52,13 @@ were added to allow the user to move through the season chronologically.
 {images/finalDesktopUI.png}
 
 This final version of the UI features three main components - a table with associated model, 
-two sets of radio buttons the date navigation panel, comprising of two buttons and three
+two sets of radio buttons and the date navigation panel, comprising of two buttons and three
 drop down boxes. The work flow of the UI is similar for each of these components - they all 
 have event listeners that set the data according to the user input and call a shared function 
 (in order to minimise complexity). This update function gets the division chosen
 by the user and plays the matches up to the current/selected date. It then updates the table 
 model and redraws - now displaying the appropriate values, including the correct elimination status.
+Additional features that were added after the base prototype was completed was a label
+showing the current date to assist the date navigation and the ability
+to display the certificate of elimination. Clicking on the is eliminated table cell will 
+open a text box displaying the elimination details if they exist.
