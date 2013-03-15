@@ -16,3 +16,13 @@ Two of the teams weren't eliminated with another trivially eliminated, and the
 other non-trivially eliminated. With the results of the elimination calculation
 known to us, a small number of tests could be created to test the algorithm.
 The algorithm passed each of these tests.
+
+The manual correctness testing of the algorithm involved drawing out the graphs
+the Ford-Fulkerson would be expected to create, along with the appropriate
+edge capacities. By stepping through the explanation of how the Ford-Fulkerson
+algorithm worked in the Wayne paper~\cite{Wayne} the residual graphs were
+created and the values of the residual capacity were added to the appropriate
+edges on the original drawn graph. Once this could no longer be done, manual
+inspection of the flow was done to determine whether or not this is saturating.
+The result was then matched up with the displayed data from the desktop
+application. All manual calculations matched up with the algorithm output.
