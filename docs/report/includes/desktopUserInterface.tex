@@ -53,5 +53,8 @@ were added to allow the user to move through the season chronologically.
 
 This final version of the UI features three main components - a table with associated model, 
 two sets of radio buttons the date navigation panel, comprising of two buttons and three
-drop down boxes. These components all have event listeners that set the data accordingly
-and call a shared function that updates and redraws the table model.
+drop down boxes. The work flow of the UI is similar for each of these components - they all 
+have event listeners that set the data according to the user input and call a shared function 
+(in order to minimise complexity). This update function gets the division chosen
+by the user and plays the matches up to the current/selected date. It then updates the table 
+model and redraws - now displaying the appropriate values, including the correct elimination status.
