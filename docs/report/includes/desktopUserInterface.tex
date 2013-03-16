@@ -62,11 +62,11 @@ by the user and plays the matches up to the current/selected date. It then updat
 model, current date label and the date selection combo boxes, then redraws - now displaying the 
 appropriate values, including the correct elimination status. Another additional feature that was
 added after the base prototype was completed is the ability to display the certificate of elimination.
-Clicking on the is eliminated table cell will open a text box displaying the elimination details 
-if they exist. This method of displaying the certificate was chosen as it follows the principle 
-of allowing the user access to as much key information with as little input as possible, as it
-was decided that having to navigate through a menu to find this information would be unintuitive and 
-unnecessary. The ability to print to a pdf was also added later in the project and so the 
-UI was further extended to incorporate this. Since this functionality will be
+Clicking on the is eliminated table cell will trigger a custom mouse event listener, which opens a 
+text box displaying the elimination details if they exist. This method of displaying the certificate
+was chosen as it follows the principle of allowing the user access to as much key information with as
+little input as possible, as it was decided that having to navigate through a menu to find this 
+information would be unintuitive and unnecessary. The ability to print to a pdf was also added later
+in the project and so the UI was further extended to incorporate this. Since this functionality will be
 used infrequently a more traditional file->print menu was added, as the user will almost certainly
 have used a similar command in other applications.
