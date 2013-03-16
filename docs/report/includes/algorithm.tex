@@ -20,7 +20,7 @@ The road from city A to city B is separate from city B to city A and the
 existence of one road does not imply the existence of the other.
 
 Network Flow is the study of working out how to have as much traffic as possible
-move from a start city (the source) to an end city (the sink) by passing through 
+move from a start city (the source) to an end city (the sink) by passing through
 intermediate cities. By using this concept, it is possible to determine
 the elimination of teams in a sports league.
 
@@ -35,11 +35,11 @@ vertices until all vertices have been visited. BFS can sometimes be described
 as travelling along a graph by `fanning out' along the vertices.
 
 \item[Ford-Fulkerson Algorithm] The Ford-Fulkerson algorithm calculates the
-maximum flow from the source to the sink in a network flow graph using residual 
+maximum flow from the source to the sink in a network flow graph using residual
 graphs and augmenting paths.
 
 \item[Flow and Capacity] Each edge from one vertex to another has two values
-called flow and capacity. These are normally integer values (as they are for 
+called flow and capacity. These are normally integer values (as they are for
 this algorithm) although can be floating point values for some applications.
 These can be mapped directly to the real-life application of water and pipes.
 The pipe is like an edge that can move a certain amount of water, its capacity.
@@ -67,8 +67,8 @@ graph.
 \item[Residual Path] A residual path is a path in the residual graph from
 the source to the sink. The minimum capacity of all edges in the residual
 path equates to the amount of extra flow that can be passed through the
-network graph by manipulating the flow down the edges in the network graph in 
-one of two ways: increasing the value of flow on the edge in the network graph 
+network graph by manipulating the flow down the edges in the network graph in
+one of two ways: increasing the value of flow on the edge in the network graph
 by the minimum capacity if it is a forward edge and reducing the value of flow
 on the edge in the network graph if it is a backwards edge.
 
@@ -99,8 +99,8 @@ the team has been found to be non-trivially eliminated.
 The design of the algorithm is centred around a network flow graph of
 team nodes and match nodes as described in the Wayne
 paper~\cite{Wayne}. The graph is used to test the elimination status of a
-$team_k$ by pushing flow from the source to the sink. The graph has four 
-specific kinds of vertices: a source which only has outgoing edges, 
+$team_k$ by pushing flow from the source to the sink. The graph has four
+specific kinds of vertices: a source which only has outgoing edges,
 a sink which has only incoming edges, a team vertex for every team in the
 division that isn't $team_k$ and a match vertex for every pair
 of teams in the list of team vertices.
@@ -109,13 +109,13 @@ The source vertex has an outgoing edge to each match vertex.
 The capacity of these outgoing edges is the number of games remaining between
 the two teams associated with the match, denoted $team_i$ and $team_j$.
 
-Each match vertex has an outgoing edge to both $team_i$ and $team_j$ of an 
+Each match vertex has an outgoing edge to both $team_i$ and $team_j$ of an
 infinite capacity and an incoming edge from the source.
 
-Each team vertex has an incoming edge from their respective match vertices and 
-an outgoing edge to the sink of capacity equal to the maximum number of points 
-that $team_k$ can achieve if they win all their remaining games minus the 
-number of wins the team belonging to the respective team vertex has. 
+Each team vertex has an incoming edge from their respective match vertices and
+an outgoing edge to the sink of capacity equal to the maximum number of points
+that $team_k$ can achieve if they win all their remaining games minus the
+number of wins the team belonging to the respective team vertex has.
 
 \subsubsection{Residual Graph}
 
@@ -127,7 +127,7 @@ The residual graph has a similar structure to the network flow graph however
 the distinctions between types of vertices aren't considered. The residual
 graph creates forwards and backwards edges between each pair of vertices `a'
 and `b' based on their edge's flow and capacity. A forwards edge is added from
-`a' to `b' based on their edge's capacity minus the edge's flow. A backwards 
+`a' to `b' based on their edge's capacity minus the edge's flow. A backwards
 edge is added from `b' to `a' based on their edge's flow.
 
 
@@ -135,7 +135,7 @@ edge is added from `b' to `a' based on their edge's flow.
 
 It was decided to store the elimination status of a team inside the
 respective Team object so the algorithm will only be run if the team isn't
-currently known to be eliminated. This is a decision for pure optimisation and 
+currently known to be eliminated. This is a decision for pure optimisation and
 is not part of the Ford-Fulkerson algorithm.
 
 Two `short circuits' have been added prior to the algorithm for efficiency:
@@ -144,22 +144,22 @@ Two `short circuits' have been added prior to the algorithm for efficiency:
 then $team_k$ is trivially eliminated. This is the obvious elimination since
 at this stage there remain no games for $team_k$ to play and hence no possible
 way for $team_k$ to increase their score.
-\item If the difference between $team_k$'s current points and the league 
-leader's current points is more than the number of remaining matches $team_k$ 
-has to play then the $team_k$ is trivially eliminated. In this scenario the best 
-outcome of games for $team_k$ is to win all the remaining matches it has and for 
+\item If the difference between $team_k$'s current points and the league
+leader's current points is more than the number of remaining matches $team_k$
+has to play then the $team_k$ is trivially eliminated. In this scenario the best
+outcome of games for $team_k$ is to win all the remaining matches it has and for
 the current league leader to lose all their remaining games, however this will
 still not allow $team_k$ to finish above the current league leader as they
-physically do not have enough games remaining to overtake the current leader and 
-hence $team_k$ is eliminated. This is the na\"{\i}ve calculation that sports 
-pundits regularly use to announce that a team has been eliminated from a sports 
+physically do not have enough games remaining to overtake the current leader and
+hence $team_k$ is eliminated. This is the na\"{\i}ve calculation that sports
+pundits regularly use to announce that a team has been eliminated from a sports
 league.
 \end{enumerate}
 
 It was decided that the algorithm should have a verbose flag to output
 its computation every iteration - this was to help debugging and also
 allow the reader to analyse the algorithm at various stages of its
-cycle. 
+cycle.
 
 \subsection{Pseudo-code}
 
@@ -179,7 +179,7 @@ cycle.
   \If{\FFTeamK is trivially eliminated $or$ \FFTeamK is currently eliminated}{return \emph{eliminated} \;}
   Establish \FFGraph (Graph Creation~\ref{FFGRA})\;
   \ForEach{\FFEdge in \FFGraph}{Set flow of \FFAdj to $0$ \;}
-  \FFmaxFlow of \FFGraph $\leftarrow$ \FFcapacity of each \FFEdge from \FFSource \; 
+  \FFmaxFlow of \FFGraph $\leftarrow$ \FFcapacity of each \FFEdge from \FFSource \;
   \Begin(Ford-Fulkerson){
       \While{$\exists$ a \FFPath through \FFGraph}{
         \FFmaxFlow $\leftarrow$ \FFmaxFlow -- \FFcapacity of \FFPath \;
@@ -209,7 +209,7 @@ cycle.
 \pagebreak
 \IncMargin{2em}
 \begin{algorithm}[H]
-  \SetKwData{D}{div} \SetKwData{T}{$team_k$} \SetKwData{Graph}{graph} \SetKwData{W}{W} 
+  \SetKwData{D}{div} \SetKwData{T}{$team_k$} \SetKwData{Graph}{graph} \SetKwData{W}{W}
   \SetKwData{vertices}{vertices} \SetKwData{matrix}{matrix} \SetKwData{edge}{edge}
   \SetKwData{TeamVertex}{TeamVertex} \SetKwData{MatchVertex}{MatchVertex}
   \SetKwData{Source}{Source} \SetKwData{Sink}{Sink} \SetKwData{TeamI}{$team_i$}
@@ -241,10 +241,33 @@ cycle.
     }
     \Begin(Matrix representation){
         \ForEach{\edge in \Graph}{
-          matrix[EdgeStart,EdgeEnd] $\leftarrow$ weight of \edge\; 
+          matrix[EdgeStart,EdgeEnd] $\leftarrow$ weight of \edge\;
         }
       }
     \caption{Graph creation}\label{FFGRA}
 \end{algorithm} \DecMargin{2em}
 
 \subsection{Implementation}
+
+The implementation the system uses has been written to be as extensible and
+general as possible. Our system only makes use of the baseball league but the
+algorithm should require little to no changes to work for another sport, such
+as Basketball.
+
+\subsubsection{Graph creation}
+
+Due to the algorithm requiring two kinds of graph (network flow and residual)
+the aim was to have the construction as simple as possible. As a result the
+edges were represented as adjacency nodes to prevent the duplication of effort
+in maintaining both types of entity.
+
+Also, for the network flow graph, two adjacency node representations were used:
+adjacency lists (one per vertex) and adjacency matrix (one per graph). The
+adjacency matrix represented the capacities of the edges solely to prevent
+modifications being required on the matrix. The adjacency list represented both
+the flow and capacity. The move to have two representations may initially seem
+like duplication of effort and, to some extent, it is however the increase in
+space complexity is overshadowed by the improvement in time and code complexity
+for certain aspects of the algorithm. The adjacency matrix is used as part of
+the residual graph search when checking the residual path capacity is at its
+lowest valid value.
