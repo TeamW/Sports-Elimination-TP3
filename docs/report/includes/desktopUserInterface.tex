@@ -46,8 +46,9 @@ was a gradual and adaptive process, with the focus on getting a working version 
 prototype up and running. This was accomplished and based on team feedback features were
 added or removed. The completed Ford-Fulkerson algorithm ran almost instantly, rendering
 the loading bar unnecessary and so it was dropped. Date navigation buttons - including drop
-down date selectors - were added to allow the user to move through the season chronologically
-anywhere between the date/time of the first and last matches of the season, respectively.
+down date selectors - were added, with a label displaying the currently selected date. These 
+allow the user to move through the season anywhere between the date/time of 
+the first and last matches of the season, respectively.
 
 \includegraphics[width=\linewidth,keepaspectratio]
 {images/finalDesktopUI.png}
@@ -58,15 +59,14 @@ drop down boxes. The work flow of the UI is similar for each of these components
 have event listeners that set the data according to the user input and call a shared function 
 (in order to minimise complexity). This update function gets the division chosen
 by the user and plays the matches up to the current/selected date. It then updates the table 
-model and redraws - now displaying the appropriate values, including the correct elimination status.
-Additional features that were added after the base prototype was completed was a label
-showing the current date to assist the date navigation and the ability
-to display the certificate of elimination. Clicking on the is eliminated table cell will 
-open a text box displaying the elimination details if they exist. This method of
-displaying the certificate was chosen as it follows the principle of allowing the 
-user access to as much key information with as little input as possible, as it was decided
-that having to navigate through a menu to find this information would be unintuitive and 
+model, current date label and the date selection combo boxes, then redraws - now displaying the 
+appropriate values, including the correct elimination status. Another additional feature that was
+added after the base prototype was completed is the ability to display the certificate of elimination.
+Clicking on the is eliminated table cell will open a text box displaying the elimination details 
+if they exist. This method of displaying the certificate was chosen as it follows the principle 
+of allowing the user access to as much key information with as little input as possible, as it
+was decided that having to navigate through a menu to find this information would be unintuitive and 
 unnecessary. The ability to print to a pdf was also added later in the project and so the 
-UI was further extended to incorporate this functionality. Since this functionality will be
+UI was further extended to incorporate this. Since this functionality will be
 used infrequently a more traditional file->print menu was added, as the user will almost certainly
-have used a similar function in other applications.
+have used a similar command in other applications.
