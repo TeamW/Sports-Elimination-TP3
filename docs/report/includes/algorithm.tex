@@ -256,17 +256,19 @@ as Basketball.
 
 \subsubsection{Graph creation}
 
-Due to the algorithm requiring two kinds of graph (network flow and residual)
+Due to the algorithm requiring two types of graph (network flow and residual)
 the aim was to have the construction as simple as possible. As a result the
 edges were represented as adjacency nodes to prevent the duplication of effort
 in maintaining both types of entity.
 
-Also, for the network flow graph, two adjacency node representations were used:
+For the network flow graph, two adjacency node representations were used:
 adjacency lists (one per vertex) and adjacency matrix (one per graph). The
-adjacency matrix represented the capacities of the edges solely to prevent
-modifications being required on the matrix. The adjacency list represented both
+adjacency matrix represents the capacities along edges in the graph -
+index $i$,$j$ signifies the capacity of an edge from $vertex_i$ to
+$vertex_j$. This is solely an optimisation on lookup time to prevent
+access being required on the adjacency list. The adjacency list represented both
 the flow and capacity. The move to have two representations may initially seem
-like duplication of effort and, to some extent, it is however the increase in
+like duplication of effort and, to some extent it is, however the increase in
 space complexity is overshadowed by the improvement in time and code complexity
 for certain aspects of the algorithm. The adjacency matrix is used as part of
 the residual graph search when checking the residual path capacity is at its
