@@ -177,7 +177,7 @@ cycle.
   \KwResult{A boolean value representing the elimination status of team \FFTeamK}
   \BlankLine
   \If{\FFTeamK is trivially eliminated $or$ \FFTeamK is currently eliminated}{return \emph{eliminated} \;}
-  Establish \FFGraph (Graph Creation~\ref{FFGRA})\;
+  Establish \FFGraph (Graph Creation[~\ref{FFGRA}])\;
   \ForEach{\FFEdge in \FFGraph}{Set flow of \FFAdj to $0$ \;}
   \FFmaxFlow of \FFGraph $\leftarrow$ \FFcapacity of each \FFEdge from \FFSource \;
   \Begin(Ford-Fulkerson){
@@ -252,7 +252,10 @@ cycle.
 The implementation the system uses has been written to be as extensible and
 general as possible. Our system only makes use of the baseball league but the
 algorithm should require little to no changes to work for another sport, such
-as Basketball.
+as Basketball. It is also of worth to note that the core algorithm
+implemented in this module will work for any directed graph with only
+minor adjustments to remove the specific changes that have been made
+to fully couple with our problem domain.
 
 \subsubsection{Graph creation}
 
@@ -261,13 +264,22 @@ the aim was to have the construction as simple as possible. As a result the
 edges were represented as adjacency nodes to prevent the duplication of effort
 in maintaining both types of entity.
 
-For the network flow graph, two adjacency node representations were used:
-adjacency lists (one per vertex) and adjacency matrix (one per graph). The
-adjacency matrix represents the capacities along edges in the graph -
-index $i$,$j$ signifies the capacity of an edge from $vertex_i$ to
-$vertex_j$. This is solely an optimisation on lookup time to prevent
-access being required on the adjacency list. The adjacency list represented both
-the flow and capacity. The move to have two representations may initially seem
+For the network flow graph, two adjacency node representations were
+used:
+\begin{itemize}
+\item[Adjacency Lists] One per vertex - These contain information
+  about the flow and capacity along the edges leaving the current
+  vertex and know nothing about the graph as a whole; and  
+\item[Adjacency Matrix] One per graph - The adjacency matrix
+  represents the capacities along edges in the graph: index $i$,$j$
+  signifies the capacity of an edge from $vertex_i$ to
+  $vertex_j$. This is solely an optimisation on lookup time to prevent
+  access being required on the adjacency list. The matrix knows
+  nothing about current flow through the graph only the capacity along
+  each edge.
+\end{itemize}
+
+The move to have two representations may initially seem
 like duplication of effort and, to some extent it is, however the increase in
 space complexity is overshadowed by the improvement in time and code complexity
 for certain aspects of the algorithm. The adjacency matrix is used as part of
