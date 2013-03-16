@@ -285,3 +285,22 @@ space complexity is overshadowed by the improvement in time and code complexity
 for certain aspects of the algorithm. The adjacency matrix is used as part of
 the residual graph search when checking the residual path capacity is at its
 lowest valid value.
+
+\subsubsection{Division Elimination}
+A result from Wayne~\cite[p.~227]{Wayne} states that if teams are ranked in
+ascending order by the sum of their current points and the
+games they have remaining to play then if a $team_k$ is eliminated
+then so are the teams beneath them in this ordering. A binary search
+is used on this ordering to determine the highest team in the ordering
+that is eliminated and then eliminating each team below this. 
+
+The elimination status of a given Team is stored inside the Team
+object, once a team is known to be eliminated there is no way in which
+this team can then become non-eliminated and so there is no further
+reason to run the algorithm with respect to this Team. This is utilised
+when checking if an entire division is eliminated to reduce the number
+of times the algorithm has to be executed. It should be noted that for
+date navigation the latter optimisation is removed. This is due to
+uncertainty over when a given team is eliminated as the date in which the
+elimination occurs is not stored, only whether or not a team is
+eliminated. 
