@@ -1,4 +1,5 @@
 \documentclass{beamer}
+\newcommand\measurepage{\dimexpr\pagegoal-\pagetotal-\baselineskip\relax}
 \title{Team W - Algorithms for Sports Eliminations}
 \author{
     Gordon Reid: 1002536R\\
@@ -13,14 +14,16 @@
 \frame{\titlepage}
 \frame{\tableofcontents}
 \section{Project outline}
-\section{Progress so far}
-\subsection{Algorithm - Gordon Reid and Ryan Wells}
-\subsection{Parser - Kris Stewart and James Gallagher}
-\subsection{User Interface - David Selkirk}
+\section{Project results}
+\subsection{Algorithm}
+\subsection{Parser}
+\subsection{Desktop User Interface}
+\subsection{Web Application}
+\section{Conclusion}
 \frame{
   \frametitle{Project outline}
   \begin{itemize}
-  \item<2-> Aim of the project is to implement an algorithm that
+  \item<2-> Aim of the project was to implement an algorithm that
   will be able to say if a team X cannot win the Baseball league.
   \item<3-> Ford-Fulkerson algorithm used.
   \item<4-> A team X is only eliminated if there is no mathematically possible
@@ -33,7 +36,7 @@
   \frametitle{Example}
   \begin{center}
   \begin{figure}
-  %\includegraphics[width=\textwidth]{Example.png}
+  \includegraphics[width=\textwidth]{Example.png}
   \end{figure}
   \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
   \end{center}
@@ -43,7 +46,7 @@
   \pause
   \begin{center}
   \begin{figure}
-  %\includegraphics[width=0.4\textwidth]{graph.png}
+  \includegraphics[width=0.4\textwidth]{graph.png}
   \end{figure}
   \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
   \end{center}
@@ -55,8 +58,6 @@
   saturating flow. A flow is saturated if the total flow from the source equals
   the total capacity from the source.
   \item<5-> All flow leaving the source has to arrive at the sink.
-  \item<6-> Currently can create all graphs and pushes flow along a
-  particular graph.
   \end{itemize}
 }
 \frame{
@@ -80,7 +81,9 @@
 \frame{
   \frametitle{User Interface}
   \begin{itemize}
-  \item<2-> Simple design based on presenting key information immediately.
+  \item<2-> User is likely an advanced follower of the sport looking for
+  very specific information.
+  \item<2-> Simple design based on presenting this key information immediately.
   \item<3-> More detailed information available on user request.
   \item<4-> Challenge is to integrate the two tasks such that the UI is
   both functionally and aesthetically pleasing.
@@ -89,8 +92,8 @@
 \frame{
   \frametitle{User Interface - Key Tasks}
   \begin{itemize}
-  \item<1-> Display all teams by division, league or elimination status.
-  \item<2-> Update the elimination status on startup, as well as on week
+  \item<1-> Display all teams by division and league, showing elimination status.
+  \item<2-> Update the elimination status on start-up, as well as on week
   changes.
   \item<3-> Display certification of elimination for teams eliminated.
   \end{itemize}
@@ -100,5 +103,28 @@
   \begin{figure}
   %\includegraphics[width=\textwidth]{InitialUI.png}
   \end{figure}
+}
+\frame {
+  \frametitle{Web Application}
+  \begin{itemize}
+  \item<2-> An extension of the desktop application.
+  \item<2-> Contains a subset of most important functionality of
+  desktop application.
+  \item<3-> Numerous extensions of web application part of future work.
+  \end{itemize}
+}
+\frame {
+  \frametitle{Web Application Screenshot}
+  \includegraphics[width=\textwidth,height=\measurepage,keepaspectratio]
+  {webAppScreenshot.png}
+}
+\frame {
+  \frametitle{Project Conclusion}
+  \begin{itemize}
+  \item blah
+  \item blah
+  \item We would now like to invite questions from the panel. Thank you for
+  listening.
+  \end{itemize}
 }
 \end{document}
