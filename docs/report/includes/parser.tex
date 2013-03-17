@@ -33,13 +33,13 @@ oracle at an earlier stage in development that the real-time parsing
 would allow.
 
 The parser is responsible for the instantiation of all league-related
-classes required by all other parts of the application. At any stage,
+objects required by all other parts of the application. At any stage,
 the user should be able to change the league under examination to
-another league with the same league format as the given one. 
+another league with the same league format as the given one.
 
 \subsection{Implementation}
 
-The classes instantiated by the parser are:
+The objects instantiated by the parser are:
 \begin{itemize}
   \item[Division] This encapsulates the Teams belonging to a given
     Division, the list of Matches of the Teams in the Division and
@@ -49,7 +49,7 @@ The classes instantiated by the parser are:
     Date and Time the game is played on.
   \item[Team] Encapsulates information about a specific team: team
     Name, current Score and the teams Elimination Status amongst
-    others. 
+    others.
 \end{itemize}
 \pagebreak
 \begin{figure}[h]
