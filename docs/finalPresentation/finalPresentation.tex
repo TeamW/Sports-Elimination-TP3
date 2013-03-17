@@ -24,10 +24,10 @@
   \frametitle{Project outline}
   \begin{itemize}
   \item<2-> Aim of the project was to implement an algorithm that
-  will be able to say if a team X cannot win the Baseball league.
-  \item<3-> Ford-Fulkerson algorithm used.
-  \item<4-> A team X is only eliminated if there is no mathematically possible
+  can mathematically deduce if a team X is eliminated from a Baseball league.
+  \item<3-> A team X is only eliminated if there is no mathematically possible
   way for X to finish top of the league.
+  \item<4-> Ford-Fulkerson algorithm.
   \item<5-> Builds on na\"{\i}ve calculations made by sports pundits.
   \item<6-> Real world application of Graph Theory.
   \end{itemize}
@@ -44,20 +44,32 @@
 \frame{
   \frametitle{Algorithm}
   \pause
+  \begin{itemize}
+  \item<2-> Revolves around creation of directed graphs and flow
+    through directed graphs.
+  \item<3-> Pushing flow through a specific graph will allow us to
+    determine if the given team X is eliminated from a given league.
+  \item<4-> A team X can win the league if it is possible for there to
+    be a saturating flow. A flow is saturated if the total flow from
+    the source equals the total capacity from the source.
+  \item<5-> All flow leaving the source has to arrive at the sink.
+  \end{itemize}
+}
+\frame{
+  \frametitle{Algorithm - Graph}
   \begin{center}
   \begin{figure}
   \includegraphics[width=0.4\textwidth]{graph.png}
   \end{figure}
   \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
   \end{center}
+}
+\frame{
+  \frametitle{Algorithm - Extensions}
   \begin{itemize}
-  \item<2-> Revolves around creation of graphs and the flow along them.
-  \item<3-> Pushing flow through the graph will allow us to determine if the
-  given team X is eliminated from the league.
-  \item<4-> A team X can win the league if it is possible for there to be a
-  saturating flow. A flow is saturated if the total flow from the source equals
-  the total capacity from the source.
-  \item<5-> All flow leaving the source has to arrive at the sink.
+    \item<2-> Leauge Elimination by Binary Search Computation
+    \item<3-> Certificate of Elimination
+    \item<4-> First non-trivially eliminated team
   \end{itemize}
 }
 \frame{
