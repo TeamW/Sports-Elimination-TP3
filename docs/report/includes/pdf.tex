@@ -1,20 +1,22 @@
 \subsection{Design}
+
 To enhance the user experience it was discussed that a user should be
-able to save certain moments of interest inside a league: for example
+able to save certain moments of interest inside a league, for example
 elimination events, end of league results or any arbitrary day of
-interest to the user. The major aims of this module were: to try and
+interest to the user. The major aims of this module were to try and
 cover the needs of as many users as possible, have an elegantly
-formatted output and to have an easily accessable process that
+formatted output, and to have an easily accessible process that
 obscured the inner workings of the printing process as to not distract
 the user from the main functionality of the application.
 
 We discussed several options that would solve our problem:
+
 \begin{itemize}
   \item[Physical Printing] Direct physical printing of the
     output. Assumes that the user wants a physical printout of the
     chosen screen and does not cater for users whom this is not their
     intentions or those who would wish to share electronically. It is
-    outwith the scope of the project to create fully integrated
+    out with the scope of the project to create fully integrated
     physical printing so it was agreed that creating a PostScript
     document and then prompting the user to print the document who
     would then have to manually deal with finishing the printing.
@@ -24,7 +26,7 @@ We discussed several options that would solve our problem:
     would like this module to be.
   \item[Emailed results] Similar to the Text File in terms of
     formatting but with the added disadvantage of enforcing a user to
-    be online to receive the results and creating an email dispatcher
+    be on-line to receive the results and creating an email dispatcher
     may escalate beyond the resources allocated for this project.
   \item[\LaTeX] Export a PDF of the information the user wishes to
     save. Nicely formatted and the user can then do what they wish
@@ -33,6 +35,7 @@ We discussed several options that would solve our problem:
     packaging a \LaTeX installation within the module would be far too
     bloating to the overall application.
 \end{itemize}
+
 After discussion of the problems we may counter with each option and
 analysing the implications in a multi-platform manner, it was decided
 that integrating with \LaTeX was the most viable option to best suit
@@ -40,13 +43,13 @@ our needs. The module has been designed to work with a standard
 installation of \LaTeX with no modifications necessary. It was agreed
 that for the scope of the project it was a reasonable requirement of
 the user that a standard installation of \LaTeX be present on the host
-machine. 
+machine.
 
 The module has been designed in such a way that there is no limit on
 the quantity of elements the user can print (except for the memory
 implications of the Java Virtual Machine) and the module is fully
 extensible if other printable features were to be added to the
-application. 
+application.
 
 Each printable element is stored in an ordered manner and
 the entire document is saved upon the users request. It was agreed
@@ -85,11 +88,11 @@ division tables, on any date and precisely as they appear on the
 screen, to the ordered store as they wish. Row sorting is maintained
 and the implementation of this functionality is fully self contained
 requiring only the Table model hosting the data and the Date that
-relates to the data in the Table. 
+relates to the data in the Table.
 
 When the user has decided they have added all the information they
 wish to export they can invoke functionality to export the document
-they have set up. This requires only a filename that the exported
+they have set up. This requires only a file name that the exported
 document will be named after and the directory to which this shall
 reside in. It is worth noting that the user who invokes the
 application must have access to the directory and have file creation
@@ -98,7 +101,7 @@ permissions on the directory they wish to write in.
 A StringBuilder is used again to concatenate the individual
 DocumentSections together into one String and a standard \LaTeX
 document start and end are appended to the beginning and end of the
-StringBuilder respectively. This is then written to a .tex file inside
+StringBuilder respectively. This is then written to a TeX file inside
 the application directory to be compiled in the final stage.
 
 The final stage of this process is to compile the \LaTeX document to
