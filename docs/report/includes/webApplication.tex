@@ -17,11 +17,11 @@ described with a brief overview of the technology.
 \begin{itemize}
 \item HTML: Hyper Text Markup Language. HTML is the basis of every web page
 structure. It is a structured document with tags denoted by angle brackets (such
-as $<$html$>$). These tags form a nested, tree-like structure that is read by 
+as $<$html$>$). These tags form a nested, tree-like structure that is read by
 the browser to create the page layout of the website.
 \item CSS: Cascading Style Sheets. CSS provides the style information for the
 HTML document. CSS enables the separation of the HTML document content from the
-document's presentation and defines a consistent approach for specifying the 
+document's presentation and defines a consistent approach for specifying the
 style of an HTML document.
 \item JS: JavaScript. JS is an interpreted computer programming language used by
 browsers to provide dynamic, interactive web page content without requiring
@@ -29,13 +29,13 @@ communication with the web server. JS is bundled alongside an HTML document.
 \item jQuery and jQuery UI: These are libraries (bundles) of JavaScript code to
 simplify the development of JavaScript.
 \item PHP: PHP Hypertext Preprocessor. PHP is a server-side computer programming
-language used to generate dynamic web pages prior to sending the web page on to 
-the browser in the form of HTML. PHP may interact with databases and other 
+language used to generate dynamic web pages prior to sending the web page on to
+the browser in the form of HTML. PHP may interact with databases and other
 external data sources during the creation of the web page.
 \item SQL: Structured Query Language. A high-level language for expressing what
 a user wants from a database.
-\item MySQL. The relational database management system that manages some data 
-set represented by tables. MySQL also accepts SQL queries and will return data 
+\item MySQL. The relational database management system that manages some data
+set represented by tables. MySQL also accepts SQL queries and will return data
 that matches what the SQL query requests.
 \end{itemize}
 
@@ -45,7 +45,7 @@ section, section \ref{sec:graphTheoryAndNetworkFlow}.
 
 \subsubsection{System architecture}
 
-The web application is a standard multi-tier architecture with the 
+The web application is a standard multi-tier architecture with the
 presentation, logic, and data separated from each other.
 
 The presentation tier is the client/browser who has Hyper Text Mark-up Language
@@ -88,7 +88,7 @@ A screenshot of the final design is shown in Figure~\ref{fig:webAppScreenshot}.
 \end{figure}
 
 The web application has a single page containing the six available divisions.
-Each division is a table and only one is available for viewing at a time. The 
+Each division is a table and only one is available for viewing at a time. The
 reasoning behind this is to keep as much information `above the fold' (above the
 lower page boundary on a browser's window).
 
@@ -132,7 +132,7 @@ link at the side (as mentioned previously) back to the most recent results.
 
 \subsubsection{Logic - Web Server/PHP Processor}
 
-The website is dynamically created by using PHP. PHP interfaces with 
+The website is dynamically created by using PHP. PHP interfaces with
 the data layer sections and, from the results obtained from the data layer,
 produces the division tables and pushes the generated HTML along with the
 attached CSS and JavaScript.
@@ -158,9 +158,9 @@ The database is structured with six tables, one for each division. Each table
 structure is identical with columns for the team name, the number of points
 a team has, the number of games they have played, and whether or not they have
 been eliminated from the division. This allows for a direct mapping from
-database storage to the user's view. The structure also greatly simplified 
-database queries as information from an entire division was a single simple, and 
-thus efficient, SQL query. An example query to see the league table, ordered by 
+database storage to the user's view. The structure also greatly simplified
+database queries as information from an entire division was a single simple, and
+thus efficient, SQL query. An example query to see the league table, ordered by
 number of points for the American West division is shown below:
 
 \begin{verbatim}
@@ -169,7 +169,7 @@ FROM `American West`
 ORDER BY Points DESC;
 \end{verbatim}
 
-This database is updated with the latest division statistics supplied by the 
+This database is updated with the latest division statistics supplied by the
 Java JAR as the JAR contains the algorithm to compute the elimination status.
 The update can be completed in two ways. If the division is new and thus no
 information is present in the table an INSERT INTO statement is performed for
@@ -201,7 +201,7 @@ WHERE Team = `Los Angeles Angels`;
 
 The JAR file has embedded within it a text file containing the entire list of
 results from every match in the baseball season being discussed. This is parsed
-on-demand up to the date specified by the user. This allows users to ask to see 
+on-demand up to the date specified by the user. This allows users to ask to see
 the results and associated elimination status at any point in time. This is
 called by the PHP script using the URL variable `date'. An example URL and
 the associated command line call are below.
@@ -214,13 +214,13 @@ gordonrenfrewshire.com/teamw/index.php?page=showDivisions&date=4-10-2012
 java -jar elim.jar --web 4-10-2012
 \end{verbatim}
 
-This is not 
-the most efficient method of implementation however the web application as a 
-whole was an extension to the primary aims of the project and as a result wasn't 
-started until the second semester after the desktop application had been 
-significantly implemented. With the time constraints and significant complexity 
-of a more efficient implementation it was decided that this was the best 
-solution with the current resources. A more efficient implementation was 
+This is not
+the most efficient method of implementation however the web application as a
+whole was an extension to the primary aims of the project and as a result wasn't
+started until the second semester after the desktop application had been
+significantly implemented. With the time constraints and significant complexity
+of a more efficient implementation it was decided that this was the best
+solution with the current resources. A more efficient implementation was
 assigned to the future work section of the project.
 
 
