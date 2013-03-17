@@ -1,72 +1,80 @@
 \subsection{Design}
-In designing the desktop user interface the first step was to identify the
-main goals of our users, in order to make sure that the system delivered
-the required information quickly and clearly. After a discussion it was 
-agreed that the typical user would have two main priorities - checking 
-whether a specific team had been elimated and viewing the league tables for
-each division. This was further broken down into a list of functional requirements.
+
+In designing the desktop user interface the first step was to identify the main
+goals of our users, in order to make sure that the system delivered the required
+information quickly and clearly. After a discussion it was  agreed that the
+typical user would have two main priorities - checking whether a specific team
+had been eliminated and viewing the league tables for each division. This was
+further broken down into a list of functional requirements.
 
 \begin{itemize}
 \item Display eliminated teams.
 \item Display all divisions/leagues.
 \item Display all teams in a division.
-\item Automatically update the display on startup.
+\item Automatically update the display on start-up.
 \item Display certificate of elimination.
 \end{itemize}
 
-With these requirements in mind several paper prototypes were
-created by different members of the team so as to increase the range of
-ideas we could incorporate into the final design. These prototypes were
-compared in terms of functional clarity and aesthetic appeal, with the 
-effective elements of each taken and incorporated into a final prototype
-design. This was the resulting wireframe.
+With these requirements in mind several paper prototypes were created by
+different members of the team so as to increase the range of ideas we could
+incorporate into the final design. These prototypes were compared in terms of
+functional clarity and aesthetic appeal, with the effective elements of each
+taken and incorporated into a final prototype design. This was the resulting
+wire-frame.
 
 \includegraphics[width=\linewidth,keepaspectratio]
 {images/Prototype_UI.png}
 
 \begin{enumerate}
 \item League navigation panel - allow the users to quickly and easily select the
-league and division. Deliberately layed out and grouped left to right to indicate
+league and division. Deliberately laid out and grouped left to right to indicate
 that divisions are subsets of leagues.
-\item Standings table - immediately display the currently selected divisions major 
+\item Standings table - immediately display the currently selected divisions major
 statistics.
 \item Loading bar - displays the progress of the Ford-Fulkerson algorithm.
 \item Elimination indicator - indicate whether the team has been eliminated, both
 trivially and non-trivially.
 \end{enumerate}
 
-This design focuses on serving the primary user needs by displaying the division 
-rankings and elimination status on startup, which in the the best case scenario 
-would mean the user would not need to input anything to get the desired information.
+This design focuses on serving the primary user needs by displaying the division
+rankings and elimination status on start-up, which in the the best case scenario
+would mean the user would not need to input anything to get the desired
+information.
 
 \subsection{Implementation}
-The interface was written using the Java Swing framework - a popular toolkit used in
-building graphical user interfaces for Java programs. The actual building of the interface
-was a gradual and adaptive process, with the focus on getting a working version of the 
-prototype up and running. This was accomplished and based on team feedback features were
-added or removed. The completed Ford-Fulkerson algorithm ran almost instantly, rendering
-the loading bar unnecessary and so it was dropped. Date navigation buttons - including drop
-down date selectors - were added, with a label displaying the currently selected date. These 
-allow the user to move through the season anywhere between the date/time of 
-the first and last matches of the season, respectively.
 
-\includegraphics[width=\linewidth,keepaspectratio]
+The interface was written using the Java Swing framework - a popular tool-kit
+used in building graphical user interfaces for Java programs. The actual
+building of the interface was a gradual and adaptive process, with the focus on
+getting a working version of the  prototype up and running. This was
+accomplished and, based on team feedback, features were added or removed. The
+completed Ford-Fulkerson algorithm ran almost instantly, rendering the loading
+bar unnecessary and so it was dropped. Date navigation buttons - including drop
+down date selectors - were added, with a label displaying the currently selected
+date. These  allow the user to move through the season anywhere between the
+date/time of  the first and last matches of the season, respectively.
+
+\includegraphics[width=0.9\linewidth,keepaspectratio]
 {images/finalDesktopUI.png}
 
-This final version of the UI features three main components - a table with associated model, 
-two sets of radio buttons and the date navigation panel, comprising of two buttons and three
-drop down boxes. The workflow of of the radio and date navigation panel is similar - they each
-have event listeners that set the data according to the user input and call a shared function 
-(in order to minimise complexity). This update function gets the division chosen
-by the user and plays the matches up to the current/selected date. It then updates the table 
-model, current date label and the date selection combo boxes, then redraws - now displaying the 
-appropriate values, including the correct elimination status. Another additional feature that was
-added after the base prototype was completed is the ability to display the certificate of elimination.
-Clicking on the is eliminated table cell will trigger a custom mouse event listener, which opens a 
-text box displaying the elimination details if they exist. This method of displaying the certificate
-was chosen as it follows the principle of allowing the user access to as much key information with as
-little input as possible, as it was decided that having to navigate through a menu to find this 
-information would be unintuitive and unnecessary. The ability to print to a pdf was also added later
-in the project and so the UI was further extended to incorporate this. Since this functionality will be
-used infrequently a more traditional file->print menu was added, as the user will almost certainly
-have used a similar command in other applications.
+This final version of the UI features three main components - a table with
+associated model,  two sets of radio buttons and the date navigation panel,
+comprising of two buttons and three drop down boxes. The work flow of of the
+radio and date navigation panel is similar - they each have event listeners that
+set the date according to the user input and call a shared function  (in order
+to minimise complexity). This update function gets the division chosen by the
+user and plays the matches up to the current/selected date. It then updates the
+table  model, current date label and the date selection combo boxes, then
+redraws - now displaying the  appropriate values, including the correct
+elimination status. Another additional feature that was added after the base
+prototype was completed is the ability to display the certificate of
+elimination. Clicking on the `Eliminated?'' table cell will trigger a custom
+mouse event listener, which opens a  text box displaying the elimination details
+if they exist. This method of displaying the certificate was chosen as it
+follows the principle of allowing the user access to as much key information
+with as little input as possible, as it was decided that having to navigate
+through a menu to find this  information would be unintuitive and unnecessary.
+The ability to print to a pdf was also added later in the project and so the UI
+was further extended to incorporate this. Since this functionality will be used
+infrequently a more traditional file$-$$>$print menu was added, as the user will
+almost certainly have used a similar command in other applications.
