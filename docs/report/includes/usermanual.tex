@@ -4,19 +4,26 @@
 
 The desktop application requires the Java Runtime Environment (JRE) available
 from \url{http://www.java.com/en/download/index.jsp}. The application has been
-tested on JRE 6 and JRE 7 without issue. The print functionality requires a
-LaTeX distribution that includes the executable `pdflatex'. The installation
-procedure varies for each operating system and instructions are available from
+tested on JRE 6 and JRE 7 without issue. The print functionality
+requires a pre-installed \LaTeX distribution that includes the
+executable `pdflatex'. The installation procedure varies for each
+operating system and instructions are available from:
 \url{http://latex-project.org/ftp.html}.
 
 After the Java Runtime Environment (JRE) is installed, running the application
-only requires double clicking the supplied JAR file.
+can be achieved by executing the following command from any terminal
+window:
+\begin{verbatim}
+java -jar TeamW-SportsElim.jar
+\end{verbatim}
+or by launching from your favourite file browser.
 
-The print functionality is executed within the Java application and thus is
-transparent to the user. In the event that the command `pdflatex' cannot be
-found, the application will fail to print however will not crash. Print
-functionality is known to work on standard installations of the distribution on
-Linux/GNU-based and Mac OS operating system.
+A \LaTeX distrabution is not required to run the core of the
+application, only the print functionality. In the event that the
+command `pdflatex' cannot be found, the application will fail to print
+however will not crash. Print functionality is known to work on
+standard installations of the distribution on Linux/GNU-based and Mac
+OS operating system. 
 
 \subsection{Web Application}
 
@@ -37,29 +44,36 @@ Mobile phone: 07706 477 672
 
 \section{Desktop Navigation}
 
-When you first start the application up you'll be shown the screen below.
+\begin{figure}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk1.png}
+  \caption{Starting Screen}\label{fig:STARTSCREEN}
+\end{figure}
+Upon launching, you will see the screen in Figure~\ref{fig:STARTSCREEN}.
+Highlighted in the red box at the bottom of the screen is the
+main navigational tool for traversing to different dates within the
+season. Three dropdown selectors allow you to instantly jump to any
+date in the season. Simple day-by-day navigation can be achieved
+using the buttons in the bottom left and bottom right of
+Figure~\ref{fig:STARTSCREEN} and these allow you to navigate backwards
+or forwards in the league respectively.
+The application will always start at the last date in the season it
+knows about. The current date and time relating to the information on
+screen is displayed in the red box at the top of the screen.
 
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk1.png}
-
-From here we can see surrounded by the red box at the bottom of the screen the
-main navigational tool traversing to different dates within the season. We
-always start at the most up to date standings in this case the end of season
-results. Instantly we're able to see the date and time displayed at the top and
-just below this we're able to see the standings for the particular selected
-League and Division in this case National West.
-
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk2.png}
-
-In the above screenshot the date has been easily changed using the drop down
-menu's available and the points of each of the displayed teams has changed to
-represent the change in date.
-
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk3.png}
-
-Changing the League and Division radio buttons will show you the specified teams
-and should a team be non-trivially eliminated which means even if it played and
-won all it's remaining it games, it still wouldn't be able to take first
-position, then it'll be displayed as shown, above the date navigation.
+\begin{figure}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk3.png}
+  \caption{League Navigation}\label{fig:LEAGNAV}
+\end{figure}
+The radio buttons highlighted at the top of Figure~\ref{fig:LEAGNAV}
+allow you to change between the various divisions supported by the
+application. There are a total of six combinations. The date you
+are currently on transfers when you change league, for example if you
+are viewing the ``National West'' division on ``27/8/2012 01:15'' and
+you change to ``Nationa East'' you will see the results of the
+``National East'' division on ``27/8/2012 01:15''. The first
+non-trivial elimination information for the currently selected
+division is shown in the highlighted red box at the bottom of
+Figure~\ref{fig:LEAGNAV}
 
 \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk4.png}
 
