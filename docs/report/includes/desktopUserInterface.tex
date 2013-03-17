@@ -60,13 +60,14 @@ date/time of  the first and last matches of the season, respectively.
 This final version of the UI features three main components - a table with
 associated model,  two sets of radio buttons and the date navigation panel,
 comprising of two buttons and three drop down boxes. The work flow of of the
-radio and date navigation panel is similar - they each have event listeners that
-set the date according to the user input and call a shared function  (in order
-to minimise complexity). This update function gets the division chosen by the
-user and plays the matches up to the current/selected date. It then updates the
-table  model, current date label and the date selection combo boxes, then
-redraws - now displaying the  appropriate values, including the correct
-elimination status. Another additional feature that was added after the base
+radio and date navigation panels are similar - they each have event listeners that
+set the appropriate data (the division/league and date respectively) 
+according to the user input and call a shared function  (in order to minimise complexity). 
+This update function gets the division chosen by the user and plays the 
+matches up to the current/selected date. It then updates the table model, 
+current date label and the date selection combo boxes, then redraws - now 
+displaying the appropriate values, including an elimination status that is correct 
+for that division and date. Another additional feature that was added after the base
 prototype was completed is the ability to display the certificate of
 elimination. Clicking on the `Eliminated?'' table cell will trigger a custom
 mouse event listener, which opens a  text box displaying the elimination details
