@@ -1,92 +1,112 @@
-\subsection{Introduction}
-
-The team decided it would be in the best interests of the application if we had
-real world data and enough of it to properly test the capabilities of the
-algorithm. The process unfortunately involved a lot of manual copy and pasting
-due to the formatting and structure of the information on the website used with
-at most only two days worth of matches being shown on the same page.
-
-Eventually the source file, after having the entire seasons match line up and
-information appended continually to it, was finished but still had unnecessary
-columns. This was solved by taking the source file, placing it into Microsoft
-Excel, selecting the entire redundant columns and simply removing them leaving
-only the relevant information. This, along with a few tweaks to get rid of
-hidden characters taken from the formatting of the website, left us with a
-reliable source of Baseball's entire 2012 season information to pass into the
-program.
-
-The reasoning behind using 2012's season information was because we discovered
-at the start of the project, the season was just finishing as it had ran since
-April and it wouldn't be starting again until April 2013. This meant that it
-wouldn't run throughout the same time frame we would have to complete the
-project. If it had this would have allowed us to actively, in real time, update
-the system day by day as the results of matches were published. This was the
-main reasoning behind the teams decision in the second semester to instead drop
-the future work plan of creating a web based parser that would have made use of
-some variation of an RSS feed or an HTML page to extract recent match
-information continually.
-
-There was no time overlap to allow real data to be parsed so we looked into
-using the next closest sport in terms of the point system; Basketball due to it
-having a season running alongside the project time frame in part. The team
-ultimately decided to throw this out due to small discrepancies that made it
-less viable to use such as 2-1-0 point scoring instead of Baseballs 1-0, not to
-mention that a lot of time would be spent making the parser come to fruition
-when we could use the time to make more features within the desktop application
-and ultimately the creation of the web application.
-
-Regardless these were the main reasons behind the teams decision to instead work
-retrospectively over a finished season; it allowed us to know the conclusions
-for the end of season scores showing that the algorithm did in fact truly work
-when it was completed due to the data matching up and it also allowed the
-application to test an entire season right from the beginning to check it's
-speed capabilities with a full data set.
-
 \subsection{Design}
 
-The design of the parser required figuring out which classes needed to be
-created in order to pass information to the algorithm and the user interface,
-essentially the backbone of the entire application. Once these were established
-and implemented the match information was to flow externally from a specifically
-structured source text file, user specified or 2012's default season otherwise.
-Once the information had been successfully read in, parsed and stored it would
-populate the main classes within the program and could be used by either the
-algorithm or the user interface whenever required. The other task was to make
-more functionality within the main classes such that the coding by the other
-components could be simplified to function calls as extra functionality would
-exist to support them.
+It was decided it would be in the best interests of the application if
+real world data was used in the application as to properly demonstrate
+the capabilities of the algorithm. A sensible starting source of data
+was a text file containing the league standings and so a suitable data
+source was created, based upon the American Baseball Season
+2011-12.
+
+Other alternatives were considered - mainly HTML or RSS parsing of
+live scores. This was a suggestion to increase the user experience of
+the application and to create a more immersive interaction between the
+user and the application. Unfortunately, neither of these options
+became a possibility due to the timing of the league and project
+schedule - no baseball league was running during the time of the
+project development and the risk was deemed too great to spend time
+developing a parser for these sources when there is a chance no
+suitable source could be found when the 2012-13 Season began.
+
+Other sources of data were researched to see if an alternative sports
+league could provide us with an active source and American Basketball
+was a promising candidate. After much consideration of the scoring
+system it was decided that anomalies occurred too frequently in
+American Basketball which may give an unfair representation to
+certain teams, and also to keep consistency throughout the rest of the
+application - certain modules under development were reasonably
+coupled to the league format already in place and it was decided
+against changing this at such a late time in development.
+
+Ultimately, the ability to immediately parse a full league was a major
+benefit as it allowed the algorithm to become fully tested with a true
+oracle at an earlier stage in development that the real-time parsing
+would allow.
+
+The parser is responsible for the instantiation of all league-related
+classes required by all other parts of the application. At any stage,
+the user should be able to change the league under examination to
+another league with the same league format as the given one. 
+
 
 \subsection{Implementation}
 
-The main classes were identified as Division, Match and Team with the Parser
-class being metaphorical funnel that pours information into these classes.
-Initially starting out by scanning line by line the provided source file until
-it reaches the end having created appropriate objects and stored the relevant
-information during the process.
-
-\includegraphics[width=\linewidth,keepaspectratio]{images/sourceFileExample.png}
-
-As can be seen in the screen-shot above this is a sample of data from the 2012
-source file. The structure of each line below the date is as follows;
-
+The classes instantiated by the parser are:
+\begin{itemize}
+  \item[Division] This encapsulates the Teams belonging to a given
+    Division, the list of Matches of the Teams in the Division and
+    whether or not certain Matches have been played.
+  \item[Match] Encapsulates a game between two Teams. Information
+    stored is: Date played, Outcome of the game (if known) and the
+    Date and Time the game is played on.
+  \item[Team] Encapsulates information about a specific team: team
+    Name, current Score and the teams Elimination Status amongst
+    others. 
+\end{itemize}
+\pagebreak
+\begin{figure}[h]
+  \includegraphics[width=\linewidth,keepaspectratio]{images/sourceFileExample.png}
+  \caption{Sample data from the 2011-12 source file}\label{fig:BASESRC}
+\end{figure}
+\begin{figure}[h]
 \begin{verbatim}
-Time 	Home team - Away team 	Home Score:Away Score
+source
+: days* EOF
+;
+
+days
+: date EOL (match EOL)*
+| EOL
+;
+
+date
+: DAY MONTH YEAR
+;
+
+match
+: TIME HOMETEAM - AWAYTEAM HOMESCORE:AWAYSCORE
+;
 \end{verbatim}
+\caption{Pseudo-grammar of the expected source file}\label{fig:GRAMMAR}
+\end{figure}
+As shown in Figure~\ref{fig:BASESRC}, the source file created follows
+a standard format. The pseudo-grammar represented in
+Figure~\ref{fig:GRAMMAR} where the tokens are:
+\begin{itemize}
+\item EOF -  End of file character
+\item EOL - End of line character ('\textbackslash n')
+\item DAY - The day on which the match was played
+\item MONTH - The month in which the match was played
+\item YEAR - The year in which the match was played
+\item TIME - The time at which this game was played
+\item HOMETEAM - The ``Home Team'' for this match
+\item AWAYTEAM - The ``Away Team'' for this match
+\item HOMESCORE - The ``Home Team''s score for this match
+\item AWAYSCORE - The ``Away Team''s score for this match
+\end{itemize}
 
-The parser will determine whether it's on a new date or a match and dependant on
-which will call the appropriate function that will go a layer deeper and perform
-string manipulation to split apart, analyse each individual piece, store and/or
-create objects for in the appropriate classes before finishing up and moving
-onto the next line in the file should it be a new date or match.
+Using the pseudo-grammar the parser is now capable of instantiating
+the objects required. It is of worth noting that to enforce seperation
+of concerns no data checking is done by the parser - this
+responsibility is left to the object constructors. An error or warning
+is raised however if information is missing and the element
+responsible for this is discarded.
 
-To go more in-depth, the parser must first initialise the 6 available Baseball
-divisions that exist such as ``American Central'' or ``National West'', by
-manually hard-coding their names and the names of the 5 teams associated with
-each division because there is no other way to set up the divisions
-automatically from an external source. These populated division objects along
-with the team objects are stored together in a easily accessible hash map and
-from here the parser moves onto it's main functionality as shown by the
-following pseudo-code:
+Prior to any parsing, the parser must be initialised with the league
+information required by other modules of the application. This is hard
+coded due to the coupling of other modules to an exact league format.
+
+The pseudo-code in Algorithm~\ref{fig:PARSER} outlines the method in
+which any source file is parsed.
 
 \IncMargin{2em}
 \begin{algorithm}
@@ -116,8 +136,9 @@ following pseudo-code:
         }
       }
     }
-    \caption{Parser}\label{PARSER}
+    \caption{Parser}\label{fig:PARSER}
 \end{algorithm}
 \DecMargin{2em}
+
 
 \clearpage
