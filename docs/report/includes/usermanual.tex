@@ -26,7 +26,7 @@ standard installations of the distribution on Linux/GNU-based and Mac
 OS operating system. 
 
 \subsection{Web Application}
-
+\label{sec:WEBAPP}
 Installation of the web application is not required as a remote host is running
 the required software. This can be accessed via
 \url{http://www.gordonrenfrewshire.com/teamw}. For purposes of completeness and
@@ -73,112 +73,112 @@ you change to ``Nationa East'' you will see the results of the
 ``National East'' division on ``27/8/2012 01:15''. The first
 non-trivial elimination information for the currently selected
 division is shown in the highlighted red box at the bottom of
-Figure~\ref{fig:LEAGNAV}
+Figure~\ref{fig:LEAGNAV}.
 
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk4.png}
+\begin{figure}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk4.png}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk5.png}
+  \caption{Elimination Status}\label{fig:ELIMSTAT}
+\end{figure}
 
-If you click on one of the checked boxes available specifying that a team has
-been eliminated, it will you show the certificate of elimination - which team
-was responsible for it's elimination, or if it wasn't a team, the fact that
-they're not top when the season has finished as shown below.
-
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk5.png}
-
-If we change the date and league and click on a team this time we're able to see
-the elimination as consequence of another team.
-
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk6.png}
+Figure~\ref{fig:ELIMSTAT} demonstrates viewing the reason for why a
+specific team has been eliminated. Highlighted in red, the
+``Eliminated?'' checkboxes are ticked if a team has been eliminated
+on the current date. Clicking on a ticked checkbox will display the
+popup giving the reason for the selected teams elimination. The popup
+will only show if a team has been eliminated.
 
 \newpage
 
 \section{Importing}
+\label{sec:Importing}
+The import functionality within the application allows user specified
+seasons to be used in the system directly. If analysis of future or
+prior seasons is desired then these can be imported into the
+application with ease by selecting ``File$\rightarrow$Open...'' and importing a
+correctly formatted file. A user is also permitted to import their own
+custom league provided that the correct format is used and the
+required teams exist within the file. When the file has been imported,
+the application will show you the latest results found inside the file
+and will allow you the normal navigation.
 
-The import functionality within the program allows user specified seasons to be
-used in the system directly if they wish to analyse future or prior seasons,
-they need only follow the formatting conventions used in the original source and
-when they're prompted to select a file they select a suitable file the
-application will calculate and generate the appropriate results up to whatever
-date the users file goes up to.
-
-\includegraphics[width=\linewidth,height=\measurepage,keepaspectratio]
-{images/userManualDesk7.png}
-
-\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk8.png}
-
-\newpage
+\section{Generation of Leagues}
+As shown in Figure~\ref{fig:GENPIC}, generating a league can be
+achieved in a simple manner. Following the commands highlighted in the
+red boxes will bring up a dialogue box asking for a destination file
+to save the generated league in and then you will be informed of the
+generations success. This generated league can be manipulated at will
+and imported by following the instructions in~\ref{sec:Importing}
+\begin{figure}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk7.png}
+  \caption{Generation of a random league}\label{fig:GENPIC}
+\end{figure}
 
 \section{Exporting}
 
-The export functionality with the application allows users to create a PDF file
-with chosen days to display. To begin navigate to the file menu and down to
-print and if you select ``Add to print'', the program will add the current day
-you're on to the printing queue.
+The export functionality allows users to create a PDF file with
+selected information. Following the commands highlighted in
+Figure~\ref{fig:EXPORT} allows you to add the division information as
+it appears on screen to the document.
 
-\includegraphics[width=\linewidth,height=\measurepage,keepaspectratio]
-{images/userManualDesk9.png}
+\begin{figure}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk9.png}
+  \includegraphics{images/userManualDesk10.png}
+  \caption{Export Functionality}\label{fig:EXPORT}
+\end{figure}
 
-\includegraphics{images/userManualDesk10.png}
 
-\newpage
+At any time you can follow the steps in Figure~\ref{fig:EXPVIEW} to
+see the information that is ready to be exported.
 
-If you select any number of more dates by navigating however you wish and adding
-them one at a time you can then view your print queue and it will show you the
-days you wish to export to the PDF.
-
+\begin{figure}
 \includegraphics[width=\linewidth,height=\measurepage,keepaspectratio]{images/userManualDesk11.png}
-
 \includegraphics{images/userManualDesk12.png}
-
-\newpage
+\caption{Viewing information to be exported}\label{fig:EXPVIEW}
+\end{figure}
 
 Finally you can either clear your print queue by selecting ``Clear document'', or
-to export your selected results to the PDF simply click ``Print''
-
-\includegraphics[width=\linewidth,height=\measurepage,keepaspectratio]
-{images/userManualDesk13.png}
-
-\newpage
-
-You'll be prompted to select a name for your PDF file in a dialogue box and a
+to export your selected results to the PDF select ``Print''. The
+option between the two highlighted boxes in Figure~\ref{fig:EXPEXP}
+allows the user to export the current league at the current date
+instantly. A prompt will ask you to select a name for your PDF file in a dialogue box and a
 location to save it and then by clicking save your PDF will be compiled ready
 for viewing at the specified location.
 
-\includegraphics[width=\linewidth,height=\measurepage,keepaspectratio]
-{images/userManualDesk14.png}
-
-As we can see below it creates a neatly formatted PDF file of your chosen
-results for use outside of the program, showing to others and easily
-transferable.
-
-%\includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk15.png}
-
+\begin{figure}
+  \includegraphics[width=\linewidth,keepaspectratio]{images/userManualDesk13.png}
+  \caption{Exporting}\label{fig:EXPEXP}
+\end{figure}
 \newpage
 
 \section{Web Navigation}
 
-When you first go to the URL specified in the installation chapter you'll be
-shown this screen.
+Upon navigating to the URL specified in the installation
+chapter~\ref{sec:WEBAPP} you will be shown this screen in Figure~\ref{fig:WEBHOME}.
 
+\begin{figure}
 \includegraphics[width=\linewidth,keepaspectratio]{images/userManualWeb1.png}
+\caption{Web Application Landing Screen}\label{fig:WEBHOME}
+\end{figure}
 
-\newpage
+Each division in each leagues will become visible if you click on one of
+the emboldened headings the standings will display below as shown in
+Figure~\ref{fig:WEBINFO}.
 
-Each of the leagues and divisions are clearly visible and if you click on one of
-the emboldened headings the standings will pop out below.
-
+\begin{figure}
 \includegraphics[width=\linewidth,keepaspectratio]{images/userManualWeb2.png}
-
-\newpage
+\caption{Web Application Details}\label{fig:WEBINFO}
+\end{figure}
 
 To navigate between different days you can use the previous/next day buttons
-above the leagues and divisions.
+above the leagues and divisions or by direct URL manipulation as shown
+in Figure~\ref{fig:WEBNAV}. Finally, if you'd like to jump back to the
+latest results in a given season click ``Show Latest Division Stats''
+in the side navigation bar. 
 
+\begin{figure}
 \includegraphics[width=\linewidth,keepaspectratio]{images/userManualWeb3.png}
-
-This method is however very time consuming so instead it would be advised that
-you change the date using the URL itself
-
 \includegraphics[width=\linewidth,keepaspectratio]{images/userManualWeb4.png}
+\caption{Web Application Navigation}\label{fig:WEBNAV}
+\end{figure}
 
-Finally if you'd like to jump back to the latest results in a given season you
-can click the button in the small side navigation bar.
