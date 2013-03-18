@@ -12,31 +12,34 @@
 \date{March 19, 2013}
 \begin{document}
 \frame{\titlepage}
-\frame{\tableofcontents}
-\section{Project outline}
-\section{Project results}
-\subsection{Algorithm}
-\subsection{Parser}
-\subsection{Desktop User Interface}
-\subsection{Web Application}
-\section{Conclusion}
-\subsection{Lessons Learnt and Future Work}
-\subsection{Project Conclusion}
 %"Presentations should describe the aims and objectives of the project, the
 %work you have undertaken and the resulting product, the key design and
 %management decisions you made, and any lessons learnt. Tell us what you’ve
 %done, why it was interesting, what you learnt, what you’d do diﬀerently if you
 %had to do it again, etc."
+
+% Introduction - Ryan
+% Parser - Kris
+% Desktop UI - David
+% Web UI - Gordon
+% Algorithm - Ryan
+% User Eval - James
+% Conclusion - Gordon
 \frame{
-  \frametitle{Project outline}
+  \frametitle{Project introduction}
   \begin{itemize}
-  \item<2-> Aim of the project was to implement an algorithm that
-  can mathematically deduce if a team X is eliminated from a Baseball league.
-  \item<3-> A team X is only eliminated if there is no mathematically possible
-  way for X to finish top of the league.
-  \item<4-> Ford-Fulkerson algorithm.
-  \item<5-> Builds on na\"{\i}ve calculations made by sports pundits.
-  \item<6-> Real world application of Graph Theory.
+  \item Project aims to answer sports elimination question.
+  \item What is sports elimination?
+  \item Main modules: Parsing, Desktop/Web User Interface, Algorithm, User Evaluation
+  \item Builds on na\"{\i}ve calculations made by sports pundits.
+  \end{itemize}
+}
+\frame{
+  \frametitle{Sport}
+  \begin{itemize}
+  \item American Major League Baseball.
+  \item 1 point for a win, 0 points for a loss, no draws allowed.
+  \item Six divisions with four to six teams per division.
   \end{itemize}
 }
 \frame{
@@ -47,36 +50,9 @@
   \end{figure}
   \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
   \end{center}
-}
-\frame{
-  \frametitle{Algorithm}
-  \pause
   \begin{itemize}
-  \item<2-> Revolves around creation of directed graphs and flow
-    through directed graphs.
-  \item<3-> Pushing flow through a specific graph will allow us to
-    determine if the given team X is eliminated from a given league.
-  \item<4-> A team X can win the league if it is possible for there to
-    be a saturating flow. A flow is saturated if the total flow from
-    the source equals the total capacity from the source.
-  \item<5-> All flow leaving the source has to arrive at the sink.
-  \end{itemize}
-}
-\frame{
-  \frametitle{Algorithm - Graph}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.4\textwidth]{graph.png}
-  \end{figure}
-  \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
-  \end{center}
-}
-\frame{
-  \frametitle{Algorithm - Extensions}
-  \begin{itemize}
-    \item<2-> Leauge Elimination by Binary Search Computation
-    \item<3-> Certificate of Elimination
-    \item<4-> First non-trivially eliminated team
+  \item Montreal trivially eliminated
+  \item Philadelphia non-trivially eliminated
   \end{itemize}
 }
 \frame{
@@ -84,7 +60,7 @@
   \pause
   \begin{center}
   \begin{figure}
-  %\includegraphics[width=\textwidth]{textfile.png}
+  \includegraphics[width=\textwidth]{textfile.png}
   \end{figure}
   \end{center}
   \begin{itemize}
@@ -119,7 +95,7 @@
 \frame{
   \frametitle{User Interface - Prototype}
   \begin{figure}
-  %\includegraphics[width=\textwidth]{InitialUI.png}
+  \includegraphics[width=\textwidth]{InitialUI.png}
   \end{figure}
 }
 \frame{
@@ -150,6 +126,83 @@
   \frametitle{Web Application Screenshot}
   \includegraphics[width=\textwidth,height=\measurepage,keepaspectratio]
   {webAppScreenshot.png}
+}
+\frame{
+  \frametitle{Algorithm}
+  \pause
+  \begin{itemize}
+  \item<2-> Revolves around creation of directed graphs and flow
+    through directed graphs.
+  \item<3-> Pushing flow through a specific graph will allow us to
+    determine if the given team X is eliminated from a given league.
+  \item<4-> A team X can win the league if it is possible for there to
+    be a saturating flow. A flow is saturated if the total flow from
+    the source equals the total capacity from the source.
+  \item<5-> All flow leaving the source has to arrive at the sink.
+  \end{itemize}
+}
+\frame{
+  \frametitle{Algorithm - Graph}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{graph.png}
+  \end{figure}
+  \tiny{Image courtesy of Kevin D. Wayne, Princeton University}
+  \end{center}
+  \begin{itemize}
+  \item $team_k$ - Team being tested for elimination.
+  \item $team_i$ and $team_j$ - Arbitrary teams in $team_k$'s division
+  \item $g_{i, j}$ - Number of games left between $team_i$ and $team_j$
+  \item W - Current score of $team_k$ + games $team_k$ has remaining
+  \item $w_{i}$ - Number of game $team_i$ won
+  \end{itemize}
+}
+\frame{
+  \frametitle{Algorithm - Extensions}
+  \begin{itemize}
+    \item<2-> League Elimination by Binary Search Computation
+    \item<3-> Certificate of Elimination
+    \item<4-> First non-trivially eliminated team
+  \end{itemize}
+}
+\frame {
+\frametitle{ User Evaluation }
+\begin{itemize}
+\item<2-> Aim : Quality feedback regarding the useability and functionality supported of the system we create.
+\item<3->Structure :
+Stage 1 : Participant Breif (Intro)
+Stage 2 : Task Script (Useability)
+Stage 3 : Questionare (Likeability)
+\end{itemize}
+}
+\frame{
+\frametitle{Supprizes }
+\begin{itemize}
+\item<2->More intersting points !
+\item<3->Tangible results very quickly.
+\item<4-> Design faults tripped up the most experienced of users.
+\item<5->Very wide variety of attention span in test group .
+\item<6-> User's got tripped up by testing method .
+\end{itemize}
+}
+\frame{
+\frametitle{Varied and Quality Feedback !}
+ \begin{itemize}
+\item<2->Overall, Very Sucessfull
+\item<3->Discovered of Bugs, Usability Issues and Design Flaws - Highlight the value of User Testing.
+\item<4-> Design Flaw : Radio Button for League and Division selection .
+\item<5->Usability Issues : Inadeqet Documentation provided at time of testing/ Missed Functionality !  .
+\item<6-> Bug : Date not being displayed on loading of Web application .
+\end{itemize}
+}
+\frame{
+\frametitle{Over Very Positive !}
+\begin{itemize}
+\item<2->System received numerous positive comments on useability and asthetic.
+\item<3->Highlighted value of qulaity user testing !
+\item<4-> Provided great ideas for future work, design improvements, tweaks . . etc
+\item<5-> Lots of users interested in the system, even if had no interest in the domain.
+\end{itemize}
 }
 \frame {
   \frametitle{Lessons Learnt and Future Work}
