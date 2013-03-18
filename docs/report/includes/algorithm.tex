@@ -269,7 +269,7 @@ used:
 \begin{itemize}
 \item[Adjacency Lists] One per vertex - These contain information
   about the flow and capacity along the edges leaving the current
-  vertex and know nothing about the graph as a whole; and  
+  vertex and know nothing about the graph as a whole; and
 \item[Adjacency Matrix] One per graph - The adjacency matrix
   represents the capacities along edges in the graph: index $i$,$j$
   signifies the capacity of an edge from $vertex_i$ to
@@ -292,7 +292,7 @@ ascending order by the sum of their current points and the
 games they have remaining to play then if a $team_k$ is eliminated
 then so are the teams beneath them in this ordering. A binary search
 is used on this ordering to determine the highest team in the ordering
-that is eliminated and then eliminating each team below this. 
+that is eliminated and then eliminating each team below this.
 
 The elimination status of a given Team is stored inside the Team
 object, once a team is known to be eliminated there is no way in which
@@ -303,4 +303,4 @@ of times the algorithm has to be executed. It should be noted that for
 date navigation the latter optimisation is removed. This is due to
 uncertainty over when a given team is eliminated as the date in which the
 elimination occurs is not stored, only whether or not a team is
-eliminated. 
+eliminated.
