@@ -36,11 +36,20 @@ As mentioned before, the web application is a major part of the future work and
 the aim is to add as much of the functionality of the desktop user interface as
 possible.
 
+..................................
 
+During the project, three main lessons were learnt by the entire team. The first
+is communication. Initially we had a fairly complex communication set-up using
+many mediums. This proved ineffective and was laterally reduced to team meetings
+and a FaceBook group.
 
-Lessons Learnt
+The second was team leadership. We initially had a Laissez-faire approach to
+team structure but this led to some minor issues. Having a team leader proved
+helpful in ensuring all team members were up to date and had work to do.
 
-
+Finally, was time management. Most of us are pretty comfortable with time
+management on the scale of individual coursework however including a team
+project in the mix was a new challenge and took a while to get used to.
 
 There are three main summary items that make up our future work.
 
@@ -53,4 +62,25 @@ functionality.
 Continue implementation of the binary first non-trivial elimination search as to
 replace the linear version currently in use.
 
-Project Conclusion
+..................................
+
+Overall our project has been a success. We were able to implement all of our
+primary functionality, and even some of our extensions.
+
+The project has been a fun and interesting learning experience. Taking
+information from a research paper and some lecture slides, implementing it,
+adding some real world data, and coming up with an application that has a real
+life application has been very enjoyable and worthwhile.
+
+Our user evaluation has been a success that supplied us with lots of informative
+feedback that has allowed us to propose many changes to improve the user
+experience.
+
+Also, as recently discussed, the project has plenty of future work opportunities
+available allowing us to take it further in our own time if desired.
+
+..................................
+
+We would now like to invite questions from the panel.
+
+Thank you for listening.
