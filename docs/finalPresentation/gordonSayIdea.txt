@@ -1,12 +1,12 @@
 I would like to talk about the web application first off.
 
 From the beginning of the second semester, the desktop application was largely
-complete. I had been personally interested in having a web based application
-and since there was a completed desktop version, this freed up the team to look
-at other avenues, such as the web application.
+complete. I had been personally interested in having a web based application and
+since there was a completed desktop version, this freed up the team to look at
+other avenues, such as the web application.
 
-The web application contains a subset of the most important functionality of
-the desktop application: Viewing all divisions with elimination information and
+The web application contains a subset of the most important functionality of the
+desktop application: Viewing all divisions with elimination information and
 moving through dates in the league.
 
 The web application was a challenging part of the project with multiple
@@ -15,8 +15,8 @@ Internet.
 
 A major section of the project's future work is to add more of the desktop
 functionality to the web application, including a date selector and downloadable
-PDF of divisions, and to provide a more efficient method for generating
-data from earlier in the league.
+PDF of divisions, and to provide a more efficient method for generating data
+from earlier in the league.
 
 I would now like to show you a screen-shot of the web application...
 
@@ -33,11 +33,24 @@ demand from a jar file. The user can skip back to the most recent information by
 using the link at the right hand side.
 
 As mentioned before, the web application is a major part of the future work and
-the aim is to add as much of the functionality of the desktop user interface
-as possible.
+the aim is to add as much of the functionality of the desktop user interface as
+possible.
 
-...
+
 
 Lessons Learnt
-Future Work
+
+
+
+There are three main summary items that make up our future work.
+
+We are going to implement changes to resolve issues brought up from our user
+evaluation for both the desktop and web application.
+
+Also the web application implementation will be continued to add more
+functionality.
+
+Continue implementation of the binary first non-trivial elimination search as to
+replace the linear version currently in use.
+
 Project Conclusion
