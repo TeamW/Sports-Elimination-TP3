@@ -1,0 +1,23 @@
+I would like to talk about the web application first off.
+
+From the beginning of the second semester, the desktop application was largely
+complete. I had been personally interested in having a web based application
+and since there was a completed desktop version, this freed up the team to look
+at other avenues, such as the web application.
+
+The web application contains a subset of the most important functionality of
+the desktop application: Viewing all divisions with elimination information and
+moving through dates in the league.
+
+The web application was a challenging part of the project with multiple
+languages and applications involved to host and deliver content over the
+Internet.
+
+A major section of the project's future work is to add more of the desktop
+functionality to the web application, including a date selector and downloadable
+PDF of divisions.
+
+I would now like to show you a screen-shot of the web application...
+
+The web application was designed to have a clean, clear layout with the as
+much of the information `above the fold' of the page as possible.
