@@ -44,9 +44,9 @@ information.
 \subsection{Implementation}
 
 The interface was written using the Java Swing framework - a popular tool-kit
-used in building graphical user interfaces for Java programs. Initially the 
-graphical Swing toolset Netbeans was considered, but quickly rejected after some
-testing as it was simply too cumbersome for the tasks required.  The actual
+used in building graphical user interfaces for Java programs. Initially the
+graphical Swing tool-set Netbeans was considered, but quickly rejected after
+some testing as it was simply too cumbersome for the tasks required.  The actual
 building of the interface was a gradual and adaptive process, with the focus on
 getting a working version of the  prototype up and running. This was
 accomplished and, based on team feedback, features were added or removed. The
@@ -62,22 +62,22 @@ date/time of  the first and last matches of the season, respectively.
 This final version of the UI features three main components - a table with
 associated model,  two sets of radio buttons and the date navigation panel,
 comprising of two buttons and three drop down boxes. The work flow of of the
-radio and date navigation panels are similar - they each have event listeners that
-set the appropriate data (the division/league and date respectively) 
-according to the user input and call a shared function  (in order to minimise complexity). 
-This update function gets the division chosen by the user and plays the 
-matches up to the current/selected date. It then updates the table model, 
-current date label and the date selection combo boxes, then redraws - now 
-displaying the appropriate values, including an elimination status that is correct 
-for that division and date. Another additional feature that was added after the base
-prototype was completed is the ability to display the certificate of
-elimination. Clicking on the `Eliminated?'' table cell will trigger a custom
+radio and date navigation panels are similar - they each have event listeners
+that set the appropriate data (the division/league and date respectively)
+according to the user input and call a shared function  (in order to minimise
+complexity). This update function gets the division chosen by the user and plays
+the matches up to the current/selected date. It then updates the table model,
+current date label and the date selection combo boxes, then redraws - now
+displaying the appropriate values, including an elimination status that is
+correct for that division and date. Another additional feature that was added
+after the base prototype was completed is the ability to display the certificate
+of elimination. Clicking on the `Eliminated?'' table cell will trigger a custom
 mouse event listener, which opens a  text box displaying the elimination details
 if they exist. This method of displaying the certificate was chosen as it
 follows the principle of allowing the user access to as much key information
 with as little input as possible, as it was decided that having to navigate
 through a menu to find this  information would be unintuitive and unnecessary.
-The ability to print to a pdf was also added later in the project and so the UI
+The ability to print to a PDF was also added later in the project and so the UI
 was further extended to incorporate this. Since this functionality will be used
 infrequently a more traditional file$-$$>$print menu was added, as the user will
 almost certainly have used a similar command in other applications.
