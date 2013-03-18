@@ -15,9 +15,29 @@ Internet.
 
 A major section of the project's future work is to add more of the desktop
 functionality to the web application, including a date selector and downloadable
-PDF of divisions.
+PDF of divisions, and to provide a more efficient method for generating
+data from earlier in the league.
 
 I would now like to show you a screen-shot of the web application...
 
-The web application was designed to have a clean, clear layout with the as
-much of the information `above the fold' of the page as possible.
+The web application was designed to have a clean, clear layout with the as much
+of the information `above the fold' of the page as possible. To ensure that this
+is the case as, each table is initially hidden. Clicking the division name shows
+the table information. This is similar to the desktop user interface with its
+radio button selectors. The information displayed is stored in a database for
+quick access of the most up to date information.
+
+The `Previous Day' and 'Next Day' links allow the user to move through the
+division information day-by-day. Information from earlier dates is generated on
+demand from a jar file. The user can skip back to the most recent information by
+using the link at the right hand side.
+
+As mentioned before, the web application is a major part of the future work and
+the aim is to add as much of the functionality of the desktop user interface
+as possible.
+
+...
+
+Lessons Learnt
+Future Work
+Project Conclusion
