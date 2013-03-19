@@ -57,26 +57,31 @@
   \end{itemize}
 }
 \frame{
-  \frametitle{Parser}
-  % Parser doesn't require all results to be in
-  % Talk about games not played
-  % Retrospective data
-  % Date emulation
-  \pause
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=\textwidth]{textfile.png}
-  \end{figure}
-  \end{center}
-  \begin{itemize}
-  \item<2-> Uses basic string comparison to put the relevant team in the
-  correct League and Division.
-  \item<3-> Have considered future plans to parse a web page.
-  \item<4-> Our current source is not suitable for real-time updating.
-  \item<5-> As a team we are unsure if we would like to implement this feature
-  or concentrate our energies on other features for example, making a web-based
-  UI.
-  \end{itemize}
+\frametitle{Parser}
+\pause
+\begin{center}
+\begin{figure}
+%can you make the image the sample one used in the dissertation with 2 dates shown
+%\includegraphics[width=\textwidth]{textfile.png}
+\end{figure}
+\end{center}
+\begin{itemize}
+\item Retrospective real world data instead of hard coding
+\item Source file sample
+\item Generate your own
+\end{itemize}
+}
+\frame{
+\frametitle{Parser}
+\begin{itemize}
+\item 3 main objects of the application
+\item[Division] Teams of division, matches to be played, if they've been played
+\item[Match] Team names, scores, if it's been played
+\item[Team] Team name, points in league, eliminated status
+\item Date emulation
+\item Had considered future plans to parse a web page.
+\item As a team we decided not to implement and focus on other avenues
+\end{itemize}
 }
 \frame{
   \frametitle{User Interface}
